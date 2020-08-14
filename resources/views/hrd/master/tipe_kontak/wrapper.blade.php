@@ -2,5 +2,5 @@
 
 @section('content')
 <h3>Tipe Kontak</h3>
-@include('master.tipe_kontak.' . $role)
+@include('hrd.master.tipe_kontak.' . $role)
 @endsection

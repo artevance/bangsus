@@ -12,7 +12,7 @@ class Cabang extends Controller
   public function index(Request $request)
   {
     $this->title('Cabang | BangsusSys')->role($request->user()->role->role_code);
-    return view('master.cabang.wrapper', $this->passParams());
+    return view('hrd.master.cabang.wrapper', $this->passParams());
   }
 
   public function get(Request $request)

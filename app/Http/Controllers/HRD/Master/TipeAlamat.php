@@ -11,7 +11,7 @@ class TipeAlamat extends Controller
   public function index(Request $request)
   {
     $this->title('Tipe Alamat | BangsusSys')->role($request->user()->role->role_code);
-    return view('master.tipe_alamat.wrapper', $this->passParams());
+    return view('hrd.master.tipe_alamat.wrapper', $this->passParams());
   }
 
   public function get(Request $request)

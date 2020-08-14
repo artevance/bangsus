@@ -2,5 +2,5 @@
 
 @section('content')
 <h3>Tipe Cabang</h3>
-@include('master.tipe_cabang.' . $role)
+@include('hrd.master.tipe_cabang.' . $role)
 @endsection

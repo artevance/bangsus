@@ -49,9 +49,7 @@
       });
     });
   </script>
-  <script src="{{ url('/assets/js/utils/ModalSelector.js') }}"></script>
-  <script src="{{ url('/assets/js/utils/FeedbackSelector.js') }}"></script>
-  <script src="{{ url('/assets/js/utils/TableSelector.js') }}"></script>
+  <script src="{{ url('/assets/js/utils/Selector.js') }}"></script>
 	<script src="{{ url('/assets/js/utils/BaseUrl.js') }}"></script>
 	<script>
 		const baseUrl = new BaseUrl(@json(url('')));

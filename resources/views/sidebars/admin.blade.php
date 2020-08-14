@@ -47,10 +47,7 @@
   <div class="collapse" id="karyawan">
     <ul class="nav sub-menu">
       <li class="nav-item">
-        <a href="#" class="nav-link">Registrasi</a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">Semua Karyawan</a>
+        <a href="{{ url('/hrd/karyawan') }}" class="nav-link">Karyawan</a>
       </li>
     </ul>
   </div>

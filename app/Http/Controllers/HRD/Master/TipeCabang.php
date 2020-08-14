@@ -11,7 +11,7 @@ class TipeCabang extends Controller
   public function index(Request $request)
   {
     $this->title('Tipe Cabang | BangsusSys')->role($request->user()->role->role_code);
-    return view('master.tipe_cabang.wrapper', $this->passParams());
+    return view('hrd.master.tipe_cabang.wrapper', $this->passParams());
   }
 
   public function get(Request $request)

@@ -67,7 +67,7 @@ function Cabang()
         obj.rel.tipeCabang.ajax.search()
           .fail((r) => console.log(r))
           .done((r) => {
-            obj.$.modal.tambah.find('form').find('[name="tipe_cabang_id"]').empty();
+            obj.$.modal.tambah.find('form').find('[name="tipe_cabang_id"]').empty().append('<option value="null">-- Pilih Tipe Cabang --</option>');
             r.data.forEach((item, index) => obj.$.modal.tambah.find('form').find('[name="tipe_cabang_id"]').append(`
               <option value="${item.id}">${item.tipe_cabang}</option>
             `))
@@ -81,13 +81,13 @@ function Cabang()
             obj.rel.tipeCabang.ajax.search()
               .fail((re) => console.log(re))
               .done((re) => {
-                obj.$.modal.ubah.find('form').find('[name="tipe_cabang_id"]').empty();
+                obj.$.modal.ubah.find('form').find('[name="tipe_cabang_id"]').empty().append('<option value="null">-- Pilih Tipe Cabang --</option>');
                 re.data.forEach((item, index) => {
                   obj.$.modal.ubah.find('form').find('[name="tipe_cabang_id"]').append(`
                     <option value="${item.id}">${item.tipe_cabang}</option>
                   `);
-                  obj.$.modal.ubah.find('form').find('[name="tipe_cabang_id"]').val(r.data.tipe_cabang.id);
                 })
+                obj.$.modal.ubah.find('form').find('[name="tipe_cabang_id"]').val(r.data.tipe_cabang.id);
               });
             Object.keys(r.data).forEach((key) => obj.$.modal.ubah.find(`[name="${key}"]`).val(r.data[key]));
           });

@@ -88,16 +88,25 @@ Route::middleware('auth')->group(function () {
               Route::post('/post', 'Cabang@post');
               Route::put('/put', 'Cabang@put');
             });
+            Route::prefix('/jenis_kelamin')->group(function () {
+              Route::get('', 'JenisKelamin@index');
+              Route::get('/get', 'JenisKelamin@get');
+              Route::get('/search', 'JenisKelamin@search');
+            });
+            Route::prefix('/golongan_darah')->group(function () {
+              Route::get('', 'GolonganDarah@index');
+              Route::get('/get', 'GolonganDarah@get');
+              Route::get('/search', 'GolonganDarah@search');
+            });
           });
         });
 
         Route::prefix('/karyawan')->group(function () {
-          Route::namespace('Karyawan')->group(function () {
-            Route::prefix('/registrasi')->group(function () {
-              Route::get('', 'Registrasi@index');
-              Route::post('/post', 'TipeKontak@post');
-            });
-          });
+          Route::get('', 'Karyawan@index');
+          Route::get('/get', 'Karyawan@get');
+          Route::get('/search', 'Karyawan@search');
+          Route::post('/post', 'Karyawan@post');
+          Route::put('/put', 'Karyawan@put');
         });
       });
     });

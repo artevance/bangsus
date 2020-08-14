@@ -11,7 +11,7 @@ class TipeFotoKaryawan extends Controller
   public function index(Request $request)
   {
     $this->title('Tipe Foto Karyawan | BangsusSys')->role($request->user()->role->role_code);
-    return view('master.tipe_foto_karyawan.wrapper', $this->passParams());
+    return view('hrd.master.tipe_foto_karyawan.wrapper', $this->passParams());
   }
 
   public function get(Request $request)

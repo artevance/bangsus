@@ -11,7 +11,7 @@ class Jabatan extends Controller
   public function index(Request $request)
   {
     $this->title('Jabatan | BangsusSys')->role($request->user()->role->role_code);
-    return view('master.jabatan.wrapper', $this->passParams());
+    return view('hrd.master.jabatan.wrapper', $this->passParams());
   }
 
   public function get(Request $request)

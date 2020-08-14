@@ -11,7 +11,7 @@ class TipeKontak extends Controller
   public function index(Request $request)
   {
     $this->title('Tipe Kontak | BangsusSys')->role($request->user()->role->role_code);
-    return view('master.tipe_kontak.wrapper', $this->passParams());
+    return view('hrd.master.tipe_kontak.wrapper', $this->passParams());
   }
 
   public function get(Request $request)

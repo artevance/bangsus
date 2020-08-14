@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<h3>Cabang</h3>
-@include('master.cabang.' . $role)
+<h3>Karyawan</h3>
+@include('hrd.karyawan.' . $role)
 @endsection

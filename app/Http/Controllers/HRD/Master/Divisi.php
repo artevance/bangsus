@@ -11,7 +11,7 @@ class Divisi extends Controller
   public function index(Request $request)
   {
     $this->title('Divisi | BangsusSys')->role($request->user()->role->role_code);
-    return view('master.divisi.wrapper', $this->passParams());
+    return view('hrd.master.divisi.wrapper', $this->passParams());
   }
 
   public function get(Request $request)
