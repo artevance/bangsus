@@ -7,9 +7,9 @@
           <div class="col-12 col-md-6">
             <form data-role="search">
               <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Cari berdasarkan nama karyawan" name="q">
+                <input type="text" class="form-control" placeholder="Cari berdasarkan nama karyawan" name="q" value="{{ $query['q'] ?? '' }}">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+                  <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                 </div>
               </div>
             </form>
@@ -216,6 +216,6 @@
 <script type="text/javascript">
   let karyawan = Karyawan();
 
-  karyawan.load();
+  karyawan.load(@json($serializedQuery));
   karyawan.responsiveContract();
 </script>

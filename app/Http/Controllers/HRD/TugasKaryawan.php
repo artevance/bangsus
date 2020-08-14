@@ -8,32 +8,31 @@ use App\Http\Models\Karyawan as KaryawanModel;
 use App\Http\Models\Cabang as CabangModel;
 use App\Http\Models\TugasKaryawan as TugasKaryawanModel;
 
-class Karyawan extends Controller
+class TugasKaryawan extends Controller
 {
-  public function index(Request $request)
+  public function karyawan(KaryawanModel $karyawan, Request $request)
   {
-    $this->title('Karyawan | BangsusSys')->role($request->user()->role->role_code)->query($request->query());
-    return view('hrd.karyawan.wrapper', $this->passParams());
+    $this->title('Detail Karyawan | BangsusSys')->role($request->user()->role->role_code);
+    return view('hrd.tugas_karyawan.wrapper', $this->passParams(['karyawan' => $karyawan]));
   }
 
   public function get(Request $request)
   {
     $request->validate([
-      'id' => 'required|exists:karyawan,id'
+      'id' => 'required|exists:tugas_karyawan,id'
     ]);
 
-    return ['data' => KaryawanModel::with(['golongan_darah', 'jenis_kelamin'])->find($request->input('id'))];
+    return ['data' => TugasKaryawanModel::with(['karyawan', 'cabang', 'jabatan', 'divisi'])->find($request->input('id'))];
   }
 
   public function search(Request $request)
   {
+    $model = TugasKaryawanModel::with(['karyawan', 'cabang', 'jabatan', 'divisi']);
+
+    if ($request->has('karyawan_id')) $model = $model->where('karyawan_id', $request->query('karyawan_id'));
+
     return [
-      'data' => KaryawanModel::with(['golongan_darah', 'jenis_kelamin'])
-                  ->where('nip', 'LIKE', '%' . $request->input('q') . '%')
-                  ->orWhere('nik', 'LIKE', '%' . $request->input('q') . '%')
-                  ->orWhere('nama_karyawan', 'LIKE', '%' . $request->input('q') . '%')
-                  ->orWhere('tempat_lahir', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' => $model->get()
     ];
   }
 

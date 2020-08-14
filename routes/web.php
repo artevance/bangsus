@@ -108,6 +108,13 @@ Route::middleware('auth')->group(function () {
           Route::post('/post', 'Karyawan@post');
           Route::put('/put', 'Karyawan@put');
         });
+        Route::prefix('/tugas_karyawan')->group(function () {
+          Route::get('/karyawan/{karyawan}', 'TugasKaryawan@karyawan');
+          Route::get('/get', 'TugasKaryawan@get');
+          Route::get('/search', 'TugasKaryawan@search');
+          Route::post('/post', 'TugasKaryawan@post');
+          Route::put('/put', 'TugasKaryawan@put');
+        });
       });
     });
   });

@@ -44,7 +44,16 @@ function Karyawan()
     },
 
     load: (d) => {
+      let query = {};
+      d.forEach((item, index) => query[item.name] = item.value);
       pageSpinner.start();
+      if (history.pushState) {
+        history.pushState(
+          null,
+          null,
+          baseUrl.url(`/hrd/karyawan?q=${query.q != undefined ? query.q : ''}`)
+        );
+      }
       obj.ajax.search(d)
         .fail((r) => console.log(r))
         .done((r) => {
@@ -60,7 +69,7 @@ function Karyawan()
               <td>${item.golongan_darah.golongan_darah}</td>
               <td>${item.jenis_kelamin.jenis_kelamin}</td>
               <td>
-                <a href="${baseUrl.url('/hrd/karyawan/detail/')}${item.id}" class="badge badge-info" target="_blank">Lihat</a>
+                <a href="${baseUrl.url('/hrd/tugas_karyawan/karyawan/')}${item.id}" class="badge badge-info">Lihat Penugasan</a>
                 <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='karyawan'][data-method='ubah']" data-id="${item.id}">Ubah</a>
                 <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='karyawan'][data-method='hapus']" data-id="${item.id}">Hapus</a>
               </td>

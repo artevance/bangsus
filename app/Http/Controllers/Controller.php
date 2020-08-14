@@ -16,6 +16,10 @@ class Controller extends BaseController
 
   protected $role = '';
 
+  protected $serializedQuery = [];
+
+  protected $query = [];
+
   protected function title(string $title) : Controller
   {
     $this->title = $title;
@@ -28,11 +32,25 @@ class Controller extends BaseController
     return $this;
   }
 
+  protected function query($query) : Controller
+  {
+    foreach ($query as $key => $value) {
+      $this->serializedQuery[] = [
+        'name' => $key,
+        'value' => $value
+      ];
+    }
+    $this->query = $query;
+    return $this;
+  }
+
   protected function passParams(array $data = []) : array
   {
     return array_merge([
       'title' => $this->title,
-      'role' => $this->role
+      'role' => $this->role,
+      'query' => $this->query,
+      'serializedQuery' => $this->serializedQuery
     ], $data);
   }
 }
