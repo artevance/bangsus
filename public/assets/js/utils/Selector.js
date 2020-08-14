@@ -1,10 +1,14 @@
-function FeedbackSelector(form, field, element = true) {
+function FeedbackSelector(form, field = '*', element = true) {
   return element
-    ? form.find(`small[data-role="feedback"][data-field="${field}"]`)
+    ? (
+        field == '*'
+        ? form.find(`small[data-role="feedback"]`)
+        : form.find(`small[data-role="feedback"][data-field="${field}"]`)
+      )
     : `small[data-role="feedback"][data-field="${field}"]`;
 }
 
-function fbsel(form, field, element = true) {
+function fbsel(form, field = '*', element = true) {
   return FeedbackSelector(form, field, element);
 }
 

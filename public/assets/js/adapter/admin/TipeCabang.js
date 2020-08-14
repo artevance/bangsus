@@ -38,18 +38,19 @@ function TipeCabang()
     load: () => {
       pageSpinner.start();
       obj.ajax.search()
-      .fail((r) => console.log(r))
-      .done((r) => {
-        r.data.forEach((item, index) => obj.$.table.find(tbysel('dataWrapper', true)).append(`
-          <tr>
-            <td>${index + 1}</td>
-            <td>${item.tipe_cabang}</td>
-            <td>
-              <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='tipeCabang'][data-method='ubah']" data-id="${item.id}">Ubah</a>
-              <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='tipeCabang'][data-method='hapus']" data-id="${item.id}">Hapus</a>
-            </td>
-          </tr>
-        `));  
+        .fail((r) => console.log(r))
+        .done((r) => {
+          console.log(r);
+          r.data.forEach((item, index) => obj.$.table.find(tbysel('dataWrapper', true)).append(`
+            <tr>
+              <td>${index + 1}</td>
+              <td>${item.tipe_cabang}</td>
+              <td>
+                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='tipeCabang'][data-method='ubah']" data-id="${item.id}">Ubah</a>
+                <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='tipeCabang'][data-method='hapus']" data-id="${item.id}">Hapus</a>
+              </td>
+            </tr>
+          `));  
         pageSpinner.stop();
       });
     },
@@ -71,8 +72,14 @@ function TipeCabang()
         let d = $(e.currentTarget).serializeArray();
         Object.keys(d).forEach((key) => {if (d[key] == 'null') delete d[key]});
         obj.ajax.post(d)
-          .fail((r) => Object.keys(r.responseJSON.errors).forEach((key) => fbsel($(e.currentTarget), key).empty().append(r.responseJSON.errors[key])))
-          .done(() => {
+          .fail((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            Object.keys(r.responseJSON.errors).forEach((key) => fbsel($(e.currentTarget), key).empty().append(r.responseJSON.errors[key]))
+          })
+          .done((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
             obj.$.modal.tambah.modal('hide')
             obj.reset();
           });
@@ -84,9 +91,12 @@ function TipeCabang()
         obj.ajax.put(d)
           .fail((r) => {
             console.log(r);
+            fbsel($(e.currentTarget)).empty();
             Object.keys(r.responseJSON.errors).forEach((key) => fbsel($(e.currentTarget), key).empty().append(r.responseJSON.errors[key]));
           })
-          .done(() => {
+          .done((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
             obj.$.modal.ubah.modal('hide')
             obj.reset();
           });

@@ -41,20 +41,21 @@ function Cabang()
     load: () => {
       pageSpinner.start();
       obj.ajax.search()
-      .fail((r) => console.log(r))
-      .done((r) => {
-        r.data.forEach((item, index) => obj.$.table.find(tbysel('dataWrapper', true)).append(`
-          <tr>
-            <td>${index + 1}</td>
-            <td>${item.kode_cabang}</td>
-            <td>${item.cabang}</td>
-            <td>${item.tipe_cabang.tipe_cabang}</td>
-            <td>
-              <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='cabang'][data-method='ubah']" data-id="${item.id}">Ubah</a>
-              <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='cabang'][data-method='hapus']" data-id="${item.id}">Hapus</a>
-            </td>
-          </tr>
-        `));  
+        .fail((r) => console.log(r))
+        .done((r) => {
+          console.log(r);
+          r.data.forEach((item, index) => obj.$.table.find(tbysel('dataWrapper', true)).append(`
+            <tr>
+              <td>${index + 1}</td>
+              <td>${item.kode_cabang}</td>
+              <td>${item.cabang}</td>
+              <td>${item.tipe_cabang.tipe_cabang}</td>
+              <td>
+                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='cabang'][data-method='ubah']" data-id="${item.id}">Ubah</a>
+                <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='cabang'][data-method='hapus']" data-id="${item.id}">Hapus</a>
+              </td>
+            </tr>
+          `));  
         pageSpinner.stop();
       });
     },
@@ -67,6 +68,7 @@ function Cabang()
         obj.rel.tipeCabang.ajax.search()
           .fail((r) => console.log(r))
           .done((r) => {
+            console.log(r);
             obj.$.modal.tambah.find('form').find('[name="tipe_cabang_id"]').empty().append('<option value="null">-- Pilih Tipe Cabang --</option>');
             r.data.forEach((item, index) => obj.$.modal.tambah.find('form').find('[name="tipe_cabang_id"]').append(`
               <option value="${item.id}">${item.tipe_cabang}</option>
@@ -81,6 +83,7 @@ function Cabang()
             obj.rel.tipeCabang.ajax.search()
               .fail((re) => console.log(re))
               .done((re) => {
+                console.log(re);
                 obj.$.modal.ubah.find('form').find('[name="tipe_cabang_id"]').empty().append('<option value="null">-- Pilih Tipe Cabang --</option>');
                 re.data.forEach((item, index) => {
                   obj.$.modal.ubah.find('form').find('[name="tipe_cabang_id"]').append(`
@@ -91,15 +94,21 @@ function Cabang()
               });
             Object.keys(r.data).forEach((key) => obj.$.modal.ubah.find(`[name="${key}"]`).val(r.data[key]));
           });
-      })
+      });
       obj.$.modal.tambah.find('form').on('submit', (e) => {
         e.preventDefault();
         let d = $(e.currentTarget).serializeArray();
         Object.keys(d).forEach((key) => {if (d[key] == 'null') delete d[key]});
         obj.ajax.post(d)
-          .fail((r) => Object.keys(r.responseJSON.errors).forEach((key) => fbsel($(e.currentTarget), key).empty().append(r.responseJSON.errors[key])))
-          .done(() => {
-            obj.$.modal.tambah.modal('hide')
+          .fail((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            Object.keys(r.responseJSON.errors).forEach((key) => fbsel($(e.currentTarget), key).empty().append(r.responseJSON.errors[key]))
+          })
+          .done((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            obj.$.modal.tambah.modal('hide');
             obj.reset();
           });
       });
@@ -110,10 +119,13 @@ function Cabang()
         obj.ajax.put(d)
           .fail((r) => {
             console.log(r);
+            fbsel($(e.currentTarget)).empty();
             Object.keys(r.responseJSON.errors).forEach((key) => fbsel($(e.currentTarget), key).empty().append(r.responseJSON.errors[key]));
           })
-          .done(() => {
-            obj.$.modal.ubah.modal('hide')
+          .done((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            obj.$.modal.ubah.modal('hide');
             obj.reset();
           });
       });
