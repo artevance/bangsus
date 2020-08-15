@@ -11,7 +11,7 @@ class Cabang extends Controller
 {
   public function index(Request $request)
   {
-    $this->title('Cabang | BangsusSys')->role($request->user()->role->role_code);
+    $this->title('Cabang | BangsusSys')->role($request->user()->role->role_code)->query($request->query());
     return view('hrd.master.cabang.wrapper', $this->passParams());
   }
 
@@ -21,12 +21,17 @@ class Cabang extends Controller
       'id' => 'required|exists:cabang,id'
     ]);
 
-    return ['data' => CabangModel::with('tipe_cabang')->find($request->input('id'))];
+    return ['data' => CabangModel::with(['tipe_cabang'])->find($request->input('id'))];
   }
 
   public function search(Request $request)
   {
-    return ['data' => CabangModel::with('tipe_cabang')->get()];
+    return [
+      'data' => CabangModel::with(['tipe_cabang'])
+                  ->where('kode_cabang', 'LIKE', '%' . $request->query('q', '') . '%')
+                  ->orWhere('cabang', 'LIKE', '%' . $request->query('q', '') . '%')
+                  ->get()
+    ];
   }
 
   public function post(Request $request)

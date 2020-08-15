@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Models\Karyawan as KaryawanModel;
 use App\Http\Models\Cabang as CabangModel;
 use App\Http\Models\TugasKaryawan as TugasKaryawanModel;
+use Illuminate\Validation\Rule;
 
 class Karyawan extends Controller
 {
@@ -40,7 +41,7 @@ class Karyawan extends Controller
   public function post(Request $request)
   {
     $request->validate([
-      'nik' => 'nullable|size:16|unique:karyawan,nik',
+      'nik' => 'nullable|integer|digits:16|unique:karyawan,nik',
       'nama_karyawan' => 'required|max:200',
       'tempat_lahir' => 'nullable|max:200',
       'tanggal_lahir' => 'nullable|date',
@@ -81,11 +82,24 @@ class Karyawan extends Controller
   {
     $request->validate([
       'id' => 'required|exists:karyawan,id',
-      'karyawan' => 'required|max:200'
+      'nik' => [
+        'required', 'integer', 'digits:16',
+        Rule::unique('karyawan')->ignore($request->input('nik'), 'nik')
+      ],
+      'nama_karyawan' => 'nullable|max:200',
+      'tempat_lahir' => 'nullable|max:200',
+      'tanggal_lahir' => 'nullable|date',
+      'golongan_darah_id' => 'nullable|exists:golongan_darah,id',
+      'jenis_kelamin_id' => 'nullable|exists:jenis_kelamin,id',
     ]);
 
     $model = KaryawanModel::find($request->input('id'));
-    $model->karyawan = strtoupper($request->input('karyawan'));
+    if ($request->has('nik')) $model->nik = $request->input('nik');
+    if ($request->has('nama_karyawan')) $model->nama_karyawan = $request->input('nama_karyawan');
+    if ($request->has('tempat_lahir')) $model->tempat_lahir = $request->input('tempat_lahir');
+    if ($request->has('tanggal_lahir')) $model->tanggal_lahir = $request->input('tanggal_lahir');
+    if ($request->has('golongan_darah_id')) $model->golongan_darah_id = $request->input('golongan_darah_id');
+    if ($request->has('jenis_kelamin_id')) $model->jenis_kelamin_id = $request->input('jenis_kelamin_id');
     $model->save();
   }
 }

@@ -41,26 +41,130 @@
           </div>
         </div>
         <div class="card-title mt-5">Penugasan Karyawan</div>
-        <button class="btn btn-primary" data-toggle="modal" data-target=".modal[data-entity='karyawan'][data-method='tambah']">Tambah Tugas Karyawan</button>
-        <table class="table table-hover mt-5" data-entity="tugasKaryawan">
-          <thead>
-            <th>#</th>
-            <th>Kode Cabang</th>
-            <th>Nama Cabang</th>
-            <th>Divisi</th>
-            <th>Jabatan</th>
-            <th>Tanggal Mulai</th>
-            <th>Tanggal Selesai</th>
-            <th>Aksi</th>
-          </thead>
-          <tbody data-role="dataWrapper"></tbody>
-        </table>
+        <button class="btn btn-primary" data-toggle="modal" data-target=".modal[data-entity='tugasKaryawan'][data-method='tambah']">Tambah Tugas Karyawan</button>
+        <div class="table-responsive">
+          <table class="table table-hover mt-5" data-entity="tugasKaryawan">
+            <thead>
+              <th>#</th>
+              <th>Kode Cabang</th>
+              <th>Nama Cabang</th>
+              <th>Divisi</th>
+              <th>Jabatan</th>
+              <th>Tanggal Mulai</th>
+              <th>Tanggal Selesai</th>
+              <th>No. Finger</th>
+              <th>Aksi</th>
+            </thead>
+            <tbody data-role="dataWrapper"></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
+<!-- Modal -->
+<div class="modal fade" data-entity="tugasKaryawan" data-method="tambah" data-backdrop="static" data-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h5 class="modal-title">Tambah Tugas Karyawan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="karyawan_id">
+          <div class="form-group">
+            <label>NIP</label>
+            <input type="text" class="form-control" name="nip" readonly>
+            <small class="form-text text-danger" data-role="feedback" data-field="nip"></small>
+          </div>
+          <div class="form-group">
+            <label>Nama Karyawan</label>
+            <input type="text" class="form-control" name="nama_karyawan" readonly>
+            <small class="form-text text-danger" data-role="feedback" data-field="nama_karyawan"></small>
+          </div>
+          <div class="form-group">
+            <label>Cabang</label>
+            <select class="form-control" name="cabang_id"></select>
+            <small class="form-text text-danger" data-role="feedback" data-field="cabang_id"></small>
+          </div>
+          <div class="form-group">
+            <label>Tanggal Mulai</label>
+            <input type="date" class="form-control" name="tanggal_mulai">
+            <small class="form-text text-danger" data-role="feedback" data-field="tanggal_mulai"></small>
+          </div>
+          <div class="form-group">
+            <label>Tanggal Selesai</label>
+            <input type="date" class="form-control" name="tanggal_selesai">
+            <small class="form-text text-danger" data-role="feedback" data-field="tanggal_selesai"></small>
+          </div>
+          <div class="form-group">
+            <label>No. Finger</label>
+            <input type="text" class="form-control" name="no_finger">
+            <small class="form-text text-danger" data-role="feedback" data-field="no_finger"></small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Tambah</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" data-entity="tugasKaryawan" data-method="ubah" data-backdrop="static" data-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h5 class="modal-title">Ubah Tugas Karyawan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="id">
+          <input type="hidden" name="karyawan_id">
+          <div class="form-group">
+            <label>NIP</label>
+            <input type="text" class="form-control" name="nip" readonly>
+            <small class="form-text text-danger" data-role="feedback" data-field="nip"></small>
+          </div>
+          <div class="form-group">
+            <label>Nama Karyawan</label>
+            <input type="text" class="form-control" name="nama_karyawan" readonly>
+            <small class="form-text text-danger" data-role="feedback" data-field="nama_karyawan"></small>
+          </div>
+          <div class="form-group">
+            <label>Cabang</label>
+            <select class="form-control" name="cabang_id"></select>
+            <small class="form-text text-danger" data-role="feedback" data-field="cabang_id"></small>
+          </div>
+          <div class="form-group">
+            <label>Tanggal Mulai</label>
+            <input type="date" class="form-control" name="tanggal_mulai">
+            <small class="form-text text-danger" data-role="feedback" data-field="tanggal_mulai"></small>
+          </div>
+          <div class="form-group">
+            <label>Tanggal Selesai</label>
+            <input type="date" class="form-control" name="tanggal_selesai">
+            <small class="form-text text-danger" data-role="feedback" data-field="tanggal_selesai"></small>
+          </div>
+          <div class="form-group">
+            <label>No. Finger</label>
+            <input type="text" class="form-control" name="no_finger">
+            <small class="form-text text-danger" data-role="feedback" data-field="no_finger"></small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Ubah</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script src="{{ url('/assets/js/adapter/admin/TipeCabang.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/admin/Cabang.js') }}"></script>

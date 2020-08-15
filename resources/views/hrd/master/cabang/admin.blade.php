@@ -3,16 +3,30 @@
     <div class="card">
       <div class="card-body">
         <button class="btn btn-primary" data-toggle="modal" data-target=".modal[data-entity='cabang'][data-method='tambah']">Tambah Cabang</button>
-        <table class="table table-hover mt-5" data-entity="cabang">
-          <thead>
-            <th>#</th>
-            <th>Kode Cabang</th>
-            <th>Cabang</th>
-            <th>Tipe Cabang</th>
-            <th>Aksi</th>
-          </thead>
-          <tbody data-role="dataWrapper"></tbody>
-        </table>
+        <div class="row mt-5">
+          <div class="col-12 col-md-6">
+            <form data-role="search">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Cari sesuatu ..." name="q" value="{{ $query['q'] ?? '' }}">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="table-responsive mt-2">
+          <table class="table table-hover" data-entity="cabang">
+            <thead>
+              <th>#</th>
+              <th>Kode Cabang</th>
+              <th>Cabang</th>
+              <th>Tipe Cabang</th>
+              <th>Aksi</th>
+            </thead>
+            <tbody data-role="dataWrapper"></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -65,12 +79,12 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
+            <input type="hidden" name="id">
             <label>Kode Cabang</label>
             <input type="text" class="form-control" name="kode_cabang">
             <small class="form-text text-danger" data-role="feedback" data-field="kode_cabang"></small>
           </div>
           <div class="form-group">
-            <input type="hidden" name="id">
             <label>Cabang</label>
             <input type="text" class="form-control" name="cabang">
             <small class="form-text text-danger" data-role="feedback" data-field="cabang"></small>
@@ -93,6 +107,6 @@
 <script type="text/javascript">
   let cabang = Cabang();
 
-  cabang.load();
+  cabang.setQuery(@json($serializedQuery));
   cabang.responsiveContract();
 </script>

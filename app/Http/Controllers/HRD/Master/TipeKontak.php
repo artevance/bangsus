@@ -10,7 +10,7 @@ class TipeKontak extends Controller
 {
   public function index(Request $request)
   {
-    $this->title('Tipe Kontak | BangsusSys')->role($request->user()->role->role_code);
+    $this->title('Tipe Kontak | BangsusSys')->role($request->user()->role->role_code)->query($request->query());
     return view('hrd.master.tipe_kontak.wrapper', $this->passParams());
   }
 
@@ -25,7 +25,11 @@ class TipeKontak extends Controller
 
   public function search(Request $request)
   {
-    return ['data' => TipeKontakModel::all()];
+    return [
+      'data' => TipeKontakModel::with([])
+                  ->where('tipe_kontak', 'LIKE', '%' . $request->input('q') . '%')
+                  ->get()
+    ];
   }
 
   public function post(Request $request)

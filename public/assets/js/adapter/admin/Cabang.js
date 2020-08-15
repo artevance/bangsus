@@ -1,6 +1,7 @@
 function Cabang()
 {
   let obj = {
+    query: {},
     rel: {
       tipeCabang: TipeCabang()
     },
@@ -35,12 +36,26 @@ function Cabang()
         tambah: modsel('cabang', 'tambah'),
         ubah: modsel('cabang', 'ubah')
       },
-      table: tbsel('cabang')
+      table: tbsel('cabang'),
+      search: scsel()
     },
 
+    setQuery: (d) => {
+      obj.query = d;
+      obj.load();
+    },
     load: () => {
       pageSpinner.start();
-      obj.ajax.search()
+      let params = '?';
+      obj.query.forEach((item, index) => params += item.name + '=' + item.value + '&');
+      if (history.pushState) {
+        history.pushState(
+          null,
+          null,
+          baseUrl.url(`/hrd/master/cabang${params}`)
+        );
+      }
+      obj.ajax.search(obj.query)
         .fail((r) => console.log(r))
         .done((r) => {
           console.log(r);
@@ -61,9 +76,13 @@ function Cabang()
     },
     reset: () => {
       obj.$.table.find(tbysel('dataWrapper', true)).empty();
-      obj.load();
+      return obj;
     },
     responsiveContract: () => {
+      obj.$.search.on('submit', (e) => {
+        e.preventDefault();
+        obj.reset().setQuery($(e.currentTarget).serializeArray());
+      });
       obj.$.modal.tambah.on('show.bs.modal', (e) => {
         obj.rel.tipeCabang.ajax.search()
           .fail((r) => console.log(r))

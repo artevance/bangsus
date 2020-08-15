@@ -1,6 +1,7 @@
 function Jabatan()
 {
   let obj = {
+    query: {},
     ajax: {
       get: (id) =>
         $.ajax({
@@ -32,12 +33,26 @@ function Jabatan()
         tambah: modsel('jabatan', 'tambah'),
         ubah: modsel('jabatan', 'ubah')
       },
-      table: tbsel('jabatan')
+      table: tbsel('jabatan'),
+      search: scsel()
     },
 
+    setQuery: (d) => {
+      obj.query = d;
+      obj.load();
+    },
     load: () => {
       pageSpinner.start();
-      obj.ajax.search()
+      let params = '?';
+      obj.query.forEach((item, index) => params += item.name + '=' + item.value + '&');
+      if (history.pushState) {
+        history.pushState(
+          null,
+          null,
+          baseUrl.url(`/hrd/master/jabatan${params}`)
+        );
+      }
+      obj.ajax.search(obj.query)
         .fail((r) => console.log(r))
         .done((r) => {
           console.log(r);
@@ -56,9 +71,13 @@ function Jabatan()
     },
     reset: () => {
       obj.$.table.find(tbysel('dataWrapper', true)).empty();
-      obj.load();
+      return obj;
     },
     responsiveContract: () => {
+      obj.$.search.on('submit', (e) => {
+        e.preventDefault();
+        obj.reset().setQuery($(e.currentTarget).serializeArray());
+      });
       obj.$.modal.ubah.on('show.bs.modal', (e) => {
         obj.ajax.get($(e.relatedTarget).attr('data-id'))
           .fail((r) => console.log(r))

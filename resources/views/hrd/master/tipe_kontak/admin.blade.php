@@ -3,14 +3,28 @@
     <div class="card">
       <div class="card-body">
         <button class="btn btn-primary" data-toggle="modal" data-target=".modal[data-entity='tipeKontak'][data-method='tambah']">Tambah Tipe Kontak</button>
-        <table class="table table-hover mt-5" data-entity="tipeKontak">
-          <thead>
-            <th>#</th>
-            <th>Tipe Kontak</th>
-            <th>Aksi</th>
-          </thead>
-          <tbody data-role="dataWrapper"></tbody>
-        </table>
+        <div class="row mt-5">
+          <div class="col-12 col-md-6">
+            <form data-role="search">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Cari sesuatu ..." name="q" value="{{ $query['q'] ?? '' }}">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="table-responsive mt-2">
+          <table class="table table-hover" data-entity="tipeKontak">
+            <thead>
+              <th>#</th>
+              <th>Tipe Kontak</th>
+              <th>Aksi</th>
+            </thead>
+            <tbody data-role="dataWrapper"></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -70,6 +84,6 @@
 <script type="text/javascript">
   let tipeKontak = TipeKontak();
 
-  tipeKontak.load();
+  tipeKontak.setQuery(@json($serializedQuery));
   tipeKontak.responsiveContract();
 </script>

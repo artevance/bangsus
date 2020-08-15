@@ -10,7 +10,7 @@ class TipeAlamat extends Controller
 {
   public function index(Request $request)
   {
-    $this->title('Tipe Alamat | BangsusSys')->role($request->user()->role->role_code);
+    $this->title('Tipe Alamat | BangsusSys')->role($request->user()->role->role_code)->query($request->query());
     return view('hrd.master.tipe_alamat.wrapper', $this->passParams());
   }
 
@@ -25,7 +25,11 @@ class TipeAlamat extends Controller
 
   public function search(Request $request)
   {
-    return ['data' => TipeAlamatModel::all()];
+    return [
+      'data' => TipeAlamatModel::with([])
+                  ->where('tipe_alamat', 'LIKE', '%' . $request->input('q') . '%')
+                  ->get()
+    ];
   }
 
   public function post(Request $request)

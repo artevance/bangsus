@@ -5,7 +5,6 @@ namespace App\Http\Controllers\HRD;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Models\Karyawan as KaryawanModel;
-use App\Http\Models\Cabang as CabangModel;
 use App\Http\Models\TugasKaryawan as TugasKaryawanModel;
 
 class TugasKaryawan extends Controller
@@ -39,52 +38,47 @@ class TugasKaryawan extends Controller
   public function post(Request $request)
   {
     $request->validate([
-      'nik' => 'nullable|size:16|unique:karyawan,nik',
-      'nama_karyawan' => 'required|max:200',
-      'tempat_lahir' => 'nullable|max:200',
-      'tanggal_lahir' => 'nullable|date',
-      'golongan_darah_id' => 'required|exists:golongan_darah,id',
-      'jenis_kelamin_id' => 'required|exists:jenis_kelamin,id',
-
       'cabang_id' => 'required|exists:cabang,id',
       'divisi_id' => 'required|exists:divisi,id',
       'jabatan_id' => 'required|exists:jabatan,id',
+      'karyawan_id' => 'required|exists:karyawan,id',
       'tanggal_mulai' => 'required|date',
+      'tanggal_selesai' => 'nullable|date',
       'no_finger' => 'nullable|integer'
     ]);
 
-    $karyawanModel = new KaryawanModel;
-    $karyawanModel->nik = $request->input('nik', null);
-    $karyawanModel->nip = $karyawanModel->getNip(
-      CabangModel::find($request->input('cabang_id'))['kode_cabang'],
-      $request->input('tanggal_mulai')
-    );
-    $karyawanModel->nama_karyawan = strtoupper($request->input('nama_karyawan'));
-    $karyawanModel->tempat_lahir = strtoupper($request->input('tempat_lahir'));
-    $karyawanModel->tanggal_lahir = $request->input('tanggal_lahir');
-    $karyawanModel->golongan_darah_id = $request->input('golongan_darah_id');
-    $karyawanModel->jenis_kelamin_id = $request->input('jenis_kelamin_id');
-    $karyawanModel->save();
-
-    $tugasKaryawanModel = new TugasKaryawanModel;
-    $tugasKaryawanModel->cabang_id = $request->input('cabang_id');
-    $tugasKaryawanModel->divisi_id = $request->input('divisi_id');
-    $tugasKaryawanModel->jabatan_id = $request->input('jabatan_id');
-    $tugasKaryawanModel->karyawan_id = $karyawanModel->id;
-    $tugasKaryawanModel->tanggal_mulai = $request->input('tanggal_mulai');
-    $tugasKaryawanModel->no_finger = $request->input('no_finger');
-    $tugasKaryawanModel->save();
+    $model = new TugasKaryawanModel;
+    $model->cabang_id = $request->input('cabang_id');
+    $model->divisi_id = $request->input('divisi_id');
+    $model->jabatan_id = $request->input('jabatan_id');
+    $model->karyawan_id = $request->input('karyawan_id');
+    $model->tanggal_mulai = $request->input('tanggal_mulai');
+    $model->tanggal_selesai = $request->input('tanggal_selesai');
+    $model->no_finger = $request->input('no_finger');
+    $model->save();
   }
 
   public function put(Request $request)
   {
     $request->validate([
       'id' => 'required|exists:karyawan,id',
-      'karyawan' => 'required|max:200'
+      'cabang_id' => 'nullable|exists:cabang,id',
+      'divisi_id' => 'nullable|exists:divisi,id',
+      'jabatan_id' => 'nullable|exists:jabatan,id',
+      'karyawan_id' => 'nullable|exists:karyawan,id',
+      'tanggal_mulai' => 'nullable|date',
+      'tanggal_selesai' => 'nullable|date',
+      'no_finger' => 'nullable|integer'
     ]);
 
-    $model = KaryawanModel::find($request->input('id'));
-    $model->karyawan = strtoupper($request->input('karyawan'));
+    $model = TugasKaryawanModel::find($request->input('id'));
+    if ($request->has('cabang_id')) $model->cabang_id = $request->input('cabang_id');
+    if ($request->has('divisi_id')) $model->divisi_id = $request->input('divisi_id');
+    if ($request->has('jabatan_id')) $model->jabatan_id = $request->input('jabatan_id');
+    if ($request->has('karyawan_id')) $model->karyawan_id = $request->input('karyawan_id');
+    if ($request->has('tanggal_mulai')) $model->tanggal_mulai = $request->input('tanggal_mulai');
+    if ($request->has('tanggal_selesai')) $model->tanggal_selesai = $request->input('tanggal_selesai');
+    if ($request->has('no_finger')) $model->no_finger = $request->input('no_finger');
     $model->save();
   }
 }

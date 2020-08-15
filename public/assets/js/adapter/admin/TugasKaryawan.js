@@ -46,6 +46,7 @@ function TugasKaryawan(c)
     },
 
     load: (d) => {
+      pageSpinner.start();
       obj.ajax.search({karyawan_id: obj.karyawanID})
         .fail((r) => console.log(r))
         .done((r) => {
@@ -59,9 +60,9 @@ function TugasKaryawan(c)
               <td>${item.jabatan.jabatan}</td>
               <td>${item.tanggal_mulai}</td>
               <td>${item.tanggal_selesai != null ? item.tanggal_selesai : 'Belum Selesai'}</td>
+              <td>${item.no_finger != null ? item.no_finger : '-'}</td>
               <td>
-                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='karyawan'][data-method='ubah']" data-id="${item.id}">Ubah</a>
-                <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='karyawan'][data-method='hapus']" data-id="${item.id}">Hapus</a>
+                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='tugasKaryawan'][data-method='ubah']" data-id="${item.id}">Ubah</a>
               </td>
             </tr>
           `));  
@@ -71,6 +72,87 @@ function TugasKaryawan(c)
     reset: (d) => {
       obj.$.table.find(tbysel('dataWrapper', true)).empty();
       obj.load(d);
+    },
+    responsiveContract: () => {
+      obj.$.modal.tambah.on('show.bs.modal', (e) => {
+        obj.rel.cabang.ajax.search()
+          .fail((r) => console.log(r))
+          .done((r) => {
+            console.log(r);
+            obj.$.modal.tambah.find('form').find('[name="cabang_id"]').empty().append('<option value="null">-- Pilih Cabang --</option>');
+            r.data.forEach((item, index) => obj.$.modal.tambah.find('form').find('[name="cabang_id"]').append(`
+              <option value="${item.id}">${item.kode_cabang} - ${item.cabang}</option>
+            `))
+          });
+        obj.rel.karyawan.ajax.get(obj.karyawanID)
+          .fail((r) => console.log(r))
+          .done((r) => {
+            console.log(r);
+            obj.$.modal.tambah.find('form').find('[name="karyawan_id"]').empty().val(r.data.id);
+            obj.$.modal.tambah.find('form').find('[name="nip"]').empty().val(r.data.nip);
+            obj.$.modal.tambah.find('form').find('[name="nama_karyawan"]').empty().val(r.data.nama_karyawan);
+          });
+      });
+      obj.$.modal.ubah.on('show.bs.modal', (e) => {
+        obj.ajax.get($(e.relatedTarget).attr('data-id'))
+          .fail((r) => console.log(r))
+          .done((r) => {
+            console.log(r);
+            obj.rel.cabang.ajax.search()
+              .fail((re) => console.log(re))
+              .done((re) => {
+                console.log(re);
+                obj.$.modal.ubah.find('form').find('[name="cabang_id"]').empty().append('<option value="null">-- Pilih Cabang --</option>');
+                re.data.forEach((item, index) => obj.$.modal.ubah.find('form').find('[name="cabang_id"]').append(`
+                  <option value="${item.id}">${item.kode_cabang} - ${item.cabang}</option>
+                `));
+                obj.$.modal.ubah.find('form').find('[name="cabang_id"]').val(r.data.cabang.id)
+              });
+            obj.rel.karyawan.ajax.get(obj.karyawanID)
+              .fail((re) => console.log(re))
+              .done((re) => {
+                console.log(re);
+                obj.$.modal.ubah.find('form').find('[name="karyawan_id"]').empty().val(re.data.id);
+                obj.$.modal.ubah.find('form').find('[name="nip"]').empty().val(re.data.nip);
+                obj.$.modal.ubah.find('form').find('[name="nama_karyawan"]').empty().val(re.data.nama_karyawan);
+              });
+            Object.keys(r.data).forEach((key) => obj.$.modal.ubah.find(`[name="${key}"]`).val(r.data[key]));
+          });
+      });
+      obj.$.modal.tambah.find('form').on('submit', (e) => {
+        e.preventDefault();
+        let d = $(e.currentTarget).serializeArray();
+        Object.keys(d).forEach((key) => {if (d[key] == 'null') delete d[key]});
+        obj.ajax.post(d)
+          .fail((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            Object.keys(r.responseJSON.errors).forEach((key) => fbsel($(e.currentTarget), key).empty().append(r.responseJSON.errors[key]))
+          })
+          .done((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            obj.$.modal.tambah.modal('hide')
+            obj.reset();
+          });
+      });
+      obj.$.modal.ubah.find('form').on('submit', (e) => {
+        e.preventDefault();
+        let d = $(e.currentTarget).serializeArray();
+        Object.keys(d).forEach((key) => {if (d[key] == 'null') delete d[key]});
+        obj.ajax.put(d)
+          .fail((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            Object.keys(r.responseJSON.errors).forEach((key) => fbsel($(e.currentTarget), key).empty().append(r.responseJSON.errors[key]));
+          })
+          .done((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            obj.$.modal.ubah.modal('hide')
+            obj.reset();
+          });
+      });
     },
   };
 

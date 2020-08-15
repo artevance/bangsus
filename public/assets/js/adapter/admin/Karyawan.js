@@ -1,6 +1,7 @@
 function Karyawan()
 {
   let obj = {
+    query: {},
     rel: {
       golonganDarah: GolonganDarah(),
       jenisKelamin: JenisKelamin(),
@@ -43,15 +44,19 @@ function Karyawan()
       search: scsel()
     },
 
+    setQuery: (d) => {
+      obj.query = d;
+      obj.load();
+    },
     load: (d) => {
-      let query = {};
-      d.forEach((item, index) => query[item.name] = item.value);
       pageSpinner.start();
+      let params = '?';
+      obj.query.forEach((item, index) => params += item.name + '=' + item.value + '&');
       if (history.pushState) {
         history.pushState(
           null,
           null,
-          baseUrl.url(`/hrd/karyawan?q=${query.q != undefined ? query.q : ''}`)
+          baseUrl.url(`/hrd/karyawan${params}`)
         );
       }
       obj.ajax.search(d)
@@ -86,7 +91,7 @@ function Karyawan()
       obj.$.search.on('submit', (e) => {
         e.preventDefault();
         obj.reset($(e.currentTarget).serializeArray());
-      })
+      });
       obj.$.modal.tambah.on('show.bs.modal', (e) => {
         obj.rel.golonganDarah.ajax.search()
           .fail((r) => console.log(r))
@@ -161,7 +166,7 @@ function Karyawan()
               });
             Object.keys(r.data).forEach((key) => obj.$.modal.ubah.find(`[name="${key}"]`).val(r.data[key]));
           });
-      })
+      });
       obj.$.modal.tambah.find('form').on('submit', (e) => {
         e.preventDefault();
         let d = $(e.currentTarget).serializeArray();

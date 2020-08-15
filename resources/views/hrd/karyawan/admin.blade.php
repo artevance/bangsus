@@ -7,7 +7,7 @@
           <div class="col-12 col-md-6">
             <form data-role="search">
               <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Cari berdasarkan nama karyawan" name="q" value="{{ $query['q'] ?? '' }}">
+                <input type="text" class="form-control" placeholder="Cari sesuatu ..." name="q" value="{{ $query['q'] ?? '' }}">
                 <div class="input-group-append">
                   <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                 </div>
@@ -15,20 +15,22 @@
             </form>
           </div>
         </div>
-        <table class="table table-hover mt-2" data-entity="karyawan">
-          <thead>
-            <th>#</th>
-            <th>NIP</th>
-            <th>NIK</th>
-            <th>Nama Karyawan</th>
-            <th>Tempat Lahir</th>
-            <th>Tanggal Lahir</th>
-            <th>Golongan Darah</th>
-            <th>Jenis Kelamin</th>
-            <th>Aksi</th>
-          </thead>
-          <tbody data-role="dataWrapper"></tbody>
-        </table>
+        <div class="table-responsive mt-2">
+          <table class="table table-hover" data-entity="karyawan">
+            <thead>
+              <th>#</th>
+              <th>NIP</th>
+              <th>NIK</th>
+              <th>Nama Karyawan</th>
+              <th>Tempat Lahir</th>
+              <th>Tanggal Lahir</th>
+              <th>Golongan Darah</th>
+              <th>Jenis Kelamin</th>
+              <th>Aksi</th>
+            </thead>
+            <tbody data-role="dataWrapper"></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -156,6 +158,7 @@
             <div class="col-12 col-lg-4">
               <div class="form-group">
                 <label>NIK</label>
+                <input type="hidden" name="id">
                 <input type="number" class="form-control" name="nik">
                 <small class="form-text text-danger" data-role="feedback" data-field="nik"></small>
               </div>
@@ -216,6 +219,6 @@
 <script type="text/javascript">
   let karyawan = Karyawan();
 
-  karyawan.load(@json($serializedQuery));
+  karyawan.setQuery(@json($serializedQuery));
   karyawan.responsiveContract();
 </script>

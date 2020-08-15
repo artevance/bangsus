@@ -25,7 +25,11 @@ class TipeFotoKaryawan extends Controller
 
   public function search(Request $request)
   {
-    return ['data' => TipeFotoKaryawanModel::all()];
+    return [
+      'data' => TipeFotoKaryawanModel::with([])
+                  ->where('tipe_foto_karyawan', 'LIKE', '%' . $request->input('q') . '%')
+                  ->get()
+    ];
   }
 
   public function post(Request $request)
