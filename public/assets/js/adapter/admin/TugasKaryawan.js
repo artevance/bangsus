@@ -3,8 +3,6 @@ function TugasKaryawan(c)
   let obj = {
     karyawanID: c.karyawanID,
     rel: {
-      golonganDarah: GolonganDarah(),
-      jenisKelamin: JenisKelamin(),
       cabang: Cabang(),
       divisi: Divisi(),
       jabatan: Jabatan(),
@@ -84,6 +82,24 @@ function TugasKaryawan(c)
               <option value="${item.id}">${item.kode_cabang} - ${item.cabang}</option>
             `))
           });
+        obj.rel.divisi.ajax.search()
+          .fail((r) => console.log(r))
+          .done((r) => {
+            console.log(r);
+            obj.$.modal.tambah.find('form').find('[name="divisi_id"]').empty().append('<option value="null">-- Pilih Cabang --</option>');
+            r.data.forEach((item, index) => obj.$.modal.tambah.find('form').find('[name="divisi_id"]').append(`
+              <option value="${item.id}">${item.divisi}</option>
+            `))
+          });
+        obj.rel.jabatan.ajax.search()
+          .fail((r) => console.log(r))
+          .done((r) => {
+            console.log(r);
+            obj.$.modal.tambah.find('form').find('[name="jabatan_id"]').empty().append('<option value="null">-- Pilih Cabang --</option>');
+            r.data.forEach((item, index) => obj.$.modal.tambah.find('form').find('[name="jabatan_id"]').append(`
+              <option value="${item.id}">${item.jabatan}</option>
+            `))
+          });
         obj.rel.karyawan.ajax.get(obj.karyawanID)
           .fail((r) => console.log(r))
           .done((r) => {
@@ -107,6 +123,26 @@ function TugasKaryawan(c)
                   <option value="${item.id}">${item.kode_cabang} - ${item.cabang}</option>
                 `));
                 obj.$.modal.ubah.find('form').find('[name="cabang_id"]').val(r.data.cabang.id)
+              });
+            obj.rel.divisi.ajax.search()
+              .fail((re) => console.log(re))
+              .done((re) => {
+                console.log(re);
+                obj.$.modal.ubah.find('form').find('[name="divisi_id"]').empty().append('<option value="null">-- Pilih Cabang --</option>');
+                re.data.forEach((item, index) => obj.$.modal.ubah.find('form').find('[name="divisi_id"]').append(`
+                  <option value="${item.id}">${item.divisi}</option>
+                `));
+                obj.$.modal.ubah.find('form').find('[name="divisi_id"]').val(r.data.divisi.id)
+              });
+            obj.rel.jabatan.ajax.search()
+              .fail((re) => console.log(re))
+              .done((re) => {
+                console.log(re);
+                obj.$.modal.ubah.find('form').find('[name="jabatan_id"]').empty().append('<option value="null">-- Pilih Cabang --</option>');
+                re.data.forEach((item, index) => obj.$.modal.ubah.find('form').find('[name="jabatan_id"]').append(`
+                  <option value="${item.id}">${item.kode_jabatan} - ${item.jabatan}</option>
+                `));
+                obj.$.modal.ubah.find('form').find('[name="jabatan_id"]').val(r.data.jabatan.id)
               });
             obj.rel.karyawan.ajax.get(obj.karyawanID)
               .fail((re) => console.log(re))

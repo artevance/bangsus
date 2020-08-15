@@ -41,7 +41,7 @@ class GolonganDarah extends Controller
     ]);
 
     $model = GolonganDarahModel::find($request->input('id'));
-    $model->golongan_darah = strtoupper($request->input('golongan_darah'));
+    if ($request->has('golongan_darah')) $model->golongan_darah = strtoupper($request->input('golongan_darah'));
     $model->save();
   }
 }

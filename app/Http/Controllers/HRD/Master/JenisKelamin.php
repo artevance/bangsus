@@ -41,7 +41,7 @@ class JenisKelamin extends Controller
     ]);
 
     $model = JenisKelaminModel::find($request->input('id'));
-    $model->jenis_kelamin = strtoupper($request->input('jenis_kelamin'));
+    if ($request->has('jenis_kelamin')) $model->jenis_kelamin = strtoupper($request->input('jenis_kelamin'));
     $model->save();
   }
 }

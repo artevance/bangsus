@@ -51,7 +51,7 @@ class TipeAlamat extends Controller
     ]);
 
     $model = TipeAlamatModel::find($request->input('id'));
-    $model->tipe_alamat = strtoupper($request->input('tipe_alamat'));
+    if ($request->has('tipe_alamat')) $model->tipe_alamat = strtoupper($request->input('tipe_alamat'));
     $model->save();
   }
 }

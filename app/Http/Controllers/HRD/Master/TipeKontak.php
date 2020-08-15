@@ -51,7 +51,7 @@ class TipeKontak extends Controller
     ]);
 
     $model = TipeKontakModel::find($request->input('id'));
-    $model->tipe_kontak = strtoupper($request->input('tipe_kontak'));
+    if ($request->has('tipe_kontak')) $model->tipe_kontak = strtoupper($request->input('tipe_kontak'));
     $model->save();
   }
 }

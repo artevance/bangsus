@@ -51,7 +51,7 @@ class TipeFotoKaryawan extends Controller
     ]);
 
     $model = TipeFotoKaryawanModel::find($request->input('id'));
-    $model->tipe_foto_karyawan = strtoupper($request->input('tipe_foto_karyawan'));
+    if ($request->has('tipe_foto_karyawan')) $model->tipe_foto_karyawan = strtoupper($request->input('tipe_foto_karyawan'));
     $model->save();
   }
 }

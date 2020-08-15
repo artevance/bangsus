@@ -51,7 +51,7 @@ class Divisi extends Controller
     ]);
 
     $model = DivisiModel::find($request->input('id'));
-    $model->divisi = strtoupper($request->input('divisi'));
+    if ($request->has('divisi')) $model->divisi = strtoupper($request->input('divisi'));
     $model->save();
   }
 }

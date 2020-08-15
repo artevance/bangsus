@@ -83,14 +83,14 @@ function Karyawan()
         pageSpinner.stop();
       });
     },
-    reset: (d) => {
+    reset: () => {
       obj.$.table.find(tbysel('dataWrapper', true)).empty();
-      obj.load(d);
+      return obj;
     },
     responsiveContract: () => {
       obj.$.search.on('submit', (e) => {
         e.preventDefault();
-        obj.reset($(e.currentTarget).serializeArray());
+        obj.reset().setQuery($(e.currentTarget).serializeArray());
       });
       obj.$.modal.tambah.on('show.bs.modal', (e) => {
         obj.rel.golonganDarah.ajax.search()

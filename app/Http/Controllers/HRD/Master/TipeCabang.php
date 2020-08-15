@@ -51,7 +51,7 @@ class TipeCabang extends Controller
     ]);
 
     $model = TipeCabangModel::find($request->input('id'));
-    $model->tipe_cabang = strtoupper($request->input('tipe_cabang'));
+    if ($request->has('tipe_cabang')) $model->tipe_cabang = strtoupper($request->input('tipe_cabang'));
     $model->save();
   }
 }

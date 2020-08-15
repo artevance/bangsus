@@ -62,9 +62,9 @@ class Cabang extends Controller
     ]);
 
     $model = CabangModel::find($request->input('id'));
-    $model->kode_cabang = $request->input('kode_cabang');
-    $model->cabang = strtoupper($request->input('cabang'));
-    $model->tipe_cabang_id = $request->input('tipe_cabang_id'); 
+    if ($request->has('kode_cabang')) $model->kode_cabang = $request->input('kode_cabang');
+    if ($request->has('cabang')) $model->cabang = strtoupper($request->input('cabang'));
+    if ($request->has('tipe_cabang_id')) $model->tipe_cabang_id = $request->input('tipe_cabang_id'); 
     $model->save();
   }
 }

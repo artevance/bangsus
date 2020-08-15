@@ -51,7 +51,7 @@ class Jabatan extends Controller
     ]);
 
     $model = JabatanModel::find($request->input('id'));
-    $model->jabatan = strtoupper($request->input('jabatan'));
+    if ($request->has('jabatan')) $model->jabatan = strtoupper($request->input('jabatan'));
     $model->save();
   }
 }

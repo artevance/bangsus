@@ -92,6 +92,16 @@
             <small class="form-text text-danger" data-role="feedback" data-field="cabang_id"></small>
           </div>
           <div class="form-group">
+            <label>Divisi</label>
+            <select class="form-control" name="divisi_id"></select>
+            <small class="form-text text-danger" data-role="feedback" data-field="divisi_id"></small>
+          </div>
+          <div class="form-group">
+            <label>Jabatan</label>
+            <select class="form-control" name="jabatan_id"></select>
+            <small class="form-text text-danger" data-role="feedback" data-field="jabatan_id"></small>
+          </div>
+          <div class="form-group">
             <label>Tanggal Mulai</label>
             <input type="date" class="form-control" name="tanggal_mulai">
             <small class="form-text text-danger" data-role="feedback" data-field="tanggal_mulai"></small>
@@ -141,6 +151,16 @@
             <label>Cabang</label>
             <select class="form-control" name="cabang_id"></select>
             <small class="form-text text-danger" data-role="feedback" data-field="cabang_id"></small>
+          </div>
+          <div class="form-group">
+            <label>Divisi</label>
+            <select class="form-control" name="divisi_id"></select>
+            <small class="form-text text-danger" data-role="feedback" data-field="divisi_id"></small>
+          </div>
+          <div class="form-group">
+            <label>Jabatan</label>
+            <select class="form-control" name="jabatan_id"></select>
+            <small class="form-text text-danger" data-role="feedback" data-field="jabatan_id"></small>
           </div>
           <div class="form-group">
             <label>Tanggal Mulai</label>
