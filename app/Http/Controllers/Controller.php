@@ -20,6 +20,8 @@ class Controller extends BaseController
 
   protected $query = [];
 
+  protected $nav = '';
+
   protected function title(string $title) : Controller
   {
     $this->title = $title;
@@ -44,13 +46,20 @@ class Controller extends BaseController
     return $this;
   }
 
+  protected function nav(string $nav) : Controller
+  {
+    $this->nav = $nav;
+    return $this;
+  }
+
   protected function passParams(array $data = []) : array
   {
     return array_merge([
       'title' => $this->title,
       'role' => $this->role,
       'query' => $this->query,
-      'serializedQuery' => $this->serializedQuery
+      'serializedQuery' => $this->serializedQuery,
+      'nav' => $this->nav
     ], $data);
   }
 }
