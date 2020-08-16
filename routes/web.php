@@ -98,6 +98,13 @@ Route::middleware('auth')->group(function () {
               Route::get('/get', 'GolonganDarah@get');
               Route::get('/search', 'GolonganDarah@search');
             });
+            Route::prefix('/tipe_absensi')->group(function () {
+              Route::get('', 'TipeAbsensi@index');
+              Route::get('/get', 'TipeAbsensi@get');
+              Route::get('/search', 'TipeAbsensi@search');
+              Route::post('/post', 'TipeAbsensi@post');
+              Route::put('/put', 'TipeAbsensi@put');
+            });
           });
         });
 
@@ -114,6 +121,21 @@ Route::middleware('auth')->group(function () {
           Route::get('/search', 'TugasKaryawan@search');
           Route::post('/post', 'TugasKaryawan@post');
           Route::put('/put', 'TugasKaryawan@put');
+        });
+
+        Route::prefix('/absensi')->group(function () {
+
+          Route::get('/get', 'Absensi@get');
+          Route::get('/search', 'Absensi@search');
+          Route::post('/post', 'Absensi@post');
+          Route::put('/put', 'Absensi@put');
+          Route::namespace('Absensi')->group(function () {
+
+            Route::prefix('/manual')->group(function () {
+              Route::get('', 'Manual@index');
+              Route::get('/cabang_harian', 'Manual@cabangHarian');
+            });
+          });
         });
       });
     });

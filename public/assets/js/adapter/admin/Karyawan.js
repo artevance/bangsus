@@ -181,7 +181,7 @@ function Karyawan()
             console.log(r);
             fbsel($(e.currentTarget)).empty();
             obj.$.modal.tambah.modal('hide')
-            obj.reset();
+            obj.reset().load();
           });
       });
       obj.$.modal.ubah.find('form').on('submit', (e) => {
@@ -198,7 +198,7 @@ function Karyawan()
             console.log(r);
             fbsel($(e.currentTarget)).empty();
             obj.$.modal.ubah.modal('hide')
-            obj.reset();
+            obj.reset().load();
           });
       });
     }

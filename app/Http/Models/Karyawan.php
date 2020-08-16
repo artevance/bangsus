@@ -21,6 +21,11 @@ class Karyawan extends Model
     return $this->belongsTo('App\Http\Models\JenisKelamin');
   }
 
+  public function tugas_karyawan()
+  {
+    return $this->hasMany('App\Http\Models\TugasKaryawan');
+  }
+
   public function getNip($kodeCabang, $tanggalMulai)
   {
     $tanggalMulai = date('dmy', strtotime($tanggalMulai));

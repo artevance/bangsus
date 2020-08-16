@@ -1,7 +1,7 @@
 function TugasKaryawan(c)
 {
   let obj = {
-    karyawanID: c.karyawanID,
+    karyawanID: c != undefined ? c.karyawanID : 0,
     rel: {
       cabang: Cabang(),
       divisi: Divisi(),
@@ -169,7 +169,7 @@ function TugasKaryawan(c)
             console.log(r);
             fbsel($(e.currentTarget)).empty();
             obj.$.modal.tambah.modal('hide')
-            obj.reset();
+            obj.reset().load();
           });
       });
       obj.$.modal.ubah.find('form').on('submit', (e) => {
@@ -186,7 +186,7 @@ function TugasKaryawan(c)
             console.log(r);
             fbsel($(e.currentTarget)).empty();
             obj.$.modal.ubah.modal('hide')
-            obj.reset();
+            obj.reset().load();
           });
       });
     },

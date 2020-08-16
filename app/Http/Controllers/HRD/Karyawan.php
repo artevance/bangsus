@@ -23,13 +23,13 @@ class Karyawan extends Controller
       'id' => 'required|exists:karyawan,id'
     ]);
 
-    return ['data' => KaryawanModel::with(['golongan_darah', 'jenis_kelamin'])->find($request->input('id'))];
+    return ['data' => KaryawanModel::with(['golongan_darah', 'jenis_kelamin', 'tugas_karyawan'])->find($request->input('id'))];
   }
 
   public function search(Request $request)
   {
     return [
-      'data' => KaryawanModel::with(['golongan_darah', 'jenis_kelamin'])
+      'data' => KaryawanModel::with(['golongan_darah', 'jenis_kelamin', 'tugas_karyawan'])
                   ->where('nip', 'LIKE', '%' . $request->input('q') . '%')
                   ->orWhere('nik', 'LIKE', '%' . $request->input('q') . '%')
                   ->orWhere('nama_karyawan', 'LIKE', '%' . $request->input('q') . '%')
@@ -44,14 +44,14 @@ class Karyawan extends Controller
       'nik' => 'nullable|integer|digits:16|unique:karyawan,nik',
       'nama_karyawan' => 'required|max:200',
       'tempat_lahir' => 'nullable|max:200',
-      'tanggal_lahir' => 'nullable|date',
+      'tanggal_lahir' => 'nullable|date_format:Y-m-d',
       'golongan_darah_id' => 'required|exists:golongan_darah,id',
       'jenis_kelamin_id' => 'required|exists:jenis_kelamin,id',
 
       'cabang_id' => 'required|exists:cabang,id',
       'divisi_id' => 'required|exists:divisi,id',
       'jabatan_id' => 'required|exists:jabatan,id',
-      'tanggal_mulai' => 'required|date',
+      'tanggal_mulai' => 'required|date_format:Y-m-d',
       'no_finger' => 'nullable|integer'
     ]);
 

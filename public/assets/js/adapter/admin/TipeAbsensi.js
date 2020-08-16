@@ -1,4 +1,4 @@
-function TipeFotoKaryawan()
+function TipeAbsensi()
 {
   let obj = {
     query: {},
@@ -6,34 +6,34 @@ function TipeFotoKaryawan()
       get: (id) =>
         $.ajax({
           method: 'get',
-          url: baseUrl.url('/hrd/master/tipe_foto_karyawan/get'),
+          url: baseUrl.url('/hrd/master/tipe_absensi/get'),
           data: {id: id}
         }),
       search: (d) =>
         $.ajax({
           method: 'get',
-          url: baseUrl.url('/hrd/master/tipe_foto_karyawan/search'),
+          url: baseUrl.url('/hrd/master/tipe_absensi/search'),
           data: d
         }),
       post: (d) =>
         $.ajax({
           method: 'post',
-          url: baseUrl.url('/hrd/master/tipe_foto_karyawan/post'),
+          url: baseUrl.url('/hrd/master/tipe_absensi/post'),
           data: d
         }),
       put: (d) =>
         $.ajax({
           method: 'put',
-          url: baseUrl.url('/hrd/master/tipe_foto_karyawan/put'),
+          url: baseUrl.url('/hrd/master/tipe_absensi/put'),
           data: d
         }),
     },
     $: {
       modal: {
-        tambah: modsel('tipeFotoKaryawan', 'tambah'),
-        ubah: modsel('tipeFotoKaryawan', 'ubah')
+        tambah: modsel('tipeAbsensi', 'tambah'),
+        ubah: modsel('tipeAbsensi', 'ubah')
       },
-      table: tbsel('tipeFotoKaryawan'),
+      table: tbsel('tipeAbsensi'),
       search: scsel()
     },
 
@@ -49,7 +49,7 @@ function TipeFotoKaryawan()
         history.pushState(
           null,
           null,
-          baseUrl.url(`/hrd/master/tipe_foto_karyawan${params}`)
+          baseUrl.url(`/hrd/master/tipe_absensi${params}`)
         );
       }
       obj.ajax.search(obj.query)
@@ -59,15 +59,15 @@ function TipeFotoKaryawan()
           r.data.forEach((item, index) => obj.$.table.find(tbysel('dataWrapper', true)).append(`
             <tr>
               <td>${index + 1}</td>
-              <td>${item.tipe_foto_karyawan}</td>
+              <td>${item.tipe_absensi}</td>
               <td>
-                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='tipeFotoKaryawan'][data-method='ubah']" data-id="${item.id}">Ubah</a>
-                <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='tipeFotoKaryawan'][data-method='hapus']" data-id="${item.id}">Hapus</a>
+                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='tipeAbsensi'][data-method='ubah']" data-id="${item.id}">Ubah</a>
+                <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='tipeAbsensi'][data-method='hapus']" data-id="${item.id}">Hapus</a>
               </td>
             </tr>
           `));  
-          pageSpinner.stop();
-        });
+        pageSpinner.stop();
+      });
     },
     reset: () => {
       obj.$.table.find(tbysel('dataWrapper', true)).empty();
@@ -85,7 +85,7 @@ function TipeFotoKaryawan()
             console.log(r);
             Object.keys(r.data).forEach((key) => obj.$.modal.ubah.find(`[name="${key}"]`).val(r.data[key]));
           });
-      });
+      })
       obj.$.modal.tambah.find('form').on('submit', (e) => {
         e.preventDefault();
         let d = $(e.currentTarget).serializeArray();

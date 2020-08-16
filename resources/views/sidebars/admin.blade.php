@@ -35,6 +35,9 @@
       <li class="nav-item">
         <a href="{{ url('/hrd/master/cabang') }}" class="nav-link">Cabang</a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('/hrd/master/tipe_absensi') }}" class="nav-link">Tipe Absensi</a>
+      </li>
     </ul>
   </div>
 </li>
@@ -61,7 +64,22 @@
   <div class="collapse" id="absensi">
     <ul class="nav sub-menu">
       <li class="nav-item">
-        <a href="#" class="nav-link">Manual</a>
+        <a href="{{ url('/hrd/absensi/manual') }}" class="nav-link">Manual</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/hrd/absensi/impor_jadwal') }}" class="nav-link">Impor Jadwal</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/hrd/absensi/impor_absen') }}" class="nav-link">Impor Absen</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/hrd/absensi/laporan_jadwal') }}" class="nav-link">Laporan Jadwal</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/hrd/absensi/laporan_presensi') }}" class="nav-link">Laporan Presensi</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/hrd/absensi/laporan_keterlambatan') }}" class="nav-link">Laporan Keterlambatan</a>
       </li>
     </ul>
   </div>
