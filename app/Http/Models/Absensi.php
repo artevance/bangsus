@@ -21,11 +21,12 @@ class Absensi extends Model
     return $this->belongsTo('App\Http\Models\User');
   }
 
-  public static function cabangHarian($cabangID, $tanggalAbsensi)
+  public static function cabangTipeHarian($cabangID, $tipeAbsensiID, $tanggalAbsensi)
   {
     return DB::table('tugas_karyawan')
-                ->leftJoin('absensi', function ($join) use ($tanggalAbsensi) {
+                ->leftJoin('absensi', function ($join) use ($tanggalAbsensi, $tipeAbsensiID) {
                     $join->on('tugas_karyawan.id', '=', 'absensi.tugas_karyawan_id')
+                          ->where('tipe_absensi_id', $tipeAbsensiID)
                           ->where('tanggal_absensi', $tanggalAbsensi);
                 })
                 ->leftJoin('karyawan', 'tugas_karyawan.karyawan_id', '=', 'karyawan.id')

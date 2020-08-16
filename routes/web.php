@@ -133,7 +133,7 @@ Route::middleware('auth')->group(function () {
 
             Route::prefix('/manual')->group(function () {
               Route::get('', 'Manual@index');
-              Route::get('/cabang_harian', 'Manual@cabangHarian');
+              Route::get('/cabang_tipe_harian', 'Manual@cabangTipeHarian');
             });
           });
         });

@@ -6,8 +6,12 @@
           <div class="col-12">
             <form data-role="search">
               <div class="form-group">
-                <label>Pilih Cabang dan Tanggal Absensi</label>
                 <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      Cabang
+                    </span>
+                  </div>
                   <select class="form-control" name="cabang_id">
                     @foreach($cabangs as $cabang)
                       <option value="{{ $cabang->id }}" @if($cabang->id == $query['cabang_id']) {{ 'selected' }} @endif>
@@ -15,6 +19,23 @@
                       </option>
                     @endforeach
                   </select>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      Tipe Absensi
+                    </span>
+                  </div>
+                  <select class="form-control" name="tipe_absensi_id">
+                    @foreach($tipeAbsensis as $tipeAbsensi)
+                      <option value="{{ $tipeAbsensi->id }}" @if($tipeAbsensi->id == $query['tipe_absensi_id']) {{ 'selected' }} @endif>
+                        {{ $tipeAbsensi->tipe_absensi }}
+                      </option>
+                    @endforeach
+                  </select>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      Tanggal Absensi
+                    </span>
+                  </div>
                   <input type="date" class="form-control" name="tanggal_absensi" value="{{ $query['tanggal_absensi'] }}">
                   <div class="input-group-prepend">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
@@ -56,6 +77,7 @@
         <div class="modal-body">
           <input type="hidden" name="tugas_karyawan_id">
           <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+          <input type="hidden" name="tipe_absensi_id">
           <div class="form-group">
             <label>NIP</label>
             <input type="text" class="form-control" name="nip" readonly>
@@ -82,6 +104,11 @@
             <label>Tanggal Absensi</label>
             <input type="date" class="form-control" name="tanggal_absensi" readonly>
             <small class="form-text text-danger" data-role="feedback" data-field="tanggal_absensi"></small>
+          </div>
+          <div class="form-group">
+            <label>Tipe Absensi</label>
+            <input text="date" class="form-control" name="tipe_absensi" readonly>
+            <small class="form-text text-danger" data-role="feedback" data-field="tipe_absensi"></small>
           </div>
           <div class="form-group">
             <label>Jam Jadwal</label>
@@ -189,6 +216,7 @@
 <script src="{{ url('/assets/js/adapter/admin/JenisKelamin.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/admin/Karyawan.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/admin/TugasKaryawan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/admin/TipeAbsensi.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/admin/Absensi.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/admin/AbsensiManual.js') }}"></script>
 <script type="text/javascript">

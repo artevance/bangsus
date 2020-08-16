@@ -3,15 +3,16 @@ function AbsensiManual()
   let obj = {
     query: {},
     rel: {
+      tipeAbsensi: TipeAbsensi(),
       absensi: Absensi(),
       cabang: Cabang(),
       tugasKaryawan: TugasKaryawan()
     },
     ajax: {
-      cabangHarian: (d) =>
+      cabangTipeHarian: (d) =>
         $.ajax({
           method: 'get',
-          url: baseUrl.url('/hrd/absensi/manual/cabang_harian'),
+          url: baseUrl.url('/hrd/absensi/manual/cabang_tipe_harian'),
           data: d
         })
     },
@@ -44,7 +45,7 @@ function AbsensiManual()
           baseUrl.url(`/hrd/absensi/manual${params}`)
         );
       }
-      obj.ajax.cabangHarian(obj.query)
+      obj.ajax.cabangTipeHarian(obj.query)
         .fail((r) => console.log(r))
         .done((r) => {
           console.log(r);
@@ -86,6 +87,13 @@ function AbsensiManual()
       });
       obj.$.modal.tambah.on('show.bs.modal', (e) => {
         obj.$.modal.tambah.find('[name="tanggal_absensi"]').val(obj.getQuery('tanggal_absensi'));
+        obj.$.modal.tambah.find('[name="tipe_absensi_id"]').val(obj.getQuery('tipe_absensi_id'));
+        obj.rel.tipeAbsensi.ajax.get(obj.getQuery('tipe_absensi_id'))
+          .fail((r) => console.log(r))
+          .done((r) => {
+            console.log(r);
+            obj.$.modal.tambah.find('[name=tipe_absensi]').val(r.data.tipe_absensi);
+          });
         obj.$.modal.tambah.find('[name="tugas_karyawan_id"]').val($(e.relatedTarget).data('id'));
         obj.rel.tugasKaryawan.ajax.get($(e.relatedTarget).data('id'))
           .fail((r) => console.log(r))
