@@ -70,13 +70,16 @@
         <a href="{{ url('/hrd/absensi/impor_jadwal') }}" class="nav-link">Impor Jadwal</a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/hrd/absensi/impor_absen') }}" class="nav-link">Impor Absen</a>
+        <a href="{{ url('/hrd/absensi/impor_absensi') }}" class="nav-link">Impor Absensi</a>
       </li>
       <li class="nav-item">
         <a href="{{ url('/hrd/absensi/laporan_jadwal') }}" class="nav-link">Laporan Jadwal</a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/hrd/absensi/laporan_presensi') }}" class="nav-link">Laporan Presensi</a>
+        <a href="{{ url('/hrd/absensi/laporan_absensi') }}" class="nav-link">Laporan Absensi</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/hrd/absensi/laporan_log_absen') }}" class="nav-link">Laporan Log Absen</a>
       </li>
       <li class="nav-item">
         <a href="{{ url('/hrd/absensi/laporan_keterlambatan') }}" class="nav-link">Laporan Keterlambatan</a>
@@ -94,22 +97,22 @@
   <div class="collapse" id="masterOperasional">
     <ul class="nav sub-menu">
       <li class="nav-item">
-        <a href="#" class="nav-link">Satuan</a>
+        <a href="{{ url('/operasional/master/satuan') }}" class="nav-link">Satuan</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Supplier</a>
+        <a href="{{ url('/operasional/master/supplier') }}" class="nav-link">Supplier</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Barang</a>
+        <a href="{{ url('/operasional/master/item_goreng') }}" class="nav-link">Item Goreng</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Tipe Proses C1</a>
+        <a href="{{ url('/operasional/master/tipe_proses_produksi') }}" class="nav-link">Tipe Proses Produksi</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Quality Control</a>
+        <a href="{{ url('/operasional/master/quality_control') }}" class="nav-link">Quality Control</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Aktivitas Karyawan</a>
+        <a href="{{ url('/operasional/master/aktivitas_karyawan') }}" class="nav-link">Aktivitas Karyawan</a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link">Kegiatan Kebersihan</a>

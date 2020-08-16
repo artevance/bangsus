@@ -135,6 +135,80 @@ Route::middleware('auth')->group(function () {
               Route::get('', 'Manual@index');
               Route::get('/cabang_tipe_harian', 'Manual@cabangTipeHarian');
             });
+            Route::prefix('/impor_jadwal')->group(function () {
+              Route::get('', 'ImporJadwal@index');
+            });
+          });
+        });
+      });
+    });
+
+    Route::prefix('/operasional')->group(function () {
+      Route::namespace('Operasional')->group(function () {
+
+        Route::prefix('/master')->group(function () {
+          Route::namespace('Master')->group(function () {
+            Route::prefix('/satuan')->group(function () {
+              Route::get('', 'Satuan@index');
+              Route::get('/get', 'Satuan@get');
+              Route::get('/search', 'Satuan@search');
+              Route::post('/post', 'Satuan@post');
+              Route::put('/put', 'Satuan@put');
+            });
+            Route::prefix('/supplier')->group(function () {
+              Route::get('', 'Supplier@index');
+              Route::get('/get', 'Supplier@get');
+              Route::get('/search', 'Supplier@search');
+              Route::post('/post', 'Supplier@post');
+              Route::put('/put', 'Supplier@put');
+            });
+            Route::prefix('/item_goreng')->group(function () {
+              Route::get('', 'ItemGoreng@index');
+              Route::get('/get', 'ItemGoreng@get');
+              Route::get('/search', 'ItemGoreng@search');
+              Route::post('/post', 'ItemGoreng@post');
+              Route::put('/put', 'ItemGoreng@put');
+            });
+            Route::prefix('/tipe_proses_produksi')->group(function () {
+              Route::namespace('TipeProsesProduksi')->group(function () {
+                Route::redirect('', '/operasional/master/tipe_proses_produksi/sambal');
+                Route::prefix('/sambal')->group(function () {
+                  Route::get('', 'Sambal@index');
+                  Route::get('/get', 'Sambal@get');
+                  Route::get('/search', 'Sambal@search');
+                  Route::post('/post', 'Sambal@post');
+                  Route::put('/put', 'Sambal@put');
+                });
+                Route::prefix('/tepung')->group(function () {
+                  Route::get('', 'Tepung@index');
+                  Route::get('/get', 'Tepung@get');
+                  Route::get('/search', 'Tepung@search');
+                  Route::post('/post', 'Tepung@post');
+                  Route::put('/put', 'Tepung@put');
+                });
+                Route::prefix('/minyak')->group(function () {
+                  Route::get('', 'Minyak@index');
+                  Route::get('/get', 'Minyak@get');
+                  Route::get('/search', 'Minyak@search');
+                  Route::post('/post', 'Minyak@post');
+                  Route::put('/put', 'Minyak@put');
+                });
+                Route::prefix('/margarin')->group(function () {
+                  Route::get('', 'Margarin@index');
+                  Route::get('/get', 'Margarin@get');
+                  Route::get('/search', 'Margarin@search');
+                  Route::post('/post', 'Margarin@post');
+                  Route::put('/put', 'Margarin@put');
+                });
+                Route::prefix('/lpg')->group(function () {
+                  Route::get('', 'LPG@index');
+                  Route::get('/get', 'LPG@get');
+                  Route::get('/search', 'LPG@search');
+                  Route::post('/post', 'LPG@post');
+                  Route::put('/put', 'LPG@put');
+                });
+              });
+            });
           });
         });
       });
