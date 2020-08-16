@@ -64,7 +64,7 @@ function AbsensiManual()
               <tr>
                 <td>${index + 1}</td>
                 <td>${item.nip}</td>
-                <td>${item.nama_karyawan}</td>
+                <td><a href="${baseUrl.url('/hrd/tugas_karyawan/karyawan/')}${item.karyawan_id}" target="_blank">${item.nama_karyawan}</td>
                 <td>${item.jam_jadwal}</td>
                 <td>${item.jam_absen}</td>
                 <td>

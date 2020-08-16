@@ -42,7 +42,8 @@ class Absensi extends Model
                 ->select(
                   '*',
                   'tugas_karyawan.id AS id',
-                  'absensi.id AS absensi_id'
+                  'absensi.id AS absensi_id',
+                  'karyawan.id AS karyawan_id'
                 )
                 ->get();
   }
