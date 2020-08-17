@@ -1,10 +1,10 @@
-function FormThawingAyam()
+function FormSambal()
 {
   let obj = {
     query: {},
     rel: {
       cabang: Cabang(),
-      supplier: Supplier(),
+      tipeProsesSambal: TipeProsesSambal(),
       satuan: Satuan(),
       tugasKaryawan: TugasKaryawan(),
       webcam: Webcam()
@@ -13,41 +13,41 @@ function FormThawingAyam()
       get: (id) =>
         $.ajax({
           method: 'get',
-          url: baseUrl.url('/operasional/form_c/produksi/thawing_ayam/get'),
+          url: baseUrl.url('/operasional/form_c/produksi/sambal/get'),
           data: {id: id}
         }),
       cabangHarian: (d) =>
         $.ajax({
           method: 'get',
-          url: baseUrl.url('/operasional/form_c/produksi/thawing_ayam/cabang_harian'),
+          url: baseUrl.url('/operasional/form_c/produksi/sambal/cabang_harian'),
           data: d
         }),
       post: (d) =>
         $.ajax({
           method: 'post',
-          url: baseUrl.url('/operasional/form_c/produksi/thawing_ayam/post'),
+          url: baseUrl.url('/operasional/form_c/produksi/sambal/post'),
           data: d
         }),
       put: (d) =>
         $.ajax({
           method: 'put',
-          url: baseUrl.url('/operasional/form_c/produksi/thawing_ayam/put'),
+          url: baseUrl.url('/operasional/form_c/produksi/sambal/put'),
           data: d
         }),
       delete: (d) =>
         $.ajax({
           method: 'delete',
-          url: baseUrl.url('/operasional/form_c/produksi/thawing_ayam/delete'),
+          url: baseUrl.url('/operasional/form_c/produksi/sambal/delete'),
           data: d
         }),
     },
     $: {
       modal: {
-        tambah: modsel('formThawingAyam', 'tambah'),
-        ubah: modsel('formThawingAyam', 'ubah'),
-        hapus: modsel('formThawingAyam', 'hapus')
+        tambah: modsel('formSambal', 'tambah'),
+        ubah: modsel('formSambal', 'ubah'),
+        hapus: modsel('formSambal', 'hapus')
       },
-      table: tbsel('formThawingAyam'),
+      table: tbsel('formSambal'),
       search: scsel()
     },
 
@@ -68,7 +68,7 @@ function FormThawingAyam()
         history.pushState(
           null,
           null,
-          baseUrl.url(`/operasional/form_c/produksi/thawing_ayam${params}`)
+          baseUrl.url(`/operasional/form_c/produksi/sambal${params}`)
         );
       }
       obj.ajax.cabangHarian(obj.query)
@@ -88,10 +88,10 @@ function FormThawingAyam()
                 <td>${item.jam}</td>
                 <td>${item.qty}</td>
                 <td>${item.satuan.satuan}</td>
-                <td>${item.supplier != null ? item.supplier.supplier : '-'}</td>
+                <td>${item.tipe_proses_sambal != null ? item.tipe_proses_sambal.tipe_proses_sambal : '-'}</td>
                 <td>
-                  <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='formThawingAyam'][data-method='ubah']" data-id="${item.id}">Ubah</a>
-                  <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='formThawingAyam'][data-method='hapus']" data-id="${item.id}">Hapus</a>
+                  <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='formSambal'][data-method='ubah']" data-id="${item.id}">Ubah</a>
+                  <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='formSambal'][data-method='hapus']" data-id="${item.id}">Hapus</a>
                 </td>
               </tr>
             `)}
@@ -138,13 +138,13 @@ function FormThawingAyam()
               <option value="${item.id}"> ${item.karyawan.nip} - ${item.karyawan.nama_karyawan}</option>
             `))
           });
-        obj.rel.supplier.ajax.search()
+        obj.rel.tipeProsesSambal.ajax.search()
           .fail((r) => console.log(r))
           .done((r) => {
             console.log(r);
-            $(e.currentTarget).find('form').find('[name="supplier_id"]').empty().append('<option value="null">-- Pilih Supplier --</option>');
-            r.data.forEach((item, index) => $(e.currentTarget).find('form').find('[name="supplier_id"]').append(`
-              <option value="${item.id}">${item.supplier}</option>
+            $(e.currentTarget).find('form').find('[name="tipe_proses_sambal_id"]').empty().append('<option value="null">-- Pilih Tipe Proses Sambal --</option>');
+            r.data.forEach((item, index) => $(e.currentTarget).find('form').find('[name="tipe_proses_sambal_id"]').append(`
+              <option value="${item.id}">${item.tipe_proses_sambal}</option>
             `))
           });
         obj.rel.satuan.ajax.search()
@@ -197,15 +197,15 @@ function FormThawingAyam()
                 `));
                 $(e.currentTarget).find('form').find('[name="tugas_karyawan_id"]').val(r.data.tugas_karyawan_id);
               });
-            obj.rel.supplier.ajax.search()
+            obj.rel.tipeProsesSambal.ajax.search()
               .fail((re) => console.log(re))
               .done((re) => {
                 console.log(re);
-                $(e.currentTarget).find('form').find('[name="supplier_id"]').empty().append('<option>-- Pilih Supplier --</option>');
-                re.data.forEach((item, index) => $(e.currentTarget).find('form').find('[name="supplier_id"]').append(`
-                  <option value="${item.id}">${item.supplier}</option>
+                $(e.currentTarget).find('form').find('[name="tipe_proses_sambal_id"]').empty().append('<option>-- Pilih Tipe Proses Sambal --</option>');
+                re.data.forEach((item, index) => $(e.currentTarget).find('form').find('[name="tipe_proses_sambal_id"]').append(`
+                  <option value="${item.id}">${item.tipe_proses_sambal}</option>
                 `));
-                $(e.currentTarget).find('form').find('[name="supplier_id"]').val(r.data.supplier_id);
+                $(e.currentTarget).find('form').find('[name="tipe_proses_sambal_id"]').val(r.data.tipe_proses_sambal_id);
               });
             obj.rel.satuan.ajax.search()
               .fail((re) => console.log(re))

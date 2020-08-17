@@ -17,10 +17,6 @@ Route::get('/laravel', function () {
   return view('welcome');
 });
 
-Route::get('/deb', function () {
-  dd(\Illuminate\Support\Facades\Auth::user()->role);
-});
-
 Route::middleware('check.not.logged.in')->group(function () {  
   Route::redirect('/', '/home');
   Route::get('/login', 'Auth\Login@index');
@@ -115,13 +111,6 @@ Route::middleware('auth')->group(function () {
           Route::get('/search', 'Karyawan@search');
           Route::post('/post', 'Karyawan@post');
           Route::put('/put', 'Karyawan@put');
-        });
-        Route::prefix('/tugas_karyawan')->group(function () {
-          Route::get('/karyawan/{karyawan}', 'TugasKaryawan@karyawan');
-          Route::get('/get', 'TugasKaryawan@get');
-          Route::get('/search', 'TugasKaryawan@search');
-          Route::post('/post', 'TugasKaryawan@post');
-          Route::put('/put', 'TugasKaryawan@put');
         });
 
         Route::prefix('/absensi')->group(function () {
@@ -300,5 +289,19 @@ Route::middleware('auth')->group(function () {
   // Only Leader can access
   Route::middleware('role:leader')->group(function () {
     
+  });
+
+
+  Route::prefix('/hrd')->group(function () {
+    Route::namespace('HRD')->group(function () {
+
+      Route::prefix('/tugas_karyawan')->group(function () {
+        Route::get('/karyawan/{karyawan}', 'TugasKaryawan@karyawan');
+        Route::get('/get', 'TugasKaryawan@get');
+        Route::get('/search', 'TugasKaryawan@search');
+        Route::post('/post', 'TugasKaryawan@post');
+        Route::put('/put', 'TugasKaryawan@put');
+      });
+    });
   });
 });

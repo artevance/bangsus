@@ -114,11 +114,13 @@
           <div class="form-group">
             <label>Keterangan</label>
             <textarea class="form-control form-control-sm" name="keterangan"></textarea>
+              <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
           </div>
           <div class="form-group">
             <label>Foto</label>
             <input type="hidden" name="gambar">
             <div data-rel="booth"></div>
+            <small class="form-text text-danger" data-role="feedback" data-field="gambar"></small>
             <button type="button" class="btn btn-sm btn-secondary" data-rel="webcamBtn" data-role="capture">Ambil Foto</button>
           </div>
         </div>
@@ -196,11 +198,13 @@
           <div class="form-group">
             <label>Keterangan</label>
             <textarea class="form-control form-control-sm" name="keterangan"></textarea>
+              <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
           </div>
           <div class="form-group">
             <label>Foto</label>
             <input type="hidden" name="gambar">
             <div data-rel="booth"></div>
+            <small class="form-text text-danger" data-role="feedback" data-field="gambar"></small>
             <button type="button" class="btn btn-sm btn-secondary" data-rel="webcamBtn" data-role="capture">Ambil Foto</button>
           </div>
         </div>

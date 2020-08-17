@@ -29,9 +29,9 @@
     </form>
   </div>
 </div>
-<button class="btn btn-primary mt-5" data-toggle="modal" data-target=".modal[data-entity='formMasakNasi'][data-method='tambah']">Tambah Form Masak Nasi</button>
+<button class="btn btn-primary mt-5" data-toggle="modal" data-target=".modal[data-entity='formLPG'][data-method='tambah']">Tambah Form LPG</button>
 <div class="table-responsive mt-2">
-  <table class="table table-hover" data-entity="formMasakNasi">
+  <table class="table table-hover" data-entity="formLPG">
     <thead>
       <th>#</th>
       <th>NIP</th>
@@ -39,6 +39,7 @@
       <th>Jam</th>
       <th>Qty</th>
       <th>Satuan</th>
+      <th>Tipe Proses LPG</th>
       <th>Aksi</th>
     </thead>
     <tbody data-role="dataWrapper"></tbody>
@@ -46,12 +47,12 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" data-entity="formMasakNasi" data-method="tambah" data-backdrop="static" data-keyboard="false" tabindex="-1">
+<div class="modal fade" data-entity="formLPG" data-method="tambah" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h5 class="modal-title">Tambah Form Masak Nasi</h5>
+          <h5 class="modal-title">Tambah Form Goreng</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -88,6 +89,11 @@
             <small class="form-text text-danger" data-role="feedback" data-field="tugas_karyawan_id"></small>
           </div>
           <div class="form-group row">
+            <div class="col-12 col-lg-3">
+              <label>Tipe Proses LPG</label>
+              <select class="form-control" name="tipe_proses_lpg_id"></select>
+              <small class="form-text text-danger" data-role="feedback" data-field="tipe_proses_lpg_id"></small>
+            </div>
             <div class="col-12 col-lg-3">
               <label>Qty</label>
               <input type="number" class="form-control" name="qty">
@@ -119,12 +125,12 @@
     </div>
   </div>
 </div>
-<div class="modal fade" data-entity="formMasakNasi" data-method="ubah" data-backdrop="static" data-keyboard="false" tabindex="-1">
+<div class="modal fade" data-entity="formLPG" data-method="ubah" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h5 class="modal-title">Ubah Form Masak Nasi</h5>
+          <h5 class="modal-title">Ubah Form Goreng</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -163,6 +169,11 @@
           </div>
           <div class="form-group row">
             <div class="col-12 col-lg-3">
+              <label>Tipe Proses LPG</label>
+              <select class="form-control" name="tipe_proses_lpg_id"></select>
+              <small class="form-text text-danger" data-role="feedback" data-field="tipe_proses_lpg_id"></small>
+            </div>
+            <div class="col-12 col-lg-3">
               <label>Qty</label>
               <input type="number" class="form-control" name="qty">
               <small class="form-text text-danger" data-role="feedback" data-field="qty"></small>
@@ -193,12 +204,12 @@
     </div>
   </div>
 </div>
-<div class="modal fade" data-entity="formMasakNasi" data-method="hapus" data-backdrop="static" data-keyboard="false" tabindex="-1">
+<div class="modal fade" data-entity="formLPG" data-method="hapus" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h5 class="modal-title">Hapus Masak Nasi</h5>
+          <h5 class="modal-title">Hapus Form LPG</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -224,11 +235,12 @@
 <script src="{{ url('/assets/js/adapter/admin/Karyawan.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/admin/TugasKaryawan.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/admin/Satuan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/admin/TipeProsesLPG.js') }}"></script>
 <script src="{{ url('/assets/js/utils/Webcam.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/FormMasakNasi.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/admin/FormLPG.js') }}"></script>
 <script type="text/javascript">
-  let formMasakNasi = FormMasakNasi();
+  let formLPG = FormLPG();
 
-  formMasakNasi.setQuery(@json($serializedQuery));
-  formMasakNasi.responsiveContract();
+  formLPG.setQuery(@json($serializedQuery));
+  formLPG.responsiveContract();
 </script>
