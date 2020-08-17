@@ -8,7 +8,7 @@
               Cabang
             </span>
           </div>
-          <select class="form-control" name="cabang_id">
+          <select class="form-control" name="cabang_id" disabled>
             @foreach($cabangs as $cabang)
               <option value="{{ $cabang->id }}" @if($cabang->id == $query['cabang_id']) {{ 'selected' }} @endif>
                 {{ $cabang->kode_cabang }} - {{ $cabang->cabang }}
@@ -20,10 +20,7 @@
               Tanggal Form
             </span>
           </div>
-          <input type="date" class="form-control" name="tanggal_form" value="{{ $query['tanggal_form'] }}">
-          <div class="input-group-prepend">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
-          </div>
+          <input type="date" class="form-control" name="tanggal_form" disabled value="{{ $query['tanggal_form'] }}">
         </div>
       </div>
     </form>
@@ -79,7 +76,7 @@
             </div>
             <div class="col-12 col-lg-6">
               <label>Jam</label>
-              <input type="time" class="form-control" name="jam">
+              <input type="time" class="form-control" name="jam" readonly>
               <small class="form-text text-danger" data-role="feedback" data-field="jam"></small>
             </div>
           </div>
@@ -96,13 +93,16 @@
             </div>
             <div class="col-12 col-lg-3">
               <label>Qty</label>
-              <input type="number" class="form-control" name="qty">
+              <div class="input-group">
+                <input type="number" class="form-control" name="qty">
+                <input type="hidden" name="satuan_id" value="4">
+                <div class="input-group-prepend">
+                  <small class="input-group-text">
+                    GRAM
+                  </small>
+                </div>  
+              </div>
               <small class="form-text text-danger" data-role="feedback" data-field="qty"></small>
-            </div>
-            <div class="col-12 col-lg-3">
-              <label>Satuan</label>
-              <select class="form-control" name="satuan_id"></select>
-              <small class="form-text text-danger" data-role="feedback" data-field="satuan_id"></small>
             </div>
           </div>
           <div class="form-group">
@@ -158,7 +158,7 @@
             </div>
             <div class="col-12 col-lg-6">
               <label>Jam</label>
-              <input type="time" class="form-control" name="jam">
+              <input type="time" class="form-control" name="jam" readonly>
               <small class="form-text text-danger" data-role="feedback" data-field="jam"></small>
             </div>
           </div>
@@ -175,26 +175,22 @@
             </div>
             <div class="col-12 col-lg-3">
               <label>Qty</label>
-              <input type="number" class="form-control" name="qty">
+              <div class="input-group">
+                <input type="number" class="form-control" name="qty">
+                <input type="hidden" name="satuan_id" value="4">
+                <div class="input-group-prepend">
+                  <small class="input-group-text">
+                    GRAM
+                  </small>
+                </div>  
+              </div>
               <small class="form-text text-danger" data-role="feedback" data-field="qty"></small>
-            </div>
-            <div class="col-12 col-lg-3">
-              <label>Satuan</label>
-              <select class="form-control" name="satuan_id"></select>
-              <small class="form-text text-danger" data-role="feedback" data-field="satuan_id"></small>
             </div>
           </div>
           <div class="form-group">
             <label>Keterangan</label>
             <textarea class="form-control form-control-sm" name="keterangan"></textarea>
               <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
-          </div>
-          <div class="form-group">
-            <label>Foto</label>
-            <input type="hidden" name="gambar">
-            <div data-rel="booth"></div>
-            <small class="form-text text-danger" data-role="feedback" data-field="gambar"></small>
-            <button type="button" class="btn btn-sm btn-secondary" data-rel="webcamBtn" data-role="capture">Ambil Foto</button>
           </div>
         </div>
         <div class="modal-footer">
@@ -226,18 +222,18 @@
     </div>
   </div>
 </div>
-<script src="{{ url('/assets/js/adapter/admin/TipeCabang.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Cabang.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Divisi.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Jabatan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/GolonganDarah.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/JenisKelamin.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Karyawan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/TugasKaryawan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Satuan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/TipeProsesMargarin.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/TipeCabang.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Cabang.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Divisi.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Jabatan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/GolonganDarah.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/JenisKelamin.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Karyawan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/TugasKaryawan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/TipeProsesMargarin.js') }}"></script>
 <script src="{{ url('/assets/js/utils/Webcam.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/FormMargarin.js') }}"></script>
+<script src="{{ url('/assets/js/utils/Clock.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/FormMargarin.js') }}"></script>
 <script type="text/javascript">
   let formMargarin = FormMargarin();
 

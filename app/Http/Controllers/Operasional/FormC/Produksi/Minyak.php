@@ -12,13 +12,26 @@ class Minyak extends Controller
 {
   public function index(Request $request)
   {
+    switch ($request->user()->role->role_code) {
+      case 'admin' :
+        $query = [
+          'cabang_id' => $request->query('cabang_id', 1),
+          'tanggal_form' => $request->query('tanggal_form', date('Y-m-d'))
+        ];
+      break;
+      case 'leader' :
+        $query = [
+          'cabang_id' => $request->user()->tugas_karyawan->cabang_id,
+          'tanggal_form' => date('Y-m-d'),
+        ];
+      break;
+      default :
+    }
+
     $this->title('Form C1 | BangsusSys')
       ->role($request->user()->role->role_code)
       ->nav('minyak')
-      ->query([
-        'cabang_id' => $request->query('cabang_id', 1),
-        'tanggal_form' => $request->query('tanggal_form', date('Y-m-d'))
-      ]);
+      ->query($query);
     return view('operasional.form_c.produksi.minyak.wrapper', $this->passParams(['cabangs' => CabangModel::all()]));
   }
 

@@ -8,7 +8,7 @@
               Cabang
             </span>
           </div>
-          <select class="form-control" name="cabang_id">
+          <select class="form-control" name="cabang_id" disabled>
             @foreach($cabangs as $cabang)
               <option value="{{ $cabang->id }}" @if($cabang->id == $query['cabang_id']) {{ 'selected' }} @endif>
                 {{ $cabang->kode_cabang }} - {{ $cabang->cabang }}
@@ -20,18 +20,15 @@
               Tanggal Form
             </span>
           </div>
-          <input type="date" class="form-control" name="tanggal_form" value="{{ $query['tanggal_form'] }}">
-          <div class="input-group-prepend">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
-          </div>
+          <input type="date" class="form-control" name="tanggal_form" disabled value="{{ $query['tanggal_form'] }}">
         </div>
       </div>
     </form>
   </div>
 </div>
-<button class="btn btn-primary mt-5" data-toggle="modal" data-target=".modal[data-entity='formMargarin'][data-method='tambah']">Tambah Form Margarin</button>
+<button class="btn btn-primary mt-5" data-toggle="modal" data-target=".modal[data-entity='formSambal'][data-method='tambah']">Tambah Form Sambal</button>
 <div class="table-responsive mt-2">
-  <table class="table table-hover" data-entity="formMargarin">
+  <table class="table table-hover" data-entity="formSambal">
     <thead>
       <th>#</th>
       <th>NIP</th>
@@ -39,7 +36,7 @@
       <th>Jam</th>
       <th>Qty</th>
       <th>Satuan</th>
-      <th>Tipe Proses Margarin</th>
+      <th>Tipe Proses Sambal</th>
       <th>Aksi</th>
     </thead>
     <tbody data-role="dataWrapper"></tbody>
@@ -47,12 +44,12 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" data-entity="formMargarin" data-method="tambah" data-backdrop="static" data-keyboard="false" tabindex="-1">
+<div class="modal fade" data-entity="formSambal" data-method="tambah" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h5 class="modal-title">Tambah Form Margarin</h5>
+          <h5 class="modal-title">Tambah Form Sambal</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -79,7 +76,7 @@
             </div>
             <div class="col-12 col-lg-6">
               <label>Jam</label>
-              <input type="time" class="form-control" name="jam">
+              <input type="time" class="form-control" name="jam" readonly>
               <small class="form-text text-danger" data-role="feedback" data-field="jam"></small>
             </div>
           </div>
@@ -90,19 +87,22 @@
           </div>
           <div class="form-group row">
             <div class="col-12 col-lg-3">
-              <label>Tipe Proses Margarin</label>
-              <select class="form-control" name="tipe_proses_margarin_id"></select>
-              <small class="form-text text-danger" data-role="feedback" data-field="tipe_proses_margarin_id"></small>
+              <label>Tipe Proses Sambal</label>
+              <select class="form-control" name="tipe_proses_sambal_id"></select>
+              <small class="form-text text-danger" data-role="feedback" data-field="tipe_proses_sambal_id"></small>
             </div>
             <div class="col-12 col-lg-3">
               <label>Qty</label>
-              <input type="number" class="form-control" name="qty">
+              <div class="input-group">
+                <input type="number" class="form-control" name="qty">
+                <input type="hidden" name="satuan_id" value="4">
+                <div class="input-group-prepend">
+                  <small class="input-group-text">
+                    GRAM
+                  </small>
+                </div>  
+              </div>
               <small class="form-text text-danger" data-role="feedback" data-field="qty"></small>
-            </div>
-            <div class="col-12 col-lg-3">
-              <label>Satuan</label>
-              <select class="form-control" name="satuan_id"></select>
-              <small class="form-text text-danger" data-role="feedback" data-field="satuan_id"></small>
             </div>
           </div>
           <div class="form-group">
@@ -125,12 +125,12 @@
     </div>
   </div>
 </div>
-<div class="modal fade" data-entity="formMargarin" data-method="ubah" data-backdrop="static" data-keyboard="false" tabindex="-1">
+<div class="modal fade" data-entity="formSambal" data-method="ubah" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h5 class="modal-title">Ubah Form Margarin</h5>
+          <h5 class="modal-title">Ubah Form Sambal</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -158,7 +158,7 @@
             </div>
             <div class="col-12 col-lg-6">
               <label>Jam</label>
-              <input type="time" class="form-control" name="jam">
+              <input type="time" class="form-control" name="jam" readonly>
               <small class="form-text text-danger" data-role="feedback" data-field="jam"></small>
             </div>
           </div>
@@ -169,32 +169,28 @@
           </div>
           <div class="form-group row">
             <div class="col-12 col-lg-3">
-              <label>Tipe Proses Margarin</label>
-              <select class="form-control" name="tipe_proses_margarin_id"></select>
-              <small class="form-text text-danger" data-role="feedback" data-field="tipe_proses_margarin_id"></small>
+              <label>Tipe Proses Sambal</label>
+              <select class="form-control" name="tipe_proses_sambal_id"></select>
+              <small class="form-text text-danger" data-role="feedback" data-field="tipe_proses_sambal_id"></small>
             </div>
             <div class="col-12 col-lg-3">
               <label>Qty</label>
-              <input type="number" class="form-control" name="qty">
+              <div class="input-group">
+                <input type="number" class="form-control" name="qty">
+                <input type="hidden" name="satuan_id" value="4">
+                <div class="input-group-prepend">
+                  <small class="input-group-text">
+                    GRAM
+                  </small>
+                </div>  
+              </div>
               <small class="form-text text-danger" data-role="feedback" data-field="qty"></small>
-            </div>
-            <div class="col-12 col-lg-3">
-              <label>Satuan</label>
-              <select class="form-control" name="satuan_id"></select>
-              <small class="form-text text-danger" data-role="feedback" data-field="satuan_id"></small>
             </div>
           </div>
           <div class="form-group">
             <label>Keterangan</label>
             <textarea class="form-control form-control-sm" name="keterangan"></textarea>
               <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
-          </div>
-          <div class="form-group">
-            <label>Foto</label>
-            <input type="hidden" name="gambar">
-            <div data-rel="booth"></div>
-            <small class="form-text text-danger" data-role="feedback" data-field="gambar"></small>
-            <button type="button" class="btn btn-sm btn-secondary" data-rel="webcamBtn" data-role="capture">Ambil Foto</button>
           </div>
         </div>
         <div class="modal-footer">
@@ -204,12 +200,12 @@
     </div>
   </div>
 </div>
-<div class="modal fade" data-entity="formMargarin" data-method="hapus" data-backdrop="static" data-keyboard="false" tabindex="-1">
+<div class="modal fade" data-entity="formSambal" data-method="hapus" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h5 class="modal-title">Hapus Form Margarin</h5>
+          <h5 class="modal-title">Hapus Form Sambal</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -226,21 +222,21 @@
     </div>
   </div>
 </div>
-<script src="{{ url('/assets/js/adapter/admin/TipeCabang.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Cabang.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Divisi.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Jabatan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/GolonganDarah.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/JenisKelamin.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Karyawan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/TugasKaryawan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Satuan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/TipeProsesMargarin.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/TipeCabang.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Cabang.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Divisi.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Jabatan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/GolonganDarah.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/JenisKelamin.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Karyawan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/TugasKaryawan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/TipeProsesSambal.js') }}"></script>
 <script src="{{ url('/assets/js/utils/Webcam.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/FormMargarin.js') }}"></script>
+<script src="{{ url('/assets/js/utils/Clock.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/FormSambal.js') }}"></script>
 <script type="text/javascript">
-  let formMargarin = FormMargarin();
+  let formSambal = FormSambal();
 
-  formMargarin.setQuery(@json($serializedQuery));
-  formMargarin.responsiveContract();
+  formSambal.setQuery(@json($serializedQuery));
+  formSambal.responsiveContract();
 </script>
