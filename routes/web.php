@@ -30,6 +30,7 @@ Route::middleware('check.not.logged.in')->group(function () {
 Route::middleware('auth')->group(function () {
   Route::get('/logout', 'Auth\Logout@index');
   Route::get('/dashboard', 'Dashboard@index');
+  Route::get('/gambar/{gambar}', 'Gambar@index');
 
   // Only Admin can access
   Route::middleware('role:admin')->group(function () {
