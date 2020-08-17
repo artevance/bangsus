@@ -44,6 +44,11 @@ class User extends Authenticatable
     return $this->belongsTo('App\Http\Models\Role');
   }
 
+  public function tugas_karyawan()
+  {
+    return $this->belongsTo('App\Http\Models\TugasKaryawan');
+  }
+
   public function hasRole($role)
   {
     return $this->role->role_code == $role;
