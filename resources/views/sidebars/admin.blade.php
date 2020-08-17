@@ -132,7 +132,7 @@
   <div class="collapse" id="formC">
     <ul class="nav sub-menu">
       <li class="nav-item">
-        <a href="#" class="nav-link">Form C1</a>
+        <a href="{{ url('/operasional/form_c/produksi') }}" class="nav-link">Form C1</a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link">Form C2</a>

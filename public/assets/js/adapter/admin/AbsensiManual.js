@@ -105,6 +105,9 @@ function AbsensiManual()
             obj.$.modal.tambah.find('[name="cabang"]').val(r.data.cabang.cabang);
           });
       });
+      obj.$.modal.tambah.on('hide.bs.modal', (e) => {
+        $(e.currentTarget).find('form')[0].reset();
+      });
       obj.$.modal.ubah.on('show.bs.modal', (e) => {
         obj.$.modal.ubah.find('[name="id"]').val($(e.relatedTarget).data('id'));
         obj.rel.absensi.ajax.get($(e.relatedTarget).data('id'))
@@ -122,6 +125,9 @@ function AbsensiManual()
               });
             Object.keys(r.data).forEach((key) => obj.$.modal.ubah.find(`[name="${key}"]`).val(r.data[key]));
           })
+      });
+      obj.$.modal.ubah.on('hide.bs.modal', (e) => {
+        $(e.currentTarget).find('form')[0].reset();
       });
       obj.$.modal.tambah.find('form').on('submit', (e) => {
         e.preventDefault();

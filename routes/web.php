@@ -211,6 +211,87 @@ Route::middleware('auth')->group(function () {
             });
           });
         });
+        Route::prefix('/form_c')->group(function () {
+          Route::namespace('FormC')->group(function () {
+            Route::prefix('/produksi')->group(function () {
+              Route::namespace('Produksi')->group(function () {
+                Route::redirect('', '/operasional/form_c/produksi/goreng');
+                Route::prefix('/thawing_ayam')->group(function () {
+                  Route::get('', 'ThawingAyam@index');
+                  Route::get('/get', 'ThawingAyam@get');
+                  Route::get('/search', 'ThawingAyam@search');
+                  Route::get('/cabang_harian', 'ThawingAyam@cabangHarian');
+                  Route::post('/post', 'ThawingAyam@post');
+                  Route::put('/put', 'ThawingAyam@put');
+                  Route::delete('/delete', 'ThawingAyam@delete');
+                });
+                Route::prefix('/goreng')->group(function () {
+                  Route::get('', 'Goreng@index');
+                  Route::get('/get', 'Goreng@get');
+                  Route::get('/search', 'Goreng@search');
+                  Route::get('/cabang_harian', 'Goreng@cabangHarian');
+                  Route::post('/post', 'Goreng@post');
+                  Route::put('/put', 'Goreng@put');
+                  Route::delete('/delete', 'Goreng@delete');
+                });
+                Route::prefix('/masak_nasi')->group(function () {
+                  Route::get('', 'MasakNasi@index');
+                  Route::get('/get', 'MasakNasi@get');
+                  Route::get('/search', 'MasakNasi@search');
+                  Route::get('/cabang_harian', 'MasakNasi@cabangHarian');
+                  Route::post('/post', 'MasakNasi@post');
+                  Route::put('/put', 'MasakNasi@put');
+                  Route::delete('/delete', 'MasakNasi@delete');
+                });
+                Route::prefix('/sambal')->group(function () {
+                  Route::get('', 'Sambal@index');
+                  Route::get('/get', 'Sambal@get');
+                  Route::get('/search', 'Sambal@search');
+                  Route::get('/cabang_harian', 'Sambal@cabangHarian');
+                  Route::post('/post', 'Sambal@post');
+                  Route::put('/put', 'Sambal@put');
+                  Route::delete('/delete', 'Sambal@delete');
+                });
+                Route::prefix('/tepung')->group(function () {
+                  Route::get('', 'Tepung@index');
+                  Route::get('/get', 'Tepung@get');
+                  Route::get('/search', 'Tepung@search');
+                  Route::get('/cabang_harian', 'Tepung@cabangHarian');
+                  Route::post('/post', 'Tepung@post');
+                  Route::put('/put', 'Tepung@put');
+                  Route::delete('/delete', 'Tepung@delete');
+                });
+                Route::prefix('/minyak')->group(function () {
+                  Route::get('', 'Minyak@index');
+                  Route::get('/get', 'Minyak@get');
+                  Route::get('/search', 'Minyak@search');
+                  Route::get('/cabang_harian', 'Minyak@cabangHarian');
+                  Route::post('/post', 'Minyak@post');
+                  Route::put('/put', 'Minyak@put');
+                  Route::delete('/delete', 'Minyak@delete');
+                });
+                Route::prefix('/margarin')->group(function () {
+                  Route::get('', 'Margarin@index');
+                  Route::get('/get', 'Margarin@get');
+                  Route::get('/search', 'Margarin@search');
+                  Route::get('/cabang_harian', 'Margarin@cabangHarian');
+                  Route::post('/post', 'Margarin@post');
+                  Route::put('/put', 'Margarin@put');
+                  Route::delete('/delete', 'Margarin@delete');
+                });
+                Route::prefix('/lpg')->group(function () {
+                  Route::get('', 'LPG@index');
+                  Route::get('/get', 'LPG@get');
+                  Route::get('/search', 'LPG@search');
+                  Route::get('/cabang_harian', 'LPG@cabangHarian');
+                  Route::post('/post', 'LPG@post');
+                  Route::put('/put', 'LPG@put');
+                  Route::delete('/delete', 'LPG@delete');
+                });
+              });
+            });
+          });
+        });
       });
     });
   });

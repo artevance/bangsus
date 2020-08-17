@@ -29,6 +29,7 @@ class TugasKaryawan extends Controller
     $model = TugasKaryawanModel::with(['karyawan', 'cabang', 'jabatan', 'divisi']);
 
     if ($request->has('karyawan_id')) $model = $model->where('karyawan_id', $request->query('karyawan_id'));
+    if ($request->has('cabang_id')) $model = $model->where('cabang_id', $request->query('cabang_id'));
 
     return [
       'data' => $model->get()

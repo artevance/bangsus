@@ -93,7 +93,10 @@ function Cabang()
               <option value="${item.id}">${item.tipe_cabang}</option>
             `))
           });
-      })
+      });
+      obj.$.modal.tambah.on('hide.bs.modal', (e) => {
+        $(e.currentTarget).find('form')[0].reset();
+      });
       obj.$.modal.ubah.on('show.bs.modal', (e) => {
         obj.ajax.get($(e.relatedTarget).attr('data-id'))
           .fail((r) => console.log(r))
@@ -113,6 +116,9 @@ function Cabang()
               });
             Object.keys(r.data).forEach((key) => obj.$.modal.ubah.find(`[name="${key}"]`).val(r.data[key]));
           });
+      });
+      obj.$.modal.ubah.on('hide.bs.modal', (e) => {
+        $(e.currentTarget).find('form')[0].reset();
       });
       obj.$.modal.tambah.find('form').on('submit', (e) => {
         e.preventDefault();
