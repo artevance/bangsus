@@ -50,16 +50,16 @@
         <a href="{{ url('/operasional/form_c/produksi') }}" class="nav-link">Form C1</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Form C2</a>
+        <a href="{{ url('/operasional/form_c/qc') }}" class="nav-link">Form C2</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Form C3</a>
+        <a href="{{ url('/operasional/form_c/aktivitas_karyawan') }}" class="nav-link">Form C3</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Form C4</a>
+        <a href="{{ url('/operasional/form_c/kebersihan') }}" class="nav-link">Form C4</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Form C5</a>
+        <a href="{{ url('/operasional/form_c/general_cleaning') }}" class="nav-link">Form C5</a>
       </li>
     </ul>
   </div>

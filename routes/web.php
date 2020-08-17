@@ -204,6 +204,31 @@ Route::middleware('auth')->group(function () {
               });
             });
           });
+          Route::prefix('/quality_control')->group(function () {
+            Route::get('', 'QualityControl@qualityControl')->middleware('role:admin');
+            Route::get('/detail/{qualityControl}', 'QualityControl@parameterQualityControl')->middleware('role:admin');
+            Route::get('/detail/{qualityControl}/{parameterQualityControl}', 'QualityControl@opsiParameterQualityControl')->middleware('role:admin');
+            Route::namespace('QualityControl')->group(function () {
+              Route::prefix('/qc')->group(function () {
+                Route::get('/get', 'QC@get');
+                Route::get('/search', 'QC@search');
+                Route::post('/post', 'QC@post');
+                Route::put('/put', 'QC@put');
+              });
+              Route::prefix('/parameter_qc')->group(function () {
+                Route::get('/get', 'ParameterQC@get');
+                Route::get('/search', 'ParameterQC@search');
+                Route::post('/post', 'ParameterQC@post');
+                Route::put('/put', 'ParameterQC@put');
+              });
+              Route::prefix('/opsi_qc')->group(function () {
+                Route::get('/get', 'OpsiQC@get');
+                Route::get('/search', 'OpsiQC@search');
+                Route::post('/post', 'OpsiQC@post');
+                Route::put('/put', 'OpsiQC@put');
+              });
+            });
+          });
         });
       });
       Route::prefix('/form_c')->group(function () {
@@ -284,6 +309,15 @@ Route::middleware('auth')->group(function () {
                 Route::delete('/delete', 'LPG@delete');
               });
             });
+          });
+          Route::prefix('/qc')->group(function () {
+            Route::get('', 'QC@index');
+            Route::get('/get', 'QC@get');
+            Route::get('/search', 'QC@search');
+            Route::get('/cabang_harian', 'QC@cabangHarian');
+            Route::post('/post', 'QC@post');
+            Route::put('/put', 'QC@put');
+            Route::delete('/delete', 'QC@delete');
           });
         });
       });
