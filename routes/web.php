@@ -271,7 +271,7 @@ Route::middleware('auth')->group(function () {
                 Route::post('/post', 'AreaGeneralCleaning@post');
                 Route::put('/put', 'AreaGeneralCleaning@put');
               });
-              Route::prefix('/kegiatan')->group(function () {
+              Route::prefix('/kegiatan_general_cleaning')->group(function () {
                 Route::get('/get', 'KegiatanGeneralCleaning@get');
                 Route::get('/search', 'KegiatanGeneralCleaning@search');
                 Route::post('/post', 'KegiatanGeneralCleaning@post');
