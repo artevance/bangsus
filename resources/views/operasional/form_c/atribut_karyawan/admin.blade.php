@@ -103,8 +103,8 @@
                 @foreach($atributKaryawan->parameter_atribut_karyawan as $parameterAtributKaryawan)
                   <div class="form-check">
                     <div class="form-check">
-                      <input class="form-check-input m-0" type="radio" name="parameter_atribut_karyawan_id[{{ $atributKaryawan->id }}]" value="{{ $parameterAtributKaryawan->id }}" required>
                       <label class="form-check-label">
+                        <input class="form-check-input m-0" type="radio" name="parameter_atribut_karyawan_id[{{ $atributKaryawan->id }}]" value="{{ $parameterAtributKaryawan->id }}" required>
                         {{ $parameterAtributKaryawan->parameter_atribut_karyawan }}
                       </label>
                     </div>
@@ -182,8 +182,8 @@
                 @foreach($atributKaryawan->parameter_atribut_karyawan as $parameterAtributKaryawan)
                   <div class="form-check">
                     <div class="form-check">
-                      <input class="form-check-input m-0" type="radio" name="parameter_atribut_karyawan_id[{{ $atributKaryawan->id }}]" value="{{ $parameterAtributKaryawan->id }}" required>
                       <label class="form-check-label">
+                        <input class="form-check-input m-0" type="radio" name="parameter_atribut_karyawan_id[{{ $atributKaryawan->id }}]" value="{{ $parameterAtributKaryawan->id }}" required>
                         {{ $parameterAtributKaryawan->parameter_atribut_karyawan }}
                       </label>
                     </div>

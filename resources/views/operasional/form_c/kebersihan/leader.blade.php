@@ -21,19 +21,24 @@
             </span>
           </div>
           <input type="date" class="form-control" name="tanggal_form" value="{{ $query['tanggal_form'] }}" disabled>
+          <div class="input-group-prepend">
+            <button type="submit" class="btn btn-primary" disabled><i class="fas fa-search"></i></button>
+          </div>
         </div>
       </div>
     </form>
   </div>
 </div>
-<button class="btn btn-primary mt-5" data-toggle="modal" data-target=".modal[data-entity='formAtributKaryawan'][data-method='tambah']">Tambah Form C3</button>
+<button class="btn btn-primary mt-5" data-toggle="modal" data-target=".modal[data-entity='formKebersihan'][data-method='tambah']">Tambah Form C4</button>
 <div class="table-responsive mt-2">
-  <table class="table table-hover" data-entity="formAtributKaryawan">
+  <table class="table table-hover" data-entity="formKebersihan">
     <thead>
       <th>#</th>
       <th>NIP</th>
       <th>Nama Karyawan</th>
       <th>Jam</th>
+      <th>Kegiatan Kebersihan</th>
+      <th>Skor</th>
       <th>Aksi</th>
     </thead>
     <tbody data-role="dataWrapper"></tbody>
@@ -41,12 +46,12 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" data-entity="formAtributKaryawan" data-method="tambah" data-backdrop="static" data-keyboard="false" tabindex="-1">
+<div class="modal fade" data-entity="formKebersihan" data-method="tambah" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h5 class="modal-title">Tambah Form C3</h5>
+          <h5 class="modal-title">Tambah Form Goreng</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -82,33 +87,30 @@
             <select class="form-control" name="tugas_karyawan_id"></select>
             <small class="form-text text-danger" data-role="feedback" data-field="tugas_karyawan_id"></small>
           </div>
-          <div class="form-group">
-            <label>Aktivitas</label>
-            <select class="form-control" name="aktivitas_karyawan_id"></select>
-            <small class="form-text text-danger" data-role="feedback" data-field="aktivitas_karyawan_id"></small>
+          <div class="form-group row">
+            <div class="col-12 col-lg-6">
+              <label>Kegiatan Kebersihan</label>
+              <select class="form-control" name="kegiatan_kebersihan_id"></select>
+              <small class="form-text text-danger" data-role="feedback" data-field="kegiatan_kebersihan_id"></small>
+            </div>
+            <div class="col-12 col-lg-6">
+              <label>Skor</label>
+              <div class="form-group col">
+                @for($i = 1; $i <= 5; $i++)
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="skor" value="{{ $i }}">
+                        {{ $i }}
+                      </label>
+                  </div>
+                @endfor
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label>Keterangan</label>
-            <textarea class="form-control" name="keterangan"></textarea>
-            <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
-          </div>
-          <div class="form-group">
-            <label>Atribut Karyawan</label>
-            @foreach($atributKaryawans as $atributKaryawan)
-              <div class="form-group col">
-                <label>{{ $atributKaryawan->atribut_karyawan }}</label>
-                @foreach($atributKaryawan->parameter_atribut_karyawan as $parameterAtributKaryawan)
-                  <div class="form-check">
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input m-0" type="radio" name="parameter_atribut_karyawan_id[{{ $atributKaryawan->id }}]" value="{{ $parameterAtributKaryawan->id }}" required>
-                        {{ $parameterAtributKaryawan->parameter_atribut_karyawan }}
-                      </label>
-                    </div>
-                  </div>
-                @endforeach
-              </div>
-            @endforeach
+            <textarea class="form-control form-control-sm" name="keterangan"></textarea>
+              <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
           </div>
         </div>
         <div class="modal-footer">
@@ -118,12 +120,12 @@
     </div>
   </div>
 </div>
-<div class="modal fade" data-entity="formAtributKaryawan" data-method="ubah" data-backdrop="static" data-keyboard="false" tabindex="-1">
+<div class="modal fade" data-entity="formKebersihan" data-method="ubah" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h5 class="modal-title">Ubah Form C2</h5>
+          <h5 class="modal-title">Ubah Form Goreng</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -160,49 +162,45 @@
             <select class="form-control" name="tugas_karyawan_id"></select>
             <small class="form-text text-danger" data-role="feedback" data-field="tugas_karyawan_id"></small>
           </div>
-          <div class="form-group">
-            <label>Aktivitas</label>
-            <select class="form-control" name="aktivitas_karyawan_id"></select>
-            <small class="form-text text-danger" data-role="feedback" data-field="aktivitas_karyawan_id"></small>
+          <div class="form-group row">
+            <div class="col-12 col-lg-6">
+              <label>Kegiatan Kebersihan</label>
+              <select class="form-control" name="kegiatan_kebersihan_id"></select>
+              <small class="form-text text-danger" data-role="feedback" data-field="kegiatan_kebersihan_id"></small>
+            </div>
+            <div class="col-12 col-lg-6">
+              <label>Skor</label>
+              <div class="form-group col">
+                @for($i = 1; $i <= 5; $i++)
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="skor" value="{{ $i }}">
+                        {{ $i }}
+                      </label>
+                  </div>
+                @endfor
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label>Keterangan</label>
-            <textarea class="form-control" name="keterangan"></textarea>
-            <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
-          </div>
-          <div class="form-group">
-            <label>Atribut Karyawan</label>
-            @foreach($atributKaryawans as $atributKaryawan)
-              <div class="form-group col">
-                <label>{{ $atributKaryawan->atribut_karyawan }}</label>
-                <input type="hidden" name="form_atribut_karyawan_d_id[{{ $atributKaryawan->id }}]">
-                @foreach($atributKaryawan->parameter_atribut_karyawan as $parameterAtributKaryawan)
-                  <div class="form-check">
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input m-0" type="radio" name="parameter_atribut_karyawan_id[{{ $atributKaryawan->id }}]" value="{{ $parameterAtributKaryawan->id }}" required>
-                        {{ $parameterAtributKaryawan->parameter_atribut_karyawan }}
-                      </label>
-                    </div>
-                  </div>
-                @endforeach
-              </div>
-            @endforeach
+            <textarea class="form-control form-control-sm" name="keterangan"></textarea>
+              <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Hapus</button>
+          <button type="submit" class="btn btn-primary">Ubah</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-<div class="modal fade" data-entity="formAtributKaryawan" data-method="hapus" data-backdrop="static" data-keyboard="false" tabindex="-1">
-  <div class="modal-dialog">
+<div class="modal fade" data-entity="formKebersihan" data-method="hapus" data-backdrop="static" data-keyboard="false" tabindex="-1">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h5 class="modal-title">Hapus Form C2</h5>
+          <h5 class="modal-title">Hapus Form Goreng</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -219,7 +217,6 @@
     </div>
   </div>
 </div>
-
 <script src="{{ url('/assets/js/adapter/leader/TipeCabang.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/leader/Cabang.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/leader/Divisi.js') }}"></script>
@@ -228,14 +225,12 @@
 <script src="{{ url('/assets/js/adapter/leader/JenisKelamin.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/leader/Karyawan.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/leader/TugasKaryawan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/leader/AktivitasKaryawan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/leader/AtributKaryawan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/leader/ParameterAtributKaryawan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/KegiatanKebersihan.js') }}"></script>
 <script src="{{ url('/assets/js/utils/Clock.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/leader/FormAtributKaryawan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/FormKebersihan.js') }}"></script>
 <script type="text/javascript">
-  let formAtributKaryawan = FormAtributKaryawan();
+  let formKebersihan = FormKebersihan();
 
-  formAtributKaryawan.setQuery(@json($serializedQuery));
-  formAtributKaryawan.responsiveContract();
+  formKebersihan.setQuery(@json($serializedQuery));
+  formKebersihan.responsiveContract();
 </script>
