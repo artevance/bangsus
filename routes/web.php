@@ -362,6 +362,7 @@ Route::middleware('auth')->group(function () {
           });
           Route::prefix('/quality_control')->group(function () {
             Route::get('', 'QualityControl@index');
+            Route::get('/detail/{formQualityControl}', 'QualityControl@detail');
             Route::get('/get', 'QualityControl@get');
             Route::get('/search', 'QualityControl@search');
             Route::get('/cabang_harian', 'QualityControl@cabangHarian');
