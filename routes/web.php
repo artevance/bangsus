@@ -124,13 +124,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/post', 'Absensi@post')->middleware('ajax.only');
         Route::put('/put', 'Absensi@put')->middleware('ajax.only');
         Route::namespace('Absensi')->group(function () {
-
           Route::prefix('/manual')->group(function () {
             Route::get('', 'Manual@index');
             Route::get('/cabang_tipe_harian', 'Manual@cabangTipeHarian')->middleware('ajax.only');
           });
           Route::prefix('/impor_jadwal')->group(function () {
             Route::get('', 'ImporJadwal@index');
+            Route::post('/impor', 'ImporJadwal@impor');
           });
         });
       });
