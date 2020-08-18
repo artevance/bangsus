@@ -237,7 +237,7 @@ Route::middleware('auth')->group(function () {
             Route::put('/put', 'AktivitasKaryawan@put');
           });
           Route::prefix('/atribut_karyawan')->group(function () {
-            Route::get('', 'AtributKaryawan@qualityControl')->middleware('role:admin');
+            Route::get('', 'AtributKaryawan@atributKaryawan')->middleware('role:admin');
             Route::get('/detail/{atributKaryawan}', 'AtributKaryawan@parameterAtributKaryawan')->middleware('role:admin');
             Route::namespace('AtributKaryawan')->group(function () {
               Route::prefix('/atribut_karyawan')->group(function () {
@@ -266,16 +266,16 @@ Route::middleware('auth')->group(function () {
             Route::get('/detail/{areaGeneralCleaning}', 'GeneralCleaning@kegiatanGeneralCleaning')->middleware('role:admin');
             Route::namespace('GeneralCleaning')->group(function () {
               Route::prefix('/area_general_cleaning')->group(function () {
-                Route::get('/get', 'Area@get');
-                Route::get('/search', 'Area@search');
-                Route::post('/post', 'Area@post');
-                Route::put('/put', 'Area@put');
+                Route::get('/get', 'AreaGeneralCleaning@get');
+                Route::get('/search', 'AreaGeneralCleaning@search');
+                Route::post('/post', 'AreaGeneralCleaning@post');
+                Route::put('/put', 'AreaGeneralCleaning@put');
               });
               Route::prefix('/kegiatan')->group(function () {
-                Route::get('/get', 'Kegiatan@get');
-                Route::get('/search', 'Kegiatan@search');
-                Route::post('/post', 'Kegiatan@post');
-                Route::put('/put', 'Kegiatan@put');
+                Route::get('/get', 'KegiatanGeneralCleaning@get');
+                Route::get('/search', 'KegiatanGeneralCleaning@search');
+                Route::post('/post', 'KegiatanGeneralCleaning@post');
+                Route::put('/put', 'KegiatanGeneralCleaning@put');
               });
             });
           });
