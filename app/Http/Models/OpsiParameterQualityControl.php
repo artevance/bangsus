@@ -10,7 +10,7 @@ class OpsiParameterQualityControl extends Model
 
   public $timestamps = false;
 
-  public function opsi_parameter_quality_control()
+  public function parameter_quality_control()
   {
     return $this->belongsTo('App\Http\Models\ParameterQualityControl');
   }

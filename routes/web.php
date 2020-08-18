@@ -19,7 +19,7 @@ Route::get('/laravel', function () {
 
 Route::middleware('check.not.logged.in')->group(function () {  
   Route::redirect('/', '/home');
-  Route::get('/login', 'Auth\Login@index');
+  Route::get('/login', 'Auth\Login@index')->name('login');
   Route::post('/authenticate', 'Auth\Authenticate@index');
 });
 
@@ -209,23 +209,23 @@ Route::middleware('auth')->group(function () {
             Route::get('/detail/{qualityControl}', 'QualityControl@parameterQualityControl')->middleware('role:admin');
             Route::get('/detail/{qualityControl}/{parameterQualityControl}', 'QualityControl@opsiParameterQualityControl')->middleware('role:admin');
             Route::namespace('QualityControl')->group(function () {
-              Route::prefix('/qc')->group(function () {
-                Route::get('/get', 'QC@get');
-                Route::get('/search', 'QC@search');
-                Route::post('/post', 'QC@post');
-                Route::put('/put', 'QC@put');
+              Route::prefix('/quality_control')->group(function () {
+                Route::get('/get', 'QualityControl@get');
+                Route::get('/search', 'QualityControl@search');
+                Route::post('/post', 'QualityControl@post');
+                Route::put('/put', 'QualityControl@put');
               });
-              Route::prefix('/parameter_qc')->group(function () {
-                Route::get('/get', 'ParameterQC@get');
-                Route::get('/search', 'ParameterQC@search');
-                Route::post('/post', 'ParameterQC@post');
-                Route::put('/put', 'ParameterQC@put');
+              Route::prefix('/parameter_quality_control')->group(function () {
+                Route::get('/get', 'ParameterQualityControl@get');
+                Route::get('/search', 'ParameterQualityControl@search');
+                Route::post('/post', 'ParameterQualityControl@post');
+                Route::put('/put', 'ParameterQualityControl@put');
               });
-              Route::prefix('/opsi_qc')->group(function () {
-                Route::get('/get', 'OpsiQC@get');
-                Route::get('/search', 'OpsiQC@search');
-                Route::post('/post', 'OpsiQC@post');
-                Route::put('/put', 'OpsiQC@put');
+              Route::prefix('/opsi_parameter_quality_control')->group(function () {
+                Route::get('/get', 'OpsiParameterQualityControl@get');
+                Route::get('/search', 'OpsiParameterQualityControl@search');
+                Route::post('/post', 'OpsiParameterQualityControl@post');
+                Route::put('/put', 'OpsiParameterQualityControl@put');
               });
             });
           });

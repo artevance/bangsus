@@ -10,7 +10,7 @@ class ItemGoreng extends Controller
 {
   public function index(Request $request)
   {
-    $this->title('ItemGoreng | BangsusSys')->role($request->user()->role->role_code);
+    $this->title('Item Goreng | BangsusSys')->role($request->user()->role->role_code);
     return view('operasional.master.item_goreng.wrapper', $this->passParams());
   }
 
