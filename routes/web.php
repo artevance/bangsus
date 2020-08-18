@@ -370,6 +370,36 @@ Route::middleware('auth')->group(function () {
             Route::put('/put', 'QualityControl@put');
             Route::delete('/delete', 'QualityControl@delete');
           });
+          Route::prefix('/atribut_karyawan')->group(function () {
+            Route::get('', 'AtributKaryawan@index');
+            Route::get('/detail/{formAtributKaryawan}', 'AtributKaryawan@detail');
+            Route::get('/get', 'AtributKaryawan@get');
+            Route::get('/search', 'AtributKaryawan@search');
+            Route::get('/cabang_harian', 'AtributKaryawan@cabangHarian');
+            Route::post('/post', 'AtributKaryawan@post');
+            Route::put('/put', 'AtributKaryawan@put');
+            Route::delete('/delete', 'AtributKaryawan@delete');
+          });
+          Route::prefix('/kebersihan')->group(function () {
+            Route::get('', 'Kebersihan@index');
+            Route::get('/detail/{formKebersihan}', 'Kebersihan@detail');
+            Route::get('/get', 'Kebersihan@get');
+            Route::get('/search', 'Kebersihan@search');
+            Route::get('/cabang_harian', 'Kebersihan@cabangHarian');
+            Route::post('/post', 'Kebersihan@post');
+            Route::put('/put', 'Kebersihan@put');
+            Route::delete('/delete', 'Kebersihan@delete');
+          });
+          Route::prefix('/general_cleaning')->group(function () {
+            Route::get('', 'GeneralCleaning@index');
+            Route::get('/detail/{formGeneralCleaning}', 'GeneralCleaning@detail');
+            Route::get('/get', 'GeneralCleaning@get');
+            Route::get('/search', 'GeneralCleaning@search');
+            Route::get('/cabang_harian', 'GeneralCleaning@cabangHarian');
+            Route::post('/post', 'GeneralCleaning@post');
+            Route::put('/put', 'GeneralCleaning@put');
+            Route::delete('/delete', 'GeneralCleaning@delete');
+          });
         });
       });
     });

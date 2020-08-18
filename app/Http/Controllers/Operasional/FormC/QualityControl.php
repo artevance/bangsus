@@ -46,7 +46,8 @@ class QualityControl extends Controller
 
   public function detail(FormQualityControlModel $formQualityControl, Request $request)
   {
-    dd($formQualityControl->d);
+    return redirect(url()->previous());
+    // dd($formQualityControl->d);
   }
 
   public function get(Request $request)
