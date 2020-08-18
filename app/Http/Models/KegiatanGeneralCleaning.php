@@ -14,4 +14,9 @@ class KegiatanGeneralCleaning extends Model
   {
     return $this->belongsTo('App\Http\Models\AreaGeneralCleaning');
   }
+
+  public function form_general_cleaning()
+  {
+    return $this->hasMany('App\Http\Models\FormGeneralCleaning');
+  }
 }

@@ -30,7 +30,7 @@ class AtributKaryawan extends Controller
       default :
     }
 
-    $this->title('Form C2 | BangsusSys')
+    $this->title('Form C3 | BangsusSys')
       ->role($request->user()->role->role_code)
       ->query($query);
     return view('operasional.form_c.atribut_karyawan.wrapper', 

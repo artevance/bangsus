@@ -28,7 +28,7 @@ class Kebersihan extends Controller
       default :
     }
 
-    $this->title('Form C2 | BangsusSys')
+    $this->title('Form C4 | BangsusSys')
       ->role($request->user()->role->role_code)
       ->query($query);
     return view('operasional.form_c.kebersihan.wrapper', 
