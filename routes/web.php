@@ -229,6 +229,56 @@ Route::middleware('auth')->group(function () {
               });
             });
           });
+          Route::prefix('/aktivitas_karyawan')->group(function () {
+            Route::get('', 'AktivitasKaryawan@index')->middleware('role:admin');
+            Route::get('/get', 'AktivitasKaryawan@get');
+            Route::get('/search', 'AktivitasKaryawan@search');
+            Route::post('/post', 'AktivitasKaryawan@post');
+            Route::put('/put', 'AktivitasKaryawan@put');
+          });
+          Route::prefix('/atribut_karyawan')->group(function () {
+            Route::get('', 'AtributKaryawan@qualityControl')->middleware('role:admin');
+            Route::get('/detail/{atributKaryawan}', 'AtributKaryawan@parameterAtributKaryawan')->middleware('role:admin');
+            Route::namespace('AtributKaryawan')->group(function () {
+              Route::prefix('/atribut_karyawan')->group(function () {
+                Route::get('/get', 'AtributKaryawan@get');
+                Route::get('/search', 'AtributKaryawan@search');
+                Route::post('/post', 'AtributKaryawan@post');
+                Route::put('/put', 'AtributKaryawan@put');
+              });
+              Route::prefix('/parameter_atribut_karyawan')->group(function () {
+                Route::get('/get', 'ParameterAtributKaryawan@get');
+                Route::get('/search', 'ParameterAtributKaryawan@search');
+                Route::post('/post', 'ParameterAtributKaryawan@post');
+                Route::put('/put', 'ParameterAtributKaryawan@put');
+              });
+            });
+          });
+          Route::prefix('/kegiatan_kebersihan')->group(function () {
+            Route::get('', 'KegiatanKebersihan@index')->middleware('role:admin');
+            Route::get('/get', 'KegiatanKebersihan@get');
+            Route::get('/search', 'KegiatanKebersihan@search');
+            Route::post('/post', 'KegiatanKebersihan@post');
+            Route::put('/put', 'KegiatanKebersihan@put');
+          });
+          Route::prefix('/general_cleaning')->group(function () {
+            Route::get('', 'GeneralCleaning@areaGeneralCleaning')->middleware('role:admin');
+            Route::get('/detail/{areaGeneralCleaning}', 'GeneralCleaning@kegiatanGeneralCleaning')->middleware('role:admin');
+            Route::namespace('GeneralCleaning')->group(function () {
+              Route::prefix('/area_general_cleaning')->group(function () {
+                Route::get('/get', 'Area@get');
+                Route::get('/search', 'Area@search');
+                Route::post('/post', 'Area@post');
+                Route::put('/put', 'Area@put');
+              });
+              Route::prefix('/kegiatan')->group(function () {
+                Route::get('/get', 'Kegiatan@get');
+                Route::get('/search', 'Kegiatan@search');
+                Route::post('/post', 'Kegiatan@post');
+                Route::put('/put', 'Kegiatan@put');
+              });
+            });
+          });
         });
       });
       Route::prefix('/form_c')->group(function () {
@@ -310,14 +360,14 @@ Route::middleware('auth')->group(function () {
               });
             });
           });
-          Route::prefix('/qc')->group(function () {
-            Route::get('', 'QC@index');
-            Route::get('/get', 'QC@get');
-            Route::get('/search', 'QC@search');
-            Route::get('/cabang_harian', 'QC@cabangHarian');
-            Route::post('/post', 'QC@post');
-            Route::put('/put', 'QC@put');
-            Route::delete('/delete', 'QC@delete');
+          Route::prefix('/quality_control')->group(function () {
+            Route::get('', 'QualityControl@index');
+            Route::get('/get', 'QualityControl@get');
+            Route::get('/search', 'QualityControl@search');
+            Route::get('/cabang_harian', 'QualityControl@cabangHarian');
+            Route::post('/post', 'QualityControl@post');
+            Route::put('/put', 'QualityControl@put');
+            Route::delete('/delete', 'QualityControl@delete');
           });
         });
       });

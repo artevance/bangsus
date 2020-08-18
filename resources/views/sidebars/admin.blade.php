@@ -115,10 +115,13 @@
         <a href="{{ url('/operasional/master/aktivitas_karyawan') }}" class="nav-link">Aktivitas Karyawan</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Kegiatan Kebersihan</a>
+        <a href="{{ url('/operasional/master/atribut_karyawan') }}" class="nav-link">Atribut Karyawan</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">General Cleaning</a>
+        <a href="{{ url('/operasional/master/kegiatan_kebersihan') }}" class="nav-link">Kegiatan Kebersihan</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/operasional/master/general_cleaning') }}" class="nav-link">General Cleaning</a>
       </li>
     </ul>
   </div>
