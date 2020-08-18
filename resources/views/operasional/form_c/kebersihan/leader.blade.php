@@ -21,9 +21,6 @@
             </span>
           </div>
           <input type="date" class="form-control" name="tanggal_form" value="{{ $query['tanggal_form'] }}" disabled>
-          <div class="input-group-prepend">
-            <button type="submit" class="btn btn-primary" disabled><i class="fas fa-search"></i></button>
-          </div>
         </div>
       </div>
     </form>
