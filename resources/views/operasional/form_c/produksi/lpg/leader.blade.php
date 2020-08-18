@@ -213,7 +213,7 @@
         <div class="modal-body">
           <input type="hidden" name="id">
           <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-          <h6 class="text-center my-3">Apakah anda yakin ingin menghapus data absensi?</h6>
+          <h6 class="text-center my-3">Apakah anda yakin ingin menghapus data?</h6>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Hapus</button>

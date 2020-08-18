@@ -199,7 +199,7 @@
           <h6 class="text-center my-3">Apakah anda yakin ingin menghapus data?</h6>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Ubah</button>
+          <button type="submit" class="btn btn-primary">Hapus</button>
         </div>
       </form>
     </div>

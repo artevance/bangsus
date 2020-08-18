@@ -8,10 +8,24 @@
               Cabang
             </span>
           </div>
-          <select class="form-control" name="cabang_id" disabled>
+          <select class="form-control" name="cabang_id" readonly>
             @foreach($cabangs as $cabang)
-              <option value="{{ $cabang->id }}" @if($cabang->id == $query['cabang_id']) {{ 'selected' }} @endif>
-                {{ $cabang->kode_cabang }} - {{ $cabang->cabang }}
+              @if($cabang->id == $query['cabang_id'])
+                <option value="{{ $cabang->id }}" selected>
+                  {{ $cabang->kode_cabang }} - {{ $cabang->cabang }}
+                </option>
+              @endif
+            @endforeach
+          </select>
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              Quality Control
+            </span>
+          </div>
+          <select class="form-control" name="quality_control_id">
+            @foreach($qualityControls as $qualityControlData)
+              <option value="{{ $qualityControlData->id }}" @if($qualityControlData->id == $query['quality_control_id']) selected @endif>
+                {{ $qualityControlData->quality_control }}
               </option>
             @endforeach
           </select>
@@ -20,23 +34,23 @@
               Tanggal Form
             </span>
           </div>
-          <input type="date" class="form-control" name="tanggal_form" disabled value="{{ $query['tanggal_form'] }}">
+          <input type="date" class="form-control" name="tanggal_form" readonly value="{{ $query['tanggal_form'] }}">
+          <div class="input-group-prepend">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+          </div>
         </div>
       </div>
     </form>
   </div>
 </div>
-<button class="btn btn-primary mt-5" data-toggle="modal" data-target=".modal[data-entity='formTepung'][data-method='tambah']">Tambah Form Tepung</button>
+<button class="btn btn-primary mt-5" data-toggle="modal" data-target=".modal[data-entity='formQualityControl'][data-method='tambah']">Tambah Form C2</button>
 <div class="table-responsive mt-2">
-  <table class="table table-hover" data-entity="formTepung">
+  <table class="table table-hover" data-entity="formQualityControl">
     <thead>
       <th>#</th>
       <th>NIP</th>
       <th>Nama Karyawan</th>
       <th>Jam</th>
-      <th>Qty</th>
-      <th>Satuan</th>
-      <th>Tipe Proses Tepung</th>
       <th>Aksi</th>
     </thead>
     <tbody data-role="dataWrapper"></tbody>
@@ -44,12 +58,12 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" data-entity="formTepung" data-method="tambah" data-backdrop="static" data-keyboard="false" tabindex="-1">
+<div class="modal fade" data-entity="formQualityControl" data-method="tambah" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h5 class="modal-title">Tambah Form Tepung</h5>
+          <h5 class="modal-title">Tambah Form C2</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -85,37 +99,19 @@
             <select class="form-control" name="tugas_karyawan_id"></select>
             <small class="form-text text-danger" data-role="feedback" data-field="tugas_karyawan_id"></small>
           </div>
-          <div class="form-group row">
-            <div class="col-12 col-lg-3">
-              <label>Tipe Proses Tepung</label>
-              <select class="form-control" name="tipe_proses_tepung_id"></select>
-              <small class="form-text text-danger" data-role="feedback" data-field="tipe_proses_tepung_id"></small>
-            </div>
-            <div class="col-12 col-lg-3">
-              <label>Qty</label>
-              <div class="input-group">
-                <input type="number" class="form-control" name="qty">
-                <input type="hidden" name="satuan_id" value="3">
-                <div class="input-group-prepend">
-                  <small class="input-group-text">
-                    KG
-                  </small>
-                </div>  
-              </div>
-              <small class="form-text text-danger" data-role="feedback" data-field="qty"></small>
-            </div>
+          <div class="form-group">
+            <label>Quality Control</label>
+            <input type="hidden" name="quality_control_id">
+            <input type="text" class="form-control" name="quality_control" readonly>
+            <small class="form-text text-danger" data-role="feedback" data-field="quality_control"></small>
           </div>
           <div class="form-group">
             <label>Keterangan</label>
-            <textarea class="form-control form-control-sm" name="keterangan"></textarea>
-              <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
+            <textarea class="form-control" name="keterangan"></textarea>
+            <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
           </div>
-          <div class="form-group">
-            <label>Foto</label>
-            <input type="hidden" name="gambar">
-            <div data-rel="booth"></div>
-            <small class="form-text text-danger" data-role="feedback" data-field="gambar"></small>
-            <button type="button" class="btn btn-sm btn-secondary" data-rel="webcamBtn" data-role="capture">Ambil Foto</button>
+          <div class="form-group" data-entity="parameterQualityControl">
+            
           </div>
         </div>
         <div class="modal-footer">
@@ -125,12 +121,12 @@
     </div>
   </div>
 </div>
-<div class="modal fade" data-entity="formTepung" data-method="ubah" data-backdrop="static" data-keyboard="false" tabindex="-1">
+<div class="modal fade" data-entity="formQualityControl" data-method="ubah" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h5 class="modal-title">Ubah Form Tepung</h5>
+          <h5 class="modal-title">Ubah Form C2</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -167,53 +163,20 @@
             <select class="form-control" name="tugas_karyawan_id"></select>
             <small class="form-text text-danger" data-role="feedback" data-field="tugas_karyawan_id"></small>
           </div>
-          <div class="form-group row">
-            <div class="col-12 col-lg-3">
-              <label>Tipe Proses Tepung</label>
-              <select class="form-control" name="tipe_proses_tepung_id"></select>
-              <small class="form-text text-danger" data-role="feedback" data-field="tipe_proses_tepung_id"></small>
-            </div>
-            <div class="col-12 col-lg-3">
-              <label>Qty</label>
-              <div class="input-group">
-                <input type="number" class="form-control" name="qty">
-                <input type="hidden" name="satuan_id" value="3">
-                <div class="input-group-prepend">
-                  <small class="input-group-text">
-                    KG
-                  </small>
-                </div>  
-              </div>
-              <small class="form-text text-danger" data-role="feedback" data-field="qty"></small>
-            </div>
+          <div class="form-group">
+            <label>Quality Control</label>
+            <input type="hidden" name="quality_control_id">
+            <input type="text" class="form-control" name="quality_control" readonly>
+            <small class="form-text text-danger" data-role="feedback" data-field="quality_control"></small>
           </div>
           <div class="form-group">
             <label>Keterangan</label>
-            <textarea class="form-control form-control-sm" name="keterangan"></textarea>
-              <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
+            <textarea class="form-control" name="keterangan"></textarea>
+            <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Ubah</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<div class="modal fade" data-entity="formTepung" data-method="hapus" data-backdrop="static" data-keyboard="false" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <form>
-        <div class="modal-header">
-          <h5 class="modal-title">Hapus Form Tepung</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" name="id">
-          <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-          <h6 class="text-center my-3">Apakah anda yakin ingin menghapus?</h6>
+          <div class="form-group" data-entity="parameterQualityControl">
+            
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Hapus</button>
@@ -222,6 +185,29 @@
     </div>
   </div>
 </div>
+<div class="modal fade" data-entity="formQualityControl" data-method="hapus" data-backdrop="static" data-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h5 class="modal-title">Hapus Form C2</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="id">
+          <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+          <h6 class="text-center my-3">Apakah anda yakin ingin menghapus data?</h6>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Hapus</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script src="{{ url('/assets/js/adapter/leader/TipeCabang.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/leader/Cabang.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/leader/Divisi.js') }}"></script>
@@ -230,13 +216,14 @@
 <script src="{{ url('/assets/js/adapter/leader/JenisKelamin.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/leader/Karyawan.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/leader/TugasKaryawan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/leader/TipeProsesTepung.js') }}"></script>
-<script src="{{ url('/assets/js/utils/Webcam.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/QualityControl.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/ParameterQualityControl.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/OpsiParameterQualityControl.js') }}"></script>
 <script src="{{ url('/assets/js/utils/Clock.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/leader/FormTepung.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/FormQualityControl.js') }}"></script>
 <script type="text/javascript">
-  let formTepung = FormTepung();
+  let formQualityControl = FormQualityControl();
 
-  formTepung.setQuery(@json($serializedQuery));
-  formTepung.responsiveContract();
+  formQualityControl.setQuery(@json($serializedQuery));
+  formQualityControl.responsiveContract();
 </script>
