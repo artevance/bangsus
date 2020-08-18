@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \App\Http\Middleware\CheckRole::class,
-        'check.not.logged.in' => \App\Http\Middleware\CheckNotLoggedIn::class
+        'check.not.logged.in' => \App\Http\Middleware\CheckNotLoggedIn::class,
+        'ajax.only' => \App\Http\Middleware\AllowOnlyAjaxRequest::class,
     ];
 }
