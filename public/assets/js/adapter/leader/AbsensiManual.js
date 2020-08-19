@@ -68,7 +68,7 @@ function AbsensiManual()
                 <td>${item.jam_jadwal}</td>
                 <td>${item.jam_absen}</td>
                 <td>
-                  ${aksi}
+                  
                 </td>
               </tr>
             `)}

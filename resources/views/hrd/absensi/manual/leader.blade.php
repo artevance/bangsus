@@ -209,17 +209,17 @@
   </div>
 </div>
 
-<script src="{{ url('/assets/js/adapter/admin/TipeCabang.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Cabang.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Divisi.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Jabatan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/GolonganDarah.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/JenisKelamin.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Karyawan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/TugasKaryawan.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/TipeAbsensi.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/Absensi.js') }}"></script>
-<script src="{{ url('/assets/js/adapter/admin/AbsensiManual.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/TipeCabang.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Cabang.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Divisi.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Jabatan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/GolonganDarah.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/JenisKelamin.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Karyawan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/TugasKaryawan.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/TipeAbsensi.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/Absensi.js') }}"></script>
+<script src="{{ url('/assets/js/adapter/leader/AbsensiManual.js') }}"></script>
 <script type="text/javascript">
   let absensiManual = AbsensiManual();
 
