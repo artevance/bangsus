@@ -9,6 +9,6 @@ class Gambar extends Controller
 {
   public function index(GambarModel $gambar, Request $request)
   {
-    return response(base64_decode(explode(',', $gambar->konten)[1]))->header('Content-Type', 'image/jpeg');
+    return response($gambar->konten)->header('Content-Type', 'image/jpeg');
   }
 }

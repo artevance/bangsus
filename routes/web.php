@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
   Route::get('/dashboard', 'Dashboard@index');
   Route::get('/gambar/{gambar}', 'Gambar@index');
 
+  ROute::get('/migrasi', 'Migrasi@index');
+
   Route::prefix('/hrd')->group(function () {
     Route::namespace('HRD')->group(function () {
 

@@ -95,7 +95,7 @@ class ThawingAyam extends Controller
     ]);
 
     $gambarModel = new GambarModel;
-    $gambarModel->konten = $request->input('gambar');
+    $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
     $gambarModel->save();
 
     $formThawingAyamModel = new FormThawingAyamModel;
@@ -127,7 +127,7 @@ class ThawingAyam extends Controller
 
     if ($request->filled('gambar')) {
       $gambarModel = new GambarModel;
-      $gambarModel->konten = $request->input('gambar');
+      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
       $gambarModel->save();
     }
 
