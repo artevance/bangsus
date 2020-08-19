@@ -190,6 +190,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form>
+        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
         <div class="modal-header">
           <h5 class="modal-title">Hapus Absensi</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">

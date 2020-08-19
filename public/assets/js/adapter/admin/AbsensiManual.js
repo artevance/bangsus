@@ -19,7 +19,8 @@ function AbsensiManual()
     $: {
       modal: {
         tambah: modsel('absensiManual', 'tambah'),
-        ubah: modsel('absensiManual', 'ubah')
+        ubah: modsel('absensiManual', 'ubah'),
+        hapus: modsel('absensiManual', 'hapus')
       },
       table: tbsel('absensiManual'),
       search: scsel()
@@ -129,6 +130,12 @@ function AbsensiManual()
       obj.$.modal.ubah.on('hide.bs.modal', (e) => {
         $(e.currentTarget).find('form')[0].reset();
       });
+      obj.$.modal.hapus.on('show.bs.modal', (e) => {
+        $(e.currentTarget).find('[name="id"]').val($(e.relatedTarget).data('id'));
+      });
+      obj.$.modal.hapus.on('hide.bs.modal', (e) => {
+        $(e.currentTarget).find('form')[0].reset();
+      });
       obj.$.modal.tambah.find('form').on('submit', (e) => {
         e.preventDefault();
         let d = $(e.currentTarget).serializeArray();
@@ -160,6 +167,23 @@ function AbsensiManual()
             console.log(r);
             fbsel($(e.currentTarget)).empty();
             obj.$.modal.ubah.modal('hide')
+            obj.reset().load();
+          });
+      });
+      obj.$.modal.hapus.find('form').on('submit', (e) => {
+        e.preventDefault();
+        let d = $(e.currentTarget).serializeArray();
+        Object.keys(d).forEach((key) => {if (d[key] == 'null') delete d[key]});
+        obj.rel.absensi.ajax.delete(d)
+          .fail((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            Object.keys(r.responseJSON.errors).forEach((key) => fbsel($(e.currentTarget), key).empty().append(r.responseJSON.errors[key]))
+          })
+          .done((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            obj.$.modal.hapus.modal('hide')
             obj.reset().load();
           });
       });

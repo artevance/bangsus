@@ -68,4 +68,15 @@ class Absensi extends Controller
     $model->user_id = $request->input('user_id');
     $model->save();
   }
+
+  public function delete(Request $request)
+  {
+    $request->validate([
+      'id' => 'required|exists:absensi,id',
+      'user_id' => 'required|exists:user,id'
+    ]);
+
+    $model = AbsensiModel::find($request->input('id'));
+    $model->delete();
+  }
 }

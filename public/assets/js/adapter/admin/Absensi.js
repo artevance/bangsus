@@ -20,6 +20,12 @@ function Absensi()
           method: 'put',
           url: baseUrl.url('/hrd/absensi/put'),
           data: d
+        }),
+      delete: (d) =>
+        $.ajax({
+          method: 'delete',
+          url: baseUrl.url('/hrd/absensi/delete'),
+          data: d
         })
     },
   };
