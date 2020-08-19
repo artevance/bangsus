@@ -34,7 +34,7 @@ class Karyawan extends Model
 
     while (DB::table($this->table)->where('nip', $nip)->exists()) {
       $inc++;
-      $nip = $kodeCabang . $tanggalMulai . $this->mixin($inc, '0', 3);      
+      $nip = $kodeCabang . $tanggalMulai . $this->mixin($inc, '0', 3);
     }
 
     return $nip;
@@ -42,7 +42,6 @@ class Karyawan extends Model
 
   protected function mixin($data, $addon, $digit)
   {
-    $data = '1';
     $return = $data;
     for ($i = 0; $i < $digit - strlen($data); $i++) $return = $addon . $return;
     return $return;
