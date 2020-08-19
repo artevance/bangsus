@@ -21,6 +21,7 @@ class Migrasi extends Controller
   {
     $outerDBName = 'bucillop_db_bangsus_hrd';
     echo 'Begin transaction';
+    exit;
     try {
       echo '<br><br>';
       echo 'Form Thawing Ayam';
