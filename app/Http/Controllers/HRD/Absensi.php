@@ -21,8 +21,9 @@ class Absensi extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => AbsensiModel::with(['tugas_karyawan', 'user'])
-                  ->get()
+      'data' =>
+        AbsensiModel::with(['tugas_karyawan', 'user'])
+           ->get()
     ];
   }
 

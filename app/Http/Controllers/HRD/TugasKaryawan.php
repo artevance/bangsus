@@ -21,7 +21,16 @@ class TugasKaryawan extends Controller
       'id' => 'required|exists:tugas_karyawan,id'
     ]);
 
-    return ['data' => TugasKaryawanModel::with(['karyawan', 'cabang', 'jabatan', 'divisi'])->find($request->input('id'))];
+    return [
+      'data' =>
+        TugasKaryawanModel::with([
+            'karyawan',
+            'cabang',
+            'jabatan',
+            'divisi'
+          ])
+          ->find($request->input('id'))
+    ];
   }
 
   public function search(Request $request)

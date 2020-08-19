@@ -26,9 +26,10 @@ class Supplier extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => SupplierModel::with([])
-                  ->where('supplier', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        SupplierModel::with([])
+          ->where('supplier', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

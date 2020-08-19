@@ -18,6 +18,12 @@ class GeneralCleaning extends Controller
   public function kegiatanGeneralCleaning(AreaGeneralCleaningModel $areaGeneralCleaning, Request $request)
   {
     $this->title('General Cleaning | BangsusSys')->role($request->user()->role->role_code);
-    return view('operasional.master.general_cleaning.kegiatan_general_cleaning.wrapper', $this->passParams(['areaGeneralCleaning' => $areaGeneralCleaning, 'areaGeneralCleanings' => AreaGeneralCleaningModel::all()]));
+    return view(
+      'operasional.master.general_cleaning.kegiatan_general_cleaning.wrapper',
+      $this->passParams([
+        'areaGeneralCleaning' => $areaGeneralCleaning,
+        'areaGeneralCleanings' => AreaGeneralCleaningModel::all()
+      ])
+    );
   }
 }

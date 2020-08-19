@@ -26,9 +26,10 @@ class TipeAbsensi extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => TipeAbsensiModel::with([])
-                  ->where('tipe_absensi', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' => 
+        TipeAbsensiModel::with([])
+          ->where('tipe_absensi', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

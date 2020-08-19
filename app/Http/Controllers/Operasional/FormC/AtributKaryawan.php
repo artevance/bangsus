@@ -53,28 +53,31 @@ class AtributKaryawan extends Controller
       'id' => 'required|exists:form_atribut_karyawan,id'
     ]);
 
-    return ['data' => FormAtributKaryawanModel::with([
-                        'd',
-                          'd.parameter_atribut_karyawan',
-                        'tugas_karyawan', 
-                          'tugas_karyawan.cabang',
-                            'tugas_karyawan.cabang.tipe_cabang',
-                          'tugas_karyawan.divisi',
-                          'tugas_karyawan.jabatan',
-                          'tugas_karyawan.karyawan',
-                            'tugas_karyawan.karyawan.golongan_darah',
-                            'tugas_karyawan.karyawan.jenis_kelamin',
-                        'aktivitas_karyawan',
-                        'user'
-                      ])
-                      ->find($request->input('id'))];
+    return [
+      'data' =>
+        FormAtributKaryawanModel::with([
+            'd',
+              'd.parameter_atribut_karyawan',
+            'tugas_karyawan', 
+              'tugas_karyawan.cabang',
+                'tugas_karyawan.cabang.tipe_cabang',
+              'tugas_karyawan.divisi',
+              'tugas_karyawan.jabatan',
+              'tugas_karyawan.karyawan',
+                'tugas_karyawan.karyawan.golongan_darah',
+                'tugas_karyawan.karyawan.jenis_kelamin',
+            'aktivitas_karyawan',
+            'user'
+          ])
+          ->find($request->input('id'))];
   }
 
   public function search(Request $request)
   {
     return [
-      'data' => FormAtributKaryawanModel::with([])
-                  ->get()
+      'data' =>
+        FormAtributKaryawanModel::with([])
+          ->get()
     ];
   }
 
@@ -86,25 +89,26 @@ class AtributKaryawan extends Controller
     ]);
 
     return [
-      'data' => FormAtributKaryawanModel::with([
-                  'd',
-                    'd.parameter_atribut_karyawan',
-                  'tugas_karyawan', 
-                    'tugas_karyawan.cabang',
-                      'tugas_karyawan.cabang.tipe_cabang',
-                    'tugas_karyawan.divisi',
-                    'tugas_karyawan.jabatan',
-                    'tugas_karyawan.karyawan',
-                      'tugas_karyawan.karyawan.golongan_darah',
-                      'tugas_karyawan.karyawan.jenis_kelamin',
-                  'aktivitas_karyawan',
-                  'user'
-                ])
-                ->whereHas('tugas_karyawan', function ($q) use ($request) {
-                    $q->where('cabang_id', '=', $request->input('cabang_id'));
-                  })
-                ->where('tanggal_form', $request->input('tanggal_form'))
-                ->get()
+      'data' =>
+        FormAtributKaryawanModel::with([
+            'd',
+              'd.parameter_atribut_karyawan',
+            'tugas_karyawan', 
+              'tugas_karyawan.cabang',
+                'tugas_karyawan.cabang.tipe_cabang',
+              'tugas_karyawan.divisi',
+              'tugas_karyawan.jabatan',
+              'tugas_karyawan.karyawan',
+                'tugas_karyawan.karyawan.golongan_darah',
+                'tugas_karyawan.karyawan.jenis_kelamin',
+            'aktivitas_karyawan',
+            'user'
+          ])
+          ->whereHas('tugas_karyawan', function ($q) use ($request) {
+              $q->where('cabang_id', '=', $request->input('cabang_id'));
+            })
+          ->where('tanggal_form', $request->input('tanggal_form'))
+          ->get()
     ];
   }
 

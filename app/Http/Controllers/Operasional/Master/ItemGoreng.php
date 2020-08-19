@@ -26,9 +26,10 @@ class ItemGoreng extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => ItemGorengModel::with([])
-                  ->where('item_goreng', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        ItemGorengModel::with([])
+          ->where('item_goreng', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

@@ -67,7 +67,7 @@
         <a href="{{ url('/hrd/absensi/manual') }}" class="nav-link">Manual</a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/hrd/absensi/pengajuan_jadwal') }}" class="nav-link">Pengajuan Jadwal</a>
+        <a href="{{ url('/hrd/absensi/pengajuan_jadwal_absensi') }}" class="nav-link">Pengajuan Jadwal Absensi</a>
       </li>
       <li class="nav-item">
         <a href="{{ url('/hrd/absensi/impor_jadwal') }}" class="nav-link">Impor Jadwal</a>

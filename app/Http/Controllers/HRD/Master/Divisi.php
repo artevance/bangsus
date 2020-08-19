@@ -26,9 +26,10 @@ class Divisi extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => DivisiModel::with([])
-                  ->where('divisi', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        DivisiModel::with([])
+          ->where('divisi', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

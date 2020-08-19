@@ -26,9 +26,10 @@ class Sambal extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => TipeProsesSambalModel::with([])
-                  ->where('tipe_proses_sambal', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        TipeProsesSambalModel::with([])
+          ->where('tipe_proses_sambal', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

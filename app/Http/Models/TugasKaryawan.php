@@ -29,4 +29,9 @@ class TugasKaryawan extends Model
   {
     return $this->belongsTo('App\Http\Models\Jabatan');
   }
+
+  public function absensi()
+  {
+    return $this->hasMany('App\Http\Models\Absensi');
+  }
 }

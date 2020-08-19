@@ -129,7 +129,15 @@ Route::middleware('auth')->group(function () {
         Route::namespace('Absensi')->group(function () {
           Route::prefix('/manual')->group(function () {
             Route::get('', 'Manual@index');
-            Route::get('/cabang_tipe_harian', 'Manual@cabangTipeHarian')->middleware('ajax.only');
+            Route::get('/cabang_tipe_harian', 'Manual@cabangTipeHarian');
+          });
+          Route::prefix('/pengajuan_jadwal_absensi')->group(function () {
+            Route::get('', 'PengajuanJadwalAbsensi@index');
+            Route::get('/get', 'PengajuanJadwalAbsensi@get');
+            Route::post('/post', 'PengajuanJadwalAbsensi@post');
+            Route::put('/put', 'PengajuanJadwalAbsensi@put');
+            Route::delete('/delete', 'PengajuanJadwalAbsensi@delete');
+            Route::post('/post', 'PengajuanJadwalAbsensi@post');
           });
           Route::prefix('/impor_jadwal')->group(function () {
             Route::get('', 'ImporJadwal@index');

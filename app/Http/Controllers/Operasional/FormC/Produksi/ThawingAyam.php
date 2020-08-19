@@ -47,8 +47,9 @@ class ThawingAyam extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => FormThawingAyamModel::with(['tugas_karyawan', 'user'])
-                  ->get()
+      'data' =>
+        FormThawingAyamModel::with(['tugas_karyawan', 'user'])
+          ->get()
     ];
   }
 
@@ -60,24 +61,25 @@ class ThawingAyam extends Controller
     ]);
 
     return [
-      'data' => FormThawingAyamModel::with([
-                  'tugas_karyawan', 
-                    'tugas_karyawan.cabang',
-                      'tugas_karyawan.cabang.tipe_cabang',
-                    'tugas_karyawan.divisi',
-                    'tugas_karyawan.jabatan',
-                    'tugas_karyawan.karyawan',
-                      'tugas_karyawan.karyawan.golongan_darah',
-                      'tugas_karyawan.karyawan.jenis_kelamin',
-                  'satuan',
-                  'supplier',
-                  'user'
-                ])
-                ->whereHas('tugas_karyawan', function ($q) use ($request) {
-                    $q->where('cabang_id', '=', $request->input('cabang_id'));
-                  })
-                ->where('tanggal_form', $request->input('tanggal_form'))
-                ->get()
+      'data' =>
+        FormThawingAyamModel::with([
+            'tugas_karyawan', 
+              'tugas_karyawan.cabang',
+                'tugas_karyawan.cabang.tipe_cabang',
+              'tugas_karyawan.divisi',
+              'tugas_karyawan.jabatan',
+              'tugas_karyawan.karyawan',
+                'tugas_karyawan.karyawan.golongan_darah',
+                'tugas_karyawan.karyawan.jenis_kelamin',
+            'satuan',
+            'supplier',
+            'user'
+          ])
+          ->whereHas('tugas_karyawan', function ($q) use ($request) {
+              $q->where('cabang_id', '=', $request->input('cabang_id'));
+            })
+          ->where('tanggal_form', $request->input('tanggal_form'))
+          ->get()
     ];
   }
 

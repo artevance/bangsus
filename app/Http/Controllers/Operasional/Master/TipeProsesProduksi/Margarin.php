@@ -26,9 +26,10 @@ class Margarin extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => TipeProsesMargarinModel::with([])
-                  ->where('tipe_proses_margarin', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        TipeProsesMargarinModel::with([])
+          ->where('tipe_proses_margarin', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

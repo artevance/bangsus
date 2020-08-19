@@ -26,9 +26,10 @@ class TipeKontak extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => TipeKontakModel::with([])
-                  ->where('tipe_kontak', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        TipeKontakModel::with([])
+          ->where('tipe_kontak', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

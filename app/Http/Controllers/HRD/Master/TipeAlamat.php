@@ -26,9 +26,10 @@ class TipeAlamat extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => TipeAlamatModel::with([])
-                  ->where('tipe_alamat', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        TipeAlamatModel::with([])
+          ->where('tipe_alamat', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

@@ -8,6 +8,7 @@ class Login extends Controller
 {
   public function index()
   {
-    return view('auth.login');
+    $this->title('Login ke BangsusSys');
+    return view('auth.login', $this->passParams());
   }
 }

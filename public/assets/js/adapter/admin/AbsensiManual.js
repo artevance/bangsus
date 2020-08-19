@@ -52,22 +52,22 @@ function AbsensiManual()
           console.log(r);
           r.data.forEach((item, index) => {
             let aksi = '';
-            if (item.absensi_id == null)
+            if (item.absensi[0] == undefined)
               aksi += `
                 <a href="#" class="badge badge-primary" data-toggle="modal" data-target=".modal[data-entity='absensiManual'][data-method='tambah']" data-id="${item.id}">Tambah</a>
               `;
             else
               aksi += `
-                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='absensiManual'][data-method='ubah']" data-id="${item.absensi_id}">Ubah</a>
-                <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='absensiManual'][data-method='hapus']" data-id="${item.absensi_id}">Hapus</a>
+                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='absensiManual'][data-method='ubah']" data-id="${item.absensi[0].id}">Ubah</a>
+                <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='absensiManual'][data-method='hapus']" data-id="${item.absensi[0].id}">Hapus</a>
               `;
             obj.$.table.find(tbysel('dataWrapper', true)).append(`
               <tr>
                 <td>${index + 1}</td>
-                <td>${item.nip}</td>
-                <td><a href="${baseUrl.url('/hrd/tugas_karyawan/karyawan/')}${item.karyawan_id}" target="_blank">${item.nama_karyawan}</td>
-                <td>${item.jam_jadwal}</td>
-                <td>${item.jam_absen}</td>
+                <td>${item.karyawan.nip}</td>
+                <td><a href="${baseUrl.url('/hrd/tugas_karyawan/karyawan/')}${item.karyawan.karyawan_id}" target="_blank">${item.karyawan.nama_karyawan}</td>
+                <td>${item.absensi[0] != undefined ? item.absensi[0].jam_jadwal : '-'}</td>
+                <td>${item.absensi[0] != undefined ? item.absensi[0].jam_absen : '-'}</td>
                 <td>
                   ${aksi}
                 </td>

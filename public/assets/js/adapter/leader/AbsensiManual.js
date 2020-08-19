@@ -63,10 +63,10 @@ function AbsensiManual()
             obj.$.table.find(tbysel('dataWrapper', true)).append(`
               <tr>
                 <td>${index + 1}</td>
-                <td>${item.nip}</td>
-                <td><a href="${baseUrl.url('/hrd/tugas_karyawan/karyawan/')}${item.karyawan_id}" target="_blank">${item.nama_karyawan}</td>
-                <td>${item.jam_jadwal}</td>
-                <td>${item.jam_absen}</td>
+                <td>${item.karyawan.nip}</td>
+                <td><a href="${baseUrl.url('/hrd/tugas_karyawan/karyawan/')}${item.karyawan.karyawan_id}" target="_blank">${item.karyawan.nama_karyawan}</td>
+                <td>${item.absensi[0] != undefined ? item.absensi[0].jam_jadwal : '-'}</td>
+                <td>${item.absensi[0] != undefined ? item.absensi[0].jam_absen : '-'}</td>
                 <td>
                   
                 </td>

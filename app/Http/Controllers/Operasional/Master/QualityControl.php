@@ -18,7 +18,13 @@ class QualityControl extends Controller
   public function parameterQualityControl(QualityControlModel $qualityControl, Request $request)
   {
     $this->title('Quality Control | BangsusSys')->role($request->user()->role->role_code);
-    return view('operasional.master.quality_control.parameter_quality_control.wrapper', $this->passParams(['qualityControl' => $qualityControl, 'qualityControls' => QualityControlModel::all()]));
+    return view(
+      'operasional.master.quality_control.parameter_quality_control.wrapper',
+      $this->passParams([
+        'qualityControl' => $qualityControl, 
+        'qualityControls' => QualityControlModel::all()
+      ])
+    );
   }
 
   public function opsiParameterQualityControl(QualityControlModel $qualityControl, ParameterQualityControlModel $parameterQualityControl, Request $request)

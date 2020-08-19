@@ -26,9 +26,10 @@ class KegiatanKebersihan extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => KegiatanKebersihanModel::with([])
-                  ->where('kegiatan_kebersihan', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        KegiatanKebersihanModel::with([])
+          ->where('kegiatan_kebersihan', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

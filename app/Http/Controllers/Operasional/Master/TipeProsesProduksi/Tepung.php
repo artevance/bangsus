@@ -26,9 +26,10 @@ class Tepung extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => TipeProsesTepungModel::with([])
-                  ->where('tipe_proses_tepung', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        TipeProsesTepungModel::with([])
+          ->where('tipe_proses_tepung', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

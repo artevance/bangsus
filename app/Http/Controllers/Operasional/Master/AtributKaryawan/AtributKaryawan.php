@@ -14,15 +14,20 @@ class AtributKaryawan extends Controller
       'id' => 'required|exists:atribut_karyawan,id'
     ]);
 
-    return ['data' => AtributKaryawanModel::with(['parameter_atribut_karyawan'])->find($request->input('id'))];
+    return [
+      'data' =>
+        AtributKaryawanModel::with(['parameter_atribut_karyawan'])
+          ->find($request->input('id'))
+    ];
   }
 
   public function search(Request $request)
   {
     return [
-      'data' => AtributKaryawanModel::with(['parameter_atribut_karyawan'])
-                  ->where('atribut_karyawan', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' => 
+        AtributKaryawanModel::with(['parameter_atribut_karyawan'])
+          ->where('atribut_karyawan', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

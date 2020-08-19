@@ -11,7 +11,12 @@ class Cabang extends Controller
 {
   public function index(Request $request)
   {
-    $this->title('Cabang | BangsusSys')->role($request->user()->role->role_code)->query($request->query());
+    $this->title('Cabang | BangsusSys')
+      ->role(
+        $request
+          ->user()->role->role_code
+        )
+      ->query($request->query());
     return view('hrd.master.cabang.wrapper', $this->passParams());
   }
 
@@ -27,10 +32,11 @@ class Cabang extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => CabangModel::with(['tipe_cabang'])
-                  ->where('kode_cabang', 'LIKE', '%' . $request->query('q', '') . '%')
-                  ->orWhere('cabang', 'LIKE', '%' . $request->query('q', '') . '%')
-                  ->get()
+      'data' =>
+        CabangModel::with(['tipe_cabang'])
+          ->where('kode_cabang', 'LIKE', '%' . $request->query('q', '') . '%')
+          ->orWhere('cabang', 'LIKE', '%' . $request->query('q', '') . '%')
+          ->get()
     ];
   }
 

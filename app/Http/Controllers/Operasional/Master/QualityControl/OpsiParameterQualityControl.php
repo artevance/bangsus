@@ -14,12 +14,22 @@ class OpsiParameterQualityControl extends Controller
       'id' => 'required|exists:opsi_parameter_quality_control,id'
     ]);
 
-    return ['data' => OpsiParameterQualityControlModel::with(['parameter_quality_control', 'parameter_quality_control.quality_control'])->find($request->input('id'))];
+    return [
+      'data' =>
+        OpsiParameterQualityControlModel::with([
+            'parameter_quality_control',
+            'parameter_quality_control.quality_control'
+          ])
+          ->find($request->input('id'))
+    ];
   }
 
   public function search(Request $request)
   {
-    $model = OpsiParameterQualityControlModel::with(['parameter_quality_control', 'parameter_quality_control.quality_control']);
+    $model = OpsiParameterQualityControlModel::with([
+      'parameter_quality_control', 
+      'parameter_quality_control.quality_control'
+    ]);
 
     if ($request->has('parameter_quality_control_id')) $model = $model->where('parameter_quality_control_id', $request->query('parameter_quality_control_id'));
 

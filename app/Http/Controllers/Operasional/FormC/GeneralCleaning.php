@@ -52,8 +52,9 @@ class GeneralCleaning extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => FormGeneralCleaningModel::with([])
-                  ->get()
+      'data' =>
+        FormGeneralCleaningModel::with([])
+          ->get()
     ];
   }
 
@@ -64,19 +65,20 @@ class GeneralCleaning extends Controller
       'tanggal_form' => 'required|date'
     ]);
 
-    $data = KegiatanGeneralCleaningModel::with([
-        'form_general_cleaning' => function ($q) use ($request) {
-          $q->with(['tugas_karyawan', 'tugas_karyawan.karyawan'])
-            ->whereHas('tugas_karyawan', function ($q) use ($request) {
-              $q->where('cabang_id', $request->input('cabang_id'));
-            })
-            ->where('tanggal_form', $request->input('tanggal_form'));
-        }
-      ])
-      ->get();
+    $data = 
 
     return [
-      'data' => $data
+      'data' => 
+        KegiatanGeneralCleaningModel::with([
+            'form_general_cleaning' => function ($q) use ($request) {
+              $q->with(['tugas_karyawan', 'tugas_karyawan.karyawan'])
+                ->whereHas('tugas_karyawan', function ($q) use ($request) {
+                  $q->where('cabang_id', $request->input('cabang_id'));
+                })
+                ->where('tanggal_form', $request->input('tanggal_form'));
+            }
+          ])
+          ->get()
     ];
   }
 

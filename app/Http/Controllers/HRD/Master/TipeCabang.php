@@ -26,9 +26,10 @@ class TipeCabang extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => TipeCabangModel::with([])
-                  ->where('tipe_cabang', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        TipeCabangModel::with([])
+          ->where('tipe_cabang', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

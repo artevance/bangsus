@@ -14,7 +14,11 @@ class KegiatanGeneralCleaning extends Controller
       'id' => 'required|exists:kegiatan_general_cleaning,id'
     ]);
 
-    return ['data' => KegiatanGeneralCleaningModel::with(['area_general_cleaning'])->find($request->input('id'))];
+    return [
+      'data' =>
+        KegiatanGeneralCleaningModel::with(['area_general_cleaning'])
+          ->find($request->input('id'))
+    ];
   }
 
   public function search(Request $request)

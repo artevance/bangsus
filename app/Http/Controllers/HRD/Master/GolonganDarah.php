@@ -19,7 +19,12 @@ class GolonganDarah extends Controller
 
   public function search(Request $request)
   {
-    return ['data' => GolonganDarahModel::all()];
+    return [
+      'data' =>
+        GolonganDarahModel::with([])
+          ->where('golongan_darah', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
+    ];
   }
 
   public function post(Request $request)

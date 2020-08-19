@@ -14,7 +14,14 @@ class ParameterQualityControl extends Controller
       'id' => 'required|exists:parameter_quality_control,id'
     ]);
 
-    return ['data' => ParameterQualityControlModel::with(['quality_control', 'opsi_parameter_quality_control'])->find($request->input('id'))];
+    return [
+      'data' =>
+        ParameterQualityControlModel::with([
+            'quality_control',
+            'opsi_parameter_quality_control'
+          ])
+          ->find($request->input('id'))
+    ];
   }
 
   public function search(Request $request)

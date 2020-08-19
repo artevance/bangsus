@@ -14,7 +14,11 @@ class AreaGeneralCleaning extends Controller
       'id' => 'required|exists:area_general_cleaning,id'
     ]);
 
-    return ['data' => AreaGeneralCleaningModel::with(['kegiatan_general_cleaning'])->find($request->input('id'))];
+    return [
+      'data' =>
+        AreaGeneralCleaningModel::with(['kegiatan_general_cleaning'])
+          ->find($request->input('id'))
+    ];
   }
 
   public function search(Request $request)

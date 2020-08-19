@@ -26,9 +26,10 @@ class Satuan extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => SatuanModel::with([])
-                  ->where('satuan', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' => 
+        SatuanModel::with([])
+          ->where('satuan', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

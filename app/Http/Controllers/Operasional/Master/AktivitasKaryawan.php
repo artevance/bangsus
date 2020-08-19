@@ -26,9 +26,10 @@ class AktivitasKaryawan extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => AktivitasKaryawanModel::with([])
-                  ->where('aktivitas_karyawan', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        AktivitasKaryawanModel::with([])
+          ->where('aktivitas_karyawan', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

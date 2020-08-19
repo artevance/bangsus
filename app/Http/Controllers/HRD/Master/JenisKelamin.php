@@ -19,7 +19,12 @@ class JenisKelamin extends Controller
 
   public function search(Request $request)
   {
-    return ['data' => JenisKelaminModel::all()];
+    return [
+      'data' => 
+        JenisKelaminModel::with([])
+          ->where('jenis_kelamin', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
+    ];
   }
 
   public function post(Request $request)

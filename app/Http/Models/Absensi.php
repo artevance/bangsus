@@ -11,6 +11,11 @@ class Absensi extends Model
 
   public $timestamps = false;
 
+  public function tipe_absensi()
+  {
+    return $this->belongsTo('App\Http\Models\TipeAbsensi');
+  }
+
   public function tugas_karyawan()
   {
     return $this->belongsTo('App\Http\Models\TugasKaryawan');

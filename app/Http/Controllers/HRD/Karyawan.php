@@ -29,12 +29,17 @@ class Karyawan extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => KaryawanModel::with(['golongan_darah', 'jenis_kelamin', 'tugas_karyawan'])
-                  ->where('nip', 'LIKE', '%' . $request->input('q') . '%')
-                  ->orWhere('nik', 'LIKE', '%' . $request->input('q') . '%')
-                  ->orWhere('nama_karyawan', 'LIKE', '%' . $request->input('q') . '%')
-                  ->orWhere('tempat_lahir', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' => 
+        KaryawanModel::with([
+            'golongan_darah',
+            'jenis_kelamin',
+            'tugas_karyawan'
+          ])
+          ->where('nip', 'LIKE', '%' . $request->input('q') . '%')
+          ->orWhere('nik', 'LIKE', '%' . $request->input('q') . '%')
+          ->orWhere('nama_karyawan', 'LIKE', '%' . $request->input('q') . '%')
+          ->orWhere('tempat_lahir', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 
@@ -83,8 +88,14 @@ class Karyawan extends Controller
     $request->validate([
       'id' => 'required|exists:karyawan,id',
       'nik' => [
-        'required', 'integer', 'digits:16',
-        Rule::unique('karyawan')->ignore($request->input('nik'), 'nik')
+        'required',
+        'integer',
+        'digits:16',
+        Rule::unique('karyawan')
+          ->ignore(
+            $request->input('nik'),
+            'nik'
+          )
       ],
       'nama_karyawan' => 'nullable|max:200',
       'tempat_lahir' => 'nullable|max:200',

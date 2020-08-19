@@ -14,7 +14,11 @@ class ImporJadwal extends Controller
 {
   public function index(Request $request)
   {
-    $this->title('Impor Jadwal | BangsusSys')->role($request->user()->role->role_code);
+    $this->title('Impor Jadwal | BangsusSys')
+      ->role(
+        $request
+          ->user()->role->role_code
+        );
     return view('hrd.absensi.impor_jadwal.wrapper', $this->passParams());
   }
 
@@ -27,20 +31,29 @@ class ImporJadwal extends Controller
 
     $validator = Validator::make($request->all(), []);
     try {
-      $filename = $request->file('file_jadwal')->store('tmp/excel/impor_jadwal');
-      $reader = IOFactory::createReader(IOFactory::identify($filename));
+      $filename = $request
+        ->file('file_jadwal')
+        ->store('tmp/excel/impor_jadwal');
+      $reader = IOFactory::createReader(
+        IOFactory::identify($filename)
+      );
       $reader->setReadDataOnly(true);
       $jadwalSpreadsheet = $reader->load($filename);
-      $jadwalContainer = $jadwalSpreadsheet->getActiveSheet()->toArray();
+      $jadwalContainer = $jadwalSpreadsheet
+        ->getActiveSheet()
+        ->toArray();
     } catch (\Exception $e) {
       $validator->after(function ($validator) use ($request) {
-        $validator->errors()->add('impor_jadwal', 'Terjadi error: ' . $e->getMessage());
+        $validator->errors()
+          ->add(
+            'impor_jadwal', 
+            'Terjadi error: ' . $e->getMessage()
+            );
       });
     }
 
-    if ($validator->fails()) {
+    if ($validator->fails())
       return redirect(url('/hrd/absensi/impor_jadwal'))->withErrors($validator);
-    }
 
     
     $kodeCabang = $jadwalContainer[1][1] ?? null;
@@ -68,14 +81,12 @@ class ImporJadwal extends Controller
       return in_array($input->month, [1, 3, 5, 7, 8, 10, 12]);
     });
 
-    if ($validator->fails()) {
+    if ($validator->fails())
       return redirect(url('/hrd/absensi/impor_jadwal'))->withErrors($validator);
-    }
 
     $month = strlen($month) < 2 ? '0' . $month : $month;
-    foreach ($dates as $i => $date) {
+    foreach ($dates as $i => $date)
       $dates[$i] = strlen($date) < 2 ? '0' . $date : $date;
-    }
     $data = [];
     $noFinger = null;
     foreach ($jadwalContainer as $index => $jadwalData) {
@@ -87,16 +98,14 @@ class ImporJadwal extends Controller
       }
 
       if ( ! is_null($noFinger)) {
-        foreach ($jadwalData as $i => $d) {
-          if ( ! is_null($d)) {
+        foreach ($jadwalData as $i => $d)
+          if ( ! is_null($d))
             $d = is_string($d) ? trim($d, "'") : $d;
             $data[] = [
               'jam_jadwal' => $d,
               'no_finger' => $noFinger,
               'tanggal_absensi' => $year . '-' . $month . '-' . $dates[$i]
             ];
-          }
-        }
         $noFinger = null;
       }
     }

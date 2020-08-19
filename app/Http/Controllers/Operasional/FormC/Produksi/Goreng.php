@@ -47,8 +47,9 @@ class Goreng extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => FormGorengModel::with([])
-                  ->get()
+      'data' =>
+        FormGorengModel::with(['tugas_karyawan', 'user'])
+          ->get()
     ];
   }
 
@@ -60,25 +61,26 @@ class Goreng extends Controller
     ]);
 
     return [
-      'data' => FormGorengModel::with([
-                  'tugas_karyawan', 
-                    'tugas_karyawan.cabang',
-                      'tugas_karyawan.cabang.tipe_cabang',
-                    'tugas_karyawan.divisi',
-                    'tugas_karyawan.jabatan',
-                    'tugas_karyawan.karyawan',
-                      'tugas_karyawan.karyawan.golongan_darah',
-                      'tugas_karyawan.karyawan.jenis_kelamin',
-                  'item_goreng',
-                  'satuan',
-                  'supplier',
-                  'user'
-                ])
-                ->whereHas('tugas_karyawan', function ($q) use ($request) {
-                    $q->where('cabang_id', '=', $request->input('cabang_id'));
-                  })
-                ->where('tanggal_form', $request->input('tanggal_form'))
-                ->get()
+      'data' => 
+        FormGorengModel::with([
+            'tugas_karyawan', 
+              'tugas_karyawan.cabang',
+                'tugas_karyawan.cabang.tipe_cabang',
+              'tugas_karyawan.divisi',
+              'tugas_karyawan.jabatan',
+              'tugas_karyawan.karyawan',
+                'tugas_karyawan.karyawan.golongan_darah',
+                'tugas_karyawan.karyawan.jenis_kelamin',
+            'item_goreng',
+            'satuan',
+            'supplier',
+            'user'
+          ])
+          ->whereHas('tugas_karyawan', function ($q) use ($request) {
+              $q->where('cabang_id', '=', $request->input('cabang_id'));
+            })
+          ->where('tanggal_form', $request->input('tanggal_form'))
+          ->get()
     ];
   }
 
@@ -91,7 +93,7 @@ class Goreng extends Controller
       'item_goreng_id' => 'required|exists:item_goreng,id',
       'qty' => 'required|numeric',
       'satuan_id' => 'required|exists:satuan,id',
-      'supplier_id' => 'required|exists:supplier,id',
+      'supplier_id' => 'nullable|exists:supplier,id',
       'keterangan' => 'nullable|max:200',
       'user_id' => 'required|exists:user,id',
       'gambar' => 'required'

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Models\Cabang as CabangModel;
 use App\Http\Models\TipeAbsensi as TipeAbsensiModel;
 use App\Http\Models\Absensi as AbsensiModel;
+use App\Http\Models\TugasKaryawan as TugasKaryawanModel;
 
 class Manual extends Controller
 {
@@ -33,7 +34,12 @@ class Manual extends Controller
     $this->title('Absensi Manual | BangsusSys')
       ->role($request->user()->role->role_code)
       ->query($query);
-    return view('hrd.absensi.manual.wrapper', $this->passParams(['cabangs' => CabangModel::all(), 'tipeAbsensis' => TipeAbsensiModel::all()]));
+    return view('hrd.absensi.manual.wrapper',
+      $this->passParams([
+        'cabangs' => CabangModel::all(),
+        'tipeAbsensis' => TipeAbsensiModel::all()
+      ])
+    );
   }
 
   public function cabangTipeHarian(Request $request)
@@ -44,6 +50,26 @@ class Manual extends Controller
       'tanggal_absensi' => 'required|date'
     ]);
 
-    return ['data' => AbsensiModel::cabangTipeHarian($request->query('cabang_id'), $request->query('tipe_absensi_id'), $request->query('tanggal_absensi'))];
+    return [
+      'data' => 
+        TugasKaryawanModel::with([
+            'absensi' => function ($q) use ($request) {
+              $q->where('tanggal_absensi', '=', $request->input('tanggal_absensi'))
+                ->where('tipe_absensi_id', '=', $request->input('tipe_absensi_id'));
+            },
+              'absensi.tipe_absensi',
+            'cabang',
+            'jabatan',
+            'divisi',
+            'karyawan'
+          ])
+        ->where('cabang_id', $request->query('cabang_id'))
+        ->where('tanggal_mulai', '<=', $request->input('tanggal_absensi'))
+        ->where(function ($query) use ($request) {
+            $query->where('tanggal_selesai', '>=', $request->input('tanggal_absensi'))
+              ->orWhere('tanggal_selesai', null);
+          })
+        ->get()
+    ];
   }
 }

@@ -26,9 +26,10 @@ class LPG extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => TipeProsesLPGModel::with([])
-                  ->where('tipe_proses_lpg', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        TipeProsesLPGModel::with([])
+          ->where('tipe_proses_lpg', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

@@ -14,15 +14,26 @@ class QualityControl extends Controller
       'id' => 'required|exists:quality_control,id'
     ]);
 
-    return ['data' => QualityControlModel::with(['parameter_quality_control', 'parameter_quality_control.opsi_parameter_quality_control'])->find($request->input('id'))];
+    return [
+      'data' =>
+        QualityControlModel::with([
+            'parameter_quality_control',
+            'parameter_quality_control.opsi_parameter_quality_control'
+          ])
+          ->find($request->input('id'))
+    ];
   }
 
   public function search(Request $request)
   {
     return [
-      'data' => QualityControlModel::with(['parameter_quality_control', 'parameter_quality_control.opsi_parameter_quality_control'])
-                  ->where('quality_control', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        QualityControlModel::with([
+            'parameter_quality_control',
+            'parameter_quality_control.opsi_parameter_quality_control'
+          ])
+          ->where('quality_control', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

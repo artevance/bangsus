@@ -26,9 +26,10 @@ class Minyak extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => TipeProsesMinyakModel::with([])
-                  ->where('tipe_proses_minyak', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' =>
+        TipeProsesMinyakModel::with([])
+          ->where('tipe_proses_minyak', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 

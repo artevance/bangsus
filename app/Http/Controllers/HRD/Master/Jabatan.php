@@ -26,9 +26,10 @@ class Jabatan extends Controller
   public function search(Request $request)
   {
     return [
-      'data' => JabatanModel::with([])
-                  ->where('jabatan', 'LIKE', '%' . $request->input('q') . '%')
-                  ->get()
+      'data' => 
+        JabatanModel::with([])
+          ->where('jabatan', 'LIKE', '%' . $request->input('q') . '%')
+          ->get()
     ];
   }
 
