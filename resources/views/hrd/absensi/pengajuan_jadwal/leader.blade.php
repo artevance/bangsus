@@ -12,7 +12,8 @@
                       Cabang
                     </span>
                   </div>
-                  <select class="form-control" name="cabang_id">
+                  <input type="hidden" name="cabang_id" value="{{ $query['cabang_id'] }}">
+                  <select class="form-control" disabled>
                     @foreach($cabangs as $cabang)
                       <option value="{{ $cabang->id }}" @if($cabang->id == $query['cabang_id']) {{ 'selected' }} @endif>
                         {{ $cabang->kode_cabang }} - {{ $cabang->cabang }}
