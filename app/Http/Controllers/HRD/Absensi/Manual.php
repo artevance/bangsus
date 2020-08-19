@@ -16,13 +16,15 @@ class Manual extends Controller
       case 'admin' :
         $query = [
           'cabang_id' => $request->query('cabang_id', 1),
-          'tanggal_form' => $request->query('tanggal_form', date('Y-m-d'))
+          'tanggal_absensi' => $request->query('tanggal_absensi', date('Y-m-d')),
+          'tipe_absensi_id' => $request->query('tipe_absensi_id', 1)
         ];
       break;
       case 'leader' :
         $query = [
           'cabang_id' => $request->user()->tugas_karyawan->cabang_id,
-          'tanggal_form' => date('Y-m-d'),
+          'tanggal_absensi' => date('Y-m-d'),
+          'tipe_absensi_id' => $request->query('tipe_absensi_id', 1)
         ];
       break;
       default :
