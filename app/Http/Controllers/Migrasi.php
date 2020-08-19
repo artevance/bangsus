@@ -33,7 +33,11 @@ class Migrasi extends Controller
         if ( ! is_null($data->image_dir) && $data->image_dir != '') {
           $filename = explode('public/', $data->image_dir)[1];
 
-          $file = File::get($filename);
+          try {
+            $file = File::get($filename);
+          } catch (\Exception $e) {
+            continue;
+          }
 
           $gambar = new Gambar;
           $gambar->konten = $file;
@@ -61,7 +65,11 @@ class Migrasi extends Controller
         if ( ! is_null($data->image_dir) && $data->image_dir != '') {
           $filename = explode('public/', $data->image_dir)[1];
 
-          $file = File::get($filename);
+          try {
+            $file = File::get($filename);
+          } catch (\Exception $e) {
+            continue;
+          }
 
           $gambar = new Gambar;
           $gambar->konten = $file;
@@ -89,7 +97,11 @@ class Migrasi extends Controller
         if ( ! is_null($data->image_dir) && $data->image_dir != '') {
           $filename = explode('public/', $data->image_dir)[1];
 
-          $file = File::get($filename);
+          try {
+            $file = File::get($filename);
+          } catch (\Exception $e) {
+            continue;
+          }
 
           $gambar = new Gambar;
           $gambar->konten = $file;
@@ -117,7 +129,11 @@ class Migrasi extends Controller
         if ( ! is_null($data->image_dir) && $data->image_dir != '') {
           $filename = explode('public/', $data->image_dir)[1];
 
-          $file = File::get($filename);
+          try {
+            $file = File::get($filename);
+          } catch (\Exception $e) {
+            continue;
+          }
 
           $gambar = new Gambar;
           $gambar->konten = $file;
@@ -145,7 +161,11 @@ class Migrasi extends Controller
         if ( ! is_null($data->image_dir) && $data->image_dir != '') {
           $filename = explode('public/', $data->image_dir)[1];
 
-          $file = File::get($filename);
+          try {
+            $file = File::get($filename);
+          } catch (\Exception $e) {
+            continue;
+          }
 
           $gambar = new Gambar;
           $gambar->konten = $file;
@@ -173,7 +193,11 @@ class Migrasi extends Controller
         if ( ! is_null($data->image_dir) && $data->image_dir != '') {
           $filename = explode('public/', $data->image_dir)[1];
 
-          $file = File::get($filename);
+          try {
+            $file = File::get($filename);
+          } catch (\Exception $e) {
+            continue;
+          }
 
           $gambar = new Gambar;
           $gambar->konten = $file;
@@ -201,7 +225,11 @@ class Migrasi extends Controller
         if ( ! is_null($data->image_dir) && $data->image_dir != '') {
           $filename = explode('public/', $data->image_dir)[1];
 
-          $file = File::get($filename);
+          try {
+            $file = File::get($filename);
+          } catch (\Exception $e) {
+            continue;
+          }
 
           $gambar = new Gambar;
           $gambar->konten = $file;
@@ -229,7 +257,11 @@ class Migrasi extends Controller
         if ( ! is_null($data->image_dir) && $data->image_dir != '') {
           $filename = explode('public/', $data->image_dir)[1];
 
-          $file = File::get($filename);
+          try {
+            $file = File::get($filename);
+          } catch (\Exception $e) {
+            continue;
+          }
 
           $gambar = new Gambar;
           $gambar->konten = $file;
