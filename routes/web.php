@@ -125,6 +125,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/search', 'Absensi@search')->middleware('ajax.only');
         Route::post('/post', 'Absensi@post')->middleware('ajax.only');
         Route::put('/put', 'Absensi@put')->middleware('ajax.only');
+        Route::delete('/delete', 'Absensi@delete')->middleware('ajax.only');
         Route::namespace('Absensi')->group(function () {
           Route::prefix('/manual')->group(function () {
             Route::get('', 'Manual@index');
