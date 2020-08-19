@@ -131,7 +131,7 @@ function FormSambal()
             $(e.currentTarget).find('form').find('[name="kode_cabang"]').val(r.data.kode_cabang);
             $(e.currentTarget).find('form').find('[name="cabang"]').val(r.data.cabang);
           });
-        obj.rel.tugasKaryawan.ajax.search({cabang_id: obj.getQuery('cabang_id')})
+        obj.rel.tugasKaryawan.ajax.cabangHarian({cabang_id: obj.getQuery('cabang_id'), tanggal_tugas: obj.getQuery('tanggal_form')})
           .fail((r) => console.log(r))
           .done((r) => {
             console.log(r);
@@ -168,7 +168,7 @@ function FormSambal()
                 $(e.currentTarget).find('form').find('[name="kode_cabang"]').val(re.data.kode_cabang);
                 $(e.currentTarget).find('form').find('[name="cabang"]').val(re.data.cabang);
               });
-            obj.rel.tugasKaryawan.ajax.search({cabang_id: obj.getQuery('cabang_id')})
+            obj.rel.tugasKaryawan.ajax.cabangHarian({cabang_id: obj.getQuery('cabang_id'), tanggal_tugas: obj.getQuery('tanggal_form')})
               .fail((re) => console.log(re))
               .done((re) => {
                 console.log(re);

@@ -21,6 +21,12 @@ function TugasKaryawan(c)
           url: baseUrl.url('/hrd/tugas_karyawan/search'),
           data: d
         }),
+      cabangHarian: (d) =>
+        $.ajax({
+          method: 'get',
+          url: baseUrl.url('/hrd/tugas_karyawan/cabang_harian'),
+          data: d
+        }),
       post: (d) =>
         $.ajax({
           method: 'post',

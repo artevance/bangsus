@@ -45,6 +45,31 @@ class TugasKaryawan extends Controller
     ];
   }
 
+  public function cabangHarian(Request $request)
+  {
+    $request->validate([
+      'cabang_id' => 'required|exists:cabang,id',
+      'tanggal_tugas' => 'required|date'
+    ]);
+
+    return [
+      'data' =>
+        TugasKaryawanModel::with([
+            'karyawan',
+            'cabang',
+            'jabatan',
+            'divisi'
+          ])
+          ->where('cabang_id', $request->input('cabang_id'))
+          ->where('tanggal_mulai', '<=', $request->input('tanggal_tugas'))
+          ->where(function ($query) use ($request) {
+            $query->where('tanggal_selesai', '>=', $request->input('tanggal_tugas'))
+              ->orWhere('tanggal_selesai', null);
+          })
+          ->get()
+    ];
+  }
+
   public function post(Request $request)
   {
     $request->validate([

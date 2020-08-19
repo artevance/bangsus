@@ -115,6 +115,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/karyawan/{karyawan}', 'TugasKaryawan@karyawan');
         Route::get('/get', 'TugasKaryawan@get')->middleware('ajax.only');
         Route::get('/search', 'TugasKaryawan@search')->middleware('ajax.only');
+        Route::get('/cabang_harian', 'TugasKaryawan@cabangHarian');
         Route::post('/post', 'TugasKaryawan@post')->middleware('ajax.only');
         Route::put('/put', 'TugasKaryawan@put')->middleware('ajax.only');
       });

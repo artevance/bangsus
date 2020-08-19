@@ -65,8 +65,6 @@ class GeneralCleaning extends Controller
       'tanggal_form' => 'required|date'
     ]);
 
-    $data = 
-
     return [
       'data' => 
         KegiatanGeneralCleaningModel::with([
