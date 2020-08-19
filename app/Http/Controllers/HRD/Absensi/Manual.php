@@ -12,13 +12,25 @@ class Manual extends Controller
 {
   public function index(Request $request)
   {
+    switch ($request->user()->role->role_code) {
+      case 'admin' :
+        $query = [
+          'cabang_id' => $request->query('cabang_id', 1),
+          'tanggal_form' => $request->query('tanggal_form', date('Y-m-d'))
+        ];
+      break;
+      case 'leader' :
+        $query = [
+          'cabang_id' => $request->user()->tugas_karyawan->cabang_id,
+          'tanggal_form' => date('Y-m-d'),
+        ];
+      break;
+      default :
+    }
+
     $this->title('Absensi Manual | BangsusSys')
       ->role($request->user()->role->role_code)
-      ->query([
-        'cabang_id' => $request->query('cabang_id', 1),
-        'tanggal_absensi' => $request->query('tanggal_absensi', date('Y-m-d')),
-        'tipe_absensi_id' => $request->query('tipe_absensi_id', 1)
-      ]);
+      ->query($query);
     return view('hrd.absensi.manual.wrapper', $this->passParams(['cabangs' => CabangModel::all(), 'tipeAbsensis' => TipeAbsensiModel::all()]));
   }
 
