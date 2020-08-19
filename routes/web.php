@@ -135,10 +135,12 @@ Route::middleware('auth')->group(function () {
           Route::prefix('/pengajuan_jadwal_absensi')->group(function () {
             Route::get('', 'PengajuanJadwalAbsensi@index');
             Route::get('/get', 'PengajuanJadwalAbsensi@get');
+            Route::get('/search', 'PengajuanJadwalAbsensi@search');
+            Route::get('/cabang_tipe_harian', 'PengajuanJadwalAbsensi@cabangTipeHarian');
             Route::post('/post', 'PengajuanJadwalAbsensi@post');
             Route::put('/put', 'PengajuanJadwalAbsensi@put');
+            Route::put('/approve', 'PengajuanJadwalAbsensi@approve');
             Route::delete('/delete', 'PengajuanJadwalAbsensi@delete');
-            Route::post('/post', 'PengajuanJadwalAbsensi@post');
           });
           Route::prefix('/impor_jadwal')->group(function () {
             Route::get('', 'ImporJadwal@index');

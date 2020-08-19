@@ -34,4 +34,9 @@ class TugasKaryawan extends Model
   {
     return $this->hasMany('App\Http\Models\Absensi');
   }
+
+  public function pengajuan_jadwal_absensi()
+  {
+    return $this->hasMany('App\Http\Models\PengajuanJadwalAbsensi');
+  }
 }
