@@ -126,6 +126,9 @@
       <li class="nav-item">
         <a href="{{ url('/operasional/master/general_cleaning') }}" class="nav-link">General Cleaning</a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('/operasional/master/form_foto') }}" class="nav-link">Form Foto</a>
+      </li>
     </ul>
   </div>
 </li>

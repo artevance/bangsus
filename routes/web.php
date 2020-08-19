@@ -292,6 +292,24 @@ Route::middleware('auth')->group(function () {
               });
             });
           });
+          Route::prefix('/form_foto')->group(function () {
+            Route::get('', 'FormFoto@kelompokFoto')->middleware('role:admin');
+            Route::get('/detail/{kelompokFoto}', 'FormFoto@dendaFoto')->middleware('role:admin');
+            Route::namespace('FormFoto')->group(function () {
+              Route::prefix('/kelompok_foto')->group(function () {
+                Route::get('/get', 'KelompokFoto@get')->middleware('ajax.only');
+                Route::get('/search', 'KelompokFoto@search')->middleware('ajax.only');
+                Route::post('/post', 'KelompokFoto@post')->middleware('ajax.only');
+                Route::put('/put', 'KelompokFoto@put')->middleware('ajax.only');
+              });
+              Route::prefix('/denda_foto')->group(function () {
+                Route::get('/get', 'DendaFoto@get')->middleware('ajax.only');
+                Route::get('/search', 'DendaFoto@search')->middleware('ajax.only');
+                Route::post('/post', 'DendaFoto@post')->middleware('ajax.only');
+                Route::put('/put', 'DendaFoto@put')->middleware('ajax.only');
+              });
+            });
+          });
         });
       });
       Route::prefix('/form_c')->group(function () {
