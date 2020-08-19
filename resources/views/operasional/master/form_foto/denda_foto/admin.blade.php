@@ -1,4 +1,9 @@
-<div class="row">
+
+<a href="{{ url()->previous() == url()->current() ? url('/operasional/master/form_foto') : url()->previous()}}">
+  <i class="fas fa-backspace"></i> 
+  Kembali
+</a>
+<div class="row mt-4">
   <div class="col-12">
     <form data-role="search">
       <div class="form-group">
