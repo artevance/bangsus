@@ -12,6 +12,6 @@ class DendaFoto extends Model
 
   public function kelompok_foto()
   {
-    return $this->belongsTo('App\Http\Models\DendaFoto');
+    return $this->belongsTo('App\Http\Models\KelompokFoto');
   }
 }

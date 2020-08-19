@@ -24,7 +24,8 @@ class DendaFoto extends Controller
     if ($request->has('kelompok_foto_id')) $model = $model->where('kelompok_foto_id', $request->query('kelompok_foto_id'));
 
     return [
-      'data' => $model->get()
+      'data' => 
+        $model->get()
     ];
   }
 

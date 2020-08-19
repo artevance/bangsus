@@ -56,7 +56,7 @@ function DendaFoto(c)
           baseUrl.url(`/operasional/master/form_foto/detail/${obj.kelompokFotoID}${params}`)
         );
       }
-      obj.ajax.search({kelompok_foto_id: obj.kelompokFotoID})
+      obj.ajax.search(obj.query)
         .fail((r) => console.log(r))
         .done((r) => {
           console.log(r);

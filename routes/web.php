@@ -304,7 +304,7 @@ Route::middleware('auth')->group(function () {
               });
               Route::prefix('/denda_foto')->group(function () {
                 Route::get('/get', 'DendaFoto@get')->middleware('ajax.only');
-                Route::get('/search', 'DendaFoto@search')->middleware('ajax.only');
+                Route::get('/search', 'DendaFoto@search');
                 Route::post('/post', 'DendaFoto@post')->middleware('ajax.only');
                 Route::put('/put', 'DendaFoto@put')->middleware('ajax.only');
               });

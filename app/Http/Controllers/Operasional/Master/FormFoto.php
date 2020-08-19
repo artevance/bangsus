@@ -20,7 +20,12 @@ class FormFoto extends Controller
 
   public function dendaFoto(KelompokFotoModel $kelompokFoto, Request $request)
   {
-    $this->title('Denda Foto | BangsusSys')->role($request->user()->role->role_code);
+    $this->title('Denda Foto | BangsusSys')
+      ->role($request->user()->role->role_code)
+      ->query([
+        'kelompok_foto_id' => $request->query('kelompok_foto_id', 1),
+        'q' => $request->query('q', '')
+      ]);
     return view(
       'operasional.master.form_foto.denda_foto.wrapper',
       $this->passParams([

@@ -8,7 +8,7 @@
               Kelompok Foto
             </span>
           </div>
-          <select class="form-control">
+          <select class="form-control" name="kelompok_foto_id">
             @foreach($kelompokFotos as $kelompokFotoData)
               <option value="{{ $kelompokFotoData->id }}" @if($kelompokFotoData->id == $kelompokFoto->id) selected @endif>
                 {{ $kelompokFotoData->kelompok_foto }}
