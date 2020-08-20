@@ -159,6 +159,12 @@
   </div>
 </li>
 <li class="nav-item">
+  <a href="{{ url('/operasional/form_foto') }}" class="nav-link">
+    <i class="far fa-image link-icon"></i>
+    <span class="link-title">Form Foto</span>
+  </a>
+</li>
+<li class="nav-item">
   <a class="nav-link" data-toggle="collapse" href="#denda" role="button">
     <i class="far fa-hammer link-icon"></i>
     <span class="link-title">Denda</span>

@@ -451,6 +451,15 @@ Route::middleware('auth')->group(function () {
           });
         });
       });
+      Route::prefix('/form_foto')->group(function () {
+        Route::get('', 'FormFoto@index');
+        Route::get('/get', 'FormFoto@get');
+        Route::get('/search', 'FormFoto@search');
+        Route::get('/cabang_harian', 'FormFoto@cabangHarian');
+        Route::post('/post', 'FormFoto@post');
+        Route::put('/put', 'FormFoto@put');
+        Route::delete('/delete', 'FormFoto@delete');
+      });
     });
   });   
 });
