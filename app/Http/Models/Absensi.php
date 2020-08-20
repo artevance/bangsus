@@ -9,6 +9,8 @@ class Absensi extends Model
 {
   protected $table = 'absensi';
 
+  protected $guarded = [];
+
   public $timestamps = false;
 
   public function tipe_absensi()

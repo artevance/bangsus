@@ -208,7 +208,6 @@
     </div>
   </div>
 </div>
-
 <script src="{{ url('/assets/js/adapter/admin/TipeCabang.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/admin/Cabang.js') }}"></script>
 <script src="{{ url('/assets/js/adapter/admin/Divisi.js') }}"></script>

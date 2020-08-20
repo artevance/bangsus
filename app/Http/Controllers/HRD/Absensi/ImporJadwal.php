@@ -5,9 +5,11 @@ namespace App\Http\Controllers\HRD\Absensi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use App\Http\Models\Cabang as CabangModel;
 use App\Http\Models\TipeAbsensi as TipeAbsensiModel;
 use App\Http\Models\Absensi as AbsensiModel;
+use App\Http\Models\TugasKaryawan as TugasKaryawanModel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ImporJadwal extends Controller
@@ -24,11 +26,16 @@ class ImporJadwal extends Controller
 
   public function impor(Request $request)
   {
+    // First level validation.
+    // Here we check if the pre-requisite exists.
     $request->validate([
       'file_jadwal' => 'required|file:xls,xlsx',
       'user_id' => 'required|exists:user,id'
     ]);
 
+
+    // Second level validation is to check whether the PhpSpreadSheet
+    // succesfuly read the uploaded file.
     $validator = Validator::make($request->all(), []);
     try {
       $filename = $request
@@ -53,9 +60,15 @@ class ImporJadwal extends Controller
     }
 
     if ($validator->fails())
-      return redirect(url('/hrd/absensi/impor_jadwal'))->withErrors($validator);
+      return redirect(url('/hrd/absensi/impor_jadwal'))
+        ->withErrors($validator)
+        ->with('imporJadwalResult', [
+          'danger',
+          'Impor Jadwal gagal'
+        ]);
 
     
+    // Third level validation, is to check the abstract value.
     $kodeCabang = $jadwalContainer[1][1] ?? null;
     $month = $jadwalContainer[2][1] ?? null;
     $year = $jadwalContainer[2][2] ?? null;
@@ -82,8 +95,16 @@ class ImporJadwal extends Controller
     });
 
     if ($validator->fails())
-      return redirect(url('/hrd/absensi/impor_jadwal'))->withErrors($validator);
+      return redirect(url('/hrd/absensi/impor_jadwal'))
+        ->withErrors($validator)
+        ->with('imporJadwalResult', [
+          'danger',
+          'Impor Jadwal gagal'
+        ]);
 
+
+    // Fourth level validation, is to check the given data inside the container.
+    $cabangID = CabangModel::where('kode_cabang', $kodeCabang)->first()->id;
     $month = strlen($month) < 2 ? '0' . $month : $month;
     foreach ($dates as $i => $date)
       $dates[$i] = strlen($date) < 2 ? '0' . $date : $date;
@@ -99,17 +120,64 @@ class ImporJadwal extends Controller
 
       if ( ! is_null($noFinger)) {
         foreach ($jadwalData as $i => $d)
-          if ( ! is_null($d))
+          if ( ! is_null($d)) {
             $d = is_string($d) ? trim($d, "'") : $d;
             $data[] = [
               'jam_jadwal' => $d,
               'no_finger' => $noFinger,
               'tanggal_absensi' => $year . '-' . $month . '-' . $dates[$i]
             ];
+          }
         $noFinger = null;
       }
     }
 
-    return ['data' => $data];
+    // return ['data' => $data, 'cabangID' => $cabangID];
+
+    foreach ($data as $d) {
+      $noFinger = $d['no_finger'];
+      $validator = Validator::make($d, [
+        'jam_jadwal' => 'required|date_format:H:i',
+        'no_finger' => [
+          'required',
+          'numeric',
+          Rule::exists('tugas_karyawan')->where(function ($query) use ($cabangID, $noFinger) {
+            $query->where('cabang_id', $cabangID)
+              ->where('no_finger', $noFinger);
+          })
+        ],
+        'tanggal_absensi' => 'required|date_format:Y-m-d'
+      ]);
+
+      if ($validator->fails())
+        return redirect(url('/hrd/absensi/impor_jadwal'))
+          ->withErrors($validator)
+          ->with('imporJadwalResult', [
+            'danger',
+            'Impor Jadwal gagal'
+          ]);
+    }
+
+    foreach ($data as $i => $d) {
+
+      AbsensiModel::updateOrCreate([
+        'tugas_karyawan_id' => 
+          TugasKaryawanModel::with([])
+            ->where('cabang_id', $cabangID)
+            ->where('no_finger', $d['no_finger'])
+            ->first()->id,
+        'tipe_absensi_id' => 1,
+        'tanggal_absensi' => $d['tanggal_absensi']
+      ], [
+        'jam_jadwal' => $d['jam_jadwal'],
+        'user_id' => $request->input('user_id')
+      ]);
+    }
+
+    return redirect(url('/hrd/absensi/impor_jadwal'))
+      ->with('imporJadwalResult', [
+        'success',
+        'Impor Jadwal berhasil'
+      ]);
   }
 }

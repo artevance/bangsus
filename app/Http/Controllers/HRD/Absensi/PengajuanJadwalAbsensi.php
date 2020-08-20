@@ -131,13 +131,14 @@ class PengajuanJadwalAbsensi extends Controller
 
     $model = PengajuanJadwalAbsensiModel::find($request->input('id'));
 
-    $absensiModel = AbsensiModel::firstOrNew([
+    AbsensiModel::updateOrCreate([
       'tugas_karyawan_id' => $model->tugas_karyawan_id,
       'tipe_absensi_id' => $model->tipe_absensi_id,
       'tanggal_absensi' => $model->tanggal_absensi
+    ], [
+      'jam_jadwal' => $model->jam_jadwal,
+      'user_id' => $request->input('user_id')
     ]);
-    $absensiModel->jam_jadwal = $model->jam_jadwal;
-    $absensiModel->save();
 
     $model->delete();
   }
