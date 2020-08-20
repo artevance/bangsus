@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/laravel', function () {
   return view('welcome');
 });
+Route::get('/sandbox', 'Sandbox@index');
+
 
 Route::middleware('check.not.logged.in')->group(function () {  
   Route::redirect('/', '/home');
@@ -145,6 +147,13 @@ Route::middleware('auth')->group(function () {
           Route::prefix('/impor_jadwal')->group(function () {
             Route::get('', 'ImporJadwal@index');
             Route::post('/impor', 'ImporJadwal@impor');
+          });
+          Route::prefix('/impor_absensi')->group(function () {
+            Route::get('', 'ImporAbsensi@index');
+            Route::post('/impor', 'ImporAbsensi@impor');
+          });
+          Route::prefix('/laporan_jadwal')->group(function () {
+            Route::get('', 'LaporanJadwal@index');
           });
         });
       });

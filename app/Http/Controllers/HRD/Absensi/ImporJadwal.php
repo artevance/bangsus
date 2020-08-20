@@ -45,6 +45,7 @@ class ImporJadwal extends Controller
         IOFactory::identify($filename)
       );
       $reader->setReadDataOnly(true);
+      $reader->setLoadSheetsOnly('Sheet1');
       $jadwalSpreadsheet = $reader->load($filename);
       $jadwalContainer = $jadwalSpreadsheet
         ->getActiveSheet()
@@ -121,7 +122,7 @@ class ImporJadwal extends Controller
       if ( ! is_null($noFinger)) {
         foreach ($jadwalData as $i => $d)
           if ( ! is_null($d)) {
-            $d = is_string($d) ? trim($d, "'") : $d;
+            $d = substr((is_string($d) ? trim($d, "'") : $d), 0, 5);
             $data[] = [
               'jam_jadwal' => $d,
               'no_finger' => $noFinger,
@@ -177,7 +178,7 @@ class ImporJadwal extends Controller
     return redirect(url('/hrd/absensi/impor_jadwal'))
       ->with('imporJadwalResult', [
         'success',
-        'Impor Jadwal berhasil'
+        'Impor Jadwal berhasil. Cabang: ' . CabangModel::find($cabangID)->kode_cabang . ' - ' . CabangModel::find($cabangID)->cabang
       ]);
   }
 }
