@@ -89,7 +89,7 @@ class PengajuanJadwalAbsensi extends Controller
       'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'tanggal_absensi' => 'required|date_format:Y-m-d',
       'tipe_absensi_id' => 'required|exists:tipe_absensi,id',
-      'jam_jadwal' => 'required',
+      'jam_jadwal' => 'nullable',
       'user_id' => 'required|exists:user,id'
     ]);
 
@@ -117,7 +117,7 @@ class PengajuanJadwalAbsensi extends Controller
     if ($request->has('tugas_karyawan_id')) $model->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     if ($request->has('tanggal_absensi')) $model->tanggal_absensi = $request->input('tanggal_absensi');
     if ($request->has('tipe_absensi_id')) $model->tipe_absensi_id = $request->input('tipe_absensi_id');
-    if ($request->has('jam_jadwal')) $model->jam_jadwal = $request->input('jam_jadwal');
+    $model->jam_jadwal = $request->input('jam_jadwal');
     $model->user_id = $request->input('user_id');
     $model->save();
   }
