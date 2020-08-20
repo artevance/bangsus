@@ -62,7 +62,7 @@ function KelompokFoto()
               <td>${item.kelompok_foto}</td>
               <td>${item.denda_foto.length}</td>
               <td>
-                <a href="${baseUrl.url('/operasional/master/form_foto/detail/')}${item.id}" class="badge badge-info">Lihat Parameter</a>
+                <a href="${baseUrl.url('/operasional/master/form_foto/detail/?kelompok_foto_id=')}${item.id}" class="badge badge-info">Lihat Parameter</a>
                 <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='kelompokFoto'][data-method='ubah']" data-id="${item.id}">Ubah</a>
                 <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='kelompokFoto'][data-method='hapus']" data-id="${item.id}">Hapus</a>
               </td>

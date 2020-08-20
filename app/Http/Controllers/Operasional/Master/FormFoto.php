@@ -18,8 +18,14 @@ class FormFoto extends Controller
     );
   }
 
-  public function dendaFoto(KelompokFotoModel $kelompokFoto, Request $request)
+  public function dendaFoto(Request $request)
   {
+    $request->validate([
+      'kelompok_foto_id' => 'required|exists:kelompok_foto,id'
+    ]);
+
+    $kelompokFoto = KelompokFotoModel::find($request->query('kelompok_foto_id'));
+
     $this->title('Denda Foto | BangsusSys')
       ->role($request->user()->role->role_code)
       ->query([
