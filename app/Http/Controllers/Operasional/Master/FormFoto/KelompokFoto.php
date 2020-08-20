@@ -39,6 +39,7 @@ class KelompokFoto extends Controller
 
     $model = new KelompokFotoModel;
     $model->kelompok_foto = strtoupper($request->input('kelompok_foto'));
+    $model->master = 0;
     $model->save();
   }
 
@@ -50,6 +51,9 @@ class KelompokFoto extends Controller
     ]);
 
     $model = KelompokFotoModel::find($request->input('id'));
+    if ($model->master == 1) {
+      return;
+    }
     if ($request->has('kelompok_foto')) $model->kelompok_foto = strtoupper($request->input('kelompok_foto'));
     $model->save();
   }

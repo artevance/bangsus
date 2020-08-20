@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operasional\FormC\Produksi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Models\FormMinyak as FormMinyakModel;
+use App\Http\Models\FormFoto as FormFotoModel;
 use App\Http\Models\Cabang as CabangModel;
 use App\Http\Models\Gambar as GambarModel;
 
@@ -100,10 +101,21 @@ class Minyak extends Controller
     $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
     $gambarModel->save();
 
+    $formFotoModel = new FormFotoModel;
+    $formFotoModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
+    $formFotoModel->tanggal_form = $request->input('tanggal_form');
+    $formFotoModel->jam = $request->input('jam');
+    $formFotoModel->kelompok_foto_id = 6;
+    $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
+    $formFotoModel->gambar_id = $gambarModel->id;
+    $formFotoModel->user_id = $request->input('user_id');
+    $formFotoModel->save();
+
     $formMinyakModel = new FormMinyakModel;
     $formMinyakModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     $formMinyakModel->tanggal_form = $request->input('tanggal_form');
     $formMinyakModel->jam = $request->input('jam');
+    $formMinyakModel->form_foto_id = $formFotoModel->id;
     $formMinyakModel->qty = $request->input('qty');
     $formMinyakModel->satuan_id = $request->input('satuan_id');
     $formMinyakModel->tipe_proses_minyak_id = $request->input('tipe_proses_minyak_id');
@@ -143,6 +155,17 @@ class Minyak extends Controller
     if ($request->has('keterangan')) $formMinyakModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
     $formMinyakModel->user_id = $request->input('user_id');
     $formMinyakModel->save();
+
+    $formFotoModel = FormFotoModel::find($formMinyakModel->form_foto_id);
+    if ( ! is_null($formFotoModel)) {
+      if ($request->has('tugas_karyawan_id')) $formFotoModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
+      if ($request->has('tanggal_form')) $formFotoModel->tanggal_form = $request->input('tanggal_form');
+      if ($request->has('jam')) $formFotoModel->jam = $request->input('jam');
+      if ($request->has('keterangan')) $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
+      if ($request->filled('gambar')) $formFotoModel->gambar_id = $gambarModel->id;
+      $formFotoModel->user_id = $request->input('user_id');
+      $formFotoModel->save();
+    }
   }
 
   public function delete(Request $request)
@@ -155,6 +178,14 @@ class Minyak extends Controller
     $formMinyakModel = FormMinyakModel::find($request->input('id'));
     $formMinyakModel->user_id = $request->input('user_id');
     $formMinyakModel->save();
+
+    $formFotoModel = FormFotoModel::find($formMinyakModel->form_foto_id);
+    if ( ! is_null($formFotoModel)) {
+      $formFotoModel->user_id = $request->input('user_id');
+      $formFotoModel->save(); 
+      $formFotoModel->delete();
+    }
+
     $formMinyakModel->delete();
   }
 }

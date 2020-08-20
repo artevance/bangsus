@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Models\Cabang as CabangModel;
 use App\Http\Models\FormFoto as FormFotoModel;
 use App\Http\Models\Gambar as GambarModel;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class FormFoto extends Controller
 {
@@ -91,7 +93,12 @@ class FormFoto extends Controller
       'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'tanggal_form' => 'required|date_format:Y-m-d',
       'jam' => 'required',
-      'kelompok_foto_id' => 'required|exists:kelompok_foto,id',
+      'kelompok_foto_id' => [
+        'required',
+        Rule::exists('kelompok_foto', 'id')->where(function ($query) {
+          $query->where('master', 0);
+        })
+      ],
       'keterangan' => 'nullable|max:200',
       'user_id' => 'required|exists:user,id',
       'gambar' => 'required'
@@ -119,7 +126,12 @@ class FormFoto extends Controller
       'tugas_karyawan_id' => 'nullable|exists:tugas_karyawan,id',
       'tanggal_form' => 'nullable|date_format:Y-m-d',
       'jam' => 'nullable',
-      'kelompok_foto_id' => 'nullable|exists:kelompok_foto,id',
+      'kelompok_foto_id' => [
+        'nullable',
+        Rule::exists('kelompok_foto', 'id')->where(function ($query) {
+          $query->where('master', 0);
+        })
+      ],
       'keterangan' => 'nullable|max:200',
       'user_id' => 'required|exists:user,id',
       'gambar' => 'nullable'
@@ -150,6 +162,9 @@ class FormFoto extends Controller
     ]);
 
     $formFotoModel = FormFotoModel::find($request->input('id'));
+    if ($formFotoModel->kelompok_foto->master == 1) {
+      return;
+    }
     $formFotoModel->user_id = $request->input('user_id');
     $formFotoModel->save();
     $formFotoModel->delete();

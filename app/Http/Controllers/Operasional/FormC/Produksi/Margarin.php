@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operasional\FormC\Produksi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Models\FormMargarin as FormMargarinModel;
+use App\Http\Models\FormFoto as FormFotoModel;
 use App\Http\Models\Cabang as CabangModel;
 use App\Http\Models\Gambar as GambarModel;
 
@@ -100,10 +101,21 @@ class Margarin extends Controller
     $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
     $gambarModel->save();
 
+    $formFotoModel = new FormFotoModel;
+    $formFotoModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
+    $formFotoModel->tanggal_form = $request->input('tanggal_form');
+    $formFotoModel->jam = $request->input('jam');
+    $formFotoModel->kelompok_foto_id = 7;
+    $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
+    $formFotoModel->gambar_id = $gambarModel->id;
+    $formFotoModel->user_id = $request->input('user_id');
+    $formFotoModel->save();
+
     $formMargarinModel = new FormMargarinModel;
     $formMargarinModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     $formMargarinModel->tanggal_form = $request->input('tanggal_form');
     $formMargarinModel->jam = $request->input('jam');
+    $formMargarinModel->form_foto_id = $formFotoModel->id;
     $formMargarinModel->qty = $request->input('qty');
     $formMargarinModel->satuan_id = $request->input('satuan_id');
     $formMargarinModel->tipe_proses_margarin_id = $request->input('tipe_proses_margarin_id');
@@ -143,6 +155,17 @@ class Margarin extends Controller
     if ($request->has('keterangan')) $formMargarinModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
     $formMargarinModel->user_id = $request->input('user_id');
     $formMargarinModel->save();
+
+    $formFotoModel = FormFotoModel::find($formMargarinModel->form_foto_id);
+    if ( ! is_null($formFotoModel)) {
+      if ($request->has('tugas_karyawan_id')) $formFotoModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
+      if ($request->has('tanggal_form')) $formFotoModel->tanggal_form = $request->input('tanggal_form');
+      if ($request->has('jam')) $formFotoModel->jam = $request->input('jam');
+      if ($request->has('keterangan')) $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
+      if ($request->filled('gambar')) $formFotoModel->gambar_id = $gambarModel->id;
+      $formFotoModel->user_id = $request->input('user_id');
+      $formFotoModel->save();
+    }
   }
 
   public function delete(Request $request)
@@ -155,6 +178,14 @@ class Margarin extends Controller
     $formMargarinModel = FormMargarinModel::find($request->input('id'));
     $formMargarinModel->user_id = $request->input('user_id');
     $formMargarinModel->save();
+
+    $formFotoModel = FormFotoModel::find($formMargarinModel->form_foto_id);
+    if ( ! is_null($formFotoModel)) {
+      $formFotoModel->user_id = $request->input('user_id');
+      $formFotoModel->save(); 
+      $formFotoModel->delete();
+    }
+
     $formMargarinModel->delete();
   }
 }

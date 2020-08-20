@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operasional\FormC\Produksi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Models\FormMasakNasi as FormMasakNasiModel;
+use App\Http\Models\FormFoto as FormFotoModel;
 use App\Http\Models\Cabang as CabangModel;
 use App\Http\Models\Gambar as GambarModel;
 
@@ -98,10 +99,21 @@ class MasakNasi extends Controller
     $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
     $gambarModel->save();
 
+    $formFotoModel = new FormFotoModel;
+    $formFotoModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
+    $formFotoModel->tanggal_form = $request->input('tanggal_form');
+    $formFotoModel->jam = $request->input('jam');
+    $formFotoModel->kelompok_foto_id = 3;
+    $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
+    $formFotoModel->gambar_id = $gambarModel->id;
+    $formFotoModel->user_id = $request->input('user_id');
+    $formFotoModel->save();
+
     $formMasakNasiModel = new FormMasakNasiModel;
     $formMasakNasiModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     $formMasakNasiModel->tanggal_form = $request->input('tanggal_form');
     $formMasakNasiModel->jam = $request->input('jam');
+    $formMasakNasiModel->form_foto_id = $formFotoModel->id;
     $formMasakNasiModel->qty = $request->input('qty');
     $formMasakNasiModel->satuan_id = $request->input('satuan_id');
     $formMasakNasiModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
@@ -140,6 +152,17 @@ class MasakNasi extends Controller
     if ($request->filled('gambar')) $formGorengModel->gambar_id = $gambarModel->id;
     $formMasakNasiModel->user_id = $request->input('user_id');
     $formMasakNasiModel->save();
+
+    $formFotoModel = FormFotoModel::find($formMasakNasiModel->form_foto_id);
+    if ( ! is_null($formFotoModel)) {
+      if ($request->has('tugas_karyawan_id')) $formFotoModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
+      if ($request->has('tanggal_form')) $formFotoModel->tanggal_form = $request->input('tanggal_form');
+      if ($request->has('jam')) $formFotoModel->jam = $request->input('jam');
+      if ($request->has('keterangan')) $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
+      if ($request->filled('gambar')) $formFotoModel->gambar_id = $gambarModel->id;
+      $formFotoModel->user_id = $request->input('user_id');
+      $formFotoModel->save();
+    }
   }
 
   public function delete(Request $request)
@@ -152,6 +175,14 @@ class MasakNasi extends Controller
     $formMasakNasiModel = FormMasakNasiModel::find($request->input('id'));
     $formMasakNasiModel->user_id = $request->input('user_id');
     $formMasakNasiModel->save();
+
+    $formFotoModel = FormFotoModel::find($formMasakNasiModel->form_foto_id);
+    if ( ! is_null($formFotoModel)) {
+      $formFotoModel->user_id = $request->input('user_id');
+      $formFotoModel->save(); 
+      $formFotoModel->delete();
+    }
+
     $formMasakNasiModel->delete();
   }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operasional\FormC\Produksi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Models\FormThawingAyam as FormThawingAyamModel;
+use App\Http\Models\FormFoto as FormFotoModel;
 use App\Http\Models\Cabang as CabangModel;
 use App\Http\Models\Gambar as GambarModel;
 
@@ -100,10 +101,21 @@ class ThawingAyam extends Controller
     $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
     $gambarModel->save();
 
+    $formFotoModel = new FormFotoModel;
+    $formFotoModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
+    $formFotoModel->tanggal_form = $request->input('tanggal_form');
+    $formFotoModel->jam = $request->input('jam');
+    $formFotoModel->kelompok_foto_id = 1;
+    $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
+    $formFotoModel->gambar_id = $gambarModel->id;
+    $formFotoModel->user_id = $request->input('user_id');
+    $formFotoModel->save();
+
     $formThawingAyamModel = new FormThawingAyamModel;
     $formThawingAyamModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     $formThawingAyamModel->tanggal_form = $request->input('tanggal_form');
     $formThawingAyamModel->jam = $request->input('jam');
+    $formThawingAyamModel->form_foto_id = $formFotoModel->id;
     $formThawingAyamModel->qty = $request->input('qty');
     $formThawingAyamModel->satuan_id = $request->input('satuan_id');
     $formThawingAyamModel->supplier_id = $request->input('supplier_id');
@@ -143,6 +155,17 @@ class ThawingAyam extends Controller
     if ($request->has('keterangan')) $formThawingAyamModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
     $formThawingAyamModel->user_id = $request->input('user_id');
     $formThawingAyamModel->save();
+
+    $formFotoModel = FormFotoModel::find($formThawingAyamModel->form_foto_id);
+    if ( ! is_null($formFotoModel)) {
+      if ($request->has('tugas_karyawan_id')) $formFotoModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
+      if ($request->has('tanggal_form')) $formFotoModel->tanggal_form = $request->input('tanggal_form');
+      if ($request->has('jam')) $formFotoModel->jam = $request->input('jam');
+      if ($request->has('keterangan')) $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
+      if ($request->filled('gambar')) $formFotoModel->gambar_id = $gambarModel->id;
+      $formFotoModel->user_id = $request->input('user_id');
+      $formFotoModel->save();
+    }
   }
 
   public function delete(Request $request)
@@ -155,6 +178,14 @@ class ThawingAyam extends Controller
     $formThawingAyamModel = FormThawingAyamModel::find($request->input('id'));
     $formThawingAyamModel->user_id = $request->input('user_id');
     $formThawingAyamModel->save();
+
+    $formFotoModel = FormFotoModel::find($formThawingAyamModel->form_foto_id);
+    if ( ! is_null($formFotoModel)) {
+      $formFotoModel->user_id = $request->input('user_id');
+      $formFotoModel->save(); 
+      $formFotoModel->delete();
+    }
+
     $formThawingAyamModel->delete();
   }
 }

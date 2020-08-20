@@ -56,18 +56,26 @@ function KelompokFoto()
         .fail((r) => console.log(r))
         .done((r) => {
           console.log(r);
-          r.data.forEach((item, index) => obj.$.table.find(tbysel('dataWrapper', true)).append(`
-            <tr>
-              <td>${index + 1}</td>
-              <td>${item.kelompok_foto}</td>
-              <td>${item.denda_foto.length}</td>
-              <td>
-                <a href="${baseUrl.url('/operasional/master/form_foto/detail/?kelompok_foto_id=')}${item.id}" class="badge badge-info">Lihat Parameter</a>
-                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='kelompokFoto'][data-method='ubah']" data-id="${item.id}">Ubah</a>
-                <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='kelompokFoto'][data-method='hapus']" data-id="${item.id}">Hapus</a>
-              </td>
-            </tr>
-          `));  
+          r.data.forEach((item, index) => {
+            let aksi = '';
+            if (item.master == 0) {
+              aksi += `
+                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='formFoto'][data-method='ubah']" data-id="${item.id}">Ubah</a>
+                <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='formFoto'][data-method='hapus']" data-id="${item.id}">Hapus</a>
+              `;
+            }
+            obj.$.table.find(tbysel('dataWrapper', true)).append(`
+              <tr>
+                <td>${index + 1}</td>
+                <td>${item.kelompok_foto}</td>
+                <td>${item.denda_foto.length}</td>
+                <td>
+                  <a href="${baseUrl.url('/operasional/master/form_foto/detail/?kelompok_foto_id=')}${item.id}" class="badge badge-info">Lihat Parameter</a>
+                  ${aksi}
+                </td>
+              </tr>
+            `)}
+          );  
           pageSpinner.stop();
         });
     },

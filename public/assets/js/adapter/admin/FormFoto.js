@@ -75,6 +75,13 @@ function FormFoto()
         .done((r) => {
           console.log(r);
           r.data.forEach((item, index) => {
+            let aksi = ``;
+            if (item.kelompok_foto.master == 0) {
+              aksi += `
+                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='formFoto'][data-method='ubah']" data-id="${item.id}">Ubah</a>
+                <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='formFoto'][data-method='hapus']" data-id="${item.id}">Hapus</a>
+              `;
+            }
             obj.$.table.find(tbysel('dataWrapper', true)).append(`
               <tr>
                 <td>${index + 1}</td>
@@ -90,8 +97,7 @@ function FormFoto()
                   <a href="${baseUrl.url('/gambar/')}${item.gambar_id}" target="_blank">Lihat Foto</a>
                 </td>
                 <td>
-                  <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='formFoto'][data-method='ubah']" data-id="${item.id}">Ubah</a>
-                  <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='formFoto'][data-method='hapus']" data-id="${item.id}">Hapus</a>
+                  ${aksi}
                 </td>
               </tr>
             `)}
