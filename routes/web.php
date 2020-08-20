@@ -155,6 +155,15 @@ Route::middleware('auth')->group(function () {
           Route::prefix('/laporan_jadwal')->group(function () {
             Route::get('', 'LaporanJadwal@index');
           });
+          Route::prefix('/laporan_absensi')->group(function () {
+            Route::get('', 'LaporanAbsensi@index');
+          });
+          Route::prefix('/laporan_keterlambatan')->group(function () {
+            Route::get('', 'LaporanKeterlambatan@index');
+          });
+          Route::prefix('/laporan_log_absen')->group(function () {
+            Route::get('', 'LaporanLogAbsen@index');
+          });
         });
       });
     });
