@@ -214,7 +214,7 @@ function FormAtributKaryawan()
           .done((r) => {
             console.log(r);
             fbsel($(e.currentTarget)).empty();
-            obj.$.modal.tambah.modal('hide')
+            obj.$.modal.tambah.modal('hide');
             obj.reset().load();
           });
       });

@@ -138,6 +138,7 @@ class AtributKaryawan extends Controller
       $formAtributKaryawanDModel->form_atribut_karyawan_id = $formAtributKaryawanModel->id;
       $formAtributKaryawanDModel->parameter_atribut_karyawan_id = $parameter_atribut_karyawan_id;
       $formAtributKaryawanDModel->user_id = $request->input('user_id');
+      $formAtributKaryawanDModel->keterangan = '';
       $formAtributKaryawanDModel->save();
     }
   }
@@ -168,7 +169,7 @@ class AtributKaryawan extends Controller
       $formAtributKaryawanDModel = FormAtributKaryawanDModel::find($request->input('form_atribut_karyawan_d_id')[$i]);
       $formAtributKaryawanDModel->form_atribut_karyawan_id = $formAtributKaryawanModel->id;
       $formAtributKaryawanDModel->parameter_atribut_karyawan_id = $parameter_atribut_karyawan_id;
-      $formAtributKaryawanDModel->user_id = $request->input('user_id');
+      $formAtributKaryawanDModel->keterangan = '';
       $formAtributKaryawanDModel->save();
     }
   }
