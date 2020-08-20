@@ -12,14 +12,29 @@ class LaporanJadwal extends Controller
 {
   public function index(Request $request)
   {
+    switch ($request->user()->role->role_code) {
+      case 'admin' :
+        $query = [
+          'cabang_id' => $request->query('cabang_id', 1),
+          'tipe_absensi_id' => $request->query('tipe_absensi_id', 1),
+          'tanggal_awal' => $request->query('tanggal_awal', date('Y-m-d')),
+          'tanggal_akhir' => $request->query('tanggal_akhir', date('Y-m-d'))
+        ];
+      break;
+      case 'leader' :
+        $query = [
+          'cabang_id' => $request->user()->tugas_karyawan->cabang_id,
+          'tipe_absensi_id' => $request->query('tipe_absensi_id', 1),
+          'tanggal_awal' => $request->query('tanggal_awal', date('Y-m-d')),
+          'tanggal_akhir' => $request->query('tanggal_akhir', date('Y-m-d'))
+        ];
+      break;
+      default :
+    }
+
     $this->title('Laporan Jadwal | BangsusSys')
       ->role($request->user()->role->role_code)
-      ->query([
-        'cabang_id' => $request->query('cabang_id', 1),
-        'tipe_absensi_id' => $request->query('tipe_absensi_id', 1),
-        'tanggal_awal' => $request->query('tanggal_awal', date('Y-m-d')),
-        'tanggal_akhir' => $request->query('tanggal_akhir', date('Y-m-d'))
-      ]);
+      ->query($query);
 
     $generated = false;
     $results = [];
