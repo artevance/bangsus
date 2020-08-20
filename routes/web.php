@@ -18,6 +18,7 @@ Route::get('/laravel', function () {
 });
 Route::get('/sandbox', 'Sandbox@index');
 
+Route::permanentRedirect('/', '/dashboard');
 
 Route::middleware('check.not.logged.in')->group(function () {  
   Route::redirect('/', '/home');
@@ -153,16 +154,16 @@ Route::middleware('auth')->group(function () {
             Route::post('/impor', 'ImporAbsensi@impor');
           });
           Route::prefix('/laporan_jadwal')->group(function () {
-            Route::get('', 'LaporanJadwal@index');
+            Route::get('', 'LaporanJadwal@index')->middleware('role:admin');
           });
           Route::prefix('/laporan_absensi')->group(function () {
-            Route::get('', 'LaporanAbsensi@index');
+            Route::get('', 'LaporanAbsensi@index')->middleware('role:admin');
           });
           Route::prefix('/laporan_keterlambatan')->group(function () {
-            Route::get('', 'LaporanKeterlambatan@index');
+            Route::get('', 'LaporanKeterlambatan@index')->middleware('role:admin');
           });
           Route::prefix('/laporan_log_absen')->group(function () {
-            Route::get('', 'LaporanLogAbsen@index');
+            Route::get('', 'LaporanLogAbsen@index')->middleware('role:admin');
           });
         });
       });
