@@ -74,6 +74,9 @@ class ImporAbsensi extends Controller
     $month = $jadwalContainer[2][1] ?? null;
     $year = $jadwalContainer[2][2] ?? null;
     $dates = $jadwalContainer[3] ?? null;
+    foreach ($dates as $i => $date)
+      if (is_null($date))
+        unset($dates[$i]);
     $validator = Validator::make([
       'kode_cabang' => $kodeCabang,
       'month' => $month,
