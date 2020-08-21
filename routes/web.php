@@ -115,6 +115,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/put', 'Karyawan@put')->middleware('ajax.only');
       });
       Route::prefix('/tugas_karyawan')->group(function () {
+        Route::get('', 'TugasKaryawan@index');
         Route::get('/karyawan/{karyawan}', 'TugasKaryawan@karyawan');
         Route::get('/get', 'TugasKaryawan@get')->middleware('ajax.only');
         Route::get('/search', 'TugasKaryawan@search')->middleware('ajax.only');

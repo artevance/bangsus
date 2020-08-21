@@ -5,14 +5,45 @@ namespace App\Http\Controllers\HRD;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Models\Karyawan as KaryawanModel;
+use App\Http\Models\Cabang as CabangModel;
 use App\Http\Models\TugasKaryawan as TugasKaryawanModel;
 
 class TugasKaryawan extends Controller
 {
+  public function index(Request $request)
+  {
+    switch ($request->user()->role->role_code) {
+      case 'admin' :
+        $query = [
+          'cabang_id' => $request->query('cabang_id', 1),
+          'tanggal_absensi' => $request->query('tanggal_absensi', date('Y-m-d')),
+          'tipe_absensi_id' => $request->query('tipe_absensi_id', 1)
+        ];
+      break;
+      case 'leader' :
+        $query = [
+          'cabang_id' => $request->user()->tugas_karyawan->cabang_id,
+          'tanggal_absensi' => date('Y-m-d'),
+          'tipe_absensi_id' => $request->query('tipe_absensi_id', 1)
+        ];
+      break;
+      default :
+    }
+
+    $this->title('Tugas Karyawan | BangsusSys')
+      ->role($request->user()->role->role_code)
+      ->query($query);
+    return view('hrd.tugas_karyawan.wrapper',
+      $this->passParams([
+        'cabangs' => CabangModel::all()
+      ])
+    );
+  }
+
   public function karyawan(KaryawanModel $karyawan, Request $request)
   {
     $this->title('Detail Karyawan | BangsusSys')->role($request->user()->role->role_code);
-    return view('hrd.tugas_karyawan.wrapper', $this->passParams(['karyawan' => $karyawan]));
+    return view('hrd.tugas_karyawan.karyawan.wrapper', $this->passParams(['karyawan' => $karyawan]));
   }
 
   public function get(Request $request)

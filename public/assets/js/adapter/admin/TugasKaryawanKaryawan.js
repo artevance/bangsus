@@ -1,43 +1,13 @@
-function TugasKaryawan()
+function TugasKaryawanKaryawan(c)
 {
   let obj = {
+    karyawanID: c != undefined ? c.karyawanID : 0,
     rel: {
       cabang: Cabang(),
       divisi: Divisi(),
       jabatan: Jabatan(),
-      karyawan: Karyawan()
-    },
-    ajax: {
-      get: (id) =>
-        $.ajax({
-          method: 'get',
-          url: baseUrl.url('/hrd/tugas_karyawan/get'),
-          data: {id: id}
-        }),
-      search: (d) =>
-        $.ajax({
-          method: 'get',
-          url: baseUrl.url('/hrd/tugas_karyawan/search'),
-          data: d
-        }),
-      cabangHarian: (d) =>
-        $.ajax({
-          method: 'get',
-          url: baseUrl.url('/hrd/tugas_karyawan/cabang_harian'),
-          data: d
-        }),
-      post: (d) =>
-        $.ajax({
-          method: 'post',
-          url: baseUrl.url('/hrd/tugas_karyawan/post'),
-          data: d
-        }),
-      put: (d) =>
-        $.ajax({
-          method: 'put',
-          url: baseUrl.url('/hrd/tugas_karyawan/put'),
-          data: d
-        }),
+      karyawan: Karyawan(),
+      tugasKaryawan: TugasKaryawan()
     },
     $: {
       modal: {
@@ -48,31 +18,25 @@ function TugasKaryawan()
       search: scsel()
     },
 
-    setQuery: (d) => {
-      obj.query = d;
-      obj.load();
-    },
     load: (d) => {
       pageSpinner.start();
-      let params = '?';
-      obj.query.forEach((item, index) => params += item.name + '=' + item.value + '&');
-      if (history.pushState) {
-        history.pushState(
-          null,
-          null,
-          baseUrl.url(`/hrd/tugas_karyawan${params}`)
-        );
-      }
-      obj.ajax.search(obj.query)
+      obj.rel.tugasKaryawan.ajax.search({karyawan_id: obj.karyawanID})
         .fail((r) => console.log(r))
         .done((r) => {
           console.log(r);
           r.data.forEach((item, index) => obj.$.table.find(tbysel('dataWrapper', true)).append(`
             <tr>
               <td>${index + 1}</td>
-              <td>${item.karyawan.nip}</td>
-              <td>${item.karyawan.nama_karyawan}</td>
+              <td>${item.cabang.kode_cabang}</td>
+              <td>${item.cabang.cabang}</td>
+              <td>${item.divisi.divisi}</td>
+              <td>${item.jabatan.jabatan}</td>
+              <td>${item.tanggal_mulai}</td>
+              <td>${item.tanggal_selesai != null ? item.tanggal_selesai : 'Belum Selesai'}</td>
               <td>${item.no_finger != null ? item.no_finger : '-'}</td>
+              <td>
+                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='tugasKaryawan'][data-method='ubah']" data-id="${item.id}">Ubah</a>
+              </td>
             </tr>
           `));  
         pageSpinner.stop();
@@ -121,7 +85,7 @@ function TugasKaryawan()
           });
       });
       obj.$.modal.ubah.on('show.bs.modal', (e) => {
-        obj.ajax.get($(e.relatedTarget).attr('data-id'))
+        obj.rel.tugasKaryawan.ajax.get($(e.relatedTarget).attr('data-id'))
           .fail((r) => console.log(r))
           .done((r) => {
             console.log(r);
@@ -170,7 +134,7 @@ function TugasKaryawan()
         e.preventDefault();
         let d = $(e.currentTarget).serializeArray();
         Object.keys(d).forEach((key) => {if (d[key] == 'null') delete d[key]});
-        obj.ajax.post(d)
+        obj.rel.tugasKaryawan.ajax.post(d)
           .fail((r) => {
             console.log(r);
             fbsel($(e.currentTarget)).empty();
@@ -187,7 +151,7 @@ function TugasKaryawan()
         e.preventDefault();
         let d = $(e.currentTarget).serializeArray();
         Object.keys(d).forEach((key) => {if (d[key] == 'null') delete d[key]});
-        obj.ajax.put(d)
+        obj.rel.tugasKaryawan.ajax.put(d)
           .fail((r) => {
             console.log(r);
             fbsel($(e.currentTarget)).empty();

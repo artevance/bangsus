@@ -1,7 +1,6 @@
-function TugasKaryawan(c)
+function TugasKaryawan()
 {
   let obj = {
-    karyawanID: c != undefined ? c.karyawanID : 0,
     rel: {
       cabang: Cabang(),
       divisi: Divisi(),
@@ -49,25 +48,31 @@ function TugasKaryawan(c)
       search: scsel()
     },
 
+    setQuery: (d) => {
+      obj.query = d;
+      obj.load();
+    },
     load: (d) => {
       pageSpinner.start();
-      obj.ajax.search({karyawan_id: obj.karyawanID})
+      let params = '?';
+      obj.query.forEach((item, index) => params += item.name + '=' + item.value + '&');
+      if (history.pushState) {
+        history.pushState(
+          null,
+          null,
+          baseUrl.url(`/hrd/tugas_karyawan${params}`)
+        );
+      }
+      obj.ajax.search(obj.query)
         .fail((r) => console.log(r))
         .done((r) => {
           console.log(r);
           r.data.forEach((item, index) => obj.$.table.find(tbysel('dataWrapper', true)).append(`
             <tr>
               <td>${index + 1}</td>
-              <td>${item.cabang.kode_cabang}</td>
-              <td>${item.cabang.cabang}</td>
-              <td>${item.divisi.divisi}</td>
-              <td>${item.jabatan.jabatan}</td>
-              <td>${item.tanggal_mulai}</td>
-              <td>${item.tanggal_selesai != null ? item.tanggal_selesai : 'Belum Selesai'}</td>
+              <td>${item.karyawan.nip}</td>
+              <td>${item.karyawan.nama_karyawan}</td>
               <td>${item.no_finger != null ? item.no_finger : '-'}</td>
-              <td>
-                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='tugasKaryawan'][data-method='ubah']" data-id="${item.id}">Ubah</a>
-              </td>
             </tr>
           `));  
         pageSpinner.stop();
@@ -92,7 +97,7 @@ function TugasKaryawan(c)
           .fail((r) => console.log(r))
           .done((r) => {
             console.log(r);
-            obj.$.modal.tambah.find('form').find('[name="divisi_id"]').empty().append('<option value="null">-- Pilih Cabang --</option>');
+            obj.$.modal.tambah.find('form').find('[name="divisi_id"]').empty().append('<option value="null">-- Pilih Divisi --</option>');
             r.data.forEach((item, index) => obj.$.modal.tambah.find('form').find('[name="divisi_id"]').append(`
               <option value="${item.id}">${item.divisi}</option>
             `))
@@ -101,7 +106,7 @@ function TugasKaryawan(c)
           .fail((r) => console.log(r))
           .done((r) => {
             console.log(r);
-            obj.$.modal.tambah.find('form').find('[name="jabatan_id"]').empty().append('<option value="null">-- Pilih Cabang --</option>');
+            obj.$.modal.tambah.find('form').find('[name="jabatan_id"]').empty().append('<option value="null">-- Pilih Jabatan --</option>');
             r.data.forEach((item, index) => obj.$.modal.tambah.find('form').find('[name="jabatan_id"]').append(`
               <option value="${item.id}">${item.jabatan}</option>
             `))
@@ -134,7 +139,7 @@ function TugasKaryawan(c)
               .fail((re) => console.log(re))
               .done((re) => {
                 console.log(re);
-                obj.$.modal.ubah.find('form').find('[name="divisi_id"]').empty().append('<option value="null">-- Pilih Cabang --</option>');
+                obj.$.modal.ubah.find('form').find('[name="divisi_id"]').empty().append('<option value="null">-- Pilih Divisi --</option>');
                 re.data.forEach((item, index) => obj.$.modal.ubah.find('form').find('[name="divisi_id"]').append(`
                   <option value="${item.id}">${item.divisi}</option>
                 `));
@@ -144,9 +149,9 @@ function TugasKaryawan(c)
               .fail((re) => console.log(re))
               .done((re) => {
                 console.log(re);
-                obj.$.modal.ubah.find('form').find('[name="jabatan_id"]').empty().append('<option value="null">-- Pilih Cabang --</option>');
+                obj.$.modal.ubah.find('form').find('[name="jabatan_id"]').empty().append('<option value="null">-- Pilih Jabatan --</option>');
                 re.data.forEach((item, index) => obj.$.modal.ubah.find('form').find('[name="jabatan_id"]').append(`
-                  <option value="${item.id}">${item.kode_jabatan} - ${item.jabatan}</option>
+                  <option value="${item.id}">${item.jabatan}</option>
                 `));
                 obj.$.modal.ubah.find('form').find('[name="jabatan_id"]').val(r.data.jabatan.id)
               });

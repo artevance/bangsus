@@ -52,6 +52,9 @@
       <li class="nav-item">
         <a href="{{ url('/hrd/karyawan') }}" class="nav-link">Karyawan</a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('/hrd/tugas_karyawan') }}" class="nav-link">Tugas Karyawan</a>
+      </li>
     </ul>
   </div>
 </li>
