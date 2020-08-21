@@ -46,7 +46,8 @@ function FormDendaFoto()
         tambahDenda: modsel('formDendaFoto', 'tambahDenda'),
         tambahTidakDenda: modsel('formDendaFoto', 'tambahTidakDenda'),
         ubahDenda: modsel('formDendaFoto', 'ubahDenda'),
-        hapus: modsel('formDendaFoto', 'hapus')
+        hapus: modsel('formDendaFoto', 'hapus'),
+        detail: modsel('formDendaFoto', 'detail'),
       },
       table: tbsel('formDendaFoto'),
       accordion: accsel('formDendaFoto'),
@@ -87,6 +88,7 @@ function FormDendaFoto()
             } else {
               if (item.form_denda_foto.denda == 1) {
                 aksi += `
+                  <a href="#" class="badge badge-info" data-toggle="modal" data-target=".modal[data-entity='formDendaFoto'][data-method='detail']" data-id="${item.form_denda_foto.id}">Lihat Detail</a>
                   <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='formDendaFoto'][data-method='ubahDenda']" data-id="${item.form_denda_foto.id}">Ubah</a>
                 `;
               }
@@ -425,6 +427,90 @@ function FormDendaFoto()
       });
       obj.$.modal.hapus.on('hide.bs.modal', (e) => {
         $(e.currentTarget).find('form')[0].reset();
+      });
+      obj.$.modal.detail.on('show.bs.modal', (e) => {
+        obj.$.modal.detail.find('[name="id"]').val($(e.relatedTarget).data('id'));
+        obj.ajax.get($(e.relatedTarget).data('id'))
+          .fail((r) => console.log(r))
+          .done((r) => {
+            console.log(r);
+            obj.rel.cabang.ajax.get(obj.getQuery('cabang_id'))
+              .fail((re) => console.log(re))
+              .done((re) => {
+                console.log(re);
+                $(e.currentTarget).find('form').find('[name="kode_cabang"]').val(re.data.kode_cabang);
+                $(e.currentTarget).find('form').find('[name="cabang"]').val(re.data.cabang);
+              });
+            obj.rel.kelompokFoto.ajax.get(r.data.form_foto.kelompok_foto_id)
+              .fail((re) => console.log(re))
+              .done((re) => {
+                console.log(re);
+                $(e.currentTarget).find('form').find('[name="kelompok_foto_id"]').val(re.data.id);
+                $(e.currentTarget).find('form').find('[name="kelompok_foto"]').val(re.data.kelompok_foto);
+                r.data.d.forEach((item, index) => {
+                  let inc = obj.$.modal.detail.find('form').find('button[data-entity="denda"][data-role="tambah"]').data('inc');
+                  obj.$.modal.detail.find('form').find('table[data-entity="denda"]').find('[data-role="dataWrapper"]').append(`
+                      <tr id="${inc}">
+                        <td>
+                          <select class="form-control form-control-sm" name="denda_foto_id[]" disabled></select>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" name="nominal[]" disabled>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" name="keterangan[]" disabled>
+                        </td>
+                        <td>
+                          <a href="#" class="badge badge-danger" data-entity="denda" data-role="hapus" disabled>
+                            <i class="far fa-trash-alt"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    `);
+                  let ajaxInc = inc;
+                  obj.rel.dendaFoto.ajax.search({kelompok_foto_id: obj.$.modal.detail.find('form').find('[name="kelompok_foto_id"]').val()})
+                    .fail((res) => console.log(res))
+                    .done((res) => {
+                      console.log(res);
+                      obj.$.modal.detail.find('form').find('table[data-entity="denda"]').find('[data-role="dataWrapper"]')
+                        .find(`tr#${ajaxInc}`).find('[name="denda_foto_id[]"]').empty().append('<option>-- Pilih Denda Foto --</option>');
+                      res.data.forEach((it, id) => {
+                        obj.$.modal.detail.find('form').find('table[data-entity="denda"]').find('[data-role="dataWrapper"]')
+                          .find(`tr#${ajaxInc}`).find('[name="denda_foto_id[]"]')
+                          .append(`
+                            <option value="${it.id}" data-nominal="${it.nominal}">${it.denda_foto}</option>
+                          `)
+                        obj.$.modal.detail.find('form').find('table[data-entity="denda"]').find('[data-role="dataWrapper"]')
+                          .find(`tr#${ajaxInc}`).find('[name="denda_foto_id[]"]').val(item.denda_foto_id);
+                        obj.$.modal.detail.find('form').find('table[data-entity="denda"]').find('[data-role="dataWrapper"]')
+                          .find(`tr#${ajaxInc}`).find('[name="nominal[]"]').val(item.nominal);
+                        obj.$.modal.detail.find('form').find('table[data-entity="denda"]').find('[data-role="dataWrapper"]')
+                          .find(`tr#${ajaxInc}`).find('[name="keterangan[]"]').val(item.keterangan);
+                      });
+                      obj.$.modal.detail.find('form').find('table[data-entity="denda"]').find('[data-role="dataWrapper"]')
+                        .find(`tr#${ajaxInc}`).find('[name="denda_foto_id[]"]').on('change', (e) => {
+                          obj.$.modal.detail.find('form').find('table[data-entity="denda"]').find('[data-role="dataWrapper"]')
+                            .find(`tr#${ajaxInc}`).find('[name="nominal[]"]').val(obj.$.modal.detail.find('form').find('button[data-entity="denda"][data-role="tambah"]').find(':selected').data('nominal'));
+                        });
+                    })
+                  obj.$.modal.detail.find('form').find('table[data-entity="denda"]').find('[data-role="dataWrapper"]')
+                    .find(`tr#${inc}`).find('a[data-entity="denda"][data-role="hapus"]').on('click', (e) => {
+                      $(e.currentTarget).parent().parent().remove();
+                    });
+                  inc++;
+                  obj.$.modal.detail.find('form').find('button[data-entity="denda"][data-role="tambah"]').data('inc', inc);
+                });
+              });
+            $(e.currentTarget).find('form').find('[data-role="gambar"]').empty().append(`
+                <img src="${baseUrl.url('/gambar')}/${r.data.form_foto.gambar_id}">
+              `);
+                
+            Object.keys(r.data).forEach((key) => $(e.currentTarget).find(`[name="${key}"]`).val(r.data[key]));
+          })
+      });
+      obj.$.modal.detail.on('hide.bs.modal', (e) => {
+        $(e.currentTarget).find('form').find('[data-role="gambar"]').empty();
+        $(e.currentTarget).find('form').find('[data-entity="denda"][data-role="tambah"]').find('[data-role="dataWrapper"]').empty();
       });
       obj.$.modal.tambahDenda.find('form').on('submit', (e) => {
         e.preventDefault();

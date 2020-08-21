@@ -230,6 +230,67 @@
     </div>
   </div>
 </div>
+<div class="modal fade" data-entity="formDendaFoto" data-method="detail" data-backdrop="static" data-keyboard="false" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h5 class="modal-title">Detail Form Denda Foto</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="id" value="1">
+          <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+          <input type="hidden" name="form_foto_id">
+          <input type="hidden" name="denda" value="1">
+          <div class="form-group row">
+            <div class="col-12 col-lg-6">
+              <label>Tanggal Form</label>
+              <input type="date" class="form-control" name="tanggal_form" readonly>
+              <small class="form-text text-danger" data-role="feedback" data-field="tanggal_form"></small>
+            </div>
+            <div class="col-12 col-lg-6">
+              <label>Jam</label>
+              <input type="time" class="form-control" name="jam" readonly>
+              <small class="form-text text-danger" data-role="feedback" data-field="jam"></small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Kelompok Foto</label>
+            <input type="hidden" name="kelompok_foto_id">
+            <input type="text" class="form-control" name="kelompok_foto" readonly>
+            <small class="form-text text-danger" data-role="feedback" data-field="kelompok_foto_id"></small>
+          </div>
+          <div class="form-group">
+            <label>Foto</label>
+            <div data-role="gambar">
+              
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Denda</label>
+            <div class="table-responsive">
+              <table class="table" data-entity="denda">
+                <thead>
+                  <th>Denda</th>
+                  <th>Nominal</th>
+                  <th>Keterangan</th>
+                  <th>Aksi</th>
+                </thead>
+                <tbody data-role="dataWrapper"></tbody>
+              </table>
+            </div>
+            <button class="btn btn-sm btn-secondary mt-5" type="button" data-entity="denda" data-role="tambah" data-inc="1" disabled>
+              + Tambah Denda
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 <script src="{{ url('/assets/js/adapter/admin/TipeCabang.js') }}"></script>
