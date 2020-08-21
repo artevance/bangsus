@@ -457,6 +457,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/get', 'FormFoto@get')->middleware('ajax.only');
         Route::get('/search', 'FormFoto@search')->middleware('ajax.only');
         Route::get('/cabang_harian', 'FormFoto@cabangHarian');
+        Route::get('/cabang_kelompok_harian', 'FormFoto@cabangKelompokHarian');
         Route::post('/post', 'FormFoto@post')->middleware('ajax.only');
         Route::put('/put', 'FormFoto@put')->middleware('ajax.only');
         Route::delete('/delete', 'FormFoto@delete')->middleware('ajax.only');

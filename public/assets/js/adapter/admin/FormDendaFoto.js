@@ -74,7 +74,7 @@ function FormDendaFoto()
           baseUrl.url(`/operasional/form_denda_foto${params}`)
         );
       }
-      obj.rel.formFoto.ajax.cabangHarian(obj.query)
+      obj.rel.formFoto.ajax.cabangKelompokHarian(obj.query)
         .fail((r) => console.log(r))
         .done((r) => {
           console.log(r);

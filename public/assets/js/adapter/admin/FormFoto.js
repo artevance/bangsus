@@ -21,6 +21,12 @@ function FormFoto()
           url: baseUrl.url('/operasional/form_foto/cabang_harian'),
           data: d
         }),
+      cabangKelompokHarian: (d) =>
+        $.ajax({
+          method: 'get',
+          url: baseUrl.url('/operasional/form_foto/cabang_kelompok_harian'),
+          data: d
+        }),
       post: (d) =>
         $.ajax({
           method: 'post',

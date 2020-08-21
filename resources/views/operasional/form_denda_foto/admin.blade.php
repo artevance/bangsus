@@ -17,6 +17,18 @@
           </select>
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">
+              Kelompok Foto
+            </span>
+          </div>
+          <select class="form-control" name="kelompok_foto_id">
+            @foreach($kelompokFotos as $kelompokFoto)
+              <option value="{{ $kelompokFoto->id }}" @if($kelompokFoto->id == $query['kelompok_foto_id']) {{ 'selected' }} @endif>
+                {{ $kelompokFoto->kelompok_foto }}
+              </option>
+            @endforeach
+          </select>
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
               Tanggal Form
             </span>
           </div>

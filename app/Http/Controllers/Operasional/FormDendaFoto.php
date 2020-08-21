@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operasional;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Models\Cabang as CabangModel;
+use App\Http\Models\KelompokFoto as KelompokFotoModel;
 use App\Http\Models\FormFoto as FormFotoModel;
 use App\Http\Models\FormDendaFoto as FormDendaFotoModel;
 use App\Http\Models\FormDendaFotoD as FormDendaFotoDModel;
@@ -18,6 +19,7 @@ class FormDendaFoto extends Controller
       case 'admin' :
         $query = [
           'cabang_id' => $request->query('cabang_id', 1),
+          'kelompok_foto_id' => $request->query('kelompok_foto_id', 1),
           'tanggal_form' => $request->query('tanggal_form', date('Y-m-d'))
         ];
       break;
@@ -35,7 +37,8 @@ class FormDendaFoto extends Controller
       ->query($query);
     return view('operasional.form_denda_foto.wrapper', 
       $this->passParams([
-        'cabangs' => CabangModel::all()
+        'cabangs' => CabangModel::all(),
+        'kelompokFotos' => KelompokFotoModel::all()
       ]
     ));
   }
