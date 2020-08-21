@@ -6,6 +6,20 @@
   </a>
 </li>
 <li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#karyawan" role="button">
+    <i class="far fa-users link-icon"></i>
+    <span class="link-title">Karyawan</span>
+    <i class="link-arrow" data-feather="chevron-down"></i>
+  </a>
+  <div class="collapse" id="karyawan">
+    <ul class="nav sub-menu">
+      <li class="nav-item">
+        <a href="{{ url('/hrd/tugas_karyawan') }}" class="nav-link">Tugas Karyawan</a>
+      </li>
+    </ul>
+  </div>
+</li>
+<li class="nav-item">
   <a class="nav-link" data-toggle="collapse" href="#absensi" role="button">
     <i class="far fa-users-class link-icon"></i>
     <span class="link-title">Absensi</span>
