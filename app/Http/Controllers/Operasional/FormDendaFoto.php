@@ -58,7 +58,7 @@ class FormDendaFoto extends Controller
           $kelompokFotoID = is_null($model)
             ? 0
             : $model->kelompok_foto_id;
-          $query->where('kelompok_foto_id', 1);
+          $query->where('kelompok_foto_id', $kelompokFotoID);
         })
       ],
       'nominal.*' => 'nullable|numeric',
