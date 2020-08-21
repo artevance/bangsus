@@ -106,8 +106,8 @@ class Karyawan extends Controller
 
     $model = KaryawanModel::find($request->input('id'));
     if ($request->has('nik')) $model->nik = $request->input('nik');
-    if ($request->has('nama_karyawan')) $model->nama_karyawan = $request->input('nama_karyawan');
-    if ($request->has('tempat_lahir')) $model->tempat_lahir = $request->input('tempat_lahir');
+    if ($request->has('nama_karyawan')) $model->nama_karyawan = strtoupper($request->input('nama_karyawan'));
+    if ($request->has('tempat_lahir')) $model->tempat_lahir = strtoupper($request->input('tempat_lahir'));
     if ($request->has('tanggal_lahir')) $model->tanggal_lahir = $request->input('tanggal_lahir');
     if ($request->has('golongan_darah_id')) $model->golongan_darah_id = $request->input('golongan_darah_id');
     if ($request->has('jenis_kelamin_id')) $model->jenis_kelamin_id = $request->input('jenis_kelamin_id');
