@@ -99,10 +99,16 @@ function FormDendaFoto()
             obj.$.accordion.append(`
               <div class="card">
                 <div class="card-header" id="headingOne" data-toggle="collapse" data-target="[data-id='${item.id}']" aria-expanded="true" aria-controls="collapseOne">
-                  <h5><a href="#">#${index + 1} - ${item.kelompok_foto.kelompok_foto} - ${item.jam}</a></h5>
-                  <p>${item.tugas_karyawan.karyawan.nip} - ${item.tugas_karyawan.karyawan.nama_karyawan}</p>
+                  <div class="row">
+                    <h5 class="d-flex align-items-center mx-3 text-muted"><i class="far fa-chevron-down"></i></h5>
+                    <div class="col-6">
+                      <h5><a href="#">#${index + 1} - ${item.kelompok_foto.kelompok_foto} - ${item.jam}</a></h5>
+                      <p>${item.tugas_karyawan.karyawan.nip} - <b>${item.tugas_karyawan.karyawan.nama_karyawan}</b></p>
+                      <p>${item.form_denda_foto == null ? '<span class="text-danger">BELUM DIPERIKSA</span>' : '<span class="text-success">SUDAH DIPERIKSA</span>'}</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="collapse show" aria-labelledby="headingOne" data-parent="[data-entity='formDendaFoto']" data-id="${item.id}">
+                <div class="collapse" aria-labelledby="headingOne" data-parent="[data-entity='formDendaFoto']" data-id="${item.id}">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-xl-4">
