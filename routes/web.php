@@ -454,12 +454,21 @@ Route::middleware('auth')->group(function () {
       });
       Route::prefix('/form_foto')->group(function () {
         Route::get('', 'FormFoto@index');
-        Route::get('/get', 'FormFoto@get');
-        Route::get('/search', 'FormFoto@search');
+        Route::get('/get', 'FormFoto@get')->middleware('ajax.only');
+        Route::get('/search', 'FormFoto@search')->middleware('ajax.only');
         Route::get('/cabang_harian', 'FormFoto@cabangHarian');
-        Route::post('/post', 'FormFoto@post');
-        Route::put('/put', 'FormFoto@put');
-        Route::delete('/delete', 'FormFoto@delete');
+        Route::post('/post', 'FormFoto@post')->middleware('ajax.only');
+        Route::put('/put', 'FormFoto@put')->middleware('ajax.only');
+        Route::delete('/delete', 'FormFoto@delete')->middleware('ajax.only');
+      });
+      Route::prefix('/form_denda_foto')->group(function () {
+        Route::get('', 'FormDendaFoto@index');
+        Route::get('/get', 'FormDendaFoto@get');
+        Route::get('/search', 'FormDendaFoto@search');
+        Route::get('/cabang_harian', 'FormDendaFoto@cabangHarian');
+        Route::post('/post', 'FormDendaFoto@post');
+        Route::put('/put', 'FormDendaFoto@put');
+        Route::delete('/delete', 'FormDendaFoto@delete');
       });
     });
   });   

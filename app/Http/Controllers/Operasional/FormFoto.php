@@ -43,7 +43,7 @@ class FormFoto extends Controller
   public function get(Request $request)
   {
     $request->validate([
-      'id' => 'required|exists:form_goreng,id'
+      'id' => 'required|exists:form_foto,id'
     ]);
 
     return ['data' => FormFotoModel::find($request->input('id'))];
@@ -53,7 +53,7 @@ class FormFoto extends Controller
   {
     return [
       'data' =>
-        FormFotoModel::with(['tugas_karyawan', 'user'])
+        FormFotoModel::with(['tugas_karyawan', 'user', 'form_denda_foto', 'form_denda_foto.d', 'form_denda_foto.total'])
           ->get()
     ];
   }
@@ -77,7 +77,9 @@ class FormFoto extends Controller
                 'tugas_karyawan.karyawan.golongan_darah',
                 'tugas_karyawan.karyawan.jenis_kelamin',
             'kelompok_foto',
-            'user'
+            'user',
+            'form_denda_foto',
+              'form_denda_foto.d'
           ])
           ->whereHas('tugas_karyawan', function ($q) use ($request) {
               $q->where('cabang_id', '=', $request->input('cabang_id'));
@@ -122,7 +124,7 @@ class FormFoto extends Controller
   public function put(Request $request)
   {
     $request->validate([
-      'id' => 'required|exists:form_goreng,id',
+      'id' => 'required|exists:form_foto,id',
       'tugas_karyawan_id' => 'nullable|exists:tugas_karyawan,id',
       'tanggal_form' => 'nullable|date_format:Y-m-d',
       'jam' => 'nullable',
@@ -157,7 +159,7 @@ class FormFoto extends Controller
   public function delete(Request $request)
   {
     $request->validate([
-      'id' => 'required|exists:form_goreng,id',
+      'id' => 'required|exists:form_foto,id',
       'user_id' => 'required|exists:user,id'
     ]);
 

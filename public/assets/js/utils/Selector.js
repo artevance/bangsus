@@ -32,6 +32,16 @@ function tbsel(entity, element = true) {
   return TableSelector(entity, element);
 }
 
+function AccordionSelector(entity, element = true) {
+  return element
+    ? $(`div[data-role="accordion"][data-entity="${entity}"]`)
+    : `div[data-role="accordion"][data-entity="${entity}"]`;
+}
+
+function accsel(entity, element = true) {
+  return AccordionSelector(entity, element);
+}
+
 function TBodySelector(role, element = true) {
   return element
     ? $(`tbody[data-role="${role}"]`)

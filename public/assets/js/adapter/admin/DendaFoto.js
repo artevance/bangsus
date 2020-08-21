@@ -53,7 +53,7 @@ function DendaFoto(c)
         history.pushState(
           null,
           null,
-          baseUrl.url(`/operasional/master/form_foto/detail/${obj.kelompokFotoID}${params}`)
+          baseUrl.url(`/operasional/master/form_foto/detail${params}`)
         );
       }
       obj.ajax.search(obj.query)
