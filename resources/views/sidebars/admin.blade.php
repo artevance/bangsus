@@ -170,3 +170,17 @@
     <span class="link-title">Form Denda Foto</span>
   </a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#laporanOperasional" role="button">
+    <i class="far fa-file link-icon"></i>
+    <span class="link-title">Laporan</span>
+    <i class="link-arrow" data-feather="chevron-down"></i>
+  </a>
+  <div class="collapse" id="laporanOperasional">
+    <ul class="nav sub-menu">
+      <li class="nav-item">
+        <a href="{{ url('/operasional/laporan/form_denda_foto') }}" class="nav-link">Laporan Form Denda Foto</a>
+      </li>
+    </ul>
+  </div>
+</li>

@@ -15,22 +15,11 @@ class FormDendaFoto extends Controller
 {
   public function index(Request $request)
   {
-    switch ($request->user()->role->role_code) {
-      case 'admin' :
-        $query = [
-          'cabang_id' => $request->query('cabang_id', 1),
-          'kelompok_foto_id' => $request->query('kelompok_foto_id', 1),
-          'tanggal_form' => $request->query('tanggal_form', date('Y-m-d'))
-        ];
-      break;
-      case 'leader' :
-        $query = [
-          'cabang_id' => $request->user()->tugas_karyawan->cabang_id,
-          'tanggal_form' => date('Y-m-d')
-        ];
-      break;
-      default :
-    }
+    $query = [
+      'cabang_id' => $request->query('cabang_id', 1),
+      'kelompok_foto_id' => $request->query('kelompok_foto_id', 1),
+      'tanggal_form' => $request->query('tanggal_form', date('Y-m-d'))
+    ];
 
     $this->title('Form Denda Foto | BangsusSys')
       ->role($request->user()->role->role_code)

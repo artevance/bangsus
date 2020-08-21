@@ -463,13 +463,21 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete', 'FormFoto@delete')->middleware('ajax.only');
       });
       Route::prefix('/form_denda_foto')->group(function () {
-        Route::get('', 'FormDendaFoto@index');
-        Route::get('/get', 'FormDendaFoto@get');
-        Route::get('/search', 'FormDendaFoto@search');
-        Route::get('/cabang_harian', 'FormDendaFoto@cabangHarian');
-        Route::post('/post', 'FormDendaFoto@post');
-        Route::put('/put', 'FormDendaFoto@put');
-        Route::delete('/delete', 'FormDendaFoto@delete');
+        Route::get('', 'FormDendaFoto@index')->middleware('role:admin');
+        Route::get('/get', 'FormDendaFoto@get')->middleware('ajax.only');
+        Route::get('/search', 'FormDendaFoto@search')->middleware('ajax.only');
+        Route::get('/cabang_harian', 'FormDendaFoto@cabangHarian')->middleware('ajax.only');
+        Route::post('/post', 'FormDendaFoto@post')->middleware('ajax.only');
+        Route::put('/put', 'FormDendaFoto@put')->middleware('ajax.only');
+        Route::delete('/delete', 'FormDendaFoto@delete')->middleware('ajax.only');
+      });
+      Route::prefix('/laporan')->group(function () {
+        Route::namespace('Laporan')->group(function () {
+
+          Route::prefix('/form_denda_foto')->group(function () {
+            Route::get('', 'FormDendaFoto@index')->middleware('role:admin');
+          });
+        });
       });
     });
   });   
