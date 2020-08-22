@@ -55,7 +55,6 @@
             @continue
           @endif
           <tr>
-            <td>{{ $result->form_foto->kelompok_foto->kelompok_foto }}</td>
             <td>{{ $d->denda_foto->denda_foto }}</td>
             <td>{{ $d->nominal }}</td>
           </tr>
