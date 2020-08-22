@@ -47,7 +47,7 @@
             <img src="{{ url('/gambar/' . $result->form_foto->gambar_id) }}">
           </td>
           <td rowspan="{{ $result->d->count() == 0 ? 1 : $result->d->count() }}">{{ $result->form_foto->kelompok_foto->kelompok_foto }}</td>
-          <td rowspan="{{ $result->d->count() == 0 ? 1 : $result->d->count() }}">{{ $result->d[0]->denda_foto->denda_foto ?? '-' }}</td>
+          <td>{{ $result->d[0]->denda_foto->denda_foto ?? '-' }}</td>
           <td>{{ $result->d[0]->nominal ?? '' }}</td>
         </tr>
         @foreach($result->d as $d)
