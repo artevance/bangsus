@@ -182,7 +182,10 @@
   <div class="collapse" id="laporanOperasional">
     <ul class="nav sub-menu">
       <li class="nav-item">
-        <a href="{{ url('/operasional/laporan/form_denda_foto') }}" class="nav-link">Laporan Form Denda Foto</a>
+        <a href="{{ url('/operasional/laporan/form_c/produksi') }}" class="nav-link">Form C1</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/operasional/laporan/form_denda_foto') }}" class="nav-link">Form Denda Foto</a>
       </li>
     </ul>
   </div>

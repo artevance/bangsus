@@ -475,6 +475,41 @@ Route::middleware('auth')->group(function () {
       Route::prefix('/laporan')->group(function () {
         Route::namespace('Laporan')->group(function () {
 
+          Route::prefix('/form_c')->group(function () {
+            Route::namespace('FormC')->group(function () {
+
+              Route::redirect('/produksi', '/operasional/laporan/form_c/produksi/thawing_ayam');
+              Route::prefix('/produksi')->group(function () {
+                Route::namespace('Produksi')->group(function () {
+
+                  Route::prefix('/thawing_ayam')->group(function () {
+                    Route::get('', 'ThawingAyam@index')->middleware('role:admin');
+                  });
+                  Route::prefix('/goreng')->group(function () {
+                    Route::get('', 'Goreng@index')->middleware('role:admin');
+                  });
+                  Route::prefix('/masak_nasi')->group(function () {
+                    Route::get('', 'MasakNasi@index')->middleware('role:admin');
+                  });
+                  Route::prefix('/sambal')->group(function () {
+                    Route::get('', 'Sambal@index')->middleware('role:admin');
+                  });
+                  Route::prefix('/tepung')->group(function () {
+                    Route::get('', 'Tepung@index')->middleware('role:admin');
+                  });
+                  Route::prefix('/minyak')->group(function () {
+                    Route::get('', 'Minyak@index')->middleware('role:admin');
+                  });
+                  Route::prefix('/margarin')->group(function () {
+                    Route::get('', 'Margarin@index')->middleware('role:admin');
+                  });
+                  Route::prefix('/lpg')->group(function () {
+                    Route::get('', 'LPG@index')->middleware('role:admin');
+                  });
+                });
+              });
+            });
+          });
           Route::prefix('/form_denda_foto')->group(function () {
             Route::get('', 'FormDendaFoto@index')->middleware('role:admin');
           });
