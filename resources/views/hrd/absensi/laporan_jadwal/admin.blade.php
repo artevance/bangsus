@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-12">
             <form data-role="search">
-              <div class="form-group d-none d-lg-block">
+              <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">
