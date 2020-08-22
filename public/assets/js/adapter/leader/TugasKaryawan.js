@@ -63,7 +63,7 @@ function TugasKaryawan()
           baseUrl.url(`/hrd/tugas_karyawan${params}`)
         );
       }
-      obj.ajax.search(obj.query)
+      obj.ajax.cabangHarian(obj.query)
         .fail((r) => console.log(r))
         .done((r) => {
           console.log(r);

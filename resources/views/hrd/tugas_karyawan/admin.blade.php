@@ -21,10 +21,10 @@
                   </select>
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">
-                      Tanggal Absensi
+                      Tanggal Tugas
                     </span>
                   </div>
-                  <input type="date" class="form-control" name="tanggal_absensi" value="{{ $query['tanggal_absensi'] }}">
+                  <input type="date" class="form-control" name="tanggal_tugas" value="{{ $query['tanggal_tugas'] }}">
                   <div class="input-group-prepend">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                   </div>

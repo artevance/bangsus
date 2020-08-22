@@ -16,15 +16,13 @@ class TugasKaryawan extends Controller
       case 'admin' :
         $query = [
           'cabang_id' => $request->query('cabang_id', 1),
-          'tanggal_absensi' => $request->query('tanggal_absensi', date('Y-m-d')),
-          'tipe_absensi_id' => $request->query('tipe_absensi_id', 1)
+          'tanggal_tugas' => $request->query('tanggal_tugas', date('Y-m-d'))
         ];
       break;
       case 'leader' :
         $query = [
           'cabang_id' => $request->user()->tugas_karyawan->cabang_id,
-          'tanggal_absensi' => date('Y-m-d'),
-          'tipe_absensi_id' => $request->query('tipe_absensi_id', 1)
+          'tanggal_tugas' => $request->query('tanggal_tugas', date('Y-m-d'))
         ];
       break;
       default :
