@@ -59,7 +59,7 @@ function Karyawan()
           baseUrl.url(`/hrd/karyawan${params}`)
         );
       }
-      obj.ajax.search(d)
+      obj.ajax.search(obj.query)
         .fail((r) => console.log(r))
         .done((r) => {
           console.log(r);
