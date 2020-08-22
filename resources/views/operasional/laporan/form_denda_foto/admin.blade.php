@@ -29,19 +29,32 @@
     </form>
   </div>
 </div>
+
 <div class="table-responsive mt-5">
   <table class="table table-hover">
     <thead>
       <th>#</th>
+      <th>Foto</th>
       <th>Kelompok Foto</th>
       <th>Denda Foto</th>
       <th>Nominal</th>
     </thead>
     <tbody>
       @foreach($results as $result)
+        <tr>
+          <td rowspan="{{ $result->d->count() == 0 ? 1 : $result->d->count() }}">{{ $loop->iteration }}</td>
+          <td rowspan="{{ $result->d->count() == 0 ? 1 : $result->d->count() }}">
+            <img src="{{ url('/gambar/' . $result->form_foto->gambar_id) }}">
+          </td>
+          <td rowspan="{{ $result->d->count() == 0 ? 1 : $result->d->count() }}">{{ $result->form_foto->kelompok_foto->kelompok_foto }}</td>
+          <td rowspan="{{ $result->d->count() == 0 ? 1 : $result->d->count() }}">{{ $result->d[0]->denda_foto->denda_foto ?? '-' }}</td>
+          <td>{{ $result->d[0]->nominal ?? '' }}</td>
+        </tr>
         @foreach($result->d as $d)
+          @if($loop->index == 0)
+            @continue
+          @endif
           <tr>
-            <td>{{ $loop->iteration }}</td>
             <td>{{ $result->form_foto->kelompok_foto->kelompok_foto }}</td>
             <td>{{ $d->denda_foto->denda_foto }}</td>
             <td>{{ $d->nominal }}</td>
@@ -49,7 +62,7 @@
         @endforeach
       @endforeach
       <tr>
-        <th class="text-center" colspan="3">Grand Total</th>
+        <th class="text-center" colspan="4">Grand Total</th>
         <th>{{ $results->sum('total') }}</th>
       </tr>
     </tbody>
