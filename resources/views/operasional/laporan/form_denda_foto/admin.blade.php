@@ -44,7 +44,7 @@
         <tr>
           <td rowspan="{{ $result->d->count() == 0 ? 1 : $result->d->count() }}">{{ $loop->iteration }}</td>
           <td rowspan="{{ $result->d->count() == 0 ? 1 : $result->d->count() }}">
-            <img src="{{ url('/gambar/' . $result->form_foto->gambar_id) }}">
+            <img src="{{ url('/gambar/' . $result->form_foto->gambar_id) }}"> - <a href="{{ url('/gambar/' . $result->form_foto->gambar_id) }}">Link Foto</a>
           </td>
           <td rowspan="{{ $result->d->count() == 0 ? 1 : $result->d->count() }}">{{ $result->form_foto->kelompok_foto->kelompok_foto }}</td>
           <td>{{ $result->d[0]->denda_foto->denda_foto ?? '-' }}</td>
