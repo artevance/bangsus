@@ -45,6 +45,11 @@ function DendaFoto(c)
       obj.query = d;
       obj.load();
     },
+    getQuery: (name) => {
+      let value;
+      obj.query.forEach((item, index) => {if (item.name == name) value = item.value});
+      return value;
+    },
     load: () => {
       pageSpinner.start();
       let params = '?';
@@ -84,7 +89,7 @@ function DendaFoto(c)
         obj.reset().setQuery($(e.currentTarget).serializeArray());
       });
       obj.$.modal.tambah.on('show.bs.modal', (e) => {
-        obj.rel.kelompokFoto.ajax.get(obj.kelompokFotoID)
+        obj.rel.kelompokFoto.ajax.get(obj.getQuery('kelompok_foto_id'))
           .fail((r) => console.log(r))
           .done((r) => {
             console.log(r);
