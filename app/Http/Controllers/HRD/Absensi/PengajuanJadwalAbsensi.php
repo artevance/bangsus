@@ -41,7 +41,7 @@ class PengajuanJadwalAbsensi extends Controller
   public function get(Request $request)
   {
     $request->validate([
-      'id' => 'required|exists:absensi,id'
+      'id' => 'required|exists:pengajuan_jadwal_absensi,id'
     ]);
 
     return ['data' => PengajuanJadwalAbsensiModel::with(['tugas_karyawan', 'user'])->find($request->input('id'))];
