@@ -19,6 +19,7 @@ Route::get('/laravel', function () {
 Route::get('/sandbox', 'Sandbox@index');
 
 Route::permanentRedirect('/', '/dashboard');
+Route::permanentRedirect('/home', '/dashboard');
 
 Route::middleware('check.not.logged.in')->group(function () {  
   Route::redirect('/', '/home');

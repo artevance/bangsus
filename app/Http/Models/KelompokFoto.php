@@ -14,4 +14,9 @@ class KelompokFoto extends Model
   {
     return $this->hasMany('App\Http\Models\DendaFoto');
   }
+
+  public function pengaturan_kelompok_foto()
+  {
+    return $this->hasOne('App\Http\Models\PengaturanKelompokFoto');
+  }
 }

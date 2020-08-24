@@ -16,6 +16,8 @@
     <thead>
       <th>#</th>
       <th>Kelompok Foto</th>
+      <th>Denda Bila Tidak Mengirim</th>
+      <th>Form Terkirim Minimal Per Hari</th>
       <th>Jumlah Denda Foto</th>
       <th>Aksi</th>
     </thead>
@@ -39,6 +41,24 @@
             <label>Kelompok Foto</label>
             <input type="text" class="form-control" name="kelompok_foto">
             <small class="form-text text-danger" data-role="feedback" data-field="kelompok_foto"></small>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <label class="form-check-label" for="defaultCheck1">
+                <input class="form-check-input" type="checkbox" name="denda_tidak_kirim">
+                Denda bila tidak kirim per hari
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Qty Kirim Minimal</label>
+            <input type="number" class="form-control" name="qty_minimum_form" disabled>
+            <small class="form-text text-danger" data-role="feedback" data-field="qty_minimum_form"></small>
+          </div>
+          <div class="form-group">
+            <label>Nominal Denda Tidak Kirim</label>
+            <input type="number" class="form-control" name="nominal" disabled>
+            <small class="form-text text-danger" data-role="feedback" data-field="nominal"></small>
           </div>
         </div>
         <div class="modal-footer">
@@ -64,6 +84,19 @@
             <label>Kelompok Foto</label>
             <input type="text" class="form-control" name="kelompok_foto">
             <small class="form-text text-danger" data-role="feedback" data-field="kelompok_foto"></small>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="denda_tidak_kirim" disabled>
+                Denda bila tidak kirim per hari
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Qty Kirim Minimal</label>
+            <input type="number" class="form-control" name="qty_minimum_form" disabled>
+            <small class="form-text text-danger" data-role="feedback" data-field="qty_minimum_form"></small>
           </div>
         </div>
         <div class="modal-footer">
