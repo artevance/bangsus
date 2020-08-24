@@ -100,7 +100,7 @@
           @endif
         @endif
         @php
-          dd($results)
+          dd($results->toArray())
         @endphp
       </div>
     </div>
