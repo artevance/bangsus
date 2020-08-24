@@ -44,7 +44,8 @@ class LaporanJadwal extends Controller
         'absensi' => function ($q) use ($request) {
           $q->where('tanggal_absensi', '>=', $request->query('tanggal_awal'))
             ->where('tanggal_absensi', '<=', $request->query('tanggal_akhir'))
-            ->where('tipe_absensi_id', '=', $request->query('tipe_absensi_id'));
+            ->where('tipe_absensi_id', '=', $request->query('tipe_absensi_id'))
+            ->orderBy('tanggal_absensi');
         },
           'absensi.tipe_absensi',
         'cabang',
