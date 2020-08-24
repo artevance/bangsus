@@ -99,9 +99,6 @@
             </div>
           @endif
         @endif
-        @php
-          dd($results->toArray())
-        @endphp
       </div>
     </div>
   </div>
