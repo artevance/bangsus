@@ -82,10 +82,10 @@
                               $j++;
                             @endphp
                           @else
-                            <td>--</td>
+                            <td></td>
                           @endif
                         @else
-                          <td>-</td>
+                          <td></td>
                         @endisset
                       @endfor
                     </tr>
