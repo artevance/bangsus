@@ -47,6 +47,8 @@ class Authenticate extends Controller
     $model->ip_address = $request->ip();
     $model->save();
 
+    
+
     return redirect()->intended(url('/dashboard'));
   }
 }

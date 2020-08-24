@@ -76,16 +76,16 @@
                         @isset($data->absensi[$j])
                           @if(strtotime($data->absensi[$j]->tanggal_absensi) == $i)
                             <td>
-                              {{ $data->absensi[$j]->jam_jadwal ?? '' }}
+                              {{ $data->absensi[$j]->jam_jadwal }}
                             </td>
                             @php
                               $j++;
                             @endphp
                           @else
-                            <td></td>
+                            <td>--</td>
                           @endif
                         @else
-                          <td></td>
+                          <td>-</td>
                         @endisset
                       @endfor
                     </tr>
