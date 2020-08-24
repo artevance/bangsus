@@ -108,6 +108,7 @@ class Tepung extends Controller
     $formFotoModel->kelompok_foto_id = 5;
     $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
     $formFotoModel->gambar_id = $gambarModel->id;
+    $formFotoModel->tidak_kirim = 0;
     $formFotoModel->user_id = $request->input('user_id');
     $formFotoModel->save();
 
