@@ -18,18 +18,20 @@ class KelompokFoto extends Controller
 
     return [
       'data' =>
-        KelompokFotoModel::with(['denda_foto', 'pengaturan_kelompok_foto'])
+        KelompokFotoModel::with(['denda_foto', 'pengaturan_kelompok_foto', 'pengaturan_kelompok_foto.denda_foto'])
           ->find($request->input('id'))
     ];
   }
 
   public function search(Request $request)
   {
+    $model = KelompokFotoModel::with(['denda_foto', 'pengaturan_kelompok_foto', 'pengaturan_kelompok_foto.denda_foto'])
+      ->where('kelompok_foto', 'LIKE', '%' . $request->input('q') . '%');
+
+    if ($request->has('denda_tidak_kirim')) $model = $model->where('denda_tidak_kirim', $request->query('denda_tidak_kirim'));
+
     return [
-      'data' => 
-        KelompokFotoModel::with(['denda_foto', 'pengaturan_kelompok_foto'])
-          ->where('kelompok_foto', 'LIKE', '%' . $request->input('q') . '%')
-          ->get()
+      'data' => $model->get()
     ];
   }
 

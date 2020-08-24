@@ -68,7 +68,9 @@ class FormFoto extends Controller
     return [
       'data' => 
         FormFotoModel::with([
-            'tugas_karyawan', 
+            'tugas_karyawan' => function ($q) use ($request) {
+              $q->where('cabang_id', '=', $request->input('cabang_id'));
+            },
               'tugas_karyawan.cabang',
                 'tugas_karyawan.cabang.tipe_cabang',
               'tugas_karyawan.divisi',
@@ -81,9 +83,10 @@ class FormFoto extends Controller
             'form_denda_foto',
               'form_denda_foto.d'
           ])
-          ->whereHas('tugas_karyawan', function ($q) use ($request) {
-              $q->where('cabang_id', '=', $request->input('cabang_id'));
-            })
+          ->where(function ($query) use ($request) {
+            $query->where('cabang_id', $request->input('cabang_id'))
+              ->orWhere('cabang_id', null);
+          })
           ->where('tanggal_form', $request->input('tanggal_form'))
           ->get()
     ];
@@ -100,7 +103,9 @@ class FormFoto extends Controller
     return [
       'data' => 
         FormFotoModel::with([
-            'tugas_karyawan', 
+            'tugas_karyawan' => function ($q) use ($request) {
+              $q->where('cabang_id', '=', $request->input('cabang_id'));
+            },
               'tugas_karyawan.cabang',
                 'tugas_karyawan.cabang.tipe_cabang',
               'tugas_karyawan.divisi',
@@ -113,9 +118,10 @@ class FormFoto extends Controller
             'form_denda_foto',
               'form_denda_foto.d'
           ])
-          ->whereHas('tugas_karyawan', function ($q) use ($request) {
-              $q->where('cabang_id', '=', $request->input('cabang_id'));
-            })
+          ->where(function ($query) use ($request) {
+            $query->where('cabang_id', $request->input('cabang_id'))
+              ->orWhere('cabang_id', null);
+          })
           ->where('kelompok_foto_id', $request->input('kelompok_foto_id'))
           ->where('tanggal_form', $request->input('tanggal_form'))
           ->get()

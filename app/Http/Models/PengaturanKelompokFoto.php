@@ -14,4 +14,9 @@ class PengaturanKelompokFoto extends Model
   {
     return $this->belongsTo('App\Http\Models\KelompokFoto');
   }
+
+  public function denda_foto()
+  {
+    return $this->belongsTo('App\Http\Models\DendaFoto');
+  }
 }

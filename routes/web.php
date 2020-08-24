@@ -472,6 +472,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/post', 'FormDendaFoto@post')->middleware('ajax.only');
         Route::put('/put', 'FormDendaFoto@put')->middleware('ajax.only');
         Route::delete('/delete', 'FormDendaFoto@delete')->middleware('ajax.only');
+        Route::post('/generate', 'FormDendaFoto@generate')->middleware('ajax.only');
       });
       Route::prefix('/laporan')->group(function () {
         Route::namespace('Laporan')->group(function () {

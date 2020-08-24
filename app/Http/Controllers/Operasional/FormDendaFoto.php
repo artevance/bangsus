@@ -9,6 +9,8 @@ use App\Http\Models\KelompokFoto as KelompokFotoModel;
 use App\Http\Models\FormFoto as FormFotoModel;
 use App\Http\Models\FormDendaFoto as FormDendaFotoModel;
 use App\Http\Models\FormDendaFotoD as FormDendaFotoDModel;
+use App\Http\Models\GenerateFormDendaFoto as GenerateFormDendaFotoModel;
+use App\Http\Models\GenerateFormDendaFotoD as GenerateFormDendaFotoDModel;
 use Illuminate\Validation\Rule;
 
 class FormDendaFoto extends Controller
@@ -69,10 +71,11 @@ class FormDendaFoto extends Controller
     $formDendaFotoModel->tugas_karyawan_id = $request->filled('tugas_karyawan_id') 
       ? $request->input('tugas_karyawan_id')
       : $request->user()->tugas_karyawan_id;
-    $formDendaFotoModel->tanggal_form = $request->input('tanggal_form');
+    $formDendaFotoModel->tanggal_form = date('Y-m-d');
     $formDendaFotoModel->jam = $request->input('jam');
     $formDendaFotoModel->form_foto_id = $request->input('form_foto_id');
     $formDendaFotoModel->denda = $request->input('denda');
+    $formDendaFotoModel->tidak_kirim = 0;
     $formDendaFotoModel->keterangan = $request->filled('keterangan')
       ? (is_array($request->input('keterangan')) ? '' : $request->input('keterangan'))
       : '';
@@ -168,5 +171,73 @@ class FormDendaFoto extends Controller
     }
 
     $formDendaFotoModel->delete();
+  }
+
+  public function generate(Request $request)
+  {
+    $request->validate([
+      'tanggal_form' => 'required|date_format:Y-m-d',
+      'user_id' => 'required|exists:user,id'
+    ]);
+
+    $generateFormDendaFotoModel = GenerateFormDendaFotoModel::where('tanggal_form', $request->input('tanggal_form'))
+      ->first();
+    if ( ! is_null($generateFormDendaFotoModel)) {
+      foreach ($generateFormDendaFotoModel->d ?? [] as $d) {
+        $d->form_denda_foto->form_foto->delete();
+        $d->form_denda_foto->delete();
+        $d->delete();
+      }
+      $generateFormDendaFotoModel->delete();
+    }
+
+    $kelompokFotoModels = KelompokFotoModel::where('denda_tidak_kirim', 1)
+      ->get();
+    foreach ($kelompokFotoModels as $kelompokFotoModel) {
+      $formFotoModels = FormFotoModel::where('kelompok_foto_id', $kelompokFotoModel->id)->get();
+      if ($formFotoModels->count() < $kelompokFotoModel->pengaturan_kelompok_foto->qty_minimum_form) {
+        $generateFormDendaFotoModel = new GenerateFormDendaFotoModel;
+        $generateFormDendaFotoModel->kelompok_foto_id = $kelompokFotoModel->id;
+        $generateFormDendaFotoModel->tanggal_form = $request->input('tanggal_form');
+        $generateFormDendaFotoModel->user_id = $request->input('user_id');
+        $generateFormDendaFotoModel->save();
+
+        foreach (CabangModel::all() as $cabang) {
+          $formFotoModel = new FormFotoModel;
+          $formFotoModel->cabang_id = $cabang->id;
+          $formFotoModel->tanggal_form = $request->input('tanggal_form');
+          $formFotoModel->jam = date('H:i:s');
+          $formFotoModel->kelompok_foto_id = $kelompokFotoModel->id;
+          $formFotoModel->keterangan = '';
+          $formFotoModel->tidak_kirim = 1;
+          $formFotoModel->user_id = $request->input('user_id');
+          $formFotoModel->save();
+
+          $formDendaFotoModel = new FormDendaFotoModel;
+          $formDendaFotoModel->tugas_karyawan_id = $request->user()->tugas_karyawan_id;
+          $formDendaFotoModel->tanggal_form = $request->input('tanggal_form');
+          $formDendaFotoModel->jam = date('H:i:s');
+          $formDendaFotoModel->form_foto_id = $formFotoModel->id;
+          $formDendaFotoModel->denda = 1;
+          $formDendaFotoModel->tidak_kirim = 1;
+          $formDendaFotoModel->keterangan = '';
+          $formDendaFotoModel->user_id = $request->input('user_id');
+          $formDendaFotoModel->save();
+
+          $formDendaFotoDModel = new FormDendaFotoDModel;
+          $formDendaFotoDModel->form_denda_foto_id = $formDendaFotoModel->id;
+          $formDendaFotoDModel->denda_foto_id = $kelompokFotoModel->pengaturan_kelompok_foto->denda_foto_id;
+          $formDendaFotoDModel->nominal = $kelompokFotoModel->pengaturan_kelompok_foto->denda_foto->nominal;
+          $formDendaFotoDModel->keterangan = '';
+          $formDendaFotoDModel->user_id = $request->input('user_id');
+          $formDendaFotoDModel->save();
+
+          $generateFormDendaFotoDModel = new GenerateFormDendaFotoDModel;
+          $generateFormDendaFotoDModel->generate_form_denda_foto_id = $generateFormDendaFotoModel->id;
+          $generateFormDendaFotoDModel->form_denda_foto_id = $formDendaFotoModel->id;
+          $generateFormDendaFotoDModel->save();
+        }
+      }
+    }
   }
 }

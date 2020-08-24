@@ -1,4 +1,7 @@
-<div class="row">
+<button class="btn btn-primary" data-toggle="modal" data-target=".modal[data-entity='formDendaFoto'][data-method='generate']">
+  Generate Denda Form Belum Terkirim
+</button>
+<div class="row mt-3">
   <div class="col-12">
     <form data-role="search">
       <div class="form-group">
@@ -63,7 +66,7 @@
           <div class="form-group row">
             <div class="col-12 col-lg-6">
               <label>Tanggal Form</label>
-              <input type="date" class="form-control" name="tanggal_form" readonly>
+              <input type="date" class="form-control" name="tanggal_form" value="{{ date('Y-m-d') }}" readonly>
               <small class="form-text text-danger" data-role="feedback" data-field="tanggal_form"></small>
             </div>
             <div class="col-12 col-lg-6">
@@ -298,6 +301,49 @@
               + Tambah Denda
             </button>
           </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" data-entity="formDendaFoto" data-method="generate" data-backdrop="static" data-keyboard="false" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h5 class="modal-title">Generate Denda Form Belum Terkirim</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+          <input type="hidden" name="form_foto_id">
+          <input type="hidden" name="denda" value="1">
+          <div class="form-group row">
+            <div class="col-12 col-lg-6">
+              <label>Tanggal Form</label>
+              <input type="date" class="form-control" name="tanggal_form" readonly>
+              <small class="form-text text-danger" data-role="feedback" data-field="tanggal_form"></small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Denda Form Yang Akan Di Generate</label>
+            <div class="table-responsive">
+              <table class="table" data-entity="denda">
+                <thead>
+                  <th>#</th>
+                  <th>Kelompok Foto</th>
+                  <th>Qty Minimum Form Terkirim</th>
+                  <th>Nominal</th>
+                </thead>
+                <tbody data-role="dataWrapper"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Tambah</button>
         </div>
       </form>
     </div>

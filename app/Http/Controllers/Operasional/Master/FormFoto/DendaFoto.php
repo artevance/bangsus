@@ -41,6 +41,7 @@ class DendaFoto extends Controller
     $model->kelompok_foto_id = $request->input('kelompok_foto_id');
     $model->denda_foto = strtoupper($request->input('denda_foto'));
     $model->nominal = strtoupper($request->input('nominal'));
+    $model->master = 0;
     $model->save();
   }
 

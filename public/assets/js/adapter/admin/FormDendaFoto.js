@@ -40,6 +40,12 @@ function FormDendaFoto()
           url: baseUrl.url('/operasional/form_denda_foto/delete'),
           data: d
         }),
+      generate: (d) =>
+        $.ajax({
+          method: 'post',
+          url: baseUrl.url('/operasional/form_denda_foto/generate'),
+          data: d
+        }),
     },
     $: {
       modal: {
@@ -48,6 +54,7 @@ function FormDendaFoto()
         ubahDenda: modsel('formDendaFoto', 'ubahDenda'),
         hapus: modsel('formDendaFoto', 'hapus'),
         detail: modsel('formDendaFoto', 'detail'),
+        generate: modsel('formDendaFoto', 'generate'),
       },
       table: tbsel('formDendaFoto'),
       accordion: accsel('formDendaFoto'),
@@ -102,8 +109,12 @@ function FormDendaFoto()
                   <div class="row">
                     <h5 class="d-flex align-items-center mx-3 text-muted"><i class="far fa-chevron-down"></i></h5>
                     <div class="col-6">
-                      <h5><a href="#">#${index + 1} - ${item.kelompok_foto.kelompok_foto} - ${item.jam}</a></h5>
-                      <p>${item.tugas_karyawan.karyawan.nip} - <b>${item.tugas_karyawan.karyawan.nama_karyawan}</b></p>
+                      <h5><a href="#">#${index + 1} - ${item.kelompok_foto.kelompok_foto} - ${item.tidak_kirim == 0 ? item.jam : ''}</a></h5>
+                      ${
+                        item.tidak_kirim == 0
+                        ? `<p>${item.tugas_karyawan.karyawan.nip} - <b>${item.tugas_karyawan.karyawan.nama_karyawan}</b></p>`
+                        : 'TIDAK KIRIM'
+                      }
                       <p>${item.form_denda_foto == null ? '<span class="text-danger">BELUM DIPERIKSA</span>' : '<span class="text-success">SUDAH DIPERIKSA</span>'}</p>
                     </div>
                   </div>
@@ -112,7 +123,11 @@ function FormDendaFoto()
                   <div class="card-body">
                     <div class="row">
                       <div class="col-xl-4">
-                        <img src="${baseUrl.url('/gambar/')}${item.gambar_id}" style="max-width: 100%; max-height: 100%;">
+                        ${
+                          item.tidak_kirim == 0
+                          ? `<img src="${baseUrl.url('/gambar/')}${item.gambar_id}" style="max-width: 100%; max-height: 100%;">`
+                          : ''
+                        }
                       </div>
                       <div class="col-xl-6">
                         <div class="table-responsive mt-5 mt-xl-0">
@@ -120,15 +135,15 @@ function FormDendaFoto()
                             <tbody>
                               <tr>
                                 <th>NIP</th>
-                                <td>${item.tugas_karyawan.karyawan.nip}</td>
+                                <td>${item.tugas_karyawan != null ? item.tugas_karyawan.karyawan.nip : '-'}</td>
                               </tr>
                               <tr>
                                 <th>Nama Karyawan</th>
-                                <td>${item.tugas_karyawan.karyawan.nama_karyawan}</td>
+                                <td>${item.tugas_karyawan != null ? item.tugas_karyawan.karyawan.nama_karyawan : '-'}</td>
                               </tr>
                               <tr>
                                 <th>Jam</th>
-                                <td>${item.jam}</td>
+                                <td>${item.tidak_kirim == 0 ? item.jam : ''}</td>
                               </tr>
                               <tr>
                                 <th>Kelompok Foto</th>
@@ -518,6 +533,25 @@ function FormDendaFoto()
         $(e.currentTarget).find('form').find('[data-role="gambar"]').empty();
         $(e.currentTarget).find('form').find('[data-entity="denda"][data-role="tambah"]').find('[data-role="dataWrapper"]').empty();
       });
+      obj.$.modal.generate.on('show.bs.modal', (e) => {
+        $(e.currentTarget).find('form').find('[name="tanggal_form"]').val(obj.getQuery('tanggal_form'));
+        obj.rel.kelompokFoto.ajax.search({denda_tidak_kirim: 1})
+          .fail((r) => console.log(r))
+          .done((r) => {
+            console.log(r);
+            $(e.currentTarget).find('table').find('[data-role="dataWrapper"]').empty();
+            r.data.forEach((item, index) => {
+              $(e.currentTarget).find('table').find('[data-role="dataWrapper"]').append(`
+                <tr>
+                  <td>${index + 1}</td>
+                  <td>${item.kelompok_foto}</td>
+                  <td>${item.pengaturan_kelompok_foto.qty_minimum_form}</td>
+                  <td>${item.pengaturan_kelompok_foto.denda_foto.nominal}</td>
+                </tr>
+              `);
+            });
+          });
+      });
       obj.$.modal.tambahDenda.find('form').on('submit', (e) => {
         e.preventDefault();
         let d = $(e.currentTarget).serializeArray();
@@ -584,6 +618,24 @@ function FormDendaFoto()
             console.log(r);
             fbsel($(e.currentTarget)).empty();
             obj.$.modal.hapus.modal('hide')
+            obj.reset().load();
+          });
+      });
+      obj.$.modal.generate.find('form').on('submit', (e) => {
+        e.preventDefault();
+        let d = $(e.currentTarget).serializeArray();
+        console.log(d);
+        Object.keys(d).forEach((key) => {if (d[key] == 'null') delete d[key]});
+        obj.ajax.generate(d)
+          .fail((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            Object.keys(r.responseJSON.errors).forEach((key) => fbsel($(e.currentTarget), key).empty().append(r.responseJSON.errors[key]))
+          })
+          .done((r) => {
+            console.log(r);
+            fbsel($(e.currentTarget)).empty();
+            obj.$.modal.generate.modal('hide')
             obj.reset().load();
           });
       });
