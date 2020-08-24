@@ -105,7 +105,7 @@ class PengajuanJadwalAbsensi extends Controller
   public function put(Request $request)
   {
     $request->validate([
-      'id' => 'required|exists:absensi,id',
+      'id' => 'required|exists:pengajuan_jadwal_absensi,id',
       'tugas_karyawan_id' => 'nullable|exists:tugas_karyawan,id',
       'tanggal_absensi' => 'nullable|date_format:Y-m-d',
       'tipe_absensi_id' => 'nullable|exists:tipe_absensi,id',
@@ -125,7 +125,7 @@ class PengajuanJadwalAbsensi extends Controller
   public function approve(Request $request)
   {
     $request->validate([
-      'id' => 'required|exists:absensi,id',
+      'id' => 'required|exists:pengajuan_jadwal_absensi,id',
       'user_id' => 'required|exists:user,id'
     ]);
 
