@@ -14,4 +14,9 @@ class DendaFoto extends Model
   {
     return $this->belongsTo('App\Http\Models\KelompokFoto');
   }
+
+  public function form_denda_foto_d()
+  {
+    return $this->hasMany('App\Http\Models\FormDendaFotoD');
+  }
 }

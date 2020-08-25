@@ -22,7 +22,7 @@ class FormDendaFotoD extends Model
     return $this->belongsTo('App\Http\Models\DendaFoto');
   }
 
-  public function h()
+  public function form_denda_foto()
   {
     return $this->belongsTo('App\Http\Models\FormDendaFoto');
   }
