@@ -88,26 +88,28 @@ function FormFoto()
                 <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='formFoto'][data-method='hapus']" data-id="${item.id}">Hapus</a>
               `;
             }
-            obj.$.table.find(tbysel('dataWrapper', true)).append(`
-              <tr>
-                <td>${index + 1}</td>
-                <td>${item.tugas_karyawan.karyawan.nip}</td>
-                <td>
-                  <a href="${baseUrl.url('/hrd/tugas_karyawan/karyawan/')}${item.tugas_karyawan.karyawan.id}" target="_blank">
-                    ${item.tugas_karyawan.karyawan.nama_karyawan}
-                  </a>
-                </td>
-                <td>${item.jam}</td>
-                <td>${item.kelompok_foto != null ? item.kelompok_foto.kelompok_foto : '-'}</td>
-                <td>
-                  <a href="${baseUrl.url('/gambar/')}${item.gambar_id}" target="_blank">Lihat Foto</a>
-                </td>
-                <td>
-                  ${aksi}
-                </td>
-              </tr>
-            `)}
-          );  
+            if (item.tidak_kirim == 0) {
+              obj.$.table.find(tbysel('dataWrapper', true)).append(`
+                <tr>
+                  <td>${index + 1}</td>
+                  <td>${item.tugas_karyawan.karyawan.nip}</td>
+                  <td>
+                    <a href="${baseUrl.url('/hrd/tugas_karyawan/karyawan/')}${item.tugas_karyawan.karyawan.id}" target="_blank">
+                      ${item.tugas_karyawan.karyawan.nama_karyawan}
+                    </a>
+                  </td>
+                  <td>${item.jam}</td>
+                  <td>${item.kelompok_foto != null ? item.kelompok_foto.kelompok_foto : '-'}</td>
+                  <td>
+                    <a href="${baseUrl.url('/gambar/')}${item.gambar_id}" target="_blank">Lihat Foto</a>
+                  </td>
+                  <td>
+                    ${aksi}
+                  </td>
+                </tr>
+              `)
+            }
+          });  
         pageSpinner.stop();
       });
     },

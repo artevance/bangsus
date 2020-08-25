@@ -31,4 +31,9 @@ class FormFoto extends Model
   {
     return $this->hasOne('App\Http\Models\FormDendaFoto');
   }
+
+  public function cabang()
+  {
+    return $this->belongsTo('App\Http\Models\Cabang');
+  }
 }

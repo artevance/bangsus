@@ -30,7 +30,16 @@ class FormDendaFoto extends Controller
             'form_foto.kelompok_foto'
           ])
           ->whereHas('form_foto', function ($q) use ($request) {
-            $q->where('tanggal_form', $request->query('tanggal_form'));
+            $q->where('tanggal_form', $request->query('tanggal_form'))
+              ->where(function ($query) use ($request) {
+                $query->whereHas('tugas_karyawan', function ($q) use ($request) {
+                  $q->where('cabang_id', '=', $request->input('cabang_id'));
+                });
+                $query->orWhereHas('cabang', function ($q) use ($request) {
+                  $q->where('cabang_id', $request->input('cabang_id'))
+                    ->orWhere('cabang_id', null);
+                });
+              });
           })
           ->get()
       ]

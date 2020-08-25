@@ -180,29 +180,38 @@ class FormDendaFoto extends Controller
       'user_id' => 'required|exists:user,id'
     ]);
 
-    $generateFormDendaFotoModel = GenerateFormDendaFotoModel::where('tanggal_form', $request->input('tanggal_form'))
-      ->first();
-    if ( ! is_null($generateFormDendaFotoModel)) {
-      foreach ($generateFormDendaFotoModel->d ?? [] as $d) {
-        $d->form_denda_foto->form_foto->delete();
-        $d->form_denda_foto->delete();
-        $d->delete();
+    $generateFormDendaFotoModels = GenerateFormDendaFotoModel::where('tanggal_form', $request->input('tanggal_form'))
+      ->get();
+    if ( ! is_null($generateFormDendaFotoModels)) {
+      foreach ($generateFormDendaFotoModels as $generateFormDendaFotoModel) {
+        foreach ($generateFormDendaFotoModel->d ?? [] as $d) {
+          $d->form_denda_foto->form_foto->delete();
+          $d->form_denda_foto->delete();
+          $d->delete();
+        }
+        $generateFormDendaFotoModel->delete();
       }
-      $generateFormDendaFotoModel->delete();
     }
 
     $kelompokFotoModels = KelompokFotoModel::where('denda_tidak_kirim', 1)
       ->get();
     foreach ($kelompokFotoModels as $kelompokFotoModel) {
-      $formFotoModels = FormFotoModel::where('kelompok_foto_id', $kelompokFotoModel->id)->get();
-      if ($formFotoModels->count() < $kelompokFotoModel->pengaturan_kelompok_foto->qty_minimum_form) {
-        $generateFormDendaFotoModel = new GenerateFormDendaFotoModel;
-        $generateFormDendaFotoModel->kelompok_foto_id = $kelompokFotoModel->id;
-        $generateFormDendaFotoModel->tanggal_form = $request->input('tanggal_form');
-        $generateFormDendaFotoModel->user_id = $request->input('user_id');
-        $generateFormDendaFotoModel->save();
+      $generateFormDendaFotoModel = new GenerateFormDendaFotoModel;
+      $generateFormDendaFotoModel->kelompok_foto_id = $kelompokFotoModel->id;
+      $generateFormDendaFotoModel->tanggal_form = $request->input('tanggal_form');
+      $generateFormDendaFotoModel->user_id = $request->input('user_id');
+      $generateFormDendaFotoModel->save();
 
-        foreach (CabangModel::all() as $cabang) {
+      foreach (CabangModel::all() as $cabang) {
+        $formFotoModels = FormFotoModel::where('kelompok_foto_id', $kelompokFotoModel->id)
+          ->where('tanggal_form', $request->input('tanggal_form'))
+          ->whereHas('tugas_karyawan', function ($q) use ($cabang) {
+            $q->where('cabang_id', $cabang->id);
+          })
+          ->get();
+        $count = $formFotoModels->count() ?? 0;
+
+        if ($count < $kelompokFotoModel->pengaturan_kelompok_foto->qty_minimum_form) {
           $formFotoModel = new FormFotoModel;
           $formFotoModel->cabang_id = $cabang->id;
           $formFotoModel->tanggal_form = $request->input('tanggal_form');
