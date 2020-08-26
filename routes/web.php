@@ -494,26 +494,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/generate', 'FormDendaFoto@generate')->middleware('ajax.only');
       });
       Route::prefix('/form_aktivitas_marketing')->group(function () {
-        Route::namespace('FormAktivitasMarketing')->group(function () {
-          Route::prefix('/sebar_brosur')->group(function () {
-            Route::get('', 'SebarBrosur@index');
-            Route::get('/get', 'SebarBrosur@get')->middleware('ajax.only');
-            Route::get('/search', 'SebarBrosur@search')->middleware('ajax.only');
-            Route::get('/cabang_harian', 'SebarBrosur@cabangHarian')->middleware('ajax.only');
-            Route::post('/post', 'SebarBrosur@post')->middleware('ajax.only');
-            Route::put('/put', 'SebarBrosur@put')->middleware('ajax.only');
-            Route::delete('/delete', 'SebarBrosur@delete');
-          });
-          Route::prefix('/jualan_keliling')->group(function () {
-            Route::get('', 'JualanKeliling@index');
-            Route::get('/get', 'JualanKeliling@get')->middleware('ajax.only');
-            Route::get('/search', 'JualanKeliling@search')->middleware('ajax.only');
-            Route::get('/cabang_harian', 'JualanKeliling@cabangHarian')->middleware('ajax.only');
-            Route::post('/post', 'JualanKeliling@post')->middleware('ajax.only');
-            Route::put('/put', 'JualanKeliling@put')->middleware('ajax.only');
-            Route::delete('/delete', 'JualanKeliling@delete');
-          });
-        });
+        Route::get('', 'FormAktivitasMarketing@index');
+        Route::get('/get', 'FormAktivitasMarketing@get')->middleware('ajax.only');
+        Route::get('/search', 'FormAktivitasMarketing@search')->middleware('ajax.only');
+        Route::get('/cabang_harian', 'FormAktivitasMarketing@cabangHarian');
+        Route::post('/post', 'FormAktivitasMarketing@post')->middleware('ajax.only');
+        Route::put('/put', 'FormAktivitasMarketing@put')->middleware('ajax.only');
+        Route::delete('/delete', 'FormAktivitasMarketing@delete')->middleware('ajax.only');
       });
       Route::prefix('/laporan')->group(function () {
         Route::namespace('Laporan')->group(function () {
