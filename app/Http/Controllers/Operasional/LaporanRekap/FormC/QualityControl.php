@@ -18,7 +18,7 @@ class QualityControl extends Controller
       'submit' => $request->has('submit')
     ];
 
-    $this->title('Laporan Rekap Form C1 | BangsusSys')
+    $this->title('Laporan Rekap Form C2 | BangsusSys')
       ->role($request->user()->role->role_code)
       ->query($query);
 
@@ -27,7 +27,6 @@ class QualityControl extends Controller
         'cabangs' => CabangModel::all(),
         'qualityControlModels' => QualityControlModel::all(),
         'formQualityControlModels' => FormQualityControlModel::with(['tugas_karyawan'])->where('tanggal_form', $request->query('tanggal_form'))
-        // 'formLPGModels' => FormLPGModel::with(['tugas_karyawan'])->where('tanggal_form', $request->query('tanggal_form'))
       ])
     );
   }

@@ -49,7 +49,7 @@
           @endforeach
           @php $clone = clone $formQualityControlModels; @endphp
           <td>
-            {{ ($clone->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->get()->count() / ($qualityControlModels->count() * $query['frekuensi_ideal'])) * 100 }} %
+            {{ round(($clone->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->get()->count() / ($qualityControlModels->count() * $query['frekuensi_ideal'])) * 100, 2) }} %
           </td>
         </tr>
       @endforeach
