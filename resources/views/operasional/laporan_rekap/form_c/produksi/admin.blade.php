@@ -57,28 +57,38 @@
     </thead>
     <tbody>
       @foreach($cabangs as $cabang)
+        @php
+          $formThawingAyamModel = clone $formThawingAyamModels;
+          $formGorengModel = clone $formGorengModels;
+          $formMasakNasiModel = clone $formMasakNasiModels;
+          $formSambalModel = clone $formSambalModels;
+          $formTepungModel = clone $formTepungModels;
+          $formMinyakModel = clone $formMinyakModels;
+          $formMargarinModel = clone $formMargarinModels;
+          $formLPGModel = clone $formLPGModels;
+        @endphp
         <tr>
           <td>{{ $loop->iteration }}</td>
           <td>{{ $cabang->cabang }}</td>
-          <td>{{ $formThawingAyamModels->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
+          <td>{{ $formThawingAyamModel->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->get()->count() }}</td>
           @foreach($itemGorengModels as $itemGorengModel)
-            <td>{{ $formGorengModels->where('item_goreng_id', $itemGorengModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
+            <td>{{ $formGorengModel->where('item_goreng_id', $itemGorengModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
           @endforeach
-          <td>{{ $formMasakNasiModels->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
+          <td>{{ $formMasakNasiModel->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
           @foreach($tipeProsesSambalModels as $tipeProsesSambalModel)
-            <td>{{ $formSambalModels->where('tipe_proses_sambal_id', $tipeProsesSambalModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
+            <td>{{ $formSambalModel->where('tipe_proses_sambal_id', $tipeProsesSambalModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
           @endforeach
           @foreach($tipeProsesTepungModels as $tipeProsesTepungModel)
-            <td>{{ $formTepungModels->where('tipe_proses_tepung_id', $tipeProsesTepungModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
+            <td>{{ $formTepungModel->where('tipe_proses_tepung_id', $tipeProsesTepungModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
           @endforeach
           @foreach($tipeProsesMinyakModels as $tipeProsesMinyakModel)
-            <td>{{ $formMinyakModels->where('tipe_proses_minyak_id', $tipeProsesMinyakModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
+            <td>{{ $formMinyakModel->where('tipe_proses_minyak_id', $tipeProsesMinyakModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
           @endforeach
           @foreach($tipeProsesMargarinModels as $tipeProsesMargarinModel)
-            <td>{{ $formMargarinModels->where('tipe_proses_margarin_id', $tipeProsesMargarinModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
+            <td>{{ $formMargarinModel->where('tipe_proses_margarin_id', $tipeProsesMargarinModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
           @endforeach
           @foreach($tipeProsesLPGModels as $tipeProsesLPGModel)
-            <td>{{ $formLPGModels->where('tipe_proses_lpg_id', $tipeProsesLPGModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
+            <td>{{ $formLPGModel->where('tipe_proses_lpg_id', $tipeProsesLPGModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
           @endforeach
         </tr>
       @endforeach
