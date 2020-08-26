@@ -562,8 +562,8 @@ Route::middleware('auth')->group(function () {
               Route::prefix('/quality_control')->group(function () {
                 Route::get('', 'QualityControl@index')->middleware('role:admin');
               });
-              Route::prefix('/quality_control')->group(function () {
-                Route::get('', 'QualityControl@index')->middleware('role:admin');
+              Route::prefix('/atribut_karyawan')->group(function () {
+                Route::get('', 'AtributKaryawan@index')->middleware('role:admin');
               });
             });
           });
