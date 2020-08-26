@@ -32,12 +32,14 @@ class ParameterAtributKaryawan extends Controller
   {
     $request->validate([
       'atribut_karyawan_id' => 'required|exists:atribut_karyawan,id',
-      'parameter_atribut_karyawan' => 'required|max:200'
+      'parameter_atribut_karyawan' => 'required|max:200',
+      'pelanggaran' => 'required|boolean'
     ]);
 
     $model = new ParameterAtributKaryawanModel;
     $model->atribut_karyawan_id = $request->input('atribut_karyawan_id');
     $model->parameter_atribut_karyawan = strtoupper($request->input('parameter_atribut_karyawan'));
+    $model->pelanggaran = $request->boolean('pelanggaran');
     $model->save();
   }
 
@@ -45,11 +47,13 @@ class ParameterAtributKaryawan extends Controller
   {
     $request->validate([
       'id' => 'required|exists:parameter_atribut_karyawan,id',
-      'parameter_atribut_karyawan' => 'required|max:200'
+      'parameter_atribut_karyawan' => 'required|max:200',
+      'pelanggaran' => 'required|boolean'
     ]);
 
     $model = ParameterAtributKaryawanModel::find($request->input('id'));
     if ($request->has('parameter_atribut_karyawan')) $model->parameter_atribut_karyawan = strtoupper($request->input('parameter_atribut_karyawan'));
+    if ($request->has('pelanggaran')) $model->pelanggaran = $request->boolean('pelanggaran');
     $model->save();
   }
 }

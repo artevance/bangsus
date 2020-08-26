@@ -49,23 +49,7 @@ class Produksi extends Controller
         'formTepungModels' => FormTepungModel::with(['tugas_karyawan'])->where('tanggal_form', $request->query('tanggal_form')),
         'formMinyakModels' => FormMinyakModel::with(['tugas_karyawan'])->where('tanggal_form', $request->query('tanggal_form')),
         'formMargarinModels' => FormMargarinModel::with(['tugas_karyawan'])->where('tanggal_form', $request->query('tanggal_form')),
-        'formLPGModels' => FormLPGModel::with(['tugas_karyawan'])->where('tanggal_form', $request->query('tanggal_form')),
-        // 'formAktivitasMarketingModels' =>
-        //   FormAktivitasMarketingModel::with([
-        //     'tugas_karyawan', 
-        //       'tugas_karyawan.cabang',
-        //         'tugas_karyawan.cabang.tipe_cabang',
-        //       'tugas_karyawan.divisi',
-        //       'tugas_karyawan.jabatan',
-        //       'tugas_karyawan.karyawan',
-        //         'tugas_karyawan.karyawan.golongan_darah',
-        //         'tugas_karyawan.karyawan.jenis_kelamin',
-        //     'aktivitas_marketing',
-        //     'satuan',
-        //     'item_marketing',
-        //     'user'
-        //   ])
-        //   ->where('tanggal_form', $request->query('tanggal_form'))
+        'formLPGModels' => FormLPGModel::with(['tugas_karyawan'])->where('tanggal_form', $request->query('tanggal_form'))
       ])
     );
   }

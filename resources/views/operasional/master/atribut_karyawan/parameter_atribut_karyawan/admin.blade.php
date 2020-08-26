@@ -35,6 +35,7 @@
     <thead>
       <th>#</th>
       <th>Parameter Atribut Karyawan</th>
+      <th>Pelanggaran</th>
       <th>Aksi</th>
     </thead>
     <tbody data-role="dataWrapper"></tbody>
@@ -65,6 +66,14 @@
             <label>Parameter Atribut Karyawan</label>
             <input type="text" class="form-control" name="parameter_atribut_karyawan">
             <small class="form-text text-danger" data-role="feedback" data-field="parameter_atribut_karyawan"></small>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <label class="form-check-label" for="defaultCheck1">
+                <input class="form-check-input" type="checkbox" name="pelanggaran">
+                Pelanggaran
+              </label>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -98,6 +107,14 @@
             <label>Parameter Atribut Karyawan</label>
             <input type="text" class="form-control" name="parameter_atribut_karyawan">
             <small class="form-text text-danger" data-role="feedback" data-field="parameter_atribut_karyawan"></small>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <label class="form-check-label" for="defaultCheck1">
+                <input class="form-check-input" type="checkbox" name="pelanggaran">
+                Pelanggaran
+              </label>
+            </div>
           </div>
         </div>
         <div class="modal-footer">

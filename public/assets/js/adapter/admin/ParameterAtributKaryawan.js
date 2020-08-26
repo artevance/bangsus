@@ -64,6 +64,7 @@ function ParameterAtributKaryawan(c)
             <tr>
               <td>${index + 1}</td>
               <td>${item.parameter_atribut_karyawan}</td>
+              <td>${item.pelanggaran == 1 ? 'YA' : 'TIDAK'}</td>
               <td>
                 <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='parameterAtributKaryawan'][data-method='ubah']" data-id="${item.id}">Ubah</a>
                 <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='parameterAtributKaryawan'][data-method='hapus']" data-id="${item.id}">Hapus</a>
@@ -103,6 +104,7 @@ function ParameterAtributKaryawan(c)
                 $(e.currentTarget).find('form').find('[name="atribut_karyawan_id"]').val(re.data.id);
                 $(e.currentTarget).find('form').find('[name="atribut_karyawan"]').val(re.data.atribut_karyawan);
               });
+            if (r.data.pelanggaran == 1) $(e.currentTarget).find('form').find('[name="pelanggaran"]').attr('checked', true);
             Object.keys(r.data).forEach((key) => obj.$.modal.ubah.find(`[name="${key}"]`).val(r.data[key]));
           });
       })
