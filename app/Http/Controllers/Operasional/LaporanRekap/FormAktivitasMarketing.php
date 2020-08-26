@@ -16,7 +16,7 @@ class FormAktivitasMarketing extends Controller
       'submit' => $request->has('submit')
     ];
 
-    $this->title('Form Denda Foto | BangsusSys')
+    $this->title('Laporan Rekap Form Aktivitas Marketing | BangsusSys')
       ->role($request->user()->role->role_code)
       ->query($query);
 

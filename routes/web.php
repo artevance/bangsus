@@ -547,6 +547,13 @@ Route::middleware('auth')->group(function () {
       });
       Route::prefix('/laporan_rekap')->group(function () {
         Route::namespace('LaporanRekap')->group(function () {
+          Route::prefix('/form_c')->group(function () {
+            Route::namespace('FormC')->group(function () {
+              Route::prefix('/produksi')->group(function () {
+                Route::get('', 'Produksi@index')->middleware('role:admin');
+              });
+            });
+          });
           Route::prefix('/form_aktivitas_marketing')->group(function () {
             Route::get('', 'FormAktivitasMarketing@index')->middleware('role:admin');
           });
