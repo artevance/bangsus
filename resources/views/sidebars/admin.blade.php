@@ -228,3 +228,32 @@
     </ul>
   </div>
 </li>
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#laporanFrekuensiOperasional" role="button">
+    <i class="far fa-chart-area link-icon"></i>
+    <span class="link-title">Laporan Frekuensi</span>
+    <i class="link-arrow" data-feather="chevron-down"></i>
+  </a>
+  <div class="collapse" id="laporanFrekuensiOperasional">
+    <ul class="nav sub-menu">
+      <li class="nav-item">
+        <a href="{{ url('/operasional/laporan_frekuensi/form_c/produksi') }}" class="nav-link">Form C1</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/operasional/laporan_frekuensi/form_c/quality_control') }}" class="nav-link">Form C2</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/operasional/laporan_frekuensi/form_c/atribut_karyawan') }}" class="nav-link">Form C3</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/operasional/laporan_frekuensi/form_c/kebersihan') }}" class="nav-link">Form C4</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/operasional/laporan_frekuensi/form_c/general_cleaning') }}" class="nav-link">Form C5</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/operasional/laporan_frekuensi/form_aktivitas_marketing') }}" class="nav-link">Form Aktivitas Marketing</a>
+      </li>
+    </ul>
+  </div>
+</li>

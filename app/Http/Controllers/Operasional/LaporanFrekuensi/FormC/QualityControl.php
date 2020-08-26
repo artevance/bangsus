@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Operasional\LaporanRekap\FormC;
+namespace App\Http\Controllers\Operasional\LaporanFrekuensi\FormC;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ class QualityControl extends Controller
       ->role($request->user()->role->role_code)
       ->query($query);
 
-    return view('operasional.laporan_rekap.form_c.quality_control.wrapper',
+    return view('operasional.laporan_frekuensi.form_c.quality_control.wrapper',
       $this->passParams([
         'cabangs' => CabangModel::all(),
         'qualityControlModels' => QualityControlModel::all(),

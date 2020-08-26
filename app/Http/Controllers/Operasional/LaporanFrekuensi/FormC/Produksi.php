@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Operasional\LaporanRekap\FormC;
+namespace App\Http\Controllers\Operasional\LaporanFrekuensi\FormC;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -33,7 +33,7 @@ class Produksi extends Controller
       ->role($request->user()->role->role_code)
       ->query($query);
 
-    return view('operasional.laporan_rekap.form_c.produksi.wrapper',
+    return view('operasional.laporan_frekuensi.form_c.produksi.wrapper',
       $this->passParams([
         'cabangs' => CabangModel::all(),
         'itemGorengModels' => ItemGorengModel::all(),

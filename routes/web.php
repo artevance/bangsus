@@ -547,6 +547,13 @@ Route::middleware('auth')->group(function () {
       });
       Route::prefix('/laporan_rekap')->group(function () {
         Route::namespace('LaporanRekap')->group(function () {
+          Route::prefix('/form_aktivitas_marketing')->group(function () {
+            Route::get('', 'FormAktivitasMarketing@index')->middleware('role:admin');
+          });
+        });
+      });
+      Route::prefix('/laporan_frekuensi')->group(function () {
+        Route::namespace('LaporanFrekuensi')->group(function () {
           Route::prefix('/form_c')->group(function () {
             Route::namespace('FormC')->group(function () {
               Route::prefix('/produksi')->group(function () {
@@ -555,10 +562,10 @@ Route::middleware('auth')->group(function () {
               Route::prefix('/quality_control')->group(function () {
                 Route::get('', 'QualityControl@index')->middleware('role:admin');
               });
+              Route::prefix('/quality_control')->group(function () {
+                Route::get('', 'QualityControl@index')->middleware('role:admin');
+              });
             });
-          });
-          Route::prefix('/form_aktivitas_marketing')->group(function () {
-            Route::get('', 'FormAktivitasMarketing@index')->middleware('role:admin');
           });
         });
       });

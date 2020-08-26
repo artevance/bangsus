@@ -6,7 +6,7 @@
   <div class="col-12 col-xl-12 stretch-card">
     <div class="card">
       <div class="card-body">
-        @include('operasional.laporan_rekap.form_c.quality_control.' . $role)
+        @include('operasional.laporan_frekuensi.form_c.quality_control.' . $role)
       </div>
     </div>
   </div>
