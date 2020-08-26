@@ -37,6 +37,7 @@
       <th>NIP</th>
       <th>Nama Karyawan</th>
       <th>Jam</th>
+      <th>Lokasi</th>
       <th>Aktivitas Marketing</th>
       <th>Item Marketing</th>
       <th>Qty</th>
@@ -112,9 +113,14 @@
             </div>
           </div>
           <div class="form-group">
+            <label>Lokasi</label>
+            <textarea class="form-control form-control-sm" name="lokasi"></textarea>
+            <small class="form-text text-danger" data-role="feedback" data-field="lokasi"></small>
+          </div>
+          <div class="form-group">
             <label>Keterangan</label>
             <textarea class="form-control form-control-sm" name="keterangan"></textarea>
-              <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
+            <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
           </div>
           <div class="form-group">
             <label>Foto</label>
@@ -196,9 +202,14 @@
             </div>
           </div>
           <div class="form-group">
+            <label>Lokasi</label>
+            <textarea class="form-control form-control-sm" name="lokasi"></textarea>
+            <small class="form-text text-danger" data-role="feedback" data-field="lokasi"></small>
+          </div>
+          <div class="form-group">
             <label>Keterangan</label>
             <textarea class="form-control form-control-sm" name="keterangan"></textarea>
-              <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
+            <small class="form-text text-danger" data-role="feedback" data-field="keterangan"></small>
           </div>
           <div class="form-group">
             <label>Foto</label>

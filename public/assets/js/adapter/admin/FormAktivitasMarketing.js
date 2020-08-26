@@ -87,6 +87,7 @@ function FormAktivitasMarketing()
                   </a>
                 </td>
                 <td>${item.jam}</td>
+                <td>${item.lokasi}</td>
                 <td>${item.aktivitas_marketing.aktivitas_marketing}</td>
                 <td>${item.item_marketing.item_marketing}</td>
                 <td>${item.qty}</td>

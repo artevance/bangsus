@@ -94,6 +94,7 @@ class FormAktivitasMarketing extends Controller
       'qty' => 'required|numeric',
       'satuan_id' => 'required|exists:satuan,id',
       'item_marketing_id' => 'nullable|exists:item_marketing,id',
+      'lokasi' => 'required|max:200',
       'keterangan' => 'nullable|max:200',
       'user_id' => 'required|exists:user,id',
       'gambar' => 'required'
@@ -123,6 +124,7 @@ class FormAktivitasMarketing extends Controller
     $formAktivitasMarketingModel->qty = $request->input('qty');
     $formAktivitasMarketingModel->satuan_id = $request->input('satuan_id');
     $formAktivitasMarketingModel->item_marketing_id = $request->input('item_marketing_id');
+    $formAktivitasMarketingModel->lokasi = $request->input('lokasi');
     $formAktivitasMarketingModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
     $formAktivitasMarketingModel->gambar_id = $gambarModel->id;
     $formAktivitasMarketingModel->user_id = $request->input('user_id');
@@ -140,6 +142,7 @@ class FormAktivitasMarketing extends Controller
       'qty' => 'nullable|numeric',
       'satuan_id' => 'nullable|exists:satuan,id',
       'item_marketing_id' => 'nullable|exists:item_marketing,id',
+      'lokasi' => 'nullable|max:200',
       'keterangan' => 'nullable|max:200',
       'user_id' => 'required|exists:user,id',
       'gambar' => 'nullable'
@@ -159,6 +162,7 @@ class FormAktivitasMarketing extends Controller
     if ($request->has('qty')) $formAktivitasMarketingModel->qty = $request->input('qty');
     if ($request->has('satuan_id')) $formAktivitasMarketingModel->satuan_id = $request->input('satuan_id');
     if ($request->has('item_marketing_id')) $formAktivitasMarketingModel->item_marketing_id = $request->input('item_marketing_id');
+    if ($request->has('lokasi')) $formAktivitasMarketingModel->lokasi = $request->input('lokasi');
     if ($request->has('keterangan')) $formAktivitasMarketingModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
     if ($request->filled('gambar')) $formAktivitasMarketingModel->gambar_id = $gambarModel->id;
     $formAktivitasMarketingModel->user_id = $request->input('user_id');
