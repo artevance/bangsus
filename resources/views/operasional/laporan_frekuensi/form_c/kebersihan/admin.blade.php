@@ -91,4 +91,14 @@
     </tbody>
   </table>
 </div>
+<div class="row mt-3">
+  <div class="col">
+    <p>Keterangan Kegiatan Kebersihan</p>
+    <ol>
+      @foreach($kegiatanKebersihanModels as $kegiatanKebersihanModel)
+        <li>{{ $kegiatanKebersihanModel->kegiatan_kebersihan }}</li>
+      @endforeach
+    </ol>
+  </div>
+</div>
 @endif
