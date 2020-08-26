@@ -132,6 +132,9 @@
       <li class="nav-item">
         <a href="{{ url('/operasional/master/form_foto') }}" class="nav-link">Form Foto</a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('/operasional/master/form_aktivitas_marketing') }}" class="nav-link">Form Aktivitas Marketing</a>
+      </li>
     </ul>
   </div>
 </li>
@@ -171,6 +174,12 @@
   <a href="{{ url('/operasional/form_denda_foto') }}" class="nav-link">
     <i class="far fa-hammer link-icon"></i>
     <span class="link-title">Form Denda Foto</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="{{ url('/operasional/form_aktvitas_marketing') }}" class="nav-link">
+    <i class="far fa-megaphone link-icon"></i>
+    <span class="link-title">Form Aktivitas Marketing</span>
   </a>
 </li>
 <li class="nav-item">
