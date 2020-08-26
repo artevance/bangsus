@@ -552,6 +552,9 @@ Route::middleware('auth')->group(function () {
               Route::prefix('/produksi')->group(function () {
                 Route::get('', 'Produksi@index')->middleware('role:admin');
               });
+              Route::prefix('/quality_control')->group(function () {
+                Route::get('', 'QualityControl@index')->middleware('role:admin');
+              });
             });
           });
           Route::prefix('/form_aktivitas_marketing')->group(function () {
