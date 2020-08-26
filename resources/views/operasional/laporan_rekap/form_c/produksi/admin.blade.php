@@ -64,7 +64,7 @@
           @foreach($itemGorengModels as $itemGorengModel)
             <td>{{ $formGorengModels->where('item_goreng_id', $itemGorengModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
           @endforeach
-          <td>{{ $formMasakNasiModels->count() }}</td>
+          <td>{{ $formMasakNasiModels->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
           @foreach($tipeProsesSambalModels as $tipeProsesSambalModel)
             <td>{{ $formSambalModels->where('tipe_proses_sambal_id', $tipeProsesSambalModel->id)->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}</td>
           @endforeach
