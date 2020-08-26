@@ -125,7 +125,7 @@ class TugasKaryawan extends Controller
   public function put(Request $request)
   {
     $request->validate([
-      'id' => 'required|exists:karyawan,id',
+      'id' => 'required|exists:tugas_karyawan,id',
       'cabang_id' => 'nullable|exists:cabang,id',
       'divisi_id' => 'nullable|exists:divisi,id',
       'jabatan_id' => 'nullable|exists:jabatan,id',
