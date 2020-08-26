@@ -565,6 +565,9 @@ Route::middleware('auth')->group(function () {
               Route::prefix('/atribut_karyawan')->group(function () {
                 Route::get('', 'AtributKaryawan@index')->middleware('role:admin');
               });
+              Route::prefix('/kebersihan')->group(function () {
+                Route::get('', 'Kebersihan@index')->middleware('role:admin');
+              });
             });
           });
         });
