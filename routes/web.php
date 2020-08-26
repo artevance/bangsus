@@ -545,6 +545,13 @@ Route::middleware('auth')->group(function () {
           });
         });
       });
+      Route::prefix('/laporan_rekap')->group(function () {
+        Route::namespace('LaporanRekap')->group(function () {
+          Route::prefix('/form_aktivitas_marketing')->group(function () {
+            Route::get('', 'FormAktivitasMarketing@index')->middleware('role:admin');
+          });
+        });
+      });
     });
   });   
 });

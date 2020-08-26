@@ -199,3 +199,17 @@
     </ul>
   </div>
 </li>
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#laporanRekapOperasional" role="button">
+    <i class="far fa-file-alt link-icon"></i>
+    <span class="link-title">Laporan Rekap</span>
+    <i class="link-arrow" data-feather="chevron-down"></i>
+  </a>
+  <div class="collapse" id="laporanRekapOperasional">
+    <ul class="nav sub-menu">
+      <li class="nav-item">
+        <a href="{{ url('/operasional/laporan_rekap/form_aktivitas_marketing') }}" class="nav-link">Form Aktivitas Marketing</a>
+      </li>
+    </ul>
+  </div>
+</li>
