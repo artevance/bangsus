@@ -44,7 +44,8 @@
             @php $clone = clone $formAtributKaryawanModels; @endphp
             {{ $clone->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->distinct('tugas_karyawan_id')->count() }}
           </td>
-          <td>
+          @php $clone = clone $formAtributKaryawanModels; @endphp
+          <td class="@if($clone->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() == 0) table-danger @endif">
             @php $clone = clone $formAtributKaryawanModels; @endphp
             {{ $clone->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}
           </td>
