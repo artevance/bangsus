@@ -42,11 +42,14 @@
           <td>{{ $cabang->cabang }}</td>
           @foreach($qualityControlModels as $qualityControlModel)
             @php $clone = clone $formQualityControlModels; @endphp
-            <td>{{ $clone->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->where('quality_control_id', $qualityControlModel->id)->get()->count() }}</td>
+            <td class="@if($clone->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->where('quality_control_id', $qualityControlModel->id)->get()->count() == 0) table-danger @endif">
+              @php $clone = clone $formQualityControlModels; @endphp
+              {{ $clone->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->where('quality_control_id', $qualityControlModel->id)->get()->count() }}
+            </td>
           @endforeach
           @php $clone = clone $formQualityControlModels; @endphp
           <td>
-            {{ ($formQualityControlModels->get()->count() / $query['frekuensi_ideal'] * $qualityControlModels->count()) }} %
+            {{ ($clone->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->get()->count() / ($qualityControlModels->count() * $query['frekuensi_ideal'])) * 100 }} %
           </td>
         </tr>
       @endforeach
