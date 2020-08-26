@@ -102,13 +102,16 @@
             </div>
             <div class="col-12 col-lg-3">
               <label>Qty</label>
-              <input type="number" class="form-control" name="qty">
+              <div class="input-group">
+                <input type="number" class="form-control" name="qty">
+                <input type="hidden" name="satuan_id" value="1">
+                <div class="input-group-prepend">
+                  <small class="input-group-text">
+                    PCS
+                  </small>
+                </div>  
+              </div>
               <small class="form-text text-danger" data-role="feedback" data-field="qty"></small>
-            </div>
-            <div class="col-12 col-lg-3">
-              <label>Satuan</label>
-              <select class="form-control" name="satuan_id"></select>
-              <small class="form-text text-danger" data-role="feedback" data-field="satuan_id"></small>
             </div>
           </div>
           <div class="form-group">
@@ -186,13 +189,16 @@
             </div>
             <div class="col-12 col-lg-3">
               <label>Qty</label>
-              <input type="number" class="form-control" name="qty">
+              <div class="input-group">
+                <input type="number" class="form-control" name="qty">
+                <input type="hidden" name="satuan_id" value="1">
+                <div class="input-group-prepend">
+                  <small class="input-group-text">
+                    PCS
+                  </small>
+                </div>  
+              </div>
               <small class="form-text text-danger" data-role="feedback" data-field="qty"></small>
-            </div>
-            <div class="col-12 col-lg-3">
-              <label>Satuan</label>
-              <select class="form-control" name="satuan_id"></select>
-              <small class="form-text text-danger" data-role="feedback" data-field="satuan_id"></small>
             </div>
           </div>
           <div class="form-group">
