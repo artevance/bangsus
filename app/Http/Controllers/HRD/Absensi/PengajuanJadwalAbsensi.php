@@ -146,7 +146,7 @@ class PengajuanJadwalAbsensi extends Controller
   public function delete(Request $request)
   {
     $request->validate([
-      'id' => 'required|exists:absensi,id',
+      'id' => 'required|exists:pengajuan_jadwal_absensi,id',
       'user_id' => 'required|exists:user,id'
     ]);
 
