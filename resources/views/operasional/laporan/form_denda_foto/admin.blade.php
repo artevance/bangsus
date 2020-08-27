@@ -96,7 +96,13 @@
               <td rowspan="{{ $kelompokFotoModel->denda_foto->count() == 0 ? 1 : $kelompokFotoModel->denda_foto->count() }}">{{ $loop->iteration }}</td>
               <td rowspan="{{ $kelompokFotoModel->denda_foto->count() == 0 ? 1 : $kelompokFotoModel->denda_foto->count() }}">{{ $kelompokFotoModel->kelompok_foto }}</td>
               <td>{{ $kelompokFotoModel->denda_foto[0]->denda_foto ?? '(tidak ada denda)' }}</td>
-              <td>{{ isset($kelompokFotoModel->denda_foto[0]) ? $kelompokFotoModel->denda_foto[0]->form_denda_foto_d->sum('nominal') : 0 }}</td>
+              @php
+                $nominal = isset($kelompokFotoModel->denda_foto[0]) ? $kelompokFotoModel->denda_foto[0]->form_denda_foto_d->sum('nominal') : 0
+              @endphp
+              <td>{{ $nominal }}</td>
+              @php
+                $grandTotal += $nominal;
+              @endphp
             </tr>
             @foreach($kelompokFotoModel->denda_foto as $dendaFotoModel)
               @if ($loop->index == 0)
@@ -111,7 +117,6 @@
                 @php
                   $grandTotal += $nominal;
                 @endphp
-                <td>{{ $grandTotal }}</td>
               </tr>
             @endforeach
           @endforeach
