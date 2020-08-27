@@ -18,7 +18,7 @@ class AtributKaryawan extends Controller
       'submit' => $request->has('submit')
     ];
 
-    $this->title('Laporan Rekap Form C3 | BangsusSys')
+    $this->title('Laporan Frekuensi Form C3 | BangsusSys')
       ->role($request->user()->role->role_code)
       ->query($query);
 

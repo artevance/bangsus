@@ -29,7 +29,7 @@ class Produksi extends Controller
       'submit' => $request->has('submit')
     ];
 
-    $this->title('Laporan Rekap Form C1 | BangsusSys')
+    $this->title('Laporan Frekuensi Form C1 | BangsusSys')
       ->role($request->user()->role->role_code)
       ->query($query);
 
