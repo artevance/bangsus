@@ -84,7 +84,7 @@
           @endforeach
           @php $clone = clone $formMasakNasiModel; @endphp
           <td class="@if($clone->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() == 0) table-danger @endif">
-            @php $clone = clone $formGorengModel; @endphp
+            @php $clone = clone $formMasakNasiModel; @endphp
             {{ $clone->whereHas('tugas_karyawan', function ($q) use ($cabang) {$q->where('cabang_id', $cabang->id);})->count() }}
           </td>
           @foreach($tipeProsesSambalModels as $tipeProsesSambalModel)
