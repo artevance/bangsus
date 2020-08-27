@@ -104,10 +104,13 @@
               @endif
               <tr>
                 <td>{{ $dendaFotoModel->denda_foto }}</td>
-                <td>{{ $dendaFotoModel->form_denda_foto_d->sum('nominal') ?? 0 }}</td>
+                @php
+                  $nominal = $dendaFotoModel->form_denda_foto_d->sum('nominal') ?? 0;
+                @endphp
+                <td>{{ $nominal }}</td>
               </tr>
               @php
-                $grandTotal += $dendaFotoModel->form_denda_foto_d->sum('nominal');
+                $grandTotal += $nominal;
               @endphp
             @endforeach
           @endforeach
