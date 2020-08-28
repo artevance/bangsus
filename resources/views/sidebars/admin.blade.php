@@ -208,21 +208,6 @@
   <div class="collapse" id="laporanRekapOperasional">
     <ul class="nav sub-menu">
       <li class="nav-item">
-        <a href="{{ url('/operasional/laporan_rekap/form_c/produksi') }}" class="nav-link">Form C1</a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ url('/operasional/laporan_rekap/form_c/quality_control') }}" class="nav-link">Form C2</a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ url('/operasional/laporan_rekap/form_c/atribut_karyawan') }}" class="nav-link">Form C3</a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ url('/operasional/laporan_rekap/form_c/kebersihan') }}" class="nav-link">Form C4</a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ url('/operasional/laporan_rekap/form_c/general_cleaning') }}" class="nav-link">Form C5</a>
-      </li>
-      <li class="nav-item">
         <a href="{{ url('/operasional/laporan_rekap/form_aktivitas_marketing') }}" class="nav-link">Form Aktivitas Marketing</a>
       </li>
     </ul>
@@ -250,9 +235,6 @@
       </li>
       <li class="nav-item">
         <a href="{{ url('/operasional/laporan_frekuensi/form_c/general_cleaning') }}" class="nav-link">Form C5</a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ url('/operasional/laporan_frekuensi/form_aktivitas_marketing') }}" class="nav-link">Form Aktivitas Marketing</a>
       </li>
     </ul>
   </div>

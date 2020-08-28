@@ -18,7 +18,7 @@
                 {{ Auth::user()->username }}
               </p>
               <p class="email text-muted mb-3">
-                {{ Auth::user()->tugas_karyawan->cabang->cabang }}
+                {{ Auth::user()->tugas_karyawan->cabang->cabang ?? '' }}
               </p>
             </div>
           </div>
