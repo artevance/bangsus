@@ -94,7 +94,7 @@
             <div class="col-12 col-lg-3">
               <label>Qty</label>
               <div class="input-group">
-                <input type="number" class="form-control" name="qty">
+                <input type="number" class="form-control" name="qty" step="any">
                 <input type="hidden" name="satuan_id" value="4">
                 <div class="input-group-prepend">
                   <small class="input-group-text">
@@ -176,7 +176,7 @@
             <div class="col-12 col-lg-3">
               <label>Qty</label>
               <div class="input-group">
-                <input type="number" class="form-control" name="qty">
+                <input type="number" class="form-control" name="qty" step="any">
                 <input type="hidden" name="satuan_id" value="4">
                 <div class="input-group-prepend">
                   <small class="input-group-text">

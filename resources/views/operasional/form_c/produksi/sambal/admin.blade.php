@@ -96,7 +96,7 @@
             </div>
             <div class="col-12 col-lg-3">
               <label>Qty</label>
-              <input type="number" class="form-control" name="qty">
+              <input type="number" class="form-control" name="qty" step="any">
               <small class="form-text text-danger" data-role="feedback" data-field="qty"></small>
             </div>
             <div class="col-12 col-lg-3">
@@ -175,7 +175,7 @@
             </div>
             <div class="col-12 col-lg-3">
               <label>Qty</label>
-              <input type="number" class="form-control" name="qty">
+              <input type="number" class="form-control" name="qty" step="any">
               <small class="form-text text-danger" data-role="feedback" data-field="qty"></small>
             </div>
             <div class="col-12 col-lg-3">
