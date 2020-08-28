@@ -233,9 +233,13 @@
       <li class="nav-item">
         <a href="{{ url('/operasional/laporan_frekuensi/form_c/kebersihan') }}" class="nav-link">Form C4</a>
       </li>
-      <li class="nav-item">
-        <a href="{{ url('/operasional/laporan_frekuensi/form_c/general_cleaning') }}" class="nav-link">Form C5</a>
-      </li>
     </ul>
   </div>
+</li>
+<li class="nav-item nav-category">Autentikasi</li>
+<li class="nav-item">
+  <a href="{{ url('/user') }}" class="nav-link">
+    <i class="far fa-user link-icon"></i>
+    <span class="link-title">User</span>
+  </a>
 </li>

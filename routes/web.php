@@ -573,5 +573,22 @@ Route::middleware('auth')->group(function () {
         });
       });
     });
-  });   
+  });
+
+  Route::prefix('/user')->group(function () {
+    Route::get('', 'Auth\User@index');
+    Route::get('/get', 'Auth\User@get');
+    Route::get('/search', 'Auth\User@search');
+    Route::post('/post', 'Auth\User@post');
+    Route::put('/put', 'Auth\User@put');
+    Route::delete('/delete', 'Auth\User@delete');
+  });
+  Route::prefix('/role')->group(function () {
+    Route::get('', 'Auth\Role@index');
+    Route::get('/get', 'Auth\Role@get');
+    Route::get('/search', 'Auth\Role@search');
+    Route::post('/post', 'Auth\Role@post');
+    Route::put('/put', 'Auth\Role@put');
+    Route::delete('/delete', 'Auth\Role@delete');
+  });
 });

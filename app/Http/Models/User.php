@@ -37,6 +37,8 @@ class User extends Authenticatable
     'email_verified_at' => 'datetime',
   ];
 
+  public $timestamps = false;
+
   protected $table = 'user';
 
   public function role()
