@@ -79,6 +79,9 @@
         <a href="{{ url('/hrd/absensi/impor_absensi') }}" class="nav-link">Impor Absensi</a>
       </li>
       <li class="nav-item">
+        <a href="{{ url('/hrd/absensi/ekspor_absensi') }}" class="nav-link">Ekspor Absensi</a>
+      </li>
+      <li class="nav-item">
         <a href="{{ url('/hrd/absensi/laporan_jadwal') }}" class="nav-link">Laporan Jadwal</a>
       </li>
       <li class="nav-item">

@@ -155,6 +155,10 @@ Route::middleware('auth')->group(function () {
             Route::get('', 'ImporAbsensi@index');
             Route::post('/impor', 'ImporAbsensi@impor');
           });
+          Route::prefix('/ekspor_absensi')->group(function () {
+            Route::get('', 'EksporAbsensi@index');
+            Route::post('/ekspor', 'EksporAbsensi@ekspor');
+          });
           Route::prefix('/laporan_jadwal')->group(function () {
             Route::get('', 'LaporanJadwal@index');
           });
