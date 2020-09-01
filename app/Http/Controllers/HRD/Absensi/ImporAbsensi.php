@@ -45,7 +45,7 @@ class ImporAbsensi extends Controller
         IOFactory::identify($filename)
       );
       $reader->setReadDataOnly(true);
-      $reader->setLoadSheetsOnly('Sheet1');
+      $reader->setLoadSheetsOnly('Lap. Log Absen');
       $jadwalSpreadsheet = $reader->load($filename);
       $jadwalContainer = $jadwalSpreadsheet
         ->getActiveSheet()
