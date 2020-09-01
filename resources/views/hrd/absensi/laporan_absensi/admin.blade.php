@@ -86,8 +86,10 @@
                             <td class="
                               @if( ! is_null($data->absensi[$j]->keterlambatan))
                                 table-danger
-                              @elseif(is_null($data->absensi[$j]->jam_jadwal))
+                              @elseif(is_null($data->absensi[$j]->jam_jadwal) && ! is_null($data->absensi[$j]->jam_absen))
                                 table-warning
+                              @elseif(is_null($data->absensi[$j]->jam_absen) && ! is_null($data->absensi[$j]->jam_jadwal))
+                                table-info
                               @endif">
                               Jam Jadwal: {{ $data->absensi[$j]->jam_jadwal }}<br>
                               Jam Absen: {{ $data->absensi[$j]->jam_absen }}<br>
