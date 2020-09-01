@@ -62,6 +62,8 @@
                   @for($i = strtotime($query['tanggal_awal']); $i <= strtotime($query['tanggal_akhir']); $i += 86400)
                     <th>{{ date('Y-m-d', $i) }}</th>
                   @endfor
+                  <th>Total Jadwal</th>
+                  <th>Total Masuk</th>
                 </thead>
                 <tbody>
                   @foreach($results as $data)
@@ -71,10 +73,16 @@
                       <td>{{ $data->karyawan->nama_karyawan }}</td>
                       @php
                         $j = 0;
+                        $jamJadwalCount = 0;
+                        $jamAbsenCount = 0;
                       @endphp
                       @for($i = strtotime($query['tanggal_awal']); $i <= strtotime($query['tanggal_akhir']); $i += 86400)
                         @isset($data->absensi[$j])
                           @if(strtotime($data->absensi[$j]->tanggal_absensi) == $i)
+                            @php
+                              $jamJadwalCount += is_null($data->absensi[$j]->jam_jadwal) ? 0 : 1;
+                              $jamAbsenCount += is_null($data->absensi[$j]->jam_absen) ? 0 : 1;
+                            @endphp
                             <td class="
                               @if( ! is_null($data->absensi[$j]->keterlambatan))
                                 table-danger
@@ -95,6 +103,8 @@
                           <td></td>
                         @endisset
                       @endfor
+                      <td>{{ $jamJadwalCount ?? 0 }}</td>
+                      <td>{{ $jamAbsenCount ?? 0 }}</td>
                     </tr>
                   @endforeach
                 </tbody>
