@@ -46,22 +46,19 @@ class EksporAbsensi extends Controller
 
     $cabangModel = CabangModel::find($request->input('cabang_id'));
     $data = [
-      ['Laporan Presensi & Keterlambatan', null, null, null, null, null, 'Tanggal Mulai', null, $request->input('tanggal_awal')],
-      ['Kode Cabang', null, $cabangModel->kode_cabang, null, null, null, 'Tanggal Selesai', null, $request->input('tanggal_akhir')],
-      ['Nama Cabang', null, $cabangModel->cabang],
-      ['Tipe Cabang', null, $cabangModel->tipe_cabang->tipe_cabang],
+      ['Laporan Presensi & Keterlambatan', null],
+      ['Kode Cabang', $cabangModel->kode_cabang, 'Tanggal Mulai', $request->input('tanggal_awal')],
+      ['Nama Cabang', $cabangModel->cabang, 'Tanggal Selesai', $request->input('tanggal_akhir')],
+      ['Tipe Cabang', $cabangModel->tipe_cabang->tipe_cabang],
       [],
       []
     ];
 
-    $head = ['No.', 'NIP', 'Nama Karyawan', null, null, null, 'Jabatan', null];
-    $afterHead = [null, null, null, null, null, null, null, null];
+    $head = ['No.', 'NIP', 'Nama Karyawan', 'Jabatan'];
     for ($i = strtotime($request->input('tanggal_awal')); $i <= strtotime($request->input('tanggal_akhir')); $i += 86400) {
-      $afterHead[] = date('Y-m-d', $i);
+      $head[] = date('Y-m-d', $i);
     }
     $data[] = $head;
-    $data[] = $afterHead;
-    $data[] = [];
     $data[] = ['Laporan Presensi'];
 
     $tugasKaryawans = TugasKaryawanModel::where('cabang_id', $request->input('cabang_id'))
@@ -73,7 +70,7 @@ class EksporAbsensi extends Controller
         })->get();
     $presentions = [];
     foreach ($tugasKaryawans as $i => $tugasKaryawan) {
-      $presention = [$i + 1, '\'' . $tugasKaryawan->karyawan->nip, $tugasKaryawan->karyawan->nama_karyawan, null, null, null, $tugasKaryawan->jabatan->jabatan, null];
+      $presention = [$i + 1, '\'' . $tugasKaryawan->karyawan->nip, $tugasKaryawan->karyawan->nama_karyawan, $tugasKaryawan->jabatan->jabatan];
 
       for ($i = strtotime($request->input('tanggal_awal')); $i <= strtotime($request->input('tanggal_akhir')); $i += 86400) {
         $absensi = AbsensiModel::where('tugas_karyawan_id', $tugasKaryawan->id)
@@ -91,13 +88,12 @@ class EksporAbsensi extends Controller
     }
 
     $data = array_merge($data, $presentions);
-    $data[] = [];
     $data[] = ['Laporan Keterlambatan (Menit)'];
 
 
     $presentions = [];
     foreach ($tugasKaryawans as $i => $tugasKaryawan) {
-      $presention = [$i + 1, '\'' . $tugasKaryawan->karyawan->nip, $tugasKaryawan->karyawan->nama_karyawan, null, null, null, $tugasKaryawan->jabatan->jabatan, null];
+      $presention = [$i + 1, '\'' . $tugasKaryawan->karyawan->nip, $tugasKaryawan->karyawan->nama_karyawan, $tugasKaryawan->jabatan->jabatan];
 
       for ($i = strtotime($request->input('tanggal_awal')); $i <= strtotime($request->input('tanggal_akhir')); $i += 86400) {
         $absensi = AbsensiModel::where('tugas_karyawan_id', $tugasKaryawan->id)
