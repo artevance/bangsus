@@ -50,7 +50,8 @@ class LaporanKeterlambatan extends Controller
                   WHEN jam_jadwal < jam_absen THEN TIMEDIFF(jam_absen, jam_jadwal)
                   ELSE null
                 END AS keterlambatan
-              ');
+              ')
+            ->orderBy('tanggal_absensi');
         },
           'absensi.tipe_absensi',
         'cabang',
