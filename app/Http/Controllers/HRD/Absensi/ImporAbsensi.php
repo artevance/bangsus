@@ -135,7 +135,7 @@ class ImporAbsensi extends Controller
         $noFinger = null;
       }
     }
-
+    
     // return ['data' => $data, 'cabangID' => $cabangID];
 
     foreach ($data as $d) {

@@ -102,7 +102,7 @@ class EksporAbsensi extends Controller
         $presention[] = is_null($absensi)
           ? 0
           : (
-            is_null($absensi->jam_jadwal) && is_null($absensi->jam_absen)
+            is_null($absensi->jam_jadwal) || is_null($absensi->jam_absen)
               ? 0
               : (
                 $absensi->jam_jadwal < $absensi->jam_absen
