@@ -166,7 +166,7 @@ Route::middleware('auth')->group(function () {
             Route::get('', 'LaporanKeterlambatan@index');
           });
           Route::prefix('/laporan_absensi')->group(function () {
-            Route::get('', 'LaporanAbsensi@index')->middleware('role:admin');
+            Route::get('', 'LaporanAbsensi@index');
           });
           Route::prefix('/laporan_log_absen')->group(function () {
             Route::get('', 'LaporanLogAbsen@index')->middleware('role:admin');

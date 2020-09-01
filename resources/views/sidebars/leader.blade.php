@@ -45,6 +45,9 @@
       <li class="nav-item">
         <a href="{{ url('/hrd/absensi/laporan_keterlambatan') }}" class="nav-link">Laporan Keterlambatan</a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('/hrd/absensi/laporan_absensi') }}" class="nav-link">Laporan Absensi</a>
+      </li>
     </ul>
   </div>
 </li>
