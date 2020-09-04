@@ -35,7 +35,7 @@
     <tbody>
       @foreach($cabangs as $cabang)
         @php
-          $formAktivitasMarketings = with($formAktivitasMarketingModels)->whereHas('tugas_karyawan', function ($q) use ($cabang) {
+          $formAktivitasMarketings = (clone $formAktivitasMarketingModels)->whereHas('tugas_karyawan', function ($q) use ($cabang) {
             $q->where('cabang_id', $cabang->id);
           })->get();
           $rowspan = $formAktivitasMarketings->count();
