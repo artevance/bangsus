@@ -242,6 +242,7 @@ function FormDendaFoto()
           .fail((r) => console.log(r))
           .done((r) => {
             console.log(r);
+            console.log(obj.$.modal.tambahDenda.find('form').find('[name="kelompok_foto_id"]').val());
             obj.$.modal.tambahDenda.find('form').find('table[data-entity="denda"]').find('[data-role="dataWrapper"]')
               .find(`tr#${ajaxInc}`).find('[name="denda_foto_id[]"]').empty().append('<option>-- Pilih Denda Foto --</option>');
             r.data.forEach((item, index) => {
