@@ -42,7 +42,8 @@ class EksporAbsensi extends Controller
       'tanggal_akhir' => 'required|date_format:Y-m-d',
       'off' => 'required|numeric',
       'nominal_denda' => 'required|numeric',
-      'nominal_maksimal_denda' => 'required|numeric'
+      'nominal_maksimal_denda' => 'required|numeric',
+      'hari_maksimal_masuk' => 'required|numeric'
     ]);
 
     $spreadsheet = new Spreadsheet;
@@ -83,6 +84,7 @@ class EksporAbsensi extends Controller
     $startingRow = 9;
 
     $row = 9;
+    $hariMaksimalMasuk = $request->input('hari_maksimal_masuk');
     foreach ($tugasKaryawans as $i => $tugasKaryawan) {
       $presention = [$i + 1, '\'' . $tugasKaryawan->karyawan->nip, $tugasKaryawan->karyawan->nama_karyawan, $tugasKaryawan->jabatan->jabatan];
 
@@ -103,7 +105,7 @@ class EksporAbsensi extends Controller
       $endCell = Coordinate::stringFromColumnIndex(5 + ((strtotime($request->input('tanggal_akhir')) - strtotime($request->input('tanggal_awal'))) / 86400) + 1) . $row;
       $row++;
 
-      $presention[] = "=SUM($startCell:$endCell)";
+      $presention[] = "=IF(SUM($startCell:$endCell)>$hariMaksimalMasuk,$hariMaksimalMasuk,SUM($startCell:$endCell))";
       $presentions[] = $presention;
     }
 

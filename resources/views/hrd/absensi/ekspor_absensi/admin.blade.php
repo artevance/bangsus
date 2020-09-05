@@ -24,6 +24,22 @@
               </select>
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">
+                  Tanggal Awal
+                </span>
+              </div>
+              <input type="date" class="form-control" name="tanggal_awal" value="{{ $query['tanggal_awal'] }}">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  Tanggal Akhir
+                </span>
+              </div>
+              <input type="date" class="form-control" name="tanggal_akhir" value="{{ $query['tanggal_akhir'] }}">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
                   Off
                 </span>
               </div>
@@ -42,16 +58,10 @@
               <input type="number" class="form-control" name="nominal_maksimal_denda" value="25000">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">
-                  Tanggal Awal
+                  Hari Kerja Maksimal
                 </span>
               </div>
-              <input type="date" class="form-control" name="tanggal_awal" value="{{ $query['tanggal_awal'] }}">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">
-                  Tanggal Akhir
-                </span>
-              </div>
-              <input type="date" class="form-control" name="tanggal_akhir" value="{{ $query['tanggal_akhir'] }}">
+              <input type="number" class="form-control" name="hari_maksimal_masuk">
               <div class="input-group-prepend">
                 <button type="submit" class="btn btn-primary" name="submit">Ekspor</button>
               </div>
