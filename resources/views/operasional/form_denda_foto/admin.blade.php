@@ -327,6 +327,19 @@
               <small class="form-text text-danger" data-role="feedback" data-field="tanggal_form"></small>
             </div>
           </div>
+          <div class="form-group row">
+            <input type="hidden" name="cabang_id">
+            <div class="col-12 col-lg-6">
+              <label>Kode Cabang</label>
+              <input type="text" class="form-control" name="kode_cabang" readonly>
+              <small class="form-text text-danger" data-role="feedback" data-field="kode_cabang"></small>
+            </div>
+            <div class="col-12 col-lg-6">
+              <label>Nama Cabang</label>
+              <input type="text" class="form-control" name="cabang" readonly>
+              <small class="form-text text-danger" data-role="feedback" data-field="cabang"></small>
+            </div>
+          </div>
           <div class="form-group">
             <label>Denda Form Yang Akan Di Generate</label>
             <div class="table-responsive">
@@ -336,6 +349,7 @@
                   <th>Kelompok Foto</th>
                   <th>Qty Minimum Form Terkirim</th>
                   <th>Nominal</th>
+                  <th>Qty Toleransi</th>
                 </thead>
                 <tbody data-role="dataWrapper"></tbody>
               </table>

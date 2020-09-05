@@ -536,6 +536,14 @@ function FormDendaFoto()
       });
       obj.$.modal.generate.on('show.bs.modal', (e) => {
         $(e.currentTarget).find('form').find('[name="tanggal_form"]').val(obj.getQuery('tanggal_form'));
+        $(e.currentTarget).find('form').find('[name="cabang_id"]').val(obj.getQuery('cabang_id'));
+        obj.rel.cabang.ajax.get(obj.getQuery('cabang_id'))
+          .fail((re) => console.log(re))
+          .done((re) => {
+            console.log(re);
+            $(e.currentTarget).find('form').find('[name="kode_cabang"]').val(re.data.kode_cabang);
+            $(e.currentTarget).find('form').find('[name="cabang"]').val(re.data.cabang);
+          });
         obj.rel.kelompokFoto.ajax.search({denda_tidak_kirim: 1})
           .fail((r) => console.log(r))
           .done((r) => {
@@ -548,6 +556,9 @@ function FormDendaFoto()
                   <td>${item.kelompok_foto}</td>
                   <td>${item.pengaturan_kelompok_foto.qty_minimum_form}</td>
                   <td>${item.pengaturan_kelompok_foto.denda_foto.nominal}</td>
+                  <td>
+                    <input type="number" class="form-control form-control-sm" name="qty_toleransi[]" value="0">
+                  </td>
                 </tr>
               `);
             });
