@@ -24,6 +24,24 @@
               </select>
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">
+                  Off
+                </span>
+              </div>
+              <input type="number" class="form-control" name="off" value="4">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  Nominal Denda (Per Menit)
+                </span>
+              </div>
+              <input type="number" class="form-control" name="nominal_denda" value="5000">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  Nominal Maksimal Denda
+                </span>
+              </div>
+              <input type="number" class="form-control" name="nominal_maksimal_denda" value="25000">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
                   Tanggal Awal
                 </span>
               </div>

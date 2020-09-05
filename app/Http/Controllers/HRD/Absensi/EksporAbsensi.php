@@ -13,6 +13,7 @@ use App\Http\Models\TugasKaryawan as TugasKaryawanModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class EksporAbsensi extends Controller
 {
@@ -38,7 +39,10 @@ class EksporAbsensi extends Controller
     $request->validate([
       'cabang_id' => 'required|exists:cabang,id',
       'tanggal_awal' => 'required|date_format:Y-m-d',
-      'tanggal_akhir' => 'required|date_format:Y-m-d'
+      'tanggal_akhir' => 'required|date_format:Y-m-d',
+      'off' => 'required|numeric',
+      'nominal_denda' => 'required|numeric',
+      'nominal_maksimal_denda' => 'required|numeric'
     ]);
 
     $spreadsheet = new Spreadsheet;
@@ -58,6 +62,9 @@ class EksporAbsensi extends Controller
     for ($i = strtotime($request->input('tanggal_awal')); $i <= strtotime($request->input('tanggal_akhir')); $i += 86400) {
       $head[] = date('Y-m-d', $i);
     }
+    $head[] = 'Off';
+    $head[] = 'Total';
+
     $data[] = $head;
     $data[] = ['Laporan Presensi'];
 
@@ -68,7 +75,14 @@ class EksporAbsensi extends Controller
           $query->where('tanggal_selesai', '>=', $request->input('tanggal_awal'))
             ->orWhere('tanggal_selesai', null);
         })->get();
+
+
     $presentions = [];
+
+    $startingColumn = 5;
+    $startingRow = 9;
+
+    $row = 9;
     foreach ($tugasKaryawans as $i => $tugasKaryawan) {
       $presention = [$i + 1, '\'' . $tugasKaryawan->karyawan->nip, $tugasKaryawan->karyawan->nama_karyawan, $tugasKaryawan->jabatan->jabatan];
 
@@ -84,13 +98,20 @@ class EksporAbsensi extends Controller
               : 1
           );
       }
+      $presention[] = $request->input('off');
+      $startCell = Coordinate::stringFromColumnIndex(5) . $row;
+      $endCell = Coordinate::stringFromColumnIndex(5 + ((strtotime($request->input('tanggal_akhir')) - strtotime($request->input('tanggal_awal'))) / 86400) + 1) . $row;
+      $row++;
+
+      $presention[] = "=SUM($startCell:$endCell)";
       $presentions[] = $presention;
     }
 
     $data = array_merge($data, $presentions);
-    $data[] = ['Laporan Keterlambatan (Menit)'];
+    $data[] = ['Laporan Denda (Menit)'];
 
 
+    $row++;
     $presentions = [];
     foreach ($tugasKaryawans as $i => $tugasKaryawan) {
       $presention = [$i + 1, '\'' . $tugasKaryawan->karyawan->nip, $tugasKaryawan->karyawan->nama_karyawan, $tugasKaryawan->jabatan->jabatan];
@@ -99,7 +120,8 @@ class EksporAbsensi extends Controller
         $absensi = AbsensiModel::where('tugas_karyawan_id', $tugasKaryawan->id)
           ->whereDate('tanggal_absensi', '=', date('Y-m-d', $i))
           ->where('tipe_absensi_id', '=', 1)->first();
-        $presention[] = is_null($absensi)
+
+        $penalty = (is_null($absensi)
           ? 0
           : (
             is_null($absensi->jam_jadwal) || is_null($absensi->jam_absen)
@@ -109,8 +131,19 @@ class EksporAbsensi extends Controller
                   ? (strtotime($absensi->jam_absen) / 60) - (strtotime($absensi->jam_jadwal) / 60)
                   : 0
               )
-          );
+          )
+        ) * $request->input('nominal_denda');
+
+        $presention[] = $penalty > $request->input('nominal_maksimal_denda')
+          ? $request->input('nominal_maksimal_denda')
+          : $penalty;
       }
+      $presention[] = null;
+      $startCell = Coordinate::stringFromColumnIndex(5) . $row;
+      $endCell = Coordinate::stringFromColumnIndex(5 + ((strtotime($request->input('tanggal_akhir')) - strtotime($request->input('tanggal_awal'))) / 86400)) . $row;
+      $row++;
+
+      $presention[] = "=SUM($startCell:$endCell)";
       $presentions[] = $presention;
     }
     $data = array_merge($data, $presentions);
