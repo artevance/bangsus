@@ -182,7 +182,12 @@ class FormDendaFoto extends Controller
       'qty_toleransi.*' => 'required|numeric'
     ]);
 
+    $cabang = CabangModel::find($request->input('cabang_id'));
+
     $generateFormDendaFotoModels = GenerateFormDendaFotoModel::where('tanggal_form', $request->input('tanggal_form'))
+      ->whereHas('d.form_denda_foto.form_foto', function ($q) use ($cabang) {
+        $q->where('cabang_id', $cabang->id);
+      })
       ->get();
     if ( ! is_null($generateFormDendaFotoModels)) {
       foreach ($generateFormDendaFotoModels as $generateFormDendaFotoModel) {
@@ -204,7 +209,6 @@ class FormDendaFoto extends Controller
       $generateFormDendaFotoModel->user_id = $request->input('user_id');
       $generateFormDendaFotoModel->save();
 
-      $cabang = CabangModel::find($request->input('cabang_id'));
       $formFotoModels = FormFotoModel::where('kelompok_foto_id', $kelompokFotoModel->id)
         ->where('tanggal_form', $request->input('tanggal_form'))
         ->whereHas('tugas_karyawan', function ($q) use ($cabang) {
