@@ -545,7 +545,7 @@ Route::middleware('auth')->group(function () {
             });
           });
           Route::prefix('/form_denda_foto')->group(function () {
-            Route::get('', 'FormDendaFoto@index')->middleware('role:admin');
+            Route::get('', 'FormDendaFoto@index');
           });
         });
       });

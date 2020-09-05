@@ -90,3 +90,20 @@
     <span class="link-title">Form Aktivitas Marketing</span>
   </a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#laporanOperasional" role="button">
+    <i class="far fa-file link-icon"></i>
+    <span class="link-title">Laporan</span>
+    <i class="link-arrow" data-feather="chevron-down"></i>
+  </a>
+  <div class="collapse" id="laporanOperasional">
+    <ul class="nav sub-menu">
+      <li class="nav-item">
+        <a href="{{ url('/operasional/laporan/form_c/produksi') }}" class="nav-link">Form C1</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/operasional/laporan/form_denda_foto') }}" class="nav-link">Form Denda Foto</a>
+      </li>
+    </ul>
+  </div>
+</li>
