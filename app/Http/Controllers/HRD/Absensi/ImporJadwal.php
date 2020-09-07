@@ -173,7 +173,7 @@ class ImporJadwal extends Controller
             ->where(function ($q) use ($d) {
               $q->where('tanggal_selesai', null)
                 ->orWhere('tanggal_selesai', '>=', $d['tanggal_absensi']);
-            })
+            });
         })
         ->first();
 
