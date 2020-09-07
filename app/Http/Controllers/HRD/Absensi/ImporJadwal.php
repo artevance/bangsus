@@ -170,7 +170,10 @@ class ImporJadwal extends Controller
         ->where('no_finger', $d['no_finger'])
         ->where(function ($q) use ($d) {
           $q->where('tanggal_mulai', '<=', $d['tanggal_absensi'])
-            ->orWhere('tanggal_selesai', '>=', $d['tanggal_absensi']);
+            ->where(function ($q) use ($d) {
+              $q->where('tanggal_selesai', null)
+                ->orWhere('tanggal_selesai', '>=', $d['tanggal_absensi']);
+            })
         })
         ->first();
 
