@@ -168,8 +168,10 @@ class ImporJadwal extends Controller
       $tugasKaryawan = TugasKaryawanModel::with([])
         ->where('cabang_id', $cabangID)
         ->where('no_finger', $d['no_finger'])
-        ->where('tanggal_mulai', '<=', $d['tanggal_absensi'])
-        ->where('tanggal_selesai', '>=', $d['tanggal_absensi'])
+        ->where(function ($q) use ($d) {
+          $q->where('tanggal_mulai', '<=', $d['tanggal_absensi'])
+            ->orWhere('tanggal_selesai', '>=', $d['tanggal_absensi']);
+        })
         ->first();
 
       $validator->after(function ($validator) use ($tugasKaryawan) {
