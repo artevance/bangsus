@@ -163,6 +163,31 @@ class ImporJadwal extends Controller
     }
 
     foreach ($data as $i => $d) {
+      $validator = Validator::make($d, []);
+
+      $tugasKaryawan = TugasKaryawanModel::with([])
+        ->where('cabang_id', $cabangID)
+        ->where('no_finger', $d['no_finger'])
+        ->where('tanggal_mulai', '<=' $d['tanggal_absensi'])
+        ->where('tanggal_selesai', '>=' $d['tanggal_absensi'])
+        ->first();
+
+      $validator->after(function ($validator) use ($tugasKaryawan) {
+        if (is_null($tugasKaryawan)) {
+          $validator->errors()->add('no_finger', 'Invalid');
+        }
+      });
+
+      if ($validator->fails())
+        return redirect(url('/hrd/absensi/impor_jadwal'))
+          ->withErrors($validator)
+          ->with('imporJadwalResult', [
+            'danger',
+            'Impor Jadwal gagal'
+          ]);
+    }
+
+    foreach ($data as $i => $d) {
 
       AbsensiModel::updateOrCreate([
         'tugas_karyawan_id' => 
