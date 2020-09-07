@@ -199,6 +199,13 @@ class ImporJadwal extends Controller
           TugasKaryawanModel::with([])
             ->where('cabang_id', $cabangID)
             ->where('no_finger', $d['no_finger'])
+            ->where(function ($q) use ($d) {
+              $q->where('tanggal_mulai', '<=', $d['tanggal_absensi'])
+                ->where(function ($q) use ($d) {
+                  $q->where('tanggal_selesai', null)
+                    ->orWhere('tanggal_selesai', '>=', $d['tanggal_absensi']);
+                });
+            })
             ->first()->id,
         'tipe_absensi_id' => 1,
         'tanggal_absensi' => $d['tanggal_absensi']
