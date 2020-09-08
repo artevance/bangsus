@@ -65,7 +65,7 @@ class FormFoto extends Controller
       'tanggal_form' => 'required|date',
     ]);
 
-    dd(FormFotoModel::with([
+    echo(FormFotoModel::with([
             'tugas_karyawan',
               'tugas_karyawan.cabang',
                 'tugas_karyawan.cabang.tipe_cabang',
