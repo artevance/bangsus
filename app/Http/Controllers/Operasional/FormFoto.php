@@ -65,7 +65,7 @@ class FormFoto extends Controller
       'tanggal_form' => 'required|date',
     ]);
 
-    echo(FormFotoModel::with([
+    echo FormFotoModel::with([
             'tugas_karyawan',
               'tugas_karyawan.cabang',
                 'tugas_karyawan.cabang.tipe_cabang',
@@ -87,7 +87,7 @@ class FormFoto extends Controller
               ->orWhere('cabang_id', null);
           })
           ->where('tanggal_form', $request->input('tanggal_form'))
-          ->toSql());
+          ->toSql();
 
     return [
       'data' => 
