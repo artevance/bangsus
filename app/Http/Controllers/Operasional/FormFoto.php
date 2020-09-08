@@ -65,30 +65,6 @@ class FormFoto extends Controller
       'tanggal_form' => 'required|date',
     ]);
 
-    echo FormFotoModel::with([
-            'tugas_karyawan',
-              'tugas_karyawan.cabang',
-                'tugas_karyawan.cabang.tipe_cabang',
-              'tugas_karyawan.divisi',
-              'tugas_karyawan.jabatan',
-              'tugas_karyawan.karyawan',
-                'tugas_karyawan.karyawan.golongan_darah',
-                'tugas_karyawan.karyawan.jenis_kelamin',
-            'kelompok_foto',
-            'user',
-            'form_denda_foto',
-              'form_denda_foto.d'
-          ])
-          ->whereHas('tugas_karyawan', function ($query) use ($request) {
-            $query->where('cabang_id', '=', $request->input('cabang_id'));
-          })
-          ->where(function ($query) use ($request) {
-            $query->where('cabang_id', $request->input('cabang_id'))
-              ->orWhere('cabang_id', null);
-          })
-          ->where('tanggal_form', $request->input('tanggal_form'))
-          ->toSql();
-
     return [
       'data' => 
         FormFotoModel::with([
