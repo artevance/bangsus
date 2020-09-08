@@ -164,6 +164,11 @@ class FormDendaFoto extends Controller
     $formDendaFotoModel->user_id = $request->input('user_id');
     $formDendaFotoModel->save();
 
+    if ($formDendaFotoModel->form_foto->tidak_kirim == 1) {
+      $formDendaFotoModel->form_foto->user_id = $request->input('user_id');
+      $formDendaFotoModel->form_foto->delete();
+    }
+
     foreach (FormDendaFotoDModel::where('form_denda_foto_id', $formDendaFotoModel->id) as $formDendaFotoDModel) {
       $formDendaFotoDModel->user_id = $request->input('user_id');
       $formDendaFotoDModel->save();
