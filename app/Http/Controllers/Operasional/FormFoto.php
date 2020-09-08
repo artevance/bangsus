@@ -87,7 +87,7 @@ class FormFoto extends Controller
               ->orWhere('cabang_id', null);
           })
           ->where('tanggal_form', $request->input('tanggal_form'))
-          ->get());
+          ->toSql());
 
     return [
       'data' => 
