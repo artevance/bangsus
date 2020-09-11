@@ -136,6 +136,9 @@
         <a href="{{ url('/operasional/master/form_foto') }}" class="nav-link">Form Foto</a>
       </li>
       <li class="nav-item">
+        <a href="{{ url('/operasional/master/form_laporan_foto') }}" class="nav-link">Form Laporan Foto</a>
+      </li>
+      <li class="nav-item">
         <a href="{{ url('/operasional/master/form_aktivitas_marketing') }}" class="nav-link">Form Aktivitas Marketing</a>
       </li>
     </ul>
@@ -171,6 +174,12 @@
   <a href="{{ url('/operasional/form_foto') }}" class="nav-link">
     <i class="far fa-image link-icon"></i>
     <span class="link-title">Form Foto</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="{{ url('/operasional/form_laporan_foto') }}" class="nav-link">
+    <i class="far fa-camera link-icon"></i>
+    <span class="link-title">Form Laporan Foto</span>
   </a>
 </li>
 <li class="nav-item">

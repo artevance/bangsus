@@ -335,6 +335,18 @@ Route::middleware('auth')->group(function () {
               });
             });
           });
+          Route::prefix('/form_laporan_foto')->group(function () {
+            Route::get('', 'FormLaporanFoto@kelompokLaporanFoto')->middleware('role:admin');
+            Route::get('/detail', 'FormFoto@dendaFoto')->middleware('role:admin');
+            Route::namespace('FormLaporanFoto')->group(function () {
+              Route::prefix('/kelompok_laporan_foto')->group(function () {
+                Route::get('/get', 'KelompokLaporanFoto@get')->middleware('ajax.only');
+                Route::get('/search', 'KelompokLaporanFoto@search')->middleware('ajax.only');
+                Route::post('/post', 'KelompokLaporanFoto@post')->middleware('ajax.only');
+                Route::put('/put', 'KelompokLaporanFoto@put')->middleware('ajax.only');
+              });
+            });
+          });
           Route::prefix('/form_aktivitas_marketing')->group(function () {
             Route::namespace('FormAktivitasMarketing')->group(function () {
               Route::redirect('', '/operasional/master/form_aktivitas_marketing/aktivitas_marketing');
@@ -486,6 +498,16 @@ Route::middleware('auth')->group(function () {
         Route::post('/post', 'FormFoto@post')->middleware('ajax.only');
         Route::put('/put', 'FormFoto@put')->middleware('ajax.only');
         Route::delete('/delete', 'FormFoto@delete')->middleware('ajax.only');
+      });
+      Route::prefix('/form_laporan_foto')->group(function () {
+        Route::get('', 'FormLaporanFoto@index');
+        Route::get('/get', 'FormLaporanFoto@get')->middleware('ajax.only');
+        Route::get('/search', 'FormLaporanFoto@search')->middleware('ajax.only');
+        Route::get('/cabang_harian', 'FormLaporanFoto@cabangHarian');
+        Route::get('/cabang_kelompok_harian', 'FormLaporanFoto@cabangKelompokHarian');
+        Route::post('/post', 'FormLaporanFoto@post')->middleware('ajax.only');
+        Route::put('/put', 'FormLaporanFoto@put')->middleware('ajax.only');
+        Route::delete('/delete', 'FormLaporanFoto@delete')->middleware('ajax.only');
       });
       Route::prefix('/form_denda_foto')->group(function () {
         Route::get('', 'FormDendaFoto@index')->middleware('role:admin');
