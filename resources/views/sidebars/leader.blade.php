@@ -85,6 +85,12 @@
   </a>
 </li>
 <li class="nav-item">
+  <a href="{{ url('/operasional/form_laporan_foto') }}" class="nav-link">
+    <i class="far fa-camera link-icon"></i>
+    <span class="link-title">Form Laporan Foto</span>
+  </a>
+</li>
+<li class="nav-item">
   <a href="{{ url('/operasional/form_aktivitas_marketing') }}" class="nav-link">
     <i class="far fa-megaphone link-icon"></i>
     <span class="link-title">Form Aktivitas Marketing</span>
