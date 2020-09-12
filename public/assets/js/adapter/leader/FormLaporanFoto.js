@@ -25,13 +25,19 @@ function FormLaporanFoto()
         $.ajax({
           method: 'post',
           url: baseUrl.url('/operasional/form_laporan_foto/post'),
-          data: d
+          data: d,
+          contentType: false,
+          cache: false,
+          processData: false
         }),
       put: (d) =>
         $.ajax({
           method: 'put',
           url: baseUrl.url('/operasional/form_laporan_foto/put'),
-          data: d
+          data: d,
+          contentType: false,
+          cache: false,
+          processData: false
         }),
       delete: (d) =>
         $.ajax({
@@ -219,7 +225,7 @@ function FormLaporanFoto()
         e.preventDefault();
         let d = $(e.currentTarget).serializeArray();
         Object.keys(d).forEach((key) => {if (d[key] == 'null') delete d[key]}); console.log(d);
-        obj.ajax.post(d)
+        obj.ajax.post(new FormData(($(e.currentTarget))[0]))
           .fail((r) => {
             console.log(r);
             fbsel($(e.currentTarget)).empty();
@@ -236,7 +242,7 @@ function FormLaporanFoto()
         e.preventDefault();
         let d = $(e.currentTarget).serializeArray();
         Object.keys(d).forEach((key) => {if (d[key] == 'null') delete d[key]});
-        obj.ajax.put(d)
+        obj.ajax.put(new FormData(($(e.currentTarget))[0]))
           .fail((r) => {
             console.log(r);
             fbsel($(e.currentTarget)).empty();

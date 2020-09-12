@@ -99,10 +99,8 @@
           </div>
           <div class="form-group">
             <label>Foto</label>
-            <input type="hidden" name="gambar">
-            <div data-rel="booth"></div>
+            <input type="file" name="gambar">
             <small class="form-text text-danger" data-role="feedback" data-field="gambar"></small>
-            <button type="button" class="btn btn-sm btn-secondary" data-rel="webcamBtn" data-role="capture">Ambil Foto</button>
           </div>
         </div>
         <div class="modal-footer">
@@ -166,10 +164,8 @@
           </div>
           <div class="form-group">
             <label>Foto</label>
-            <input type="hidden" name="gambar">
-            <div data-rel="booth"></div>
+            <input type="file" name="gambar">
             <small class="form-text text-danger" data-role="feedback" data-field="gambar"></small>
-            <button type="button" class="btn btn-sm btn-secondary" data-rel="webcamBtn" data-role="capture">Ambil Foto</button>
           </div>
         </div>
         <div class="modal-footer">

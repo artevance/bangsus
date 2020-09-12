@@ -49,7 +49,7 @@
 <div class="modal fade" data-entity="formLaporanFoto" data-method="tambah" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form>
+      <form enctype="multipart/form-data">
         <div class="modal-header">
           <h5 class="modal-title">Tambah Form Foto</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -99,10 +99,8 @@
           </div>
           <div class="form-group">
             <label>Foto</label>
-            <input type="hidden" name="gambar">
-            <div data-rel="booth"></div>
+            <input type="file" name="gambar">
             <small class="form-text text-danger" data-role="feedback" data-field="gambar"></small>
-            <button type="button" class="btn btn-sm btn-secondary" data-rel="webcamBtn" data-role="capture">Ambil Foto</button>
           </div>
         </div>
         <div class="modal-footer">

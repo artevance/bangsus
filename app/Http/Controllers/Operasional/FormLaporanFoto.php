@@ -144,8 +144,10 @@ class FormLaporanFoto extends Controller
       'gambar' => 'required'
     ]);
 
+    $file = $request->file('gambar');
+
     $gambarModel = new GambarModel;
-    $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
+    $gambarModel->konten = $file->openFile()->fread($file->getSize());
     $gambarModel->save();
 
     $formLaporanFotoModel = new FormLaporanFotoModel;
@@ -177,8 +179,10 @@ class FormLaporanFoto extends Controller
     ]);
 
     if ($request->filled('gambar')) {
+      $file = $request->file('gambar');
+
       $gambarModel = new GambarModel;
-      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
+      $gambarModel->konten = $file->openFile()->fread($file->getSize());
       $gambarModel->save();
     }
 
