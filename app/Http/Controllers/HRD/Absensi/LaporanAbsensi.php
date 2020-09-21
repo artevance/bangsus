@@ -51,7 +51,8 @@ class LaporanAbsensi extends Controller
                   ELSE null
                 END AS keterlambatan
               ')
-            ->orderBy('tanggal_absensi');
+            ->orderBy('tanggal_absensi')
+            ->distinct('tanggal_absensi');
         },
           'absensi.tipe_absensi',
         'cabang',
