@@ -9,6 +9,7 @@ use App\Http\Models\FormLaporanFoto as FormLaporanFotoModel;
 use App\Http\Models\Gambar as GambarModel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Intervention\Image\Facades\Image;
 
 class FormLaporanFoto extends Controller
 {
@@ -144,10 +145,20 @@ class FormLaporanFoto extends Controller
       'gambar' => 'required'
     ]);
 
-    $file = $request->file('gambar');
+    $img = Image::make($request->file('gambar'));
+
+    if ($img->height() > 1000 || $img->width() > 1000)
+      if ($img->height() > $img->width())
+        $img->resize(null, 500, function ($c) {
+          $c->aspectRatio();
+        });
+      else
+        $img->resize(700, null, function ($c) {
+          $c->aspectRatio();
+        });
 
     $gambarModel = new GambarModel;
-    $gambarModel->konten = $file->openFile()->fread($file->getSize());
+    $gambarModel->konten = $img->encode('jpg', 70);
     $gambarModel->save();
 
     $formLaporanFotoModel = new FormLaporanFotoModel;
