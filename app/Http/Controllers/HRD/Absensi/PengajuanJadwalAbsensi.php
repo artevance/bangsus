@@ -91,7 +91,7 @@ class PengajuanJadwalAbsensi extends Controller
       'tipe_absensi_id' => 'required|exists:tipe_absensi,id',
       'jam_jadwal' => [
         'nullable',
-        function ($attr, $v, $f) {
+        function ($attr, $v, $f) use ($request) {
           $target = AbsensiModel::where('tanggal_absensi', $request->input('tanggal_absensi'))
             ->where('tugas_karyawan_id', $request->input('tugas_karyawan_id'))
             ->where('tipe_absensi_id', $request->input('tipe_absensi_id'))
