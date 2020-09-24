@@ -89,7 +89,21 @@ class PengajuanJadwalAbsensi extends Controller
       'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'tanggal_absensi' => 'required|date_format:Y-m-d',
       'tipe_absensi_id' => 'required|exists:tipe_absensi,id',
-      'jam_jadwal' => 'nullable',
+      'jam_jadwal' => [
+        'nullable',
+        function ($attr, $v, $f) {
+          $target = AbsensiModel::where('tanggal_absensi', $request->input('tanggal_absensi'))
+            ->where('tugas_karyawan_id', $request->input('tugas_karyawan_id'))
+            ->where('tipe_absensi_id', $request->input('tipe_absensi_id'))
+            ->first();
+
+          $max = is_null($target)
+            ? strtotime($v)
+            : strtotime($target->jam_jadwal) + 7200;
+
+          if ($max <= $target) $f('Perubahan jam jadwal tidak diizinkan');
+        }
+      ],
       'user_id' => 'required|exists:user,id'
     ]);
 
