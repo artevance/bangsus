@@ -101,7 +101,7 @@ class PengajuanJadwalAbsensi extends Controller
             ? strtotime($v)
             : strtotime($target->jam_jadwal) + 7200;
 
-          if ($max <= $v) $f('Perubahan jam jadwal tidak diizinkan');
+          if ($max >= $v) $f('Perubahan jam jadwal tidak diizinkan');
         }
       ],
       'user_id' => 'required|exists:user,id'
