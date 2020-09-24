@@ -130,9 +130,9 @@ class PengajuanJadwalAbsensi extends Controller
       'jam_jadwal' => [
         'nullable',
         function ($attr, $v, $f) use ($request) {
-          $target = AbsensiModel::where('tanggal_absensi', $request->input('tanggal_absensi'))
-            ->where('tugas_karyawan_id', $request->input('tugas_karyawan_id'))
-            ->where('tipe_absensi_id', $request->input('tipe_absensi_id'))
+          $target = AbsensiModel::where('tanggal_absensi', PengajuanJadwalAbsensiModel::find($request->input('id'))->tanggal_absensi)
+            ->where('tugas_karyawan_id', PengajuanJadwalAbsensiModel::find($request->input('id'))->tugas_karyawan_id)
+            ->where('tipe_absensi_id', PengajuanJadwalAbsensiModel::find($request->input('id'))->tipe_absensi_id)
             ->first();
 
           $max = is_null($target)
