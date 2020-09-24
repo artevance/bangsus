@@ -81,10 +81,11 @@ function PengajuanJadwalAbsensi()
                 <a href="#" class="badge badge-primary" data-toggle="modal" data-target=".modal[data-entity='pengajuanJadwalAbsensi'][data-method='tambah']" data-id="${item.id}">Tambah</a>
               `;
             else
-              aksi += `
-                <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='pengajuanJadwalAbsensi'][data-method='ubah']" data-id="${item.pengajuan_jadwal_absensi[0].id}">Ubah</a>
-                <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='pengajuanJadwalAbsensi'][data-method='hapus']" data-id="${item.pengajuan_jadwal_absensi[0].id}">Hapus</a>
-              `;
+              // aksi += `
+              //   <a href="#" class="badge badge-warning" data-toggle="modal" data-target=".modal[data-entity='pengajuanJadwalAbsensi'][data-method='ubah']" data-id="${item.pengajuan_jadwal_absensi[0].id}">Ubah</a>
+              //   <a href="#" class="badge badge-danger" data-toggle="modal" data-target=".modal[data-entity='pengajuanJadwalAbsensi'][data-method='hapus']" data-id="${item.pengajuan_jadwal_absensi[0].id}">Hapus</a>
+              // `;
+              aksi += '';
             obj.$.table.find(tbysel('dataWrapper', true)).append(`
               <tr>
                 <td>${index + 1}</td>
