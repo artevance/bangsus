@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "compass-mixins": "^0.12.10",
         "moment": "^2.29.0",
         "underscore": "^1.11.0",
         "vue-router": "^3.4.4",
