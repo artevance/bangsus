@@ -2081,8 +2081,8 @@ __webpack_require__.r(__webpack_exports__);
             to: 'master.aktivitasMarketing'
           }, {
             title: 'Item Marketing',
-            index: 'aktivitasMarketing',
-            to: 'master.aktivitasMarketing'
+            index: 'itemMarketing',
+            to: 'master.itemMarketing'
           }]
         }, {
           icon: 'far fa-users',
@@ -2541,8 +2541,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2568,6 +2566,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        aktivitas_karyawan: {
+          q: ''
+        }
       }
     };
   },
@@ -2582,12 +2585,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/aktivitas_karyawan')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.aktivitas_karyawan = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.aktivitas_karyawan = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/aktivitas_karyawan?q=' + this.query.aktivitas_karyawan.q);
     },
 
     /**
@@ -2597,11 +2618,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="aktivitasKaryawan"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/aktivitas_karyawan/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           aktivitas_karyawan: res.data.container.aktivitas_karyawan
         };
@@ -2613,46 +2634,295 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/aktivitas_karyawan', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           aktivitas_karyawan: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="aktivitasKaryawan"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/aktivitas_karyawan', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           aktivitas_karyawan: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="aktivitasKaryawan"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/AktivitasMarketing.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/AktivitasMarketing.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        aktivitas_marketing: []
+      },
+      form: {
+        create: {
+          data: {
+            aktivitas_marketing: ''
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            aktivitas_marketing: ''
+          },
+          errors: {}
+        }
+      },
+      query: {
+        aktivitas_marketing: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData()]).then(function (res) {
+        _this.data.aktivitas_marketing = res[0].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.aktivitas_marketing = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/aktivitas_marketing?q=' + this.query.aktivitas_marketing.q);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="aktivitasMarketing"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/aktivitas_marketing/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          aktivitas_marketing: res.data.container.aktivitas_marketing
+        };
+        $('[data-entity="aktivitasMarketing"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.$axios.post('/ajax/v1/master/aktivitas_marketing', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          aktivitas_marketing: ''
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="aktivitasMarketing"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/aktivitas_marketing', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          aktivitas_marketing: ''
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="aktivitasMarketing"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -2669,8 +2939,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -2837,6 +3105,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        cabang: {
+          q: ''
+        }
       }
     };
   },
@@ -2851,7 +3124,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/cabang')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.cabang = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
@@ -2860,24 +3133,42 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.cabang = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/cabang?q=' + this.query.cabang.q);
+    },
+
+    /**
      *  Modal functionality
      */
     showCreateModal: function showCreateModal() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$axios.get('/ajax/v1/master/tipe_cabang').then(function (res) {
-        _this2.data.tipe_cabang = res.data.container;
+        _this3.data.tipe_cabang = res.data.container;
         $('[data-entity="cabang"][data-method="create"]').modal('show');
       })["catch"](function (err) {});
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/cabang/' + id).then(function (res) {
-        _this3.$axios.get('/ajax/v1/master/tipe_cabang').then(function (res) {
-          _this3.data.tipe_cabang = res.data.container;
-          _this3.form.update.data = {
+        _this4.$axios.get('/ajax/v1/master/tipe_cabang').then(function (res) {
+          _this4.data.tipe_cabang = res.data.container;
+          _this4.form.update.data = {
             id: id,
             kode_cabang: res.data.container.kode_cabang,
             cabang: res.data.container.cabang,
@@ -2892,36 +3183,11 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/cabang', this.form.create.data).then(function (res) {
-        _this4.form.create.data = {
-          kode_cabang: '',
-          cabang: '',
-          tipe_cabang: null
-        };
-
-        _this4.prepare();
-
-        $('[data-entity="cabang"][data-method="create"]').modal('hide');
-      })["catch"](function (err) {
-        console.log(err.response.data);
-
-        if (err.response.status == 422) {
-          _this4.form.create.errors = err.response.data.errors;
-        }
-      })["finally"](function () {
-        _this4.form.create.loading = false;
-      });
-    },
-    update: function update() {
-      var _this5 = this;
-
-      this.form.update.loading = true;
-      this.$axios.put('/ajax/v1/master/cabang', this.form.update.data).then(function (res) {
-        _this5.form.update.data = {
-          id: null,
+        _this5.form.create.data = {
           kode_cabang: '',
           cabang: '',
           tipe_cabang: null
@@ -2929,13 +3195,38 @@ __webpack_require__.r(__webpack_exports__);
 
         _this5.prepare();
 
+        $('[data-entity="cabang"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this5.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this6 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/cabang', this.form.update.data).then(function (res) {
+        _this6.form.update.data = {
+          id: null,
+          kode_cabang: '',
+          cabang: '',
+          tipe_cabang: null
+        };
+
+        _this6.prepare();
+
         $('[data-entity="cabang"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this5.form.update.errors = err.response.data.errors;
+          _this6.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this5.form.update.loading = false;
+        _this6.form.update.loading = false;
       });
     }
   }
@@ -2952,8 +3243,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -3079,6 +3368,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        divisi: {
+          q: ''
+        }
       }
     };
   },
@@ -3093,12 +3387,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/divisi')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.divisi = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.divisi = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/divisi?q=' + this.query.divisi.q);
     },
 
     /**
@@ -3108,11 +3420,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="divisi"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/divisi/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           divisi: res.data.container.divisi
         };
@@ -3124,46 +3436,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/divisi', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           divisi: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="divisi"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/divisi', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           divisi: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="divisi"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -3180,8 +3492,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -3307,6 +3617,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        item_goreng: {
+          q: ''
+        }
       }
     };
   },
@@ -3321,12 +3636,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/item_goreng')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.item_goreng = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.item_goreng = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/item_goreng?q=' + this.query.item_goreng.q);
     },
 
     /**
@@ -3336,11 +3669,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="itemGoreng"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/item_goreng/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           item_goreng: res.data.container.item_goreng
         };
@@ -3352,46 +3685,295 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/item_goreng', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           item_goreng: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="itemGoreng"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/item_goreng', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           item_goreng: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="itemGoreng"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/ItemMarketing.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/ItemMarketing.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        item_marketing: []
+      },
+      form: {
+        create: {
+          data: {
+            item_marketing: ''
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            item_marketing: ''
+          },
+          errors: {}
+        }
+      },
+      query: {
+        item_marketing: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData()]).then(function (res) {
+        _this.data.item_marketing = res[0].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.item_marketing = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/item_marketing?q=' + this.query.item_marketing.q);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="itemMarketing"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/item_marketing/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          item_marketing: res.data.container.item_marketing
+        };
+        $('[data-entity="itemMarketing"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.$axios.post('/ajax/v1/master/item_marketing', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          item_marketing: ''
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="itemMarketing"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/item_marketing', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          item_marketing: ''
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="itemMarketing"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -3408,8 +3990,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -3535,6 +4115,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        jabatan: {
+          q: ''
+        }
       }
     };
   },
@@ -3549,12 +4134,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/jabatan')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.jabatan = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.jabatan = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/jabatan?q=' + this.query.jabatan.q);
     },
 
     /**
@@ -3564,11 +4167,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="jabatan"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/jabatan/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           jabatan: res.data.container.jabatan
         };
@@ -3580,46 +4183,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/jabatan', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           jabatan: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="jabatan"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/jabatan', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           jabatan: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="jabatan"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -3636,8 +4239,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -3763,6 +4364,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        kegiatan_kebersihan: {
+          q: ''
+        }
       }
     };
   },
@@ -3777,14 +4383,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/kegiatan_kebersihan')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.kegiatan_kebersihan = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
-        console.log(err.response);
-
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.kegiatan_kebersihan = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/kegiatan_kebersihan?q=' + this.query.kegiatan_kebersihan.q);
     },
 
     /**
@@ -3794,11 +4416,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="kegiatanKebersihan"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/kegiatan_kebersihan/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           kegiatan_kebersihan: res.data.container.kegiatan_kebersihan
         };
@@ -3810,46 +4432,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/kegiatan_kebersihan', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           kegiatan_kebersihan: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="kegiatanKebersihan"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/kegiatan_kebersihan', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           kegiatan_kebersihan: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="kegiatanKebersihan"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -3866,8 +4488,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -3993,6 +4613,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        kelompok_laporan_foto: {
+          q: ''
+        }
       }
     };
   },
@@ -4007,12 +4632,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/kelompok_laporan_foto')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.kelompok_laporan_foto = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.kelompok_laporan_foto = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/kelompok_laporan_foto?q=' + this.query.kelompok_laporan_foto.q);
     },
 
     /**
@@ -4022,11 +4665,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="kelompokLaporanFoto"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/kelompok_laporan_foto/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           kelompok_laporan_foto: res.data.container.kelompok_laporan_foto
         };
@@ -4038,46 +4681,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/kelompok_laporan_foto', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           kelompok_laporan_foto: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="kelompokLaporanFoto"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/kelompok_laporan_foto', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           kelompok_laporan_foto: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="kelompokLaporanFoto"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -4094,8 +4737,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -4221,6 +4862,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        satuan: {
+          q: ''
+        }
       }
     };
   },
@@ -4235,12 +4881,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/satuan')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.satuan = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.satuan = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/satuan?q=' + this.query.satuan.q);
     },
 
     /**
@@ -4250,11 +4914,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="satuan"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/satuan/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           satuan: res.data.container.satuan
         };
@@ -4266,46 +4930,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/satuan', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           satuan: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="satuan"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/satuan', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           satuan: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="satuan"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -4322,8 +4986,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -4449,6 +5111,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        supplier: {
+          q: ''
+        }
       }
     };
   },
@@ -4463,12 +5130,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/supplier')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.supplier = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.supplier = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/supplier?q=' + this.query.supplier.q);
     },
 
     /**
@@ -4478,11 +5163,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="supplier"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/supplier/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           supplier: res.data.container.supplier
         };
@@ -4494,46 +5179,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/supplier', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           supplier: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="supplier"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/supplier', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           supplier: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="supplier"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -4550,8 +5235,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -4677,6 +5360,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        tipe_absensi: {
+          q: ''
+        }
       }
     };
   },
@@ -4691,12 +5379,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/tipe_absensi')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.tipe_absensi = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.tipe_absensi = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/tipe_absensi?q=' + this.query.tipe_absensi.q);
     },
 
     /**
@@ -4706,11 +5412,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="tipeAbsensi"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/tipe_absensi/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           tipe_absensi: res.data.container.tipe_absensi
         };
@@ -4722,46 +5428,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/tipe_absensi', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           tipe_absensi: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="tipeAbsensi"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/tipe_absensi', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           tipe_absensi: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="tipeAbsensi"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -4778,8 +5484,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -4905,6 +5609,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        tipe_alamat: {
+          q: ''
+        }
       }
     };
   },
@@ -4919,12 +5628,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/tipe_alamat')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.tipe_alamat = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.tipe_alamat = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/tipe_alamat?q=' + this.query.tipe_alamat.q);
     },
 
     /**
@@ -4934,11 +5661,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="tipeAlamat"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/tipe_alamat/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           tipe_alamat: res.data.container.tipe_alamat
         };
@@ -4950,46 +5677,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/tipe_alamat', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           tipe_alamat: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="tipeAlamat"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/tipe_alamat', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           tipe_alamat: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="tipeAlamat"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -5006,8 +5733,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -5133,6 +5858,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        tipe_cabang: {
+          q: ''
+        }
       }
     };
   },
@@ -5147,12 +5877,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/tipe_cabang')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.tipe_cabang = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.tipe_cabang = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/tipe_cabang?q=' + this.query.tipe_cabang.q);
     },
 
     /**
@@ -5162,11 +5910,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="tipeCabang"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/tipe_cabang/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           tipe_cabang: res.data.container.tipe_cabang
         };
@@ -5178,46 +5926,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/tipe_cabang', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           tipe_cabang: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="tipeCabang"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/tipe_cabang', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           tipe_cabang: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="tipeCabang"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -5234,8 +5982,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -5361,6 +6107,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        tipe_foto_karyawan: {
+          q: ''
+        }
       }
     };
   },
@@ -5375,12 +6126,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/tipe_foto_karyawan')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.tipe_foto_karyawan = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.tipe_foto_karyawan = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/tipe_foto_karyawan?q=' + this.query.tipe_foto_karyawan.q);
     },
 
     /**
@@ -5390,11 +6159,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="tipeFotoKaryawan"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/tipe_foto_karyawan/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           tipe_foto_karyawan: res.data.container.tipe_foto_karyawan
         };
@@ -5406,46 +6175,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/tipe_foto_karyawan', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           tipe_foto_karyawan: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="tipeFotoKaryawan"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/tipe_foto_karyawan', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           tipe_foto_karyawan: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="tipeFotoKaryawan"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -5462,8 +6231,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -5589,6 +6356,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        tipe_kontak: {
+          q: ''
+        }
       }
     };
   },
@@ -5603,12 +6375,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/tipe_kontak')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.tipe_kontak = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.tipe_kontak = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/tipe_kontak?q=' + this.query.tipe_kontak.q);
     },
 
     /**
@@ -5618,11 +6408,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="tipeKontak"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/tipe_kontak/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           tipe_kontak: res.data.container.tipe_kontak
         };
@@ -5634,46 +6424,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/tipe_kontak', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           tipe_kontak: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="tipeKontak"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/tipe_kontak', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           tipe_kontak: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="tipeKontak"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -5690,8 +6480,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -5817,6 +6605,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        tipe_proses_lpg: {
+          q: ''
+        }
       }
     };
   },
@@ -5831,12 +6624,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/tipe_proses_lpg')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.tipe_proses_lpg = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.tipe_proses_lpg = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/tipe_proses_lpg?q=' + this.query.tipe_proses_lpg.q);
     },
 
     /**
@@ -5846,11 +6657,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="tipeProsesLPG"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/tipe_proses_lpg/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           tipe_proses_lpg: res.data.container.tipe_proses_lpg
         };
@@ -5862,46 +6673,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/tipe_proses_lpg', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           tipe_proses_lpg: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="tipeProsesLPG"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/tipe_proses_lpg', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           tipe_proses_lpg: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="tipeProsesLPG"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -5918,8 +6729,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -6045,6 +6854,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        tipe_proses_margarin: {
+          q: ''
+        }
       }
     };
   },
@@ -6059,12 +6873,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/tipe_proses_margarin')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.tipe_proses_margarin = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.tipe_proses_margarin = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/tipe_proses_margarin?q=' + this.query.tipe_proses_margarin.q);
     },
 
     /**
@@ -6074,11 +6906,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="tipeProsesMargarin"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/tipe_proses_margarin/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           tipe_proses_margarin: res.data.container.tipe_proses_margarin
         };
@@ -6090,46 +6922,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/tipe_proses_margarin', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           tipe_proses_margarin: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="tipeProsesMargarin"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/tipe_proses_margarin', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           tipe_proses_margarin: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="tipeProsesMargarin"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -6146,8 +6978,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -6273,6 +7103,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        tipe_proses_minyak: {
+          q: ''
+        }
       }
     };
   },
@@ -6287,12 +7122,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/tipe_proses_minyak')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.tipe_proses_minyak = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.tipe_proses_minyak = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/tipe_proses_minyak?q=' + this.query.tipe_proses_minyak.q);
     },
 
     /**
@@ -6302,11 +7155,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="tipeProsesMinyak"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/tipe_proses_minyak/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           tipe_proses_minyak: res.data.container.tipe_proses_minyak
         };
@@ -6318,46 +7171,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/tipe_proses_minyak', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           tipe_proses_minyak: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="tipeProsesMinyak"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/tipe_proses_minyak', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           tipe_proses_minyak: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="tipeProsesMinyak"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -6374,8 +7227,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -6501,6 +7352,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        tipe_proses_sambal: {
+          q: ''
+        }
       }
     };
   },
@@ -6515,12 +7371,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/tipe_proses_sambal')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.tipe_proses_sambal = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.tipe_proses_sambal = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/tipe_proses_sambal?q=' + this.query.tipe_proses_sambal.q);
     },
 
     /**
@@ -6530,11 +7404,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="tipeProsesSambal"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/tipe_proses_sambal/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           tipe_proses_sambal: res.data.container.tipe_proses_sambal
         };
@@ -6546,46 +7420,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/tipe_proses_sambal', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           tipe_proses_sambal: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="tipeProsesSambal"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/tipe_proses_sambal', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           tipe_proses_sambal: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="tipeProsesSambal"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -6602,8 +7476,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -6729,6 +7601,11 @@ __webpack_require__.r(__webpack_exports__);
           },
           errors: {}
         }
+      },
+      query: {
+        tipe_proses_tepung: {
+          q: ''
+        }
       }
     };
   },
@@ -6743,12 +7620,30 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state.page.loading = true;
-      Promise.all([this.$axios.get('/ajax/v1/master/tipe_proses_tepung')]).then(function (res) {
+      Promise.all([this.fetchMainData()]).then(function (res) {
         _this.data.tipe_proses_tepung = res[0].data.container;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         _this.$router.go(-1);
       });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.tipe_proses_tepung = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/tipe_proses_tepung?q=' + this.query.tipe_proses_tepung.q);
     },
 
     /**
@@ -6758,11 +7653,11 @@ __webpack_require__.r(__webpack_exports__);
       $('[data-entity="tipeProsesTepung"][data-method="create"]').modal('show');
     },
     showUpdateModal: function showUpdateModal(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.update.data = {};
       this.$axios.get('/ajax/v1/master/tipe_proses_tepung/' + id).then(function (res) {
-        _this2.form.update.data = {
+        _this3.form.update.data = {
           id: id,
           tipe_proses_tepung: res.data.container.tipe_proses_tepung
         };
@@ -6774,46 +7669,46 @@ __webpack_require__.r(__webpack_exports__);
      *  Form request handler
      */
     create: function create() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.create.loading = true;
       this.$axios.post('/ajax/v1/master/tipe_proses_tepung', this.form.create.data).then(function (res) {
-        _this3.form.create.data = {
+        _this4.form.create.data = {
           tipe_proses_tepung: ''
         };
 
-        _this3.prepare();
+        _this4.prepare();
 
         $('[data-entity="tipeProsesTepung"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this3.form.create.errors = err.response.data.errors;
+          _this4.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this3.form.create.loading = false;
+        _this4.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.update.loading = true;
       this.$axios.put('/ajax/v1/master/tipe_proses_tepung', this.form.update.data).then(function (res) {
-        _this4.form.update.data = {
+        _this5.form.update.data = {
           id: null,
           tipe_proses_tepung: ''
         };
 
-        _this4.prepare();
+        _this5.prepare();
 
         $('[data-entity="tipeProsesTepung"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this4.form.update.errors = err.response.data.errors;
+          _this5.form.update.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this4.form.update.loading = false;
+        _this5.form.update.loading = false;
       });
     }
   }
@@ -67321,16 +68216,39 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.aktivitasKaryawan", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.aktivitas_karyawan.q,
+                                  expression: "query.aktivitas_karyawan.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: {
+                                value: _vm.query.aktivitas_karyawan.q
+                              },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.aktivitas_karyawan,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -67691,6 +68609,440 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/AktivitasMarketing.vue?vue&type=template&id=2511daa0&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/AktivitasMarketing.vue?vue&type=template&id=2511daa0& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "row mt-5" },
+    [
+      _c(
+        "transition",
+        { attrs: { name: "fade", mode: "out-in" } },
+        [
+          _vm.state.page.loading
+            ? _c("preloader-component")
+            : _c("div", { staticClass: "col-12 col-xl-12 stretch-card" }, [
+                _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "card-body" }, [
+                    _vm.$access("master.aktivitasMarketing", "create")
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: { click: _vm.showCreateModal }
+                          },
+                          [_vm._v("Tambah")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row mt-5" }, [
+                      _c("div", { staticClass: "col-12 col-md-6" }, [
+                        _vm.$access("master.aktivitasMarketing", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.aktivitas_marketing.q,
+                                  expression: "query.aktivitas_marketing.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: {
+                                value: _vm.query.aktivitas_marketing.q
+                              },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.aktivitas_marketing,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "table-responsive mt-2" }, [
+                      _vm.$access("master.aktivitasMarketing", "read")
+                        ? _c("table", { staticClass: "table table-hover" }, [
+                            _c("thead", [
+                              _c("th", [_vm._v("#")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Aktivitas Marketing")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Aksi")])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.data.aktivitas_marketing, function(
+                                aktivitas_marketing,
+                                i
+                              ) {
+                                return _c("tr", [
+                                  _c("td", [_vm._v(_vm._s(i + 1))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        aktivitas_marketing.aktivitas_marketing
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm.$access(
+                                      "master.aktivitasMarketing",
+                                      "update"
+                                    )
+                                      ? _c(
+                                          "a",
+                                          {
+                                            staticClass: "badge badge-warning",
+                                            attrs: { href: "#" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.showUpdateModal(
+                                                  aktivitas_marketing.id
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                      Ubah\n                    "
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ])
+                                ])
+                              }),
+                              0
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ])
+              ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.$access("master.aktivitasMarketing", "create")
+        ? _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                "data-entity": "aktivitasMarketing",
+                "data-method": "create",
+                "data-backdrop": "static",
+                "data-keyboard": "false",
+                tabindex: "-1"
+              }
+            },
+            [
+              _c("div", { staticClass: "modal-dialog" }, [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.create($event)
+                        }
+                      }
+                    },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-body" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", [_vm._v("Aktivitas Marketing")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value:
+                                    _vm.form.create.data.aktivitas_marketing,
+                                  expression:
+                                    "form.create.data.aktivitas_marketing"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: _vm.form.create.data.aktivitas_marketing
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form.create.data,
+                                    "aktivitas_marketing",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm._l(
+                              _vm.form.create.errors.aktivitas_marketing,
+                              function(msg, index) {
+                                return _c(
+                                  "small",
+                                  { key: index, staticClass: "text-danger" },
+                                  [
+                                    _vm._v(
+                                      "\n                " +
+                                        _vm._s(msg) +
+                                        "\n              "
+                                    )
+                                  ]
+                                )
+                              }
+                            )
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: {
+                              type: "submit",
+                              disabled: _vm.form.create.loading
+                            }
+                          },
+                          [
+                            _vm.form.create.loading
+                              ? _c("spinner-component", {
+                                  attrs: { size: "sm", color: "light" }
+                                })
+                              : _vm._e(),
+                            _vm._v("\n              Tambah\n            ")
+                          ],
+                          1
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.$access("master.aktivitasMarketing", "update")
+        ? _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                "data-entity": "aktivitasMarketing",
+                "data-method": "update",
+                "data-backdrop": "static",
+                "data-keyboard": "false",
+                tabindex: "-1"
+              }
+            },
+            [
+              _c("div", { staticClass: "modal-dialog" }, [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.update($event)
+                        }
+                      }
+                    },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-body" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", [_vm._v("Aktivitas Marketing")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value:
+                                    _vm.form.update.data.aktivitas_marketing,
+                                  expression:
+                                    "form.update.data.aktivitas_marketing"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: _vm.form.update.data.aktivitas_marketing
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form.update.data,
+                                    "aktivitas_marketing",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm._l(
+                              _vm.form.update.errors.aktivitas_marketing,
+                              function(msg, index) {
+                                return _c(
+                                  "small",
+                                  { key: index, staticClass: "text-danger" },
+                                  [
+                                    _vm._v(
+                                      "\n                " +
+                                        _vm._s(msg) +
+                                        "\n              "
+                                    )
+                                  ]
+                                )
+                              }
+                            )
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: {
+                              type: "submit",
+                              disabled: _vm.form.update.loading
+                            }
+                          },
+                          [
+                            _vm.form.update.loading
+                              ? _c("spinner-component", {
+                                  attrs: { size: "sm", color: "light" }
+                                })
+                              : _vm._e(),
+                            _vm._v("\n              Ubah\n            ")
+                          ],
+                          1
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ]
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Tambah Aktivitas Marketing")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Ubah Aktivitas Marketing")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/Cabang.vue?vue&type=template&id=e7c8efd8&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/Cabang.vue?vue&type=template&id=e7c8efd8& ***!
@@ -67732,16 +69084,37 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.cabang", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.cabang.q,
+                                  expression: "query.cabang.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.cabang.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.cabang,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -68371,16 +69744,37 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.divisi", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.divisi.q,
+                                  expression: "query.divisi.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.divisi.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.divisi,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -68758,16 +70152,37 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.itemGoreng", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.item_goreng.q,
+                                  expression: "query.item_goreng.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.item_goreng.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.item_goreng,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -69113,6 +70528,430 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/ItemMarketing.vue?vue&type=template&id=191379c5&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/ItemMarketing.vue?vue&type=template&id=191379c5& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "row mt-5" },
+    [
+      _c(
+        "transition",
+        { attrs: { name: "fade", mode: "out-in" } },
+        [
+          _vm.state.page.loading
+            ? _c("preloader-component")
+            : _c("div", { staticClass: "col-12 col-xl-12 stretch-card" }, [
+                _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "card-body" }, [
+                    _vm.$access("master.itemMarketing", "create")
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: { click: _vm.showCreateModal }
+                          },
+                          [_vm._v("Tambah")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row mt-5" }, [
+                      _c("div", { staticClass: "col-12 col-md-6" }, [
+                        _vm.$access("master.itemMarketing", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.item_marketing.q,
+                                  expression: "query.item_marketing.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.item_marketing.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.item_marketing,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "table-responsive mt-2" }, [
+                      _vm.$access("master.itemMarketing", "read")
+                        ? _c("table", { staticClass: "table table-hover" }, [
+                            _c("thead", [
+                              _c("th", [_vm._v("#")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Item Marketing")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Aksi")])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.data.item_marketing, function(
+                                item_marketing,
+                                i
+                              ) {
+                                return _c("tr", [
+                                  _c("td", [_vm._v(_vm._s(i + 1))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(item_marketing.item_marketing)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm.$access(
+                                      "master.itemMarketing",
+                                      "update"
+                                    )
+                                      ? _c(
+                                          "a",
+                                          {
+                                            staticClass: "badge badge-warning",
+                                            attrs: { href: "#" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.showUpdateModal(
+                                                  item_marketing.id
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                      Ubah\n                    "
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ])
+                                ])
+                              }),
+                              0
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ])
+              ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.$access("master.itemMarketing", "create")
+        ? _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                "data-entity": "itemMarketing",
+                "data-method": "create",
+                "data-backdrop": "static",
+                "data-keyboard": "false",
+                tabindex: "-1"
+              }
+            },
+            [
+              _c("div", { staticClass: "modal-dialog" }, [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.create($event)
+                        }
+                      }
+                    },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-body" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", [_vm._v("Item Marketing")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.create.data.item_marketing,
+                                  expression: "form.create.data.item_marketing"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: _vm.form.create.data.item_marketing
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form.create.data,
+                                    "item_marketing",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm._l(
+                              _vm.form.create.errors.item_marketing,
+                              function(msg, index) {
+                                return _c(
+                                  "small",
+                                  { key: index, staticClass: "text-danger" },
+                                  [
+                                    _vm._v(
+                                      "\n                " +
+                                        _vm._s(msg) +
+                                        "\n              "
+                                    )
+                                  ]
+                                )
+                              }
+                            )
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: {
+                              type: "submit",
+                              disabled: _vm.form.create.loading
+                            }
+                          },
+                          [
+                            _vm.form.create.loading
+                              ? _c("spinner-component", {
+                                  attrs: { size: "sm", color: "light" }
+                                })
+                              : _vm._e(),
+                            _vm._v("\n              Tambah\n            ")
+                          ],
+                          1
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.$access("master.itemMarketing", "update")
+        ? _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                "data-entity": "itemMarketing",
+                "data-method": "update",
+                "data-backdrop": "static",
+                "data-keyboard": "false",
+                tabindex: "-1"
+              }
+            },
+            [
+              _c("div", { staticClass: "modal-dialog" }, [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.update($event)
+                        }
+                      }
+                    },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-body" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", [_vm._v("Item Marketing")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.update.data.item_marketing,
+                                  expression: "form.update.data.item_marketing"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: _vm.form.update.data.item_marketing
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form.update.data,
+                                    "item_marketing",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm._l(
+                              _vm.form.update.errors.item_marketing,
+                              function(msg, index) {
+                                return _c(
+                                  "small",
+                                  { key: index, staticClass: "text-danger" },
+                                  [
+                                    _vm._v(
+                                      "\n                " +
+                                        _vm._s(msg) +
+                                        "\n              "
+                                    )
+                                  ]
+                                )
+                              }
+                            )
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: {
+                              type: "submit",
+                              disabled: _vm.form.update.loading
+                            }
+                          },
+                          [
+                            _vm.form.update.loading
+                              ? _c("spinner-component", {
+                                  attrs: { size: "sm", color: "light" }
+                                })
+                              : _vm._e(),
+                            _vm._v("\n              Ubah\n            ")
+                          ],
+                          1
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ]
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Tambah Item Marketing")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Ubah Item Marketing")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/Jabatan.vue?vue&type=template&id=4023d91d&":
 /*!************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/Jabatan.vue?vue&type=template&id=4023d91d& ***!
@@ -69154,16 +70993,37 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.jabatan", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.jabatan.q,
+                                  expression: "query.jabatan.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.jabatan.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.jabatan,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -69541,16 +71401,39 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.kegiatanKebersihan", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.kegiatan_kebersihan.q,
+                                  expression: "query.kegiatan_kebersihan.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: {
+                                value: _vm.query.kegiatan_kebersihan.q
+                              },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.kegiatan_kebersihan,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -69952,16 +71835,39 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.kelompokLaporanFoto", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.kelompok_laporan_foto.q,
+                                  expression: "query.kelompok_laporan_foto.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: {
+                                value: _vm.query.kelompok_laporan_foto.q
+                              },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.kelompok_laporan_foto,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -70365,16 +72271,37 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.satuan", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.satuan.q,
+                                  expression: "query.satuan.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.satuan.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.satuan,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -70752,16 +72679,37 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.supplier", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.supplier.q,
+                                  expression: "query.supplier.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.supplier.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.supplier,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -71143,16 +73091,37 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.tipeAbsensi", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.tipe_absensi.q,
+                                  expression: "query.tipe_absensi.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.tipe_absensi.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.tipe_absensi,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -71539,16 +73508,37 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.tipeAlamat", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.tipe_alamat.q,
+                                  expression: "query.tipe_alamat.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.tipe_alamat.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.tipe_alamat,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -71935,16 +73925,37 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.tipeCabang", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.tipe_cabang.q,
+                                  expression: "query.tipe_cabang.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.tipe_cabang.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.tipe_cabang,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -72331,16 +74342,39 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.tipeFotoKaryawan", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.tipe_foto_karyawan.q,
+                                  expression: "query.tipe_foto_karyawan.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: {
+                                value: _vm.query.tipe_foto_karyawan.q
+                              },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.tipe_foto_karyawan,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -72742,16 +74776,37 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.tipeKontak", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.tipe_kontak.q,
+                                  expression: "query.tipe_kontak.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.tipe_kontak.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.tipe_kontak,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -73138,16 +75193,37 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.tipeProsesLPG", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.tipe_proses_lpg.q,
+                                  expression: "query.tipe_proses_lpg.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: { value: _vm.query.tipe_proses_lpg.q },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.tipe_proses_lpg,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -73543,16 +75619,39 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.tipeProsesMargarin", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.tipe_proses_margarin.q,
+                                  expression: "query.tipe_proses_margarin.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: {
+                                value: _vm.query.tipe_proses_margarin.q
+                              },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.tipe_proses_margarin,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -73954,16 +76053,39 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.tipeProsesMinyak", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.tipe_proses_minyak.q,
+                                  expression: "query.tipe_proses_minyak.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: {
+                                value: _vm.query.tipe_proses_minyak.q
+                              },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.tipe_proses_minyak,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -74365,16 +76487,39 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.tipeProsesSambal", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.tipe_proses_sambal.q,
+                                  expression: "query.tipe_proses_sambal.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: {
+                                value: _vm.query.tipe_proses_sambal.q
+                              },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.tipe_proses_sambal,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -74776,16 +76921,39 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-5" }, [
                       _c("div", { staticClass: "col-12 col-md-6" }, [
-                        _c("form", { attrs: { "data-role": "search" } }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Cari sesuatu ...",
-                              name: "q"
-                            }
-                          })
-                        ])
+                        _vm.$access("master.tipeProsesTepung", "read")
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.query.tipe_proses_tepung.q,
+                                  expression: "query.tipe_proses_tepung.q"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Cari sesuatu ..."
+                              },
+                              domProps: {
+                                value: _vm.query.tipe_proses_tepung.q
+                              },
+                              on: {
+                                keyup: _vm.queryData,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.query.tipe_proses_tepung,
+                                    "q",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
                       ])
                     ]),
                     _vm._v(" "),
@@ -93172,17 +95340,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
+/* harmony import */ var _AktivitasMarketing_vue_vue_type_template_id_2511daa0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AktivitasMarketing.vue?vue&type=template&id=2511daa0& */ "./resources/js/views/master/AktivitasMarketing.vue?vue&type=template&id=2511daa0&");
+/* harmony import */ var _AktivitasMarketing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AktivitasMarketing.vue?vue&type=script&lang=js& */ "./resources/js/views/master/AktivitasMarketing.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AktivitasMarketing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AktivitasMarketing_vue_vue_type_template_id_2511daa0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AktivitasMarketing_vue_vue_type_template_id_2511daa0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -93190,8 +95361,42 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+/* hot reload */
+if (false) { var api; }
 component.options.__file = "resources/js/views/master/AktivitasMarketing.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/master/AktivitasMarketing.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/views/master/AktivitasMarketing.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AktivitasMarketing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AktivitasMarketing.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/AktivitasMarketing.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AktivitasMarketing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/master/AktivitasMarketing.vue?vue&type=template&id=2511daa0&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/views/master/AktivitasMarketing.vue?vue&type=template&id=2511daa0& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AktivitasMarketing_vue_vue_type_template_id_2511daa0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AktivitasMarketing.vue?vue&type=template&id=2511daa0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/AktivitasMarketing.vue?vue&type=template&id=2511daa0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AktivitasMarketing_vue_vue_type_template_id_2511daa0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AktivitasMarketing_vue_vue_type_template_id_2511daa0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -93475,17 +95680,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
+/* harmony import */ var _ItemMarketing_vue_vue_type_template_id_191379c5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ItemMarketing.vue?vue&type=template&id=191379c5& */ "./resources/js/views/master/ItemMarketing.vue?vue&type=template&id=191379c5&");
+/* harmony import */ var _ItemMarketing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ItemMarketing.vue?vue&type=script&lang=js& */ "./resources/js/views/master/ItemMarketing.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ItemMarketing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ItemMarketing_vue_vue_type_template_id_191379c5___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ItemMarketing_vue_vue_type_template_id_191379c5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -93493,8 +95701,42 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+/* hot reload */
+if (false) { var api; }
 component.options.__file = "resources/js/views/master/ItemMarketing.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/master/ItemMarketing.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/views/master/ItemMarketing.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemMarketing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ItemMarketing.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/ItemMarketing.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemMarketing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/master/ItemMarketing.vue?vue&type=template&id=191379c5&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/views/master/ItemMarketing.vue?vue&type=template&id=191379c5& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemMarketing_vue_vue_type_template_id_191379c5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ItemMarketing.vue?vue&type=template&id=191379c5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/ItemMarketing.vue?vue&type=template&id=191379c5&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemMarketing_vue_vue_type_template_id_191379c5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemMarketing_vue_vue_type_template_id_191379c5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

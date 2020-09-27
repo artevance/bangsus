@@ -8,9 +8,7 @@
             <button class="btn btn-primary" @click="showCreateModal" v-if="$access('master.cabang', 'create')">Tambah</button>
             <div class="row mt-5">
               <div class="col-12 col-md-6">
-                <form data-role="search">
-                  <input type="text" class="form-control" placeholder="Cari sesuatu ..." name="q">
-                </form>
+                <input type="text" class="form-control" placeholder="Cari sesuatu ..." v-model="query.cabang.q" @keyup="queryData" v-if="$access('master.cabang', 'read')">
               </div>
             </div>
             <div class="table-responsive mt-2">
@@ -163,6 +161,11 @@ export default {
           },
           errors: {}
         }
+      },
+      query: {
+        cabang: {
+          q: ''
+        }
       }
     }
   },
@@ -177,7 +180,7 @@ export default {
     prepare() {
       this.state.page.loading = true
       Promise.all([
-        this.$axios.get('/ajax/v1/master/cabang')
+        this.fetchMainData()
       ])
         .then(res => {
           this.data.cabang = res[0].data.container
@@ -186,6 +189,22 @@ export default {
         .catch(err => {
           this.$router.go(-1)
         }) 
+    },
+    /**
+     *  Query result.
+     */
+    queryData() {
+      this.fetchMainData()
+        .then(res => {
+          this.data.cabang = res.data.container
+        })
+        .catch(err => {})
+    },
+    /**
+     *  Fetch data
+     */
+    fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/cabang?q=' + this.query.cabang.q)
     },
 
     /**

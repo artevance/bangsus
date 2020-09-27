@@ -8,9 +8,7 @@
             <button class="btn btn-primary" @click="showCreateModal" v-if="$access('master.tipeFotoKaryawan', 'create')">Tambah</button>
             <div class="row mt-5">
               <div class="col-12 col-md-6">
-                <form data-role="search">
-                  <input type="text" class="form-control" placeholder="Cari sesuatu ..." name="q">
-                </form>
+                <input type="text" class="form-control" placeholder="Cari sesuatu ..." v-model="query.tipe_foto_karyawan.q" @keyup="queryData" v-if="$access('master.tipeFotoKaryawan', 'read')">
               </div>
             </div>
             <div class="table-responsive mt-2">
@@ -122,6 +120,11 @@ export default {
           },
           errors: {}
         }
+      },
+      query: {
+        tipe_foto_karyawan: {
+          q: ''
+        }
       }
     }
   },
@@ -136,7 +139,7 @@ export default {
     prepare() {
       this.state.page.loading = true
       Promise.all([
-        this.$axios.get('/ajax/v1/master/tipe_foto_karyawan')
+        this.fetchMainData()
       ])
         .then(res => {
           this.data.tipe_foto_karyawan = res[0].data.container
@@ -145,6 +148,22 @@ export default {
         .catch(err => {
           this.$router.go(-1)
         }) 
+    },
+    /**
+     *  Query result.
+     */
+    queryData() {
+      this.fetchMainData()
+        .then(res => {
+          this.data.tipe_foto_karyawan = res.data.container
+        })
+        .catch(err => {})
+    },
+    /**
+     *  Fetch data
+     */
+    fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/tipe_foto_karyawan?q=' + this.query.tipe_foto_karyawan.q)
     },
 
     /**
