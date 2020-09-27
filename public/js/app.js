@@ -4989,6 +4989,306 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/KelompokFoto.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/KelompokFoto.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        kelompok_foto: []
+      },
+      form: {
+        create: {
+          data: {
+            kelompok_foto: '',
+            denda_tidak_kirim: false,
+            nominal: 0,
+            qty_minimum_form: 0
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            kelompok_foto: '',
+            denda_tidak_kirim: false,
+            qty_minimum_form: 0
+          },
+          errors: {}
+        }
+      },
+      query: {
+        kelompok_foto: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData()]).then(function (res) {
+        _this.data.kelompok_foto = res[0].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.kelompok_foto = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/kelompok_foto?q=' + this.query.kelompok_foto.q);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="kelompokFoto"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/kelompok_foto/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          kelompok_foto: res.data.container.kelompok_foto,
+          denda_tidak_kirim: res.data.container.denda_tidak_kirim,
+          qty_minimum_form: res.data.container.pengaturan_kelompok_foto.qty_minimum_form
+        };
+        $('[data-entity="kelompokFoto"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.$axios.post('/ajax/v1/master/kelompok_foto', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          kelompok_foto: '',
+          denda_tidak_kirim: false,
+          nominal: 0,
+          qty_minimum_form: 0
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="kelompokFoto"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/kelompok_foto', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          kelompok_foto: '',
+          qty_minimum_form: 0
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="kelompokFoto"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response);
+
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/KelompokLaporanFoto.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/KelompokLaporanFoto.vue?vue&type=script&lang=js& ***!
@@ -9030,6 +9330,302 @@ __webpack_require__.r(__webpack_exports__);
         _this5.prepare();
 
         $('[data-entity="kegiatanGeneralCleaning"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        denda_foto: [],
+        parent: []
+      },
+      form: {
+        create: {
+          data: {
+            denda_foto: '',
+            kelompok_foto_id: this.$route.params.id,
+            nominal: 0
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            denda_foto: '',
+            nominal: 0
+          },
+          errors: {}
+        }
+      },
+      query: {
+        denda_foto: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData(), this.fetchParentData()]).then(function (res) {
+        _this.data.denda_foto = res[0].data.container;
+        _this.data.parent = res[1].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        console.log(err.response);
+
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.denda_foto = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/denda_foto/parent/' + this.$route.params.id + '?q=' + this.query.denda_foto.q);
+    },
+
+    /**
+     *  Fetch parent data
+     */
+    fetchParentData: function fetchParentData() {
+      return this.$axios.get('/ajax/v1/master/kelompok_foto/' + this.$route.params.id);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="dendaFoto"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/denda_foto/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          denda_foto: res.data.container.denda_foto,
+          nominal: res.data.container.nominal
+        };
+        $('[data-entity="dendaFoto"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.$axios.post('/ajax/v1/master/denda_foto', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          denda_foto: '',
+          kelompok_foto_id: _this4.$route.params.id,
+          nominal: 0
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="dendaFoto"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/denda_foto', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          denda_foto: '',
+          nominal: 0
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="dendaFoto"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
           _this5.form.update.errors = err.response.data.errors;
@@ -71018,7 +71614,7 @@ var render = function() {
                                             _c("th", [_vm._v("#")]),
                                             _vm._v(" "),
                                             _c("th", [
-                                              _vm._v("Aktivitas Karyawan")
+                                              _vm._v("Atribut Karyawan")
                                             ]),
                                             _vm._v(" "),
                                             _c("th", [_vm._v("Aksi")])
@@ -71152,7 +71748,7 @@ var render = function() {
                             [
                               _c("div", { staticClass: "modal-header" }, [
                                 _c("h5", { staticClass: "modal-title" }, [
-                                  _vm._v("Tambah Aktivitas Karyawan")
+                                  _vm._v("Tambah Atribut Karyawan")
                                 ]),
                                 _vm._v(" "),
                                 _c(
@@ -71180,7 +71776,7 @@ var render = function() {
                                   "div",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _c("label", [_vm._v("Atribut Karyawan")]),
                                     _vm._v(" "),
                                     _c("input", {
                                       directives: [
@@ -71298,7 +71894,7 @@ var render = function() {
                             [
                               _c("div", { staticClass: "modal-header" }, [
                                 _c("h5", { staticClass: "modal-title" }, [
-                                  _vm._v("Ubah Aktivitas Karyawan")
+                                  _vm._v("Ubah Atribut Karyawan")
                                 ]),
                                 _vm._v(" "),
                                 _c(
@@ -71326,7 +71922,7 @@ var render = function() {
                                   "div",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _c("label", [_vm._v("Atribut Karyawan")]),
                                     _vm._v(" "),
                                     _c("input", {
                                       directives: [
@@ -74699,6 +75295,835 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/KelompokFoto.vue?vue&type=template&id=35fcb2be&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/KelompokFoto.vue?vue&type=template&id=35fcb2be& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    { attrs: { name: "fade", mode: "out-in" } },
+    [
+      _vm.$route.name == "master.kelompokFoto"
+        ? _c(
+            "div",
+            { staticClass: "row mt-5" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "fade", mode: "out-in" } },
+                [
+                  _vm.state.page.loading
+                    ? _c("preloader-component")
+                    : _c(
+                        "div",
+                        { staticClass: "col-12 col-xl-12 stretch-card" },
+                        [
+                          _c("div", { staticClass: "card" }, [
+                            _c("div", { staticClass: "card-body" }, [
+                              _vm.$access("master.kelompokFoto", "create")
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      on: { click: _vm.showCreateModal }
+                                    },
+                                    [_vm._v("Tambah")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row mt-5" }, [
+                                _c("div", { staticClass: "col-12 col-md-6" }, [
+                                  _vm.$access("master.kelompokFoto", "read")
+                                    ? _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.query.kelompok_foto.q,
+                                            expression: "query.kelompok_foto.q"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "text",
+                                          placeholder: "Cari sesuatu ..."
+                                        },
+                                        domProps: {
+                                          value: _vm.query.kelompok_foto.q
+                                        },
+                                        on: {
+                                          keyup: _vm.queryData,
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.query.kelompok_foto,
+                                              "q",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    : _vm._e()
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "table-responsive mt-2" },
+                                [
+                                  _vm.$access("master.kelompokFoto", "read")
+                                    ? _c(
+                                        "table",
+                                        { staticClass: "table table-hover" },
+                                        [
+                                          _c("thead", [
+                                            _c("th", [_vm._v("#")]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Kelompok Foto")]),
+                                            _vm._v(" "),
+                                            _c("th", [
+                                              _vm._v(
+                                                "Denda Bila Tidak Mengirim"
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("th", [
+                                              _vm._v("Qty Minimal Per Hari")
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Aksi")])
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "tbody",
+                                            _vm._l(
+                                              _vm.data.kelompok_foto,
+                                              function(kelompok_foto, i) {
+                                                return _c("tr", [
+                                                  _c("td", [
+                                                    _vm._v(_vm._s(i + 1))
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        kelompok_foto.kelompok_foto
+                                                      )
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        kelompok_foto.denda_tidak_kirim
+                                                          ? "YA"
+                                                          : "TIDAK"
+                                                      )
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        kelompok_foto.pengaturan_kelompok_foto ==
+                                                          null
+                                                          ? ""
+                                                          : kelompok_foto
+                                                              .pengaturan_kelompok_foto
+                                                              .qty_minimum_form
+                                                      )
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "td",
+                                                    [
+                                                      _vm.$access(
+                                                        "master.kelompokFoto",
+                                                        "update"
+                                                      ) && !kelompok_foto.master
+                                                        ? _c(
+                                                            "a",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-warning",
+                                                              attrs: {
+                                                                href: "#"
+                                                              },
+                                                              on: {
+                                                                click: function(
+                                                                  $event
+                                                                ) {
+                                                                  return _vm.showUpdateModal(
+                                                                    kelompok_foto.id
+                                                                  )
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Ubah\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e(),
+                                                      _vm._v(" "),
+                                                      _vm.$access(
+                                                        "master.kelompokFoto.dendaFoto",
+                                                        "access"
+                                                      )
+                                                        ? _c(
+                                                            "router-link",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-info",
+                                                              attrs: {
+                                                                to: {
+                                                                  name:
+                                                                    "master.kelompokFoto.dendaFoto",
+                                                                  params: {
+                                                                    id:
+                                                                      kelompok_foto.id
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Lihat Parameter\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e()
+                                                    ],
+                                                    1
+                                                  )
+                                                ])
+                                              }
+                                            ),
+                                            0
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]
+                              )
+                            ])
+                          ])
+                        ]
+                      )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.$access("master.kelompokFoto", "create")
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "kelompokFoto",
+                        "data-method": "create",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.create($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Tambah Kelompok Foto")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Kelompok Foto")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.create.data.kelompok_foto,
+                                          expression:
+                                            "form.create.data.kelompok_foto"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.create.data.kelompok_foto
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.create.data,
+                                            "kelompok_foto",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors.kelompok_foto,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group form-check" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.create.data
+                                              .denda_tidak_kirim,
+                                          expression:
+                                            "form.create.data.denda_tidak_kirim"
+                                        }
+                                      ],
+                                      attrs: { type: "checkbox" },
+                                      domProps: {
+                                        checked: Array.isArray(
+                                          _vm.form.create.data.denda_tidak_kirim
+                                        )
+                                          ? _vm._i(
+                                              _vm.form.create.data
+                                                .denda_tidak_kirim,
+                                              null
+                                            ) > -1
+                                          : _vm.form.create.data
+                                              .denda_tidak_kirim
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          var $$a =
+                                              _vm.form.create.data
+                                                .denda_tidak_kirim,
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                          if (Array.isArray($$a)) {
+                                            var $$v = null,
+                                              $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                              $$i < 0 &&
+                                                _vm.$set(
+                                                  _vm.form.create.data,
+                                                  "denda_tidak_kirim",
+                                                  $$a.concat([$$v])
+                                                )
+                                            } else {
+                                              $$i > -1 &&
+                                                _vm.$set(
+                                                  _vm.form.create.data,
+                                                  "denda_tidak_kirim",
+                                                  $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1))
+                                                )
+                                            }
+                                          } else {
+                                            _vm.$set(
+                                              _vm.form.create.data,
+                                              "denda_tidak_kirim",
+                                              $$c
+                                            )
+                                          }
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("label", { staticClass: "ml-2" }, [
+                                      _vm._v("Denda Tidak Kirim")
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors.denda_tidak_kirim,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _vm.form.create.data.denda_tidak_kirim
+                                  ? _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c("label", [
+                                          _vm._v("Qty Minimal Kirim")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value:
+                                                _vm.form.create.data
+                                                  .qty_minimum_kirim,
+                                              expression:
+                                                "form.create.data.qty_minimum_kirim"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { type: "number" },
+                                          domProps: {
+                                            value:
+                                              _vm.form.create.data
+                                                .qty_minimum_kirim
+                                          },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                _vm.form.create.data,
+                                                "qty_minimum_kirim",
+                                                $event.target.value
+                                              )
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _vm._l(
+                                          _vm.form.create.errors
+                                            .qty_minimum_kirim,
+                                          function(msg, index) {
+                                            return _c(
+                                              "small",
+                                              {
+                                                key: index,
+                                                staticClass: "text-danger"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                  " +
+                                                    _vm._s(msg) +
+                                                    "\n                "
+                                                )
+                                              ]
+                                            )
+                                          }
+                                        )
+                                      ],
+                                      2
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.form.create.data.denda_tidak_kirim
+                                  ? _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c("label", [
+                                          _vm._v("Nominal Denda Tidak Kirim")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value:
+                                                _vm.form.create.data.nominal,
+                                              expression:
+                                                "form.create.data.nominal"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { type: "number" },
+                                          domProps: {
+                                            value: _vm.form.create.data.nominal
+                                          },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                _vm.form.create.data,
+                                                "nominal",
+                                                $event.target.value
+                                              )
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _vm._l(
+                                          _vm.form.create.errors.nominal,
+                                          function(msg, index) {
+                                            return _c(
+                                              "small",
+                                              {
+                                                key: index,
+                                                staticClass: "text-danger"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                  " +
+                                                    _vm._s(msg) +
+                                                    "\n                "
+                                                )
+                                              ]
+                                            )
+                                          }
+                                        )
+                                      ],
+                                      2
+                                    )
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.create.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.create.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Tambah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$access("master.kelompokFoto", "update")
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "kelompokFoto",
+                        "data-method": "update",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.update($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Ubah Kelompok Foto")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Kelompok Foto")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.update.data.kelompok_foto,
+                                          expression:
+                                            "form.update.data.kelompok_foto"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.update.data.kelompok_foto
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.update.data,
+                                            "kelompok_foto",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.update.errors.kelompok_foto,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _vm.form.update.data.denda_tidak_kirim
+                                  ? _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c("label", [
+                                          _vm._v("Qty Minimal Kirim")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value:
+                                                _vm.form.update.data
+                                                  .qty_minimum_form,
+                                              expression:
+                                                "form.update.data.qty_minimum_form"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { type: "number" },
+                                          domProps: {
+                                            value:
+                                              _vm.form.update.data
+                                                .qty_minimum_form
+                                          },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                _vm.form.update.data,
+                                                "qty_minimum_form",
+                                                $event.target.value
+                                              )
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _vm._l(
+                                          _vm.form.update.errors
+                                            .qty_minimum_form,
+                                          function(msg, index) {
+                                            return _c(
+                                              "small",
+                                              {
+                                                key: index,
+                                                staticClass: "text-danger"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                  " +
+                                                    _vm._s(msg) +
+                                                    "\n                "
+                                                )
+                                              ]
+                                            )
+                                          }
+                                        )
+                                      ],
+                                      2
+                                    )
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.update.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.update.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Ubah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        : _c("router-view")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/KelompokLaporanFoto.vue?vue&type=template&id=b7479e76&":
 /*!************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/KelompokLaporanFoto.vue?vue&type=template&id=b7479e76& ***!
@@ -75234,7 +76659,7 @@ var render = function() {
                                             _c("th", [_vm._v("#")]),
                                             _vm._v(" "),
                                             _c("th", [
-                                              _vm._v("Aktivitas Karyawan")
+                                              _vm._v("Quality Control")
                                             ]),
                                             _vm._v(" "),
                                             _c("th", [_vm._v("Aksi")])
@@ -75368,7 +76793,7 @@ var render = function() {
                             [
                               _c("div", { staticClass: "modal-header" }, [
                                 _c("h5", { staticClass: "modal-title" }, [
-                                  _vm._v("Tambah Aktivitas Karyawan")
+                                  _vm._v("Tambah Quality Control")
                                 ]),
                                 _vm._v(" "),
                                 _c(
@@ -75396,7 +76821,7 @@ var render = function() {
                                   "div",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _c("label", [_vm._v("Quality Control")]),
                                     _vm._v(" "),
                                     _c("input", {
                                       directives: [
@@ -75514,7 +76939,7 @@ var render = function() {
                             [
                               _c("div", { staticClass: "modal-header" }, [
                                 _c("h5", { staticClass: "modal-title" }, [
-                                  _vm._v("Ubah Aktivitas Karyawan")
+                                  _vm._v("Ubah Quality Control")
                                 ]),
                                 _vm._v(" "),
                                 _c(
@@ -75542,7 +76967,7 @@ var render = function() {
                                   "div",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _c("label", [_vm._v("Quality Control")]),
                                     _vm._v(" "),
                                     _c("input", {
                                       directives: [
@@ -80875,7 +82300,9 @@ var render = function() {
                                               _c("th", [_vm._v("#")]),
                                               _vm._v(" "),
                                               _c("th", [
-                                                _vm._v("Aktivitas Karyawan")
+                                                _vm._v(
+                                                  "Parameter Atribut Karyawan"
+                                                )
                                               ]),
                                               _vm._v(" "),
                                               _c("th", [_vm._v("Pelanggaran")]),
@@ -80998,7 +82425,7 @@ var render = function() {
                             [
                               _c("div", { staticClass: "modal-header" }, [
                                 _c("h5", { staticClass: "modal-title" }, [
-                                  _vm._v("Tambah Aktivitas Karyawan")
+                                  _vm._v("Tambah Parameter Atribut Karyawan")
                                 ]),
                                 _vm._v(" "),
                                 _c(
@@ -81026,7 +82453,9 @@ var render = function() {
                                   "div",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _c("label", [
+                                      _vm._v("Parameter Atribut Karyawan")
+                                    ]),
                                     _vm._v(" "),
                                     _c("input", {
                                       directives: [
@@ -81239,7 +82668,7 @@ var render = function() {
                             [
                               _c("div", { staticClass: "modal-header" }, [
                                 _c("h5", { staticClass: "modal-title" }, [
-                                  _vm._v("Ubah Aktivitas Karyawan")
+                                  _vm._v("Ubah Parameter Atribut Karyawan")
                                 ]),
                                 _vm._v(" "),
                                 _c(
@@ -81267,7 +82696,9 @@ var render = function() {
                                   "div",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _c("label", [
+                                      _vm._v("Parameter Atribut Karyawan")
+                                    ]),
                                     _vm._v(" "),
                                     _c("input", {
                                       directives: [
@@ -82007,6 +83438,660 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=template&id=18125b98&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=template&id=18125b98& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    { attrs: { name: "fade", mode: "out-in" } },
+    [
+      _vm.$route.name == "master.kelompokFoto.dendaFoto"
+        ? _c(
+            "div",
+            { staticClass: "row mt-5" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "fade", mode: "out-in" } },
+                [
+                  _vm.state.page.loading
+                    ? _c("preloader-component")
+                    : _c(
+                        "div",
+                        { staticClass: "col-12 col-xl-12 stretch-card" },
+                        [
+                          _c("div", { staticClass: "card" }, [
+                            _c(
+                              "div",
+                              { staticClass: "card-body" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    attrs: {
+                                      to: { name: "master.kelompokFoto" }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-backspace"
+                                    }),
+                                    _vm._v(" Kembali\n            ")
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row" }, [
+                                  _c("div", { staticClass: "col" }, [
+                                    _c("div", { staticClass: "card-title" }, [
+                                      _vm._v(
+                                        _vm._s(_vm.data.parent.kelompok_foto)
+                                      )
+                                    ])
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm.$access(
+                                  "master.kelompokFoto.dendaFoto",
+                                  "create"
+                                )
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-primary mt-3",
+                                        on: { click: _vm.showCreateModal }
+                                      },
+                                      [_vm._v("Tambah")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row mt-5" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-12 col-md-6" },
+                                    [
+                                      _vm.$access(
+                                        "master.kelompokFoto.dendaFoto",
+                                        "read"
+                                      )
+                                        ? _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.query.denda_foto.q,
+                                                expression: "query.denda_foto.q"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder: "Cari sesuatu ..."
+                                            },
+                                            domProps: {
+                                              value: _vm.query.denda_foto.q
+                                            },
+                                            on: {
+                                              keyup: _vm.queryData,
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.query.denda_foto,
+                                                  "q",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        : _vm._e()
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "table-responsive mt-2" },
+                                  [
+                                    _vm.$access(
+                                      "master.kelompokFoto.dendaFoto",
+                                      "read"
+                                    )
+                                      ? _c(
+                                          "table",
+                                          { staticClass: "table table-hover" },
+                                          [
+                                            _c("thead", [
+                                              _c("th", [_vm._v("#")]),
+                                              _vm._v(" "),
+                                              _c("th", [_vm._v("Denda Foto")]),
+                                              _vm._v(" "),
+                                              _c("th", [_vm._v("Master")]),
+                                              _vm._v(" "),
+                                              _c("th", [_vm._v("Nominal")]),
+                                              _vm._v(" "),
+                                              _c("th", [_vm._v("Aksi")])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "tbody",
+                                              _vm._l(
+                                                _vm.data.denda_foto,
+                                                function(denda_foto, i) {
+                                                  return _c("tr", [
+                                                    _c("td", [
+                                                      _vm._v(_vm._s(i + 1))
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          denda_foto.denda_foto
+                                                        )
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          denda_foto.master
+                                                            ? "YA"
+                                                            : "TIDAK"
+                                                        )
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          denda_foto.nominal
+                                                        )
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm.$access(
+                                                        "master.kelompokFoto.dendaFoto",
+                                                        "update"
+                                                      ) && !denda_foto.master
+                                                        ? _c(
+                                                            "a",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-warning",
+                                                              attrs: {
+                                                                href: "#"
+                                                              },
+                                                              on: {
+                                                                click: function(
+                                                                  $event
+                                                                ) {
+                                                                  return _vm.showUpdateModal(
+                                                                    denda_foto.id
+                                                                  )
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Ubah\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e()
+                                                    ])
+                                                  ])
+                                                }
+                                              ),
+                                              0
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.$access("master.kelompokFoto.dendaFoto", "create")
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "dendaFoto",
+                        "data-method": "create",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.create($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Tambah Denda Foto")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Denda Foto")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.create.data.denda_foto,
+                                          expression:
+                                            "form.create.data.denda_foto"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value: _vm.form.create.data.denda_foto
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.create.data,
+                                            "denda_foto",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors.denda_foto,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [
+                                      _vm._v("Nominal Denda Tidak Kirim")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.create.data.nominal,
+                                          expression: "form.create.data.nominal"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "number" },
+                                      domProps: {
+                                        value: _vm.form.create.data.nominal
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.create.data,
+                                            "nominal",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors.nominal,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.create.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.create.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Tambah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$access("master.kelompokFoto.dendaFoto", "update")
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "dendaFoto",
+                        "data-method": "update",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.update($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Ubah Denda Foto")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Denda Foto")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.update.data.denda_foto,
+                                          expression:
+                                            "form.update.data.denda_foto"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value: _vm.form.update.data.denda_foto
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.update.data,
+                                            "denda_foto",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.update.errors.denda_foto,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [
+                                      _vm._v("Nominal Denda Tidak Kirim")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.update.data.nominal,
+                                          expression: "form.update.data.nominal"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "number" },
+                                      domProps: {
+                                        value: _vm.form.update.data.nominal
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.update.data,
+                                            "nominal",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.update.errors.nominal,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.update.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.update.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Ubah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        : _c("router-view")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=template&id=4855a532&":
 /*!********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=template&id=4855a532& ***!
@@ -82153,7 +84238,9 @@ var render = function() {
                                               _c("th", [_vm._v("#")]),
                                               _vm._v(" "),
                                               _c("th", [
-                                                _vm._v("Aktivitas Karyawan")
+                                                _vm._v(
+                                                  "Parameter Quality Control"
+                                                )
                                               ]),
                                               _vm._v(" "),
                                               _c("th", [_vm._v("Aksi")])
@@ -82324,7 +84411,9 @@ var render = function() {
                                   "div",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _c("label", [
+                                      _vm._v("Parameter Quality Control")
+                                    ]),
                                     _vm._v(" "),
                                     _c("input", {
                                       directives: [
@@ -82475,7 +84564,9 @@ var render = function() {
                                   "div",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _c("label", [
+                                      _vm._v("Parameter Quality Control")
+                                    ]),
                                     _vm._v(" "),
                                     _c("input", {
                                       directives: [
@@ -82740,7 +84831,9 @@ var render = function() {
                                               _c("th", [_vm._v("#")]),
                                               _vm._v(" "),
                                               _c("th", [
-                                                _vm._v("Aktivitas Karyawan")
+                                                _vm._v(
+                                                  "Opsi Parameter Quality Control"
+                                                )
                                               ]),
                                               _vm._v(" "),
                                               _c("th", [_vm._v("Aksi")])
@@ -82851,7 +84944,9 @@ var render = function() {
                             [
                               _c("div", { staticClass: "modal-header" }, [
                                 _c("h5", { staticClass: "modal-title" }, [
-                                  _vm._v("Tambah Aktivitas Karyawan")
+                                  _vm._v(
+                                    "Tambah Opsi Parameter Quality Control"
+                                  )
                                 ]),
                                 _vm._v(" "),
                                 _c(
@@ -82879,7 +84974,9 @@ var render = function() {
                                   "div",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _c("label", [
+                                      _vm._v("Opsi Parameter Quality Control")
+                                    ]),
                                     _vm._v(" "),
                                     _c("input", {
                                       directives: [
@@ -83002,7 +85099,7 @@ var render = function() {
                             [
                               _c("div", { staticClass: "modal-header" }, [
                                 _c("h5", { staticClass: "modal-title" }, [
-                                  _vm._v("Ubah Aktivitas Karyawan")
+                                  _vm._v("Ubah Opsi Parameter Quality Control")
                                 ]),
                                 _vm._v(" "),
                                 _c(
@@ -83030,7 +85127,9 @@ var render = function() {
                                   "div",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _c("label", [
+                                      _vm._v("Opsi Parameter Quality Control")
+                                    ]),
                                     _vm._v(" "),
                                     _c("input", {
                                       directives: [
@@ -100354,7 +102453,15 @@ __webpack_require__.r(__webpack_exports__);
         access: true,
         create: true,
         read: true,
-        update: true
+        update: true,
+        children: {
+          dendaFoto: {
+            access: true,
+            create: true,
+            read: true,
+            update: true
+          }
+        }
       },
       kelompokLaporanFoto: {
         access: true,
@@ -100863,7 +102970,19 @@ var routes = [{
         sidebar: 'master',
         item: 'kelompokFoto'
       },
-      beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
+      beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access]),
+      children: [{
+        path: ':id',
+        name: 'master.kelompokFoto.dendaFoto',
+        component: __webpack_require__(/*! ../views/master/kelompok_foto/DendaFoto */ "./resources/js/views/master/kelompok_foto/DendaFoto.vue")["default"],
+        meta: {
+          layout: 'default',
+          title: 'Denda Foto',
+          sidebar: 'master',
+          item: 'dendaFoto'
+        },
+        beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
+      }]
     }, {
       path: 'kelompok_laporan_foto',
       name: 'master.kelompokLaporanFoto',
@@ -101862,17 +103981,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
+/* harmony import */ var _KelompokFoto_vue_vue_type_template_id_35fcb2be___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./KelompokFoto.vue?vue&type=template&id=35fcb2be& */ "./resources/js/views/master/KelompokFoto.vue?vue&type=template&id=35fcb2be&");
+/* harmony import */ var _KelompokFoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./KelompokFoto.vue?vue&type=script&lang=js& */ "./resources/js/views/master/KelompokFoto.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _KelompokFoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _KelompokFoto_vue_vue_type_template_id_35fcb2be___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _KelompokFoto_vue_vue_type_template_id_35fcb2be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -101880,8 +104002,42 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+/* hot reload */
+if (false) { var api; }
 component.options.__file = "resources/js/views/master/KelompokFoto.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/master/KelompokFoto.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/views/master/KelompokFoto.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_KelompokFoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./KelompokFoto.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/KelompokFoto.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_KelompokFoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/master/KelompokFoto.vue?vue&type=template&id=35fcb2be&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/views/master/KelompokFoto.vue?vue&type=template&id=35fcb2be& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KelompokFoto_vue_vue_type_template_id_35fcb2be___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./KelompokFoto.vue?vue&type=template&id=35fcb2be& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/KelompokFoto.vue?vue&type=template&id=35fcb2be&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KelompokFoto_vue_vue_type_template_id_35fcb2be___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KelompokFoto_vue_vue_type_template_id_35fcb2be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -102984,6 +105140,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KegiatanGeneralCleaning_vue_vue_type_template_id_09d6d5b8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KegiatanGeneralCleaning_vue_vue_type_template_id_09d6d5b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/master/kelompok_foto/DendaFoto.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/views/master/kelompok_foto/DendaFoto.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DendaFoto_vue_vue_type_template_id_18125b98___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DendaFoto.vue?vue&type=template&id=18125b98& */ "./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=template&id=18125b98&");
+/* harmony import */ var _DendaFoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DendaFoto.vue?vue&type=script&lang=js& */ "./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DendaFoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DendaFoto_vue_vue_type_template_id_18125b98___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DendaFoto_vue_vue_type_template_id_18125b98___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/master/kelompok_foto/DendaFoto.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DendaFoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./DendaFoto.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DendaFoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=template&id=18125b98&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=template&id=18125b98& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DendaFoto_vue_vue_type_template_id_18125b98___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./DendaFoto.vue?vue&type=template&id=18125b98& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/kelompok_foto/DendaFoto.vue?vue&type=template&id=18125b98&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DendaFoto_vue_vue_type_template_id_18125b98___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DendaFoto_vue_vue_type_template_id_18125b98___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

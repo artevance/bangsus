@@ -24,7 +24,7 @@
                 <table class="table table-hover" v-if="$access('master.atributKaryawan.parameterAtributKaryawan', 'read')">
                   <thead>
                     <th>#</th>
-                    <th>Aktivitas Karyawan</th>
+                    <th>Parameter Atribut Karyawan</th>
                     <th>Pelanggaran</th>
                     <th>Aksi</th>
                   </thead>
@@ -53,14 +53,14 @@
           <div class="modal-content">
             <form @submit.prevent="create">
               <div class="modal-header">
-                <h5 class="modal-title">Tambah Aktivitas Karyawan</h5>
+                <h5 class="modal-title">Tambah Parameter Atribut Karyawan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Aktivitas Karyawan</label>
+                  <label>Parameter Atribut Karyawan</label>
                   <input type="text" class="form-control" v-model="form.create.data.parameter_atribut_karyawan">
                   <small class="text-danger" v-for="(msg, index) in form.create.errors.parameter_atribut_karyawan" :key="index">
                     {{ msg }}
@@ -89,14 +89,14 @@
           <div class="modal-content">
             <form @submit.prevent="update">
               <div class="modal-header">
-                <h5 class="modal-title">Ubah Aktivitas Karyawan</h5>
+                <h5 class="modal-title">Ubah Parameter Atribut Karyawan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Aktivitas Karyawan</label>
+                  <label>Parameter Atribut Karyawan</label>
                   <input type="text" class="form-control" v-model="form.update.data.parameter_atribut_karyawan">
                   <small class="text-danger" v-for="(msg, index) in form.update.errors.parameter_atribut_karyawan" :key="index">
                     {{ msg }}

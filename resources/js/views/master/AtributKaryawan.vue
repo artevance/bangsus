@@ -16,7 +16,7 @@
                 <table class="table table-hover" v-if="$access('master.atributKaryawan', 'read')">
                   <thead>
                     <th>#</th>
-                    <th>Aktivitas Karyawan</th>
+                    <th>Atribut Karyawan</th>
                     <th>Aksi</th>
                   </thead>
                   <tbody>
@@ -46,14 +46,14 @@
           <div class="modal-content">
             <form @submit.prevent="create">
               <div class="modal-header">
-                <h5 class="modal-title">Tambah Aktivitas Karyawan</h5>
+                <h5 class="modal-title">Tambah Atribut Karyawan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Aktivitas Karyawan</label>
+                  <label>Atribut Karyawan</label>
                   <input type="text" class="form-control" v-model="form.create.data.atribut_karyawan">
                   <small class="text-danger" v-for="(msg, index) in form.create.errors.atribut_karyawan" :key="index">
                     {{ msg }}
@@ -75,14 +75,14 @@
           <div class="modal-content">
             <form @submit.prevent="update">
               <div class="modal-header">
-                <h5 class="modal-title">Ubah Aktivitas Karyawan</h5>
+                <h5 class="modal-title">Ubah Atribut Karyawan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Aktivitas Karyawan</label>
+                  <label>Atribut Karyawan</label>
                   <input type="text" class="form-control" v-model="form.update.data.atribut_karyawan">
                   <small class="text-danger" v-for="(msg, index) in form.update.errors.atribut_karyawan" :key="index">
                     {{ msg }}

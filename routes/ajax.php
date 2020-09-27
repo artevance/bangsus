@@ -182,6 +182,13 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::post('', 'KelompokFoto@store');
         Route::put('', 'KelompokFoto@amend');
       });
+      Route::prefix('denda_foto')->group(function () {
+        Route::get('', 'DendaFoto@index');
+        Route::get('parent/{id}', 'DendaFoto@parent');
+        Route::get('{id}', 'DendaFoto@get');
+        Route::post('', 'DendaFoto@store');
+        Route::put('', 'DendaFoto@amend');
+      });
       Route::prefix('kelompok_laporan_foto')->group(function () {
         Route::get('', 'KelompokLaporanFoto@index');
         Route::get('{id}', 'KelompokLaporanFoto@get');

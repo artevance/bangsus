@@ -24,7 +24,7 @@
                 <table class="table table-hover" v-if="$access('master.qualityControl.parameterQualityControl.opsiParameterQualityControl', 'read')">
                   <thead>
                     <th>#</th>
-                    <th>Aktivitas Karyawan</th>
+                    <th>Opsi Parameter Quality Control</th>
                     <th>Aksi</th>
                   </thead>
                   <tbody>
@@ -51,14 +51,14 @@
           <div class="modal-content">
             <form @submit.prevent="create">
               <div class="modal-header">
-                <h5 class="modal-title">Tambah Aktivitas Karyawan</h5>
+                <h5 class="modal-title">Tambah Opsi Parameter Quality Control</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Aktivitas Karyawan</label>
+                  <label>Opsi Parameter Quality Control</label>
                   <input type="text" class="form-control" v-model="form.create.data.opsi_parameter_quality_control">
                   <small class="text-danger" v-for="(msg, index) in form.create.errors.opsi_parameter_quality_control" :key="index">
                     {{ msg }}
@@ -80,14 +80,14 @@
           <div class="modal-content">
             <form @submit.prevent="update">
               <div class="modal-header">
-                <h5 class="modal-title">Ubah Aktivitas Karyawan</h5>
+                <h5 class="modal-title">Ubah Opsi Parameter Quality Control</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Aktivitas Karyawan</label>
+                  <label>Opsi Parameter Quality Control</label>
                   <input type="text" class="form-control" v-model="form.update.data.opsi_parameter_quality_control">
                   <small class="text-danger" v-for="(msg, index) in form.update.errors.opsi_parameter_quality_control" :key="index">
                     {{ msg }}

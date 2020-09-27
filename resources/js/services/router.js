@@ -215,7 +215,16 @@ const routes = [
             name: 'master.kelompokFoto',
             component: require('../views/master/KelompokFoto').default,
             meta: { layout: 'default', title: 'Kelompok Foto', sidebar: 'master', item: 'kelompokFoto' },
-            beforeEnter: Multiguard([middleware.auth, middleware.access])
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: ':id',
+                name: 'master.kelompokFoto.dendaFoto',
+                component: require('../views/master/kelompok_foto/DendaFoto').default,
+                meta: { layout: 'default', title: 'Denda Foto', sidebar: 'master', item: 'dendaFoto' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
           },
           { 
             path: 'kelompok_laporan_foto',

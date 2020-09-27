@@ -167,7 +167,15 @@ export default {
         access: true,
         create: true,
         read: true,
-        update: true
+        update: true,
+        children: {
+          dendaFoto: {
+            access: true,
+            create: true,
+            read: true,
+            update: true
+          }
+        }
       },
       kelompokLaporanFoto: {
         access: true,

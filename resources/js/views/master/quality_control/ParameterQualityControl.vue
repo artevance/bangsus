@@ -24,7 +24,7 @@
                 <table class="table table-hover" v-if="$access('master.qualityControl.parameterQualityControl', 'read')">
                   <thead>
                     <th>#</th>
-                    <th>Aktivitas Karyawan</th>
+                    <th>Parameter Quality Control</th>
                     <th>Aksi</th>
                   </thead>
                   <tbody>
@@ -64,7 +64,7 @@
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Aktivitas Karyawan</label>
+                  <label>Parameter Quality Control</label>
                   <input type="text" class="form-control" v-model="form.create.data.parameter_quality_control">
                   <small class="text-danger" v-for="(msg, index) in form.create.errors.parameter_quality_control" :key="index">
                     {{ msg }}
@@ -93,7 +93,7 @@
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Aktivitas Karyawan</label>
+                  <label>Parameter Quality Control</label>
                   <input type="text" class="form-control" v-model="form.update.data.parameter_quality_control">
                   <small class="text-danger" v-for="(msg, index) in form.update.errors.parameter_quality_control" :key="index">
                     {{ msg }}
