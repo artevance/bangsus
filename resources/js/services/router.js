@@ -14,7 +14,13 @@ const routes = [
       { path: 'login', name: 'login', component: require('../views/Login').default, meta: { layout: 'plain', title: 'Login' } },
       { path: 'logout', name: 'logout', component: require('../views/Logout').default, meta: { layout: 'plain', title: 'Logout' } },
 
-      { path: 'dashboard', name: 'dashboard', component: { template: `<router-view></router-view>` }, meta: { layout: 'default', title: 'Dashboard', sidebar: 'dashboard' } },
+      {
+        path: 'dashboard',
+        name: 'dashboard',
+        component: { template: `<router-view></router-view>` },
+        meta: { layout: 'default', title: 'Dashboard', sidebar: 'dashboard' },
+        beforeEnter: Multiguard([middleware.auth])
+      },
       {
         path: 'master',
         component: { template: `<router-view></router-view>` },

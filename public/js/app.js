@@ -79595,7 +79595,33 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (function (to, from, next) {});
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store.js */ "./resources/js/services/store.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = (function (to, from, next) {
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/sanctum/csrf-cookie').then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/ajax/v1/robust').then(function (res) {
+      if (res.data.container.authentication) {
+        _store_js__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('setUser', res.data.container.user);
+        next();
+      } else {
+        next({
+          name: 'logout'
+        });
+      }
+    })["catch"](function (err) {
+      next({
+        name: 'logout'
+      });
+    });
+  })["catch"](function (err) {
+    next({
+      name: 'logout'
+    });
+  });
+});
 
 /***/ }),
 
@@ -79684,7 +79710,8 @@ var routes = [{
       layout: 'default',
       title: 'Dashboard',
       sidebar: 'dashboard'
-    }
+    },
+    beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth])
   }, {
     path: 'master',
     component: {
@@ -79728,22 +79755,32 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    loggedIn: localStorage.getItem('loggedIn') || false
+    loggedIn: localStorage.getItem('loggedIn') || false,
+    user: []
   },
   getters: {
     loggedIn: function loggedIn(state) {
       return state.loggedIn;
+    },
+    user: function user(state) {
+      return state.user;
     }
   },
   mutations: {
     setLoggedIn: function setLoggedIn(state, value) {
       state.loggedIn = value;
+    },
+    setUser: function setUser(state, user) {
+      state.user = user;
     }
   },
   actions: {
     setLoggedIn: function setLoggedIn(context, value) {
       localStorage.setItem('loggedIn', value);
       context.commit('setLoggedIn', value);
+    },
+    setUser: function setUser(context, user) {
+      context.commit('setUser', user);
     }
   }
 }));

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->namespace('v1')->group(function () {
   Route::post('login', 'Login@index');
+  Route::get('robust', 'Robust@index');
 
   Route::middleware('auth:sanctum')->group(function () {
     Route::get('logout', 'Logout@index');
