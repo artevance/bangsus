@@ -26,6 +26,7 @@
     "dependencies": {
         "compass-mixins": "^0.12.10",
         "moment": "^2.29.0",
+        "perfect-scrollbar": "^1.5.0",
         "underscore": "^1.11.0",
         "vue-router": "^3.4.4",
         "vue-router-multiguard": "^1.0.3",

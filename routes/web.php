@@ -618,3 +618,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/delete', 'Auth\Role@delete');
   });
 });
+
+/**
+ * SPA routing
+ */
+
+Route::get('app{any}', function () {
+  return view('app');
+})->where('any', '.*');
