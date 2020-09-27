@@ -5,7 +5,7 @@
       <div class="col-12 col-xl-12 stretch-card" v-else>
         <div class="card">
           <div class="card-body">
-            <button class="btn btn-primary" @click="showCreateModal" v-if="$access('master.tipeKontak', 'create')">Tambah</button>
+            <button class="btn btn-primary" @click="showCreateModal" v-if="$access('master.tipeFotoKaryawan', 'create')">Tambah</button>
             <div class="row mt-5">
               <div class="col-12 col-md-6">
                 <form data-role="search">
@@ -14,18 +14,18 @@
               </div>
             </div>
             <div class="table-responsive mt-2">
-              <table class="table table-hover" v-if="$access('master.tipeKontak', 'read')">
+              <table class="table table-hover" v-if="$access('master.tipeFotoKaryawan', 'read')">
                 <thead>
                   <th>#</th>
-                  <th>Tipe Kontak</th>
+                  <th>Tipe Foto Karyawan</th>
                   <th>Aksi</th>
                 </thead>
                 <tbody>
-                  <tr v-for="(tipe_kontak, i) in data.tipe_kontak">
+                  <tr v-for="(tipe_foto_karyawan, i) in data.tipe_foto_karyawan">
                     <td>{{ i + 1 }}</td>
-                    <td>{{ tipe_kontak.tipe_kontak }}</td>
+                    <td>{{ tipe_foto_karyawan.tipe_foto_karyawan }}</td>
                     <td>
-                      <a class="badge badge-warning" @click="showUpdateModal(tipe_kontak.id)" href="#" v-if="$access('master.tipeKontak', 'update')">
+                      <a class="badge badge-warning" @click="showUpdateModal(tipe_foto_karyawan.id)" href="#" v-if="$access('master.tipeFotoKaryawan', 'update')">
                         Ubah
                       </a>
                     </td>
@@ -39,21 +39,21 @@
     </transition>
 
     <!-- Modal -->
-    <div class="modal fade" data-entity="tipeKontak" data-method="create" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.tipeKontak', 'create')">
+    <div class="modal fade" data-entity="tipeFotoKaryawan" data-method="create" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.tipeFotoKaryawan', 'create')">
       <div class="modal-dialog">
         <div class="modal-content">
           <form @submit.prevent="create">
             <div class="modal-header">
-              <h5 class="modal-title">Tambah Tipe Kontak</h5>
+              <h5 class="modal-title">Tambah Tipe Foto Karyawan</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label>Tipe Kontak</label>
-                <input type="text" class="form-control" v-model="form.create.data.tipe_kontak">
-                <small class="text-danger" v-for="(msg, index) in form.create.errors.tipe_kontak" :key="index">
+                <label>Tipe Foto Karyawan</label>
+                <input type="text" class="form-control" v-model="form.create.data.tipe_foto_karyawan">
+                <small class="text-danger" v-for="(msg, index) in form.create.errors.tipe_foto_karyawan" :key="index">
                   {{ msg }}
                 </small>
               </div>
@@ -68,21 +68,21 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" data-entity="tipeKontak" data-method="update" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.tipeKontak', 'update')">
+    <div class="modal fade" data-entity="tipeFotoKaryawan" data-method="update" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.tipeFotoKaryawan', 'update')">
       <div class="modal-dialog">
         <div class="modal-content">
           <form @submit.prevent="update">
             <div class="modal-header">
-              <h5 class="modal-title">Ubah Tipe Kontak</h5>
+              <h5 class="modal-title">Ubah Tipe Foto Karyawan</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label>Tipe Kontak</label>
-                <input type="text" class="form-control" v-model="form.update.data.tipe_kontak">
-                <small class="text-danger" v-for="(msg, index) in form.update.errors.tipe_kontak" :key="index">
+                <label>Tipe Foto Karyawan</label>
+                <input type="text" class="form-control" v-model="form.update.data.tipe_foto_karyawan">
+                <small class="text-danger" v-for="(msg, index) in form.update.errors.tipe_foto_karyawan" :key="index">
                   {{ msg }}
                 </small>
               </div>
@@ -106,19 +106,19 @@ export default {
     return {
       state: { page: { loading: true } },
       data: {
-        tipe_kontak: []
+        tipe_foto_karyawan: []
       },
       form: {
         create: {
           data: {
-            tipe_kontak: ''
+            tipe_foto_karyawan: ''
           },
           errors: {}
         },
         update: {
           data: {
             id: null,
-            tipe_kontak: ''
+            tipe_foto_karyawan: ''
           },
           errors: {}
         }
@@ -136,10 +136,10 @@ export default {
     prepare() {
       this.state.page.loading = true
       Promise.all([
-        this.$axios.get('/ajax/v1/master/tipe_kontak')
+        this.$axios.get('/ajax/v1/master/tipe_foto_karyawan')
       ])
         .then(res => {
-          this.data.tipe_kontak = res[0].data.container
+          this.data.tipe_foto_karyawan = res[0].data.container
           this.state.page.loading = false
         })
         .catch(err => {
@@ -151,17 +151,17 @@ export default {
      *  Modal functionality
      */
     showCreateModal() {
-      $('[data-entity="tipeKontak"][data-method="create"]').modal('show')
+      $('[data-entity="tipeFotoKaryawan"][data-method="create"]').modal('show')
     },
     showUpdateModal(id) {
       this.form.update.data = {}
-      this.$axios.get('/ajax/v1/master/tipe_kontak/' + id)
+      this.$axios.get('/ajax/v1/master/tipe_foto_karyawan/' + id)
         .then(res => {
           this.form.update.data = {
             id: id,
-            tipe_kontak: res.data.container.tipe_kontak
+            tipe_foto_karyawan: res.data.container.tipe_foto_karyawan
           }
-          $('[data-entity="tipeKontak"][data-method="update"]').modal('show')
+          $('[data-entity="tipeFotoKaryawan"][data-method="update"]').modal('show')
         })
     },
 
@@ -170,13 +170,13 @@ export default {
      */
     create() {
       this.form.create.loading = true
-      this.$axios.post('/ajax/v1/master/tipe_kontak', this.form.create.data)
+      this.$axios.post('/ajax/v1/master/tipe_foto_karyawan', this.form.create.data)
         .then(res => {
           this.form.create.data = {
-            tipe_kontak: ''
+            tipe_foto_karyawan: ''
           }
           this.prepare()
-          $('[data-entity="tipeKontak"][data-method="create"]').modal('hide')
+          $('[data-entity="tipeFotoKaryawan"][data-method="create"]').modal('hide')
         })
         .catch(err => { console.log(err.response.data)
           if (err.response.status == 422) {
@@ -189,14 +189,14 @@ export default {
     },
     update() {
       this.form.update.loading = true
-      this.$axios.put('/ajax/v1/master/tipe_kontak', this.form.update.data)
+      this.$axios.put('/ajax/v1/master/tipe_foto_karyawan', this.form.update.data)
         .then(res => {
           this.form.update.data = {
             id: null,
-            tipe_kontak: ''
+            tipe_foto_karyawan: ''
           }
           this.prepare()
-          $('[data-entity="tipeKontak"][data-method="update"]').modal('hide')
+          $('[data-entity="tipeFotoKaryawan"][data-method="update"]').modal('hide')
         })
         .catch(err => {
           if (err.response.status == 422) {

@@ -7,6 +7,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <h3>{{ $route.meta.title }}</h3>
         </div>
+        <router-view></router-view>
       </div>
     </div>
   </div>
@@ -42,6 +43,13 @@ export default {
     });
     if ($('.sidebar .sidebar-body').length) {
       const sidebarBodyScroll = new PerfectScrollbar('.sidebar-body');
+    }
+  },
+
+  methods: {
+    exception() {
+      console.log('meh')
+      $('[data-entity="system"][data-method="exception"]').modal('show')
     }
   }
 }

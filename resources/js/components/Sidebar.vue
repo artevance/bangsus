@@ -26,13 +26,15 @@
               <div class="collapse" v-bind:id="item.href" :class="{'show': $route.meta.sidebar === item.index}">
                 <ul class="nav sub-menu">
                   <li class="nav-item" v-for="link in item.children">
-                    <router-link class="nav-link" :class="{'active': $route.meta.item === link.index}" :to="{ name: link.to }">{{ link.title }}</router-link>
+                    <router-link class="nav-link" :class="{'active': $route.meta.item === link.index}" :to="{ name: link.to }" @click.native="clickSidebar">
+                      {{ link.title }}
+                    </router-link>
                   </li>
                 </ul>
               </div>
             </template>
             <template v-else>
-              <a class="nav-link" :class="item.disabled ? 'disabled text-muted' : ''" href="#">
+              <a class="nav-link" :class="item.disabled ? 'disabled text-muted' : ''" href="#" @click="clickSidebar">
                 <i class="link-icon" :class="item.icon"></i>
                 <span class="link-title">{{ item.title }}</span>
               </a>
@@ -62,24 +64,30 @@ export default {
               href: 'master',
               children: [
                 { title: 'Tipe Kontak', index: 'tipeKontak', to: 'master.tipeKontak' },
-                { title: 'Tipe Alamat', index: 'tipeAlamat', to: 'master.tipeKontak' },
-                { title: 'Tipe Foto Karyawan', index: 'tipeFotoKaryawan', to: 'master.tipeKontak' },
-                { title: 'Jabatan', index: 'jabatan', to: 'master.tipeKontak' },
-                { title: 'Divisi', index: 'divisi', to: 'master.tipeKontak' },
-                { title: 'Tipe Cabang', index: 'tipeCabang', to: 'master.tipeKontak' },
-                { title: 'Cabang', index: 'cabang', to: 'master.tipeKontak' },
-                { title: 'Tipe Absensi', index: 'tipeAbsensi', to: 'master.tipeKontak' },
-                { title: 'Satuan', index: 'satuan', to: 'master.tipeKontak' },
-                { title: 'Barang', index: 'barang', to: 'master.tipeKontak' },
-                { title: 'Produksi', index: 'produksi', to: 'master.tipeKontak' },
-                { title: 'Quality Control', index: 'qualityControl', to: 'master.tipeKontak' },
-                { title: 'Aktivitas Karyawan', index: 'aktivitasKaryawan', to: 'master.tipeKontak' },
-                { title: 'Atribut Karyawan', index: 'atributKaryawan', to: 'master.tipeKontak' },
-                { title: 'Aktivitas Kebersihan', index: 'aktivitasKebersihan', to: 'master.tipeKontak' },
-                { title: 'General Cleaning', index: 'generalCleaning', to: 'master.tipeKontak' },
-                { title: 'Kelompok Foto', index: 'kelompokFoto', to: 'master.tipeKontak' },
-                { title: 'Jenis Laporan Foto', index: 'jenisLaporanFoto', to: 'master.tipeKontak' },
-                { title: 'Aktivitas Marketing', index: 'aktivitasMarketing', to: 'master.tipeKontak' },
+                { title: 'Tipe Alamat', index: 'tipeAlamat', to: 'master.tipeAlamat' },
+                { title: 'Tipe Foto Karyawan', index: 'tipeFotoKaryawan', to: 'master.tipeFotoKaryawan' },
+                { title: 'Jabatan', index: 'jabatan', to: 'master.jabatan' },
+                { title: 'Divisi', index: 'divisi', to: 'master.divisi' },
+                { title: 'Tipe Cabang', index: 'tipeCabang', to: 'master.tipeCabang' },
+                { title: 'Cabang', index: 'cabang', to: 'master.cabang' },
+                { title: 'Tipe Absensi', index: 'tipeAbsensi', to: 'master.tipeAbsensi' },
+                { title: 'Satuan', index: 'satuan', to: 'master.satuan' },
+                { title: 'Supplier', index: 'supplier', to: 'master.supplier' },
+                { title: 'Item Goreng', index: 'itemGoreng', to: 'master.itemGoreng' },
+                { title: 'Tipe Proses Sambal', index: 'tipeProsesSambal', to: 'master.tipeProsesSambal' },
+                { title: 'Tipe Proses Tepung', index: 'tipeProsesTepung', to: 'master.tipeProsesTepung' },
+                { title: 'Tipe Proses Minyak', index: 'tipeProsesMinyak', to: 'master.tipeProsesMinyak' },
+                { title: 'Tipe Proses Margarin', index: 'tipeProsesMargarin', to: 'master.tipeProsesMargarin' },
+                { title: 'Tipe Proses LPG', index: 'tipeProsesLPG', to: 'master.tipeProsesLPG' },
+                { title: 'Quality Control', index: 'qualityControl', to: 'master.qualityControl' },
+                { title: 'Aktivitas Karyawan', index: 'aktivitasKaryawan', to: 'master.aktivitasKaryawan' },
+                { title: 'Atribut Karyawan', index: 'atributKaryawan', to: 'master.atributKaryawan' },
+                { title: 'Kegiatan Kebersihan', index: 'kegiatanKebersihan', to: 'master.kegiatanKebersihan' },
+                { title: 'General Cleaning', index: 'generalCleaning', to: 'master.generalCleaning' },
+                { title: 'Kelompok Foto', index: 'kelompokFoto', to: 'master.kelompokFoto' },
+                { title: 'Jenis Laporan Foto', index: 'jenisLaporanFoto', to: 'master.jenisLaporanFoto' },
+                { title: 'Aktivitas Marketing', index: 'aktivitasMarketing', to: 'master.aktivitasMarketing' },
+                { title: 'Item Marketing', index: 'aktivitasMarketing', to: 'master.aktivitasMarketing' },
               ]
             },
             { icon: 'far fa-users', title: 'Karyawan', index: 'karyawan', to: 'master.tipeKontak' },
@@ -103,6 +111,14 @@ export default {
           ]
         }
       ]
+    }
+  },
+
+  methods: {
+    clickSidebar() {
+      if (window.matchMedia('(max-width: 991px)').matches) {
+        $('body').toggleClass('sidebar-open');
+      }
     }
   }
 }

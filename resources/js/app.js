@@ -56,6 +56,7 @@ Vue.component('plain-layout', require('./layouts/Plain.vue').default);
 Vue.component('sidebar-component', require('./components/Sidebar.vue').default);
 Vue.component('navbar-component', require('./components/Navbar.vue').default);
 Vue.component('spinner-component', require('./components/Spinner.vue').default);
+Vue.component('preloader-component', require('./components/Preloader.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
