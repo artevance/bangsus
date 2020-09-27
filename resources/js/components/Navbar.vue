@@ -196,28 +196,10 @@
             <div class="dropdown-body">
               <ul class="profile-nav p-0 pt-3">
                 <li class="nav-item">
-                  <a href="pages/general/profile.html" class="nav-link">
-                    <i data-feather="user"></i>
-                    <span>Profile</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="javascript:;" class="nav-link">
-                    <i data-feather="edit"></i>
-                    <span>Edit Profile</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="javascript:;" class="nav-link">
-                    <i data-feather="repeat"></i>
-                    <span>Switch User</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="javascript:;" class="nav-link">
-                    <i data-feather="log-out"></i>
-                    <span>Log Out</span>
-                  </a>
+                  <router-link href="javascript:;" class="nav-link" :to="{ name: 'logout' }">
+                    <i class="link-icon far fa-sign-out p-absolute"></i>
+                    <span class="link-title ml-3">Log Out</span>
+                  </router-link>
                 </li>
               </ul>
             </div>

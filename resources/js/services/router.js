@@ -11,9 +11,10 @@ const routes = [
     component: { template: `<router-view></router-view>`},
     redirect: '/app/dashboard',
     children: [
-      { path: 'login', component: require('../views/Login').default, meta: { layout: 'plain' } },
+      { path: 'login', name: 'login', component: require('../views/Login').default, meta: { layout: 'plain', title: 'Login' } },
+      { path: 'logout', name: 'logout', component: require('../views/Logout').default, meta: { layout: 'plain', title: 'Logout' } },
 
-      { path: 'dashboard', component: { template: `<router-view></router-view>` }, meta: { layout: 'default', title: 'Dashboard', sidebar: 'dashboard' } },
+      { path: 'dashboard', name: 'dashboard', component: { template: `<router-view></router-view>` }, meta: { layout: 'default', title: 'Dashboard', sidebar: 'dashboard' } },
       {
         path: 'master',
         component: { template: `<router-view></router-view>` },
