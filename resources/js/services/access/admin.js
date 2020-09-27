@@ -133,7 +133,15 @@ export default {
         access: true,
         create: true,
         read: true,
-        update: true
+        update: true,
+        children: {
+          parameterAtributKaryawan: {
+            access: true,
+            create: true,
+            read: true,
+            update: true
+          }
+        }
       },
       kegiatanKebersihan: {
         access: true,
@@ -145,7 +153,15 @@ export default {
         access: true,
         create: true,
         read: true,
-        update: true
+        update: true,
+        children: {
+          kegiatanGeneralCleaning: {
+            access: true,
+            create: true,
+            read: true,
+            update: true
+          }
+        }
       },
       kelompokFoto: {
         access: true,

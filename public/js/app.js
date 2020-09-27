@@ -2930,6 +2930,261 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/AtributKaryawan.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/AtributKaryawan.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        atribut_karyawan: []
+      },
+      form: {
+        create: {
+          data: {
+            atribut_karyawan: ''
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            atribut_karyawan: ''
+          },
+          errors: {}
+        }
+      },
+      query: {
+        atribut_karyawan: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData()]).then(function (res) {
+        _this.data.atribut_karyawan = res[0].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.atribut_karyawan = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/atribut_karyawan?q=' + this.query.atribut_karyawan.q);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="atributKaryawan"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/atribut_karyawan/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          atribut_karyawan: res.data.container.atribut_karyawan
+        };
+        $('[data-entity="atributKaryawan"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.$axios.post('/ajax/v1/master/atribut_karyawan', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          atribut_karyawan: ''
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="atributKaryawan"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/atribut_karyawan', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          atribut_karyawan: ''
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="atributKaryawan"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/Cabang.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/Cabang.vue?vue&type=script&lang=js& ***!
@@ -3470,6 +3725,261 @@ __webpack_require__.r(__webpack_exports__);
         _this5.prepare();
 
         $('[data-entity="divisi"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/GeneralCleaning.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/GeneralCleaning.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        area_general_cleaning: []
+      },
+      form: {
+        create: {
+          data: {
+            area_general_cleaning: ''
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            area_general_cleaning: ''
+          },
+          errors: {}
+        }
+      },
+      query: {
+        area_general_cleaning: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData()]).then(function (res) {
+        _this.data.area_general_cleaning = res[0].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.area_general_cleaning = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/area_general_cleaning?q=' + this.query.area_general_cleaning.q);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="generalCleaning"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/area_general_cleaning/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          area_general_cleaning: res.data.container.area_general_cleaning
+        };
+        $('[data-entity="generalCleaning"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.$axios.post('/ajax/v1/master/area_general_cleaning', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          area_general_cleaning: ''
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="generalCleaning"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/area_general_cleaning', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          area_general_cleaning: ''
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="generalCleaning"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
           _this5.form.update.errors = err.response.data.errors;
@@ -7958,6 +8468,568 @@ __webpack_require__.r(__webpack_exports__);
         _this5.prepare();
 
         $('[data-entity="tipeProsesTepung"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        parameter_atribut_karyawan: [],
+        parent: []
+      },
+      form: {
+        create: {
+          data: {
+            parameter_atribut_karyawan: '',
+            atribut_karyawan_id: this.$route.params.id
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            parameter_atribut_karyawan: ''
+          },
+          errors: {}
+        }
+      },
+      query: {
+        parameter_atribut_karyawan: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData(), this.fetchParentData()]).then(function (res) {
+        _this.data.parameter_atribut_karyawan = res[0].data.container;
+        _this.data.parent = res[1].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.parameter_atribut_karyawan = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/parameter_atribut_karyawan/parent/' + this.$route.params.id + '?q=' + this.query.parameter_atribut_karyawan.q);
+    },
+
+    /**
+     *  Fetch parent data
+     */
+    fetchParentData: function fetchParentData() {
+      return this.$axios.get('/ajax/v1/master/atribut_karyawan/' + this.$route.params.id);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="parameterAtributKaryawan"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/parameter_atribut_karyawan/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          parameter_atribut_karyawan: res.data.container.parameter_atribut_karyawan,
+          pelanggaran: res.data.container.pelanggaran
+        };
+        $('[data-entity="parameterAtributKaryawan"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.$axios.post('/ajax/v1/master/parameter_atribut_karyawan', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          parameter_atribut_karyawan: '',
+          atribut_karyawan_id: _this4.$route.params.id,
+          pelanggaran: null
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="parameterAtributKaryawan"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/parameter_atribut_karyawan', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          parameter_atribut_karyawan: '',
+          pelanggaran: null
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="parameterAtributKaryawan"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        kegiatan_general_cleaning: [],
+        parent: []
+      },
+      form: {
+        create: {
+          data: {
+            kegiatan_general_cleaning: '',
+            area_general_cleaning_id: this.$route.params.id
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            kegiatan_general_cleaning: ''
+          },
+          errors: {}
+        }
+      },
+      query: {
+        kegiatan_general_cleaning: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData(), this.fetchParentData()]).then(function (res) {
+        _this.data.kegiatan_general_cleaning = res[0].data.container;
+        _this.data.parent = res[1].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.kegiatan_general_cleaning = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/kegiatan_general_cleaning/parent/' + this.$route.params.id + '?q=' + this.query.kegiatan_general_cleaning.q);
+    },
+
+    /**
+     *  Fetch parent data
+     */
+    fetchParentData: function fetchParentData() {
+      return this.$axios.get('/ajax/v1/master/area_general_cleaning/' + this.$route.params.id);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="kegiatanGeneralCleaning"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/kegiatan_general_cleaning/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          kegiatan_general_cleaning: res.data.container.kegiatan_general_cleaning,
+          pelanggaran: res.data.container.pelanggaran
+        };
+        $('[data-entity="kegiatanGeneralCleaning"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.$axios.post('/ajax/v1/master/kegiatan_general_cleaning', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          kegiatan_general_cleaning: '',
+          area_general_cleaning_id: _this4.$route.params.id
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="kegiatanGeneralCleaning"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/kegiatan_general_cleaning', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          kegiatan_general_cleaning: ''
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="kegiatanGeneralCleaning"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
           _this5.form.update.errors = err.response.data.errors;
@@ -69847,6 +70919,516 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/AtributKaryawan.vue?vue&type=template&id=ce5a4dae&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/AtributKaryawan.vue?vue&type=template&id=ce5a4dae& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    { attrs: { name: "fade", mode: "out-in" } },
+    [
+      _vm.$route.name == "master.atributKaryawan"
+        ? _c(
+            "div",
+            { staticClass: "row mt-5" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "fade", mode: "out-in" } },
+                [
+                  _vm.state.page.loading
+                    ? _c("preloader-component")
+                    : _c(
+                        "div",
+                        { staticClass: "col-12 col-xl-12 stretch-card" },
+                        [
+                          _c("div", { staticClass: "card" }, [
+                            _c("div", { staticClass: "card-body" }, [
+                              _vm.$access("master.atributKaryawan", "create")
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      on: { click: _vm.showCreateModal }
+                                    },
+                                    [_vm._v("Tambah")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row mt-5" }, [
+                                _c("div", { staticClass: "col-12 col-md-6" }, [
+                                  _vm.$access("master.atributKaryawan", "read")
+                                    ? _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.query.atribut_karyawan.q,
+                                            expression:
+                                              "query.atribut_karyawan.q"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "text",
+                                          placeholder: "Cari sesuatu ..."
+                                        },
+                                        domProps: {
+                                          value: _vm.query.atribut_karyawan.q
+                                        },
+                                        on: {
+                                          keyup: _vm.queryData,
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.query.atribut_karyawan,
+                                              "q",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    : _vm._e()
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "table-responsive mt-2" },
+                                [
+                                  _vm.$access("master.atributKaryawan", "read")
+                                    ? _c(
+                                        "table",
+                                        { staticClass: "table table-hover" },
+                                        [
+                                          _c("thead", [
+                                            _c("th", [_vm._v("#")]),
+                                            _vm._v(" "),
+                                            _c("th", [
+                                              _vm._v("Aktivitas Karyawan")
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Aksi")])
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "tbody",
+                                            _vm._l(
+                                              _vm.data.atribut_karyawan,
+                                              function(atribut_karyawan, i) {
+                                                return _c("tr", [
+                                                  _c("td", [
+                                                    _vm._v(_vm._s(i + 1))
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        atribut_karyawan.atribut_karyawan
+                                                      )
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "td",
+                                                    [
+                                                      _vm.$access(
+                                                        "master.atributKaryawan",
+                                                        "update"
+                                                      )
+                                                        ? _c(
+                                                            "a",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-warning",
+                                                              attrs: {
+                                                                href: "#"
+                                                              },
+                                                              on: {
+                                                                click: function(
+                                                                  $event
+                                                                ) {
+                                                                  return _vm.showUpdateModal(
+                                                                    atribut_karyawan.id
+                                                                  )
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Ubah\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e(),
+                                                      _vm._v(" "),
+                                                      _vm.$access(
+                                                        "master.atributKaryawan.parameterAtributKaryawan",
+                                                        "access"
+                                                      )
+                                                        ? _c(
+                                                            "router-link",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-info",
+                                                              attrs: {
+                                                                to: {
+                                                                  name:
+                                                                    "master.atributKaryawan.parameterAtributKaryawan",
+                                                                  params: {
+                                                                    id:
+                                                                      atribut_karyawan.id
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Lihat Parameter\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e()
+                                                    ],
+                                                    1
+                                                  )
+                                                ])
+                                              }
+                                            ),
+                                            0
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]
+                              )
+                            ])
+                          ])
+                        ]
+                      )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.$access("master.atributKaryawan", "create")
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "atributKaryawan",
+                        "data-method": "create",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.create($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Tambah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.create.data
+                                              .atribut_karyawan,
+                                          expression:
+                                            "form.create.data.atribut_karyawan"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.create.data.atribut_karyawan
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.create.data,
+                                            "atribut_karyawan",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors.atribut_karyawan,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.create.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.create.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Tambah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$access("master.atributKaryawan", "update")
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "atributKaryawan",
+                        "data-method": "update",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.update($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Ubah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.update.data
+                                              .atribut_karyawan,
+                                          expression:
+                                            "form.update.data.atribut_karyawan"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.update.data.atribut_karyawan
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.update.data,
+                                            "atribut_karyawan",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.update.errors.atribut_karyawan,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.update.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.update.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Ubah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        : _c("router-view")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/Cabang.vue?vue&type=template&id=e7c8efd8&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/Cabang.vue?vue&type=template&id=e7c8efd8& ***!
@@ -70909,6 +72491,525 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/GeneralCleaning.vue?vue&type=template&id=1933341a&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/GeneralCleaning.vue?vue&type=template&id=1933341a& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    { attrs: { name: "fade", mode: "out-in" } },
+    [
+      _vm.$route.name == "master.generalCleaning"
+        ? _c(
+            "div",
+            { staticClass: "row mt-5" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "fade", mode: "out-in" } },
+                [
+                  _vm.state.page.loading
+                    ? _c("preloader-component")
+                    : _c(
+                        "div",
+                        { staticClass: "col-12 col-xl-12 stretch-card" },
+                        [
+                          _c("div", { staticClass: "card" }, [
+                            _c("div", { staticClass: "card-body" }, [
+                              _vm.$access("master.generalCleaning", "create")
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      on: { click: _vm.showCreateModal }
+                                    },
+                                    [_vm._v("Tambah")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row mt-5" }, [
+                                _c("div", { staticClass: "col-12 col-md-6" }, [
+                                  _vm.$access("master.generalCleaning", "read")
+                                    ? _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.query.area_general_cleaning.q,
+                                            expression:
+                                              "query.area_general_cleaning.q"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "text",
+                                          placeholder: "Cari sesuatu ..."
+                                        },
+                                        domProps: {
+                                          value:
+                                            _vm.query.area_general_cleaning.q
+                                        },
+                                        on: {
+                                          keyup: _vm.queryData,
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.query.area_general_cleaning,
+                                              "q",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    : _vm._e()
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "table-responsive mt-2" },
+                                [
+                                  _vm.$access("master.generalCleaning", "read")
+                                    ? _c(
+                                        "table",
+                                        { staticClass: "table table-hover" },
+                                        [
+                                          _c("thead", [
+                                            _c("th", [_vm._v("#")]),
+                                            _vm._v(" "),
+                                            _c("th", [
+                                              _vm._v("Area General Cleaning")
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Aksi")])
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "tbody",
+                                            _vm._l(
+                                              _vm.data.area_general_cleaning,
+                                              function(
+                                                area_general_cleaning,
+                                                i
+                                              ) {
+                                                return _c("tr", [
+                                                  _c("td", [
+                                                    _vm._v(_vm._s(i + 1))
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        area_general_cleaning.area_general_cleaning
+                                                      )
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "td",
+                                                    [
+                                                      _vm.$access(
+                                                        "master.generalCleaning",
+                                                        "update"
+                                                      )
+                                                        ? _c(
+                                                            "a",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-warning",
+                                                              attrs: {
+                                                                href: "#"
+                                                              },
+                                                              on: {
+                                                                click: function(
+                                                                  $event
+                                                                ) {
+                                                                  return _vm.showUpdateModal(
+                                                                    area_general_cleaning.id
+                                                                  )
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Ubah\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e(),
+                                                      _vm._v(" "),
+                                                      _vm.$access(
+                                                        "master.generalCleaning.kegiatanGeneralCleaning",
+                                                        "access"
+                                                      )
+                                                        ? _c(
+                                                            "router-link",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-info",
+                                                              attrs: {
+                                                                to: {
+                                                                  name:
+                                                                    "master.generalCleaning.kegiatanGeneralCleaning",
+                                                                  params: {
+                                                                    id:
+                                                                      area_general_cleaning.id
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Lihat Parameter\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e()
+                                                    ],
+                                                    1
+                                                  )
+                                                ])
+                                              }
+                                            ),
+                                            0
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]
+                              )
+                            ])
+                          ])
+                        ]
+                      )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.$access("master.generalCleaning", "create")
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "generalCleaning",
+                        "data-method": "create",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.create($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Tambah General Cleaning")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("General Cleaning")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.create.data
+                                              .area_general_cleaning,
+                                          expression:
+                                            "form.create.data.area_general_cleaning"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.create.data
+                                            .area_general_cleaning
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.create.data,
+                                            "area_general_cleaning",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors
+                                        .area_general_cleaning,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.create.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.create.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Tambah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$access("master.generalCleaning", "update")
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "generalCleaning",
+                        "data-method": "update",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.update($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Ubah General Cleaning")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("General Cleaning")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.update.data
+                                              .area_general_cleaning,
+                                          expression:
+                                            "form.update.data.area_general_cleaning"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.update.data
+                                            .area_general_cleaning
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.update.data,
+                                            "area_general_cleaning",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.update.errors
+                                        .area_general_cleaning,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.update.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.update.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Ubah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        : _c("router-view")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -78622,6 +80723,1284 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=template&id=1c6d9607&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=template&id=1c6d9607& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    { attrs: { name: "fade", mode: "out-in" } },
+    [
+      _vm.$route.name == "master.atributKaryawan.parameterAtributKaryawan"
+        ? _c(
+            "div",
+            { staticClass: "row mt-5" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "fade", mode: "out-in" } },
+                [
+                  _vm.state.page.loading
+                    ? _c("preloader-component")
+                    : _c(
+                        "div",
+                        { staticClass: "col-12 col-xl-12 stretch-card" },
+                        [
+                          _c("div", { staticClass: "card" }, [
+                            _c(
+                              "div",
+                              { staticClass: "card-body" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    attrs: {
+                                      to: { name: "master.atributKaryawan" }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-backspace"
+                                    }),
+                                    _vm._v(" Kembali\n            ")
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row" }, [
+                                  _c("div", { staticClass: "col" }, [
+                                    _c("div", { staticClass: "card-title" }, [
+                                      _vm._v(
+                                        _vm._s(_vm.data.parent.atribut_karyawan)
+                                      )
+                                    ])
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm.$access(
+                                  "master.atributKaryawan.parameterAtributKaryawan",
+                                  "create"
+                                )
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-primary mt-3",
+                                        on: { click: _vm.showCreateModal }
+                                      },
+                                      [_vm._v("Tambah")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row mt-5" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-12 col-md-6" },
+                                    [
+                                      _vm.$access(
+                                        "master.atributKaryawan.parameterAtributKaryawan",
+                                        "read"
+                                      )
+                                        ? _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value:
+                                                  _vm.query
+                                                    .parameter_atribut_karyawan
+                                                    .q,
+                                                expression:
+                                                  "query.parameter_atribut_karyawan.q"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder: "Cari sesuatu ..."
+                                            },
+                                            domProps: {
+                                              value:
+                                                _vm.query
+                                                  .parameter_atribut_karyawan.q
+                                            },
+                                            on: {
+                                              keyup: _vm.queryData,
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.query
+                                                    .parameter_atribut_karyawan,
+                                                  "q",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        : _vm._e()
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "table-responsive mt-2" },
+                                  [
+                                    _vm.$access(
+                                      "master.atributKaryawan.parameterAtributKaryawan",
+                                      "read"
+                                    )
+                                      ? _c(
+                                          "table",
+                                          { staticClass: "table table-hover" },
+                                          [
+                                            _c("thead", [
+                                              _c("th", [_vm._v("#")]),
+                                              _vm._v(" "),
+                                              _c("th", [
+                                                _vm._v("Aktivitas Karyawan")
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("th", [_vm._v("Pelanggaran")]),
+                                              _vm._v(" "),
+                                              _c("th", [_vm._v("Aksi")])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "tbody",
+                                              _vm._l(
+                                                _vm.data
+                                                  .parameter_atribut_karyawan,
+                                                function(
+                                                  parameter_atribut_karyawan,
+                                                  i
+                                                ) {
+                                                  return _c("tr", [
+                                                    _c("td", [
+                                                      _vm._v(_vm._s(i + 1))
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          parameter_atribut_karyawan.parameter_atribut_karyawan
+                                                        )
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          parameter_atribut_karyawan.pelanggaran
+                                                            ? "YA"
+                                                            : "TIDAK"
+                                                        )
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm.$access(
+                                                        "master.atributKaryawan.parameterAtributKaryawan",
+                                                        "update"
+                                                      )
+                                                        ? _c(
+                                                            "a",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-warning",
+                                                              attrs: {
+                                                                href: "#"
+                                                              },
+                                                              on: {
+                                                                click: function(
+                                                                  $event
+                                                                ) {
+                                                                  return _vm.showUpdateModal(
+                                                                    parameter_atribut_karyawan.id
+                                                                  )
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Ubah\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e()
+                                                    ])
+                                                  ])
+                                                }
+                                              ),
+                                              0
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.$access(
+                "master.atributKaryawan.parameterAtributKaryawan",
+                "create"
+              )
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "parameterAtributKaryawan",
+                        "data-method": "create",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.create($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Tambah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.create.data
+                                              .parameter_atribut_karyawan,
+                                          expression:
+                                            "form.create.data.parameter_atribut_karyawan"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.create.data
+                                            .parameter_atribut_karyawan
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.create.data,
+                                            "parameter_atribut_karyawan",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors
+                                        .parameter_atribut_karyawan,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group form-check" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.create.data.pelanggaran,
+                                          expression:
+                                            "form.create.data.pelanggaran"
+                                        }
+                                      ],
+                                      attrs: { type: "checkbox" },
+                                      domProps: {
+                                        checked: Array.isArray(
+                                          _vm.form.create.data.pelanggaran
+                                        )
+                                          ? _vm._i(
+                                              _vm.form.create.data.pelanggaran,
+                                              null
+                                            ) > -1
+                                          : _vm.form.create.data.pelanggaran
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          var $$a =
+                                              _vm.form.create.data.pelanggaran,
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                          if (Array.isArray($$a)) {
+                                            var $$v = null,
+                                              $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                              $$i < 0 &&
+                                                _vm.$set(
+                                                  _vm.form.create.data,
+                                                  "pelanggaran",
+                                                  $$a.concat([$$v])
+                                                )
+                                            } else {
+                                              $$i > -1 &&
+                                                _vm.$set(
+                                                  _vm.form.create.data,
+                                                  "pelanggaran",
+                                                  $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1))
+                                                )
+                                            }
+                                          } else {
+                                            _vm.$set(
+                                              _vm.form.create.data,
+                                              "pelanggaran",
+                                              $$c
+                                            )
+                                          }
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("label", { staticClass: "ml-2" }, [
+                                      _vm._v("Pelanggaran")
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors.pelanggaran,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.create.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.create.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Tambah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$access(
+                "master.atributKaryawan.parameterAtributKaryawan",
+                "update"
+              )
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "parameterAtributKaryawan",
+                        "data-method": "update",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.update($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Ubah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.update.data
+                                              .parameter_atribut_karyawan,
+                                          expression:
+                                            "form.update.data.parameter_atribut_karyawan"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.update.data
+                                            .parameter_atribut_karyawan
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.update.data,
+                                            "parameter_atribut_karyawan",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.update.errors
+                                        .parameter_atribut_karyawan,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group form-check" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.update.data.pelanggaran,
+                                          expression:
+                                            "form.update.data.pelanggaran"
+                                        }
+                                      ],
+                                      attrs: { type: "checkbox" },
+                                      domProps: {
+                                        checked: Array.isArray(
+                                          _vm.form.update.data.pelanggaran
+                                        )
+                                          ? _vm._i(
+                                              _vm.form.update.data.pelanggaran,
+                                              null
+                                            ) > -1
+                                          : _vm.form.update.data.pelanggaran
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          var $$a =
+                                              _vm.form.update.data.pelanggaran,
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                          if (Array.isArray($$a)) {
+                                            var $$v = null,
+                                              $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                              $$i < 0 &&
+                                                _vm.$set(
+                                                  _vm.form.update.data,
+                                                  "pelanggaran",
+                                                  $$a.concat([$$v])
+                                                )
+                                            } else {
+                                              $$i > -1 &&
+                                                _vm.$set(
+                                                  _vm.form.update.data,
+                                                  "pelanggaran",
+                                                  $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1))
+                                                )
+                                            }
+                                          } else {
+                                            _vm.$set(
+                                              _vm.form.update.data,
+                                              "pelanggaran",
+                                              $$c
+                                            )
+                                          }
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("label", { staticClass: "ml-2" }, [
+                                      _vm._v("Pelanggaran")
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.update.errors.pelanggaran,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.update.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.update.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Ubah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        : _c("router-view")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=template&id=09d6d5b8&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=template&id=09d6d5b8& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    { attrs: { name: "fade", mode: "out-in" } },
+    [
+      _vm.$route.name == "master.generalCleaning.kegiatanGeneralCleaning"
+        ? _c(
+            "div",
+            { staticClass: "row mt-5" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "fade", mode: "out-in" } },
+                [
+                  _vm.state.page.loading
+                    ? _c("preloader-component")
+                    : _c(
+                        "div",
+                        { staticClass: "col-12 col-xl-12 stretch-card" },
+                        [
+                          _c("div", { staticClass: "card" }, [
+                            _c(
+                              "div",
+                              { staticClass: "card-body" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    attrs: {
+                                      to: { name: "master.generalCleaning" }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-backspace"
+                                    }),
+                                    _vm._v(" Kembali\n            ")
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row" }, [
+                                  _c("div", { staticClass: "col" }, [
+                                    _c("div", { staticClass: "card-title" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.data.parent.area_general_cleaning
+                                        )
+                                      )
+                                    ])
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm.$access(
+                                  "master.generalCleaning.kegiatanGeneralCleaning",
+                                  "create"
+                                )
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-primary mt-3",
+                                        on: { click: _vm.showCreateModal }
+                                      },
+                                      [_vm._v("Tambah")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row mt-5" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-12 col-md-6" },
+                                    [
+                                      _vm.$access(
+                                        "master.generalCleaning.kegiatanGeneralCleaning",
+                                        "read"
+                                      )
+                                        ? _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value:
+                                                  _vm.query
+                                                    .kegiatan_general_cleaning
+                                                    .q,
+                                                expression:
+                                                  "query.kegiatan_general_cleaning.q"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder: "Cari sesuatu ..."
+                                            },
+                                            domProps: {
+                                              value:
+                                                _vm.query
+                                                  .kegiatan_general_cleaning.q
+                                            },
+                                            on: {
+                                              keyup: _vm.queryData,
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.query
+                                                    .kegiatan_general_cleaning,
+                                                  "q",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        : _vm._e()
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "table-responsive mt-2" },
+                                  [
+                                    _vm.$access(
+                                      "master.generalCleaning.kegiatanGeneralCleaning",
+                                      "read"
+                                    )
+                                      ? _c(
+                                          "table",
+                                          { staticClass: "table table-hover" },
+                                          [
+                                            _c("thead", [
+                                              _c("th", [_vm._v("#")]),
+                                              _vm._v(" "),
+                                              _c("th", [
+                                                _vm._v(
+                                                  "Kegiatan General Cleaning"
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("th", [_vm._v("Aksi")])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "tbody",
+                                              _vm._l(
+                                                _vm.data
+                                                  .kegiatan_general_cleaning,
+                                                function(
+                                                  kegiatan_general_cleaning,
+                                                  i
+                                                ) {
+                                                  return _c("tr", [
+                                                    _c("td", [
+                                                      _vm._v(_vm._s(i + 1))
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          kegiatan_general_cleaning.kegiatan_general_cleaning
+                                                        )
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm.$access(
+                                                        "master.generalCleaning.kegiatanGeneralCleaning",
+                                                        "update"
+                                                      )
+                                                        ? _c(
+                                                            "a",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-warning",
+                                                              attrs: {
+                                                                href: "#"
+                                                              },
+                                                              on: {
+                                                                click: function(
+                                                                  $event
+                                                                ) {
+                                                                  return _vm.showUpdateModal(
+                                                                    kegiatan_general_cleaning.id
+                                                                  )
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Ubah\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e()
+                                                    ])
+                                                  ])
+                                                }
+                                              ),
+                                              0
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.$access(
+                "master.generalCleaning.kegiatanGeneralCleaning",
+                "create"
+              )
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "kegiatanGeneralCleaning",
+                        "data-method": "create",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.create($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Tambah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.create.data
+                                              .kegiatan_general_cleaning,
+                                          expression:
+                                            "form.create.data.kegiatan_general_cleaning"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.create.data
+                                            .kegiatan_general_cleaning
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.create.data,
+                                            "kegiatan_general_cleaning",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors
+                                        .kegiatan_general_cleaning,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.create.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.create.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Tambah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$access(
+                "master.generalCleaning.kegiatanGeneralCleaning",
+                "update"
+              )
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "kegiatanGeneralCleaning",
+                        "data-method": "update",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.update($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Ubah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.update.data
+                                              .kegiatan_general_cleaning,
+                                          expression:
+                                            "form.update.data.kegiatan_general_cleaning"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.update.data
+                                            .kegiatan_general_cleaning
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.update.data,
+                                            "kegiatan_general_cleaning",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.update.errors
+                                        .kegiatan_general_cleaning,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.update.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.update.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Ubah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        : _c("router-view")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -96941,7 +100320,15 @@ __webpack_require__.r(__webpack_exports__);
         access: true,
         create: true,
         read: true,
-        update: true
+        update: true,
+        children: {
+          parameterAtributKaryawan: {
+            access: true,
+            create: true,
+            read: true,
+            update: true
+          }
+        }
       },
       kegiatanKebersihan: {
         access: true,
@@ -96953,7 +100340,15 @@ __webpack_require__.r(__webpack_exports__);
         access: true,
         create: true,
         read: true,
-        update: true
+        update: true,
+        children: {
+          kegiatanGeneralCleaning: {
+            access: true,
+            create: true,
+            read: true,
+            update: true
+          }
+        }
       },
       kelompokFoto: {
         access: true,
@@ -97411,7 +100806,19 @@ var routes = [{
         sidebar: 'master',
         item: 'atributKaryawan'
       },
-      beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
+      beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access]),
+      children: [{
+        path: ':id',
+        name: 'master.atributKaryawan.parameterAtributKaryawan',
+        component: __webpack_require__(/*! ../views/master/atribut_karyawan/ParameterAtributKaryawan */ "./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue")["default"],
+        meta: {
+          layout: 'default',
+          title: 'Parameter Atribut Karyawan',
+          sidebar: 'master',
+          item: 'atributKaryawan'
+        },
+        beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
+      }]
     }, {
       path: 'kegiatan_kebersihan',
       name: 'master.kegiatanKebersihan',
@@ -97433,7 +100840,19 @@ var routes = [{
         sidebar: 'master',
         item: 'generalCleaning'
       },
-      beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
+      beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access]),
+      children: [{
+        path: ':id',
+        name: 'master.generalCleaning.kegiatanGeneralCleaning',
+        component: __webpack_require__(/*! ../views/master/general_cleaning/KegiatanGeneralCleaning */ "./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue")["default"],
+        meta: {
+          layout: 'default',
+          title: 'Kegiatan General Cleaning',
+          sidebar: 'master',
+          item: 'generalCleaning'
+        },
+        beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
+      }]
     }, {
       path: 'kelompok_foto',
       name: 'master.kelompokFoto',
@@ -97891,17 +101310,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
+/* harmony import */ var _AtributKaryawan_vue_vue_type_template_id_ce5a4dae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AtributKaryawan.vue?vue&type=template&id=ce5a4dae& */ "./resources/js/views/master/AtributKaryawan.vue?vue&type=template&id=ce5a4dae&");
+/* harmony import */ var _AtributKaryawan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AtributKaryawan.vue?vue&type=script&lang=js& */ "./resources/js/views/master/AtributKaryawan.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AtributKaryawan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AtributKaryawan_vue_vue_type_template_id_ce5a4dae___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AtributKaryawan_vue_vue_type_template_id_ce5a4dae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -97909,8 +101331,42 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+/* hot reload */
+if (false) { var api; }
 component.options.__file = "resources/js/views/master/AtributKaryawan.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/master/AtributKaryawan.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/views/master/AtributKaryawan.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AtributKaryawan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AtributKaryawan.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/AtributKaryawan.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AtributKaryawan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/master/AtributKaryawan.vue?vue&type=template&id=ce5a4dae&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/views/master/AtributKaryawan.vue?vue&type=template&id=ce5a4dae& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AtributKaryawan_vue_vue_type_template_id_ce5a4dae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AtributKaryawan.vue?vue&type=template&id=ce5a4dae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/AtributKaryawan.vue?vue&type=template&id=ce5a4dae&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AtributKaryawan_vue_vue_type_template_id_ce5a4dae___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AtributKaryawan_vue_vue_type_template_id_ce5a4dae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -98061,17 +101517,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
+/* harmony import */ var _GeneralCleaning_vue_vue_type_template_id_1933341a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GeneralCleaning.vue?vue&type=template&id=1933341a& */ "./resources/js/views/master/GeneralCleaning.vue?vue&type=template&id=1933341a&");
+/* harmony import */ var _GeneralCleaning_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GeneralCleaning.vue?vue&type=script&lang=js& */ "./resources/js/views/master/GeneralCleaning.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _GeneralCleaning_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _GeneralCleaning_vue_vue_type_template_id_1933341a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _GeneralCleaning_vue_vue_type_template_id_1933341a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -98079,8 +101538,42 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+/* hot reload */
+if (false) { var api; }
 component.options.__file = "resources/js/views/master/GeneralCleaning.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/master/GeneralCleaning.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/views/master/GeneralCleaning.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneralCleaning_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./GeneralCleaning.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/GeneralCleaning.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneralCleaning_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/master/GeneralCleaning.vue?vue&type=template&id=1933341a&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/views/master/GeneralCleaning.vue?vue&type=template&id=1933341a& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneralCleaning_vue_vue_type_template_id_1933341a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./GeneralCleaning.vue?vue&type=template&id=1933341a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/GeneralCleaning.vue?vue&type=template&id=1933341a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneralCleaning_vue_vue_type_template_id_1933341a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneralCleaning_vue_vue_type_template_id_1933341a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -99353,6 +102846,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TipeProsesTepung_vue_vue_type_template_id_05b499eb___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TipeProsesTepung_vue_vue_type_template_id_05b499eb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ParameterAtributKaryawan_vue_vue_type_template_id_1c6d9607___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ParameterAtributKaryawan.vue?vue&type=template&id=1c6d9607& */ "./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=template&id=1c6d9607&");
+/* harmony import */ var _ParameterAtributKaryawan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ParameterAtributKaryawan.vue?vue&type=script&lang=js& */ "./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ParameterAtributKaryawan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ParameterAtributKaryawan_vue_vue_type_template_id_1c6d9607___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ParameterAtributKaryawan_vue_vue_type_template_id_1c6d9607___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterAtributKaryawan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParameterAtributKaryawan.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterAtributKaryawan_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=template&id=1c6d9607&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=template&id=1c6d9607& ***!
+  \****************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterAtributKaryawan_vue_vue_type_template_id_1c6d9607___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParameterAtributKaryawan.vue?vue&type=template&id=1c6d9607& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/atribut_karyawan/ParameterAtributKaryawan.vue?vue&type=template&id=1c6d9607&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterAtributKaryawan_vue_vue_type_template_id_1c6d9607___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterAtributKaryawan_vue_vue_type_template_id_1c6d9607___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue":
+/*!********************************************************************************!*\
+  !*** ./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _KegiatanGeneralCleaning_vue_vue_type_template_id_09d6d5b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./KegiatanGeneralCleaning.vue?vue&type=template&id=09d6d5b8& */ "./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=template&id=09d6d5b8&");
+/* harmony import */ var _KegiatanGeneralCleaning_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./KegiatanGeneralCleaning.vue?vue&type=script&lang=js& */ "./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _KegiatanGeneralCleaning_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _KegiatanGeneralCleaning_vue_vue_type_template_id_09d6d5b8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _KegiatanGeneralCleaning_vue_vue_type_template_id_09d6d5b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_KegiatanGeneralCleaning_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./KegiatanGeneralCleaning.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_KegiatanGeneralCleaning_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=template&id=09d6d5b8&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=template&id=09d6d5b8& ***!
+  \***************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KegiatanGeneralCleaning_vue_vue_type_template_id_09d6d5b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./KegiatanGeneralCleaning.vue?vue&type=template&id=09d6d5b8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/general_cleaning/KegiatanGeneralCleaning.vue?vue&type=template&id=09d6d5b8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KegiatanGeneralCleaning_vue_vue_type_template_id_09d6d5b8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KegiatanGeneralCleaning_vue_vue_type_template_id_09d6d5b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

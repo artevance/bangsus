@@ -1,35 +1,40 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div class="row mt-5" v-if="$route.name == 'master.generalCleaning'">
+    <div class="row mt-5" v-if="$route.name == 'master.generalCleaning.kegiatanGeneralCleaning'">
       <transition name="fade" mode="out-in">
         <preloader-component v-if="state.page.loading"/>
         <div class="col-12 col-xl-12 stretch-card" v-else>
           <div class="card">
             <div class="card-body">
-              <button class="btn btn-primary" @click="showCreateModal" v-if="$access('master.generalCleaning', 'create')">Tambah</button>
+              <router-link :to="{ name: 'master.generalCleaning' }">
+                <i class="fas fa-backspace"></i> Kembali
+              </router-link>
+              <div class="row">
+                <div class="col">
+                  <div class="card-title">{{ data.parent.area_general_cleaning }}</div>
+                </div>
+              </div>
+              <button class="btn btn-primary mt-3" @click="showCreateModal" v-if="$access('master.generalCleaning.kegiatanGeneralCleaning', 'create')">Tambah</button>
               <div class="row mt-5">
                 <div class="col-12 col-md-6">
-                  <input type="text" class="form-control" placeholder="Cari sesuatu ..." v-model="query.area_general_cleaning.q" @keyup="queryData" v-if="$access('master.generalCleaning', 'read')">
+                  <input type="text" class="form-control" placeholder="Cari sesuatu ..." v-model="query.kegiatan_general_cleaning.q" @keyup="queryData" v-if="$access('master.generalCleaning.kegiatanGeneralCleaning', 'read')">
                 </div>
               </div>
               <div class="table-responsive mt-2">
-                <table class="table table-hover" v-if="$access('master.generalCleaning', 'read')">
+                <table class="table table-hover" v-if="$access('master.generalCleaning.kegiatanGeneralCleaning', 'read')">
                   <thead>
                     <th>#</th>
-                    <th>Area General Cleaning</th>
+                    <th>Kegiatan General Cleaning</th>
                     <th>Aksi</th>
                   </thead>
                   <tbody>
-                    <tr v-for="(area_general_cleaning, i) in data.area_general_cleaning">
+                    <tr v-for="(kegiatan_general_cleaning, i) in data.kegiatan_general_cleaning">
                       <td>{{ i + 1 }}</td>
-                      <td>{{ area_general_cleaning.area_general_cleaning }}</td>
+                      <td>{{ kegiatan_general_cleaning.kegiatan_general_cleaning }}</td>
                       <td>
-                        <a class="badge badge-warning" @click="showUpdateModal(area_general_cleaning.id)" href="#" v-if="$access('master.generalCleaning', 'update')">
+                        <a class="badge badge-warning" @click="showUpdateModal(kegiatan_general_cleaning.id)" href="#" v-if="$access('master.generalCleaning.kegiatanGeneralCleaning', 'update')">
                           Ubah
                         </a>
-                        <router-link class="badge badge-info" :to="{ name: 'master.generalCleaning.kegiatanGeneralCleaning', params: { id: area_general_cleaning.id } }" v-if="$access('master.generalCleaning.kegiatanGeneralCleaning', 'access')">
-                          Lihat Parameter
-                        </router-link>
                       </td>
                     </tr>
                   </tbody>
@@ -41,21 +46,21 @@
       </transition>
 
       <!-- Modal -->
-      <div class="modal fade" data-entity="generalCleaning" data-method="create" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.generalCleaning', 'create')">
+      <div class="modal fade" data-entity="kegiatanGeneralCleaning" data-method="create" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.generalCleaning.kegiatanGeneralCleaning', 'create')">
         <div class="modal-dialog">
           <div class="modal-content">
             <form @submit.prevent="create">
               <div class="modal-header">
-                <h5 class="modal-title">Tambah General Cleaning</h5>
+                <h5 class="modal-title">Tambah Aktivitas Karyawan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>General Cleaning</label>
-                  <input type="text" class="form-control" v-model="form.create.data.area_general_cleaning">
-                  <small class="text-danger" v-for="(msg, index) in form.create.errors.area_general_cleaning" :key="index">
+                  <label>Aktivitas Karyawan</label>
+                  <input type="text" class="form-control" v-model="form.create.data.kegiatan_general_cleaning">
+                  <small class="text-danger" v-for="(msg, index) in form.create.errors.kegiatan_general_cleaning" :key="index">
                     {{ msg }}
                   </small>
                 </div>
@@ -70,21 +75,21 @@
           </div>
         </div>
       </div>
-      <div class="modal fade" data-entity="generalCleaning" data-method="update" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.generalCleaning', 'update')">
+      <div class="modal fade" data-entity="kegiatanGeneralCleaning" data-method="update" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.generalCleaning.kegiatanGeneralCleaning', 'update')">
         <div class="modal-dialog">
           <div class="modal-content">
             <form @submit.prevent="update">
               <div class="modal-header">
-                <h5 class="modal-title">Ubah General Cleaning</h5>
+                <h5 class="modal-title">Ubah Aktivitas Karyawan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>General Cleaning</label>
-                  <input type="text" class="form-control" v-model="form.update.data.area_general_cleaning">
-                  <small class="text-danger" v-for="(msg, index) in form.update.errors.area_general_cleaning" :key="index">
+                  <label>Aktivitas Karyawan</label>
+                  <input type="text" class="form-control" v-model="form.update.data.kegiatan_general_cleaning">
+                  <small class="text-danger" v-for="(msg, index) in form.update.errors.kegiatan_general_cleaning" :key="index">
                     {{ msg }}
                   </small>
                 </div>
@@ -110,25 +115,27 @@ export default {
     return {
       state: { page: { loading: true } },
       data: {
-        area_general_cleaning: []
+        kegiatan_general_cleaning: [],
+        parent: []
       },
       form: {
         create: {
           data: {
-            area_general_cleaning: ''
+            kegiatan_general_cleaning: '',
+            area_general_cleaning_id: this.$route.params.id
           },
           errors: {}
         },
         update: {
           data: {
             id: null,
-            area_general_cleaning: ''
+            kegiatan_general_cleaning: ''
           },
           errors: {}
         }
       },
       query: {
-        area_general_cleaning: {
+        kegiatan_general_cleaning: {
           q: ''
         }
       }
@@ -145,10 +152,12 @@ export default {
     prepare() {
       this.state.page.loading = true
       Promise.all([
-        this.fetchMainData()
+        this.fetchMainData(),
+        this.fetchParentData()
       ])
         .then(res => {
-          this.data.area_general_cleaning = res[0].data.container
+          this.data.kegiatan_general_cleaning = res[0].data.container
+          this.data.parent = res[1].data.container
           this.state.page.loading = false
         })
         .catch(err => {
@@ -161,7 +170,7 @@ export default {
     queryData() {
       this.fetchMainData()
         .then(res => {
-          this.data.area_general_cleaning = res.data.container
+          this.data.kegiatan_general_cleaning = res.data.container
         })
         .catch(err => {})
     },
@@ -169,24 +178,31 @@ export default {
      *  Fetch data
      */
     fetchMainData() {
-      return this.$axios.get('/ajax/v1/master/area_general_cleaning?q=' + this.query.area_general_cleaning.q)
+      return this.$axios.get('/ajax/v1/master/kegiatan_general_cleaning/parent/' + this.$route.params.id + '?q=' + this.query.kegiatan_general_cleaning.q)
+    },
+    /**
+     *  Fetch parent data
+     */
+    fetchParentData() {
+      return this.$axios.get('/ajax/v1/master/area_general_cleaning/' + this.$route.params.id)
     },
 
     /**
      *  Modal functionality
      */
     showCreateModal() {
-      $('[data-entity="generalCleaning"][data-method="create"]').modal('show')
+      $('[data-entity="kegiatanGeneralCleaning"][data-method="create"]').modal('show')
     },
     showUpdateModal(id) {
       this.form.update.data = {}
-      this.$axios.get('/ajax/v1/master/area_general_cleaning/' + id)
+      this.$axios.get('/ajax/v1/master/kegiatan_general_cleaning/' + id)
         .then(res => {
           this.form.update.data = {
             id: id,
-            area_general_cleaning: res.data.container.area_general_cleaning
+            kegiatan_general_cleaning: res.data.container.kegiatan_general_cleaning,
+            pelanggaran: res.data.container.pelanggaran
           }
-          $('[data-entity="generalCleaning"][data-method="update"]').modal('show')
+          $('[data-entity="kegiatanGeneralCleaning"][data-method="update"]').modal('show')
         })
     },
 
@@ -195,13 +211,14 @@ export default {
      */
     create() {
       this.form.create.loading = true
-      this.$axios.post('/ajax/v1/master/area_general_cleaning', this.form.create.data)
+      this.$axios.post('/ajax/v1/master/kegiatan_general_cleaning', this.form.create.data)
         .then(res => {
           this.form.create.data = {
-            area_general_cleaning: ''
+            kegiatan_general_cleaning: '',
+            area_general_cleaning_id: this.$route.params.id
           }
           this.prepare()
-          $('[data-entity="generalCleaning"][data-method="create"]').modal('hide')
+          $('[data-entity="kegiatanGeneralCleaning"][data-method="create"]').modal('hide')
         })
         .catch(err => { console.log(err.response.data)
           if (err.response.status == 422) {
@@ -214,14 +231,14 @@ export default {
     },
     update() {
       this.form.update.loading = true
-      this.$axios.put('/ajax/v1/master/area_general_cleaning', this.form.update.data)
+      this.$axios.put('/ajax/v1/master/kegiatan_general_cleaning', this.form.update.data)
         .then(res => {
           this.form.update.data = {
             id: null,
-            area_general_cleaning: ''
+            kegiatan_general_cleaning: ''
           }
           this.prepare()
-          $('[data-entity="generalCleaning"][data-method="update"]').modal('hide')
+          $('[data-entity="kegiatanGeneralCleaning"][data-method="update"]').modal('hide')
         })
         .catch(err => {
           if (err.response.status == 422) {

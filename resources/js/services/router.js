@@ -176,7 +176,16 @@ const routes = [
             name: 'master.atributKaryawan',
             component: require('../views/master/AtributKaryawan').default,
             meta: { layout: 'default', title: 'Atribut Karyawan', sidebar: 'master', item: 'atributKaryawan' },
-            beforeEnter: Multiguard([middleware.auth, middleware.access])
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: ':id',
+                name: 'master.atributKaryawan.parameterAtributKaryawan',
+                component: require('../views/master/atribut_karyawan/ParameterAtributKaryawan').default,
+                meta: { layout: 'default', title: 'Parameter Atribut Karyawan', sidebar: 'master', item: 'atributKaryawan' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
           },
           { 
             path: 'kegiatan_kebersihan',
@@ -190,7 +199,16 @@ const routes = [
             name: 'master.generalCleaning',
             component: require('../views/master/GeneralCleaning').default,
             meta: { layout: 'default', title: 'General Cleaning', sidebar: 'master', item: 'generalCleaning' },
-            beforeEnter: Multiguard([middleware.auth, middleware.access])
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: ':id',
+                name: 'master.generalCleaning.kegiatanGeneralCleaning',
+                component: require('../views/master/general_cleaning/KegiatanGeneralCleaning').default,
+                meta: { layout: 'default', title: 'Kegiatan General Cleaning', sidebar: 'master', item: 'generalCleaning' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
           },
           { 
             path: 'kelompok_foto',

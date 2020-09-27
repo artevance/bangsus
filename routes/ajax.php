@@ -144,14 +144,38 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::post('', 'AktivitasKaryawan@store');
         Route::put('', 'AktivitasKaryawan@amend');
       });
-
+      Route::prefix('atribut_karyawan')->group(function () {
+        Route::get('', 'AtributKaryawan@index');
+        Route::get('{id}', 'AtributKaryawan@get');
+        Route::post('', 'AtributKaryawan@store');
+        Route::put('', 'AtributKaryawan@amend');
+      });
+      Route::prefix('parameter_atribut_karyawan')->group(function () {
+        Route::get('', 'ParameterAtributKaryawan@index');
+        Route::get('parent/{id}', 'ParameterAtributKaryawan@parent');
+        Route::get('{id}', 'ParameterAtributKaryawan@get');
+        Route::post('', 'ParameterAtributKaryawan@store');
+        Route::put('', 'ParameterAtributKaryawan@amend');
+      });
       Route::prefix('kegiatan_kebersihan')->group(function () {
         Route::get('', 'KegiatanKebersihan@index');
         Route::get('{id}', 'KegiatanKebersihan@get');
         Route::post('', 'KegiatanKebersihan@store');
         Route::put('', 'KegiatanKebersihan@amend');
       });
-
+      Route::prefix('area_general_cleaning')->group(function () {
+        Route::get('', 'AreaGeneralCleaning@index');
+        Route::get('{id}', 'AreaGeneralCleaning@get');
+        Route::post('', 'AreaGeneralCleaning@store');
+        Route::put('', 'AreaGeneralCleaning@amend');
+      });
+      Route::prefix('kegiatan_general_cleaning')->group(function () {
+        Route::get('', 'KegiatanGeneralCleaning@index');
+        Route::get('parent/{id}', 'KegiatanGeneralCleaning@parent');
+        Route::get('{id}', 'KegiatanGeneralCleaning@get');
+        Route::post('', 'KegiatanGeneralCleaning@store');
+        Route::put('', 'KegiatanGeneralCleaning@amend');
+      });
       Route::prefix('kelompok_foto')->group(function () {
         Route::get('', 'KelompokFoto@index');
         Route::get('{id}', 'KelompokFoto@get');

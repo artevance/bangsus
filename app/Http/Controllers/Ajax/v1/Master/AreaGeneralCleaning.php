@@ -11,35 +11,35 @@ use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Models\AtributKaryawan as AtributKaryawanModel;
+use App\Http\Models\AreaGeneralCleaning as AreaGeneralCleaningModel;
 
-class AtributKaryawan extends Controller
+class AreaGeneralCleaning extends Controller
 {
   public function index(Request $request)
   {
     return $this
-      ->data(AtributKaryawanModel::with('parameter_atribut_karyawan')->where('atribut_karyawan', 'like', '%' . $request->input('q') . '%') ->get())
+      ->data(AreaGeneralCleaningModel::with('kegiatan_general_cleaning')->where('area_general_cleaning', 'like', '%' . $request->input('q') . '%') ->get())
       ->response(200);
   }
 
   public function get(Request $request, $id)
   {
-    if ( ! AtributKaryawanModel::with('parameter_atribut_karyawan')->find($id)->exists()) return $this->response(404);
+    if ( ! AreaGeneralCleaningModel::with('kegiatan_general_cleaning')->find($id)->exists()) return $this->response(404);
 
-    return $this->data(AtributKaryawanModel::find($id))->response(200);
+    return $this->data(AreaGeneralCleaningModel::find($id))->response(200);
   }
 
   public function store(Request $request)
   {
     $v = Validator::make($request->only(
-      'atribut_karyawan'
+      'area_general_cleaning'
     ), [
-      'atribut_karyawan' => 'required|max:200'
+      'area_general_cleaning' => 'required|max:200'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    $model = new AtributKaryawanModel;
-    $model->atribut_karyawan = strtoupper($request->input('atribut_karyawan'));
+    $model = new AreaGeneralCleaningModel;
+    $model->area_general_cleaning = $request->input('area_general_cleaning');
     $model->save();
 
     return $this->data(['insert_id' => $model->id])->response(200);
@@ -49,15 +49,15 @@ class AtributKaryawan extends Controller
   {
     $v = Validator::make($request->only(
       'id',
-      'atribut_karyawan'
+      'area_general_cleaning'
     ), [
-      'id' => 'required|exists:atribut_karyawan,id',
-      'atribut_karyawan' => 'required|max:200'
+      'id' => 'required|exists:area_general_cleaning,id',
+      'area_general_cleaning' => 'required|max:200'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    $model = AtributKaryawanModel::find($request->input('id'));
-    $model->atribut_karyawan = strtoupper($request->input('atribut_karyawan'));
+    $model = AreaGeneralCleaningModel::find($request->input('id'));
+    $model->area_general_cleaning = $request->input('area_general_cleaning');
     $model->save();
 
     return $this->data(['update_id' => $model->id])->response(200);

@@ -1,35 +1,42 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div class="row mt-5" v-if="$route.name == 'master.atributKaryawan'">
+    <div class="row mt-5" v-if="$route.name == 'master.atributKaryawan.parameterAtributKaryawan'">
       <transition name="fade" mode="out-in">
         <preloader-component v-if="state.page.loading"/>
         <div class="col-12 col-xl-12 stretch-card" v-else>
           <div class="card">
             <div class="card-body">
-              <button class="btn btn-primary" @click="showCreateModal" v-if="$access('master.atributKaryawan', 'create')">Tambah</button>
+              <router-link :to="{ name: 'master.atributKaryawan' }">
+                <i class="fas fa-backspace"></i> Kembali
+              </router-link>
+              <div class="row">
+                <div class="col">
+                  <div class="card-title">{{ data.parent.atribut_karyawan }}</div>
+                </div>
+              </div>
+              <button class="btn btn-primary mt-3" @click="showCreateModal" v-if="$access('master.atributKaryawan.parameterAtributKaryawan', 'create')">Tambah</button>
               <div class="row mt-5">
                 <div class="col-12 col-md-6">
-                  <input type="text" class="form-control" placeholder="Cari sesuatu ..." v-model="query.atribut_karyawan.q" @keyup="queryData" v-if="$access('master.atributKaryawan', 'read')">
+                  <input type="text" class="form-control" placeholder="Cari sesuatu ..." v-model="query.parameter_atribut_karyawan.q" @keyup="queryData" v-if="$access('master.atributKaryawan.parameterAtributKaryawan', 'read')">
                 </div>
               </div>
               <div class="table-responsive mt-2">
-                <table class="table table-hover" v-if="$access('master.atributKaryawan', 'read')">
+                <table class="table table-hover" v-if="$access('master.atributKaryawan.parameterAtributKaryawan', 'read')">
                   <thead>
                     <th>#</th>
                     <th>Aktivitas Karyawan</th>
+                    <th>Pelanggaran</th>
                     <th>Aksi</th>
                   </thead>
                   <tbody>
-                    <tr v-for="(atribut_karyawan, i) in data.atribut_karyawan">
+                    <tr v-for="(parameter_atribut_karyawan, i) in data.parameter_atribut_karyawan">
                       <td>{{ i + 1 }}</td>
-                      <td>{{ atribut_karyawan.atribut_karyawan }}</td>
+                      <td>{{ parameter_atribut_karyawan.parameter_atribut_karyawan }}</td>
+                      <td>{{ parameter_atribut_karyawan.pelanggaran ? 'YA' : 'TIDAK' }}</td>
                       <td>
-                        <a class="badge badge-warning" @click="showUpdateModal(atribut_karyawan.id)" href="#" v-if="$access('master.atributKaryawan', 'update')">
+                        <a class="badge badge-warning" @click="showUpdateModal(parameter_atribut_karyawan.id)" href="#" v-if="$access('master.atributKaryawan.parameterAtributKaryawan', 'update')">
                           Ubah
                         </a>
-                        <router-link class="badge badge-info" :to="{ name: 'master.atributKaryawan.parameterAtributKaryawan', params: { id: atribut_karyawan.id } }" v-if="$access('master.atributKaryawan.parameterAtributKaryawan', 'access')">
-                          Lihat Parameter
-                        </router-link>
                       </td>
                     </tr>
                   </tbody>
@@ -41,7 +48,7 @@
       </transition>
 
       <!-- Modal -->
-      <div class="modal fade" data-entity="atributKaryawan" data-method="create" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.atributKaryawan', 'create')">
+      <div class="modal fade" data-entity="parameterAtributKaryawan" data-method="create" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.atributKaryawan.parameterAtributKaryawan', 'create')">
         <div class="modal-dialog">
           <div class="modal-content">
             <form @submit.prevent="create">
@@ -54,8 +61,15 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Aktivitas Karyawan</label>
-                  <input type="text" class="form-control" v-model="form.create.data.atribut_karyawan">
-                  <small class="text-danger" v-for="(msg, index) in form.create.errors.atribut_karyawan" :key="index">
+                  <input type="text" class="form-control" v-model="form.create.data.parameter_atribut_karyawan">
+                  <small class="text-danger" v-for="(msg, index) in form.create.errors.parameter_atribut_karyawan" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="form-group form-check">
+                  <input type="checkbox" v-model="form.create.data.pelanggaran">
+                  <label class="ml-2">Pelanggaran</label>
+                  <small class="text-danger" v-for="(msg, index) in form.create.errors.pelanggaran" :key="index">
                     {{ msg }}
                   </small>
                 </div>
@@ -70,7 +84,7 @@
           </div>
         </div>
       </div>
-      <div class="modal fade" data-entity="atributKaryawan" data-method="update" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.atributKaryawan', 'update')">
+      <div class="modal fade" data-entity="parameterAtributKaryawan" data-method="update" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.atributKaryawan.parameterAtributKaryawan', 'update')">
         <div class="modal-dialog">
           <div class="modal-content">
             <form @submit.prevent="update">
@@ -83,8 +97,15 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Aktivitas Karyawan</label>
-                  <input type="text" class="form-control" v-model="form.update.data.atribut_karyawan">
-                  <small class="text-danger" v-for="(msg, index) in form.update.errors.atribut_karyawan" :key="index">
+                  <input type="text" class="form-control" v-model="form.update.data.parameter_atribut_karyawan">
+                  <small class="text-danger" v-for="(msg, index) in form.update.errors.parameter_atribut_karyawan" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="form-group form-check">
+                  <input type="checkbox" v-model="form.update.data.pelanggaran">
+                  <label class="ml-2">Pelanggaran</label>
+                  <small class="text-danger" v-for="(msg, index) in form.update.errors.pelanggaran" :key="index">
                     {{ msg }}
                   </small>
                 </div>
@@ -110,25 +131,27 @@ export default {
     return {
       state: { page: { loading: true } },
       data: {
-        atribut_karyawan: []
+        parameter_atribut_karyawan: [],
+        parent: []
       },
       form: {
         create: {
           data: {
-            atribut_karyawan: ''
+            parameter_atribut_karyawan: '',
+            atribut_karyawan_id: this.$route.params.id
           },
           errors: {}
         },
         update: {
           data: {
             id: null,
-            atribut_karyawan: ''
+            parameter_atribut_karyawan: ''
           },
           errors: {}
         }
       },
       query: {
-        atribut_karyawan: {
+        parameter_atribut_karyawan: {
           q: ''
         }
       }
@@ -145,10 +168,12 @@ export default {
     prepare() {
       this.state.page.loading = true
       Promise.all([
-        this.fetchMainData()
+        this.fetchMainData(),
+        this.fetchParentData()
       ])
         .then(res => {
-          this.data.atribut_karyawan = res[0].data.container
+          this.data.parameter_atribut_karyawan = res[0].data.container
+          this.data.parent = res[1].data.container
           this.state.page.loading = false
         })
         .catch(err => {
@@ -161,7 +186,7 @@ export default {
     queryData() {
       this.fetchMainData()
         .then(res => {
-          this.data.atribut_karyawan = res.data.container
+          this.data.parameter_atribut_karyawan = res.data.container
         })
         .catch(err => {})
     },
@@ -169,24 +194,31 @@ export default {
      *  Fetch data
      */
     fetchMainData() {
-      return this.$axios.get('/ajax/v1/master/atribut_karyawan?q=' + this.query.atribut_karyawan.q)
+      return this.$axios.get('/ajax/v1/master/parameter_atribut_karyawan/parent/' + this.$route.params.id + '?q=' + this.query.parameter_atribut_karyawan.q)
+    },
+    /**
+     *  Fetch parent data
+     */
+    fetchParentData() {
+      return this.$axios.get('/ajax/v1/master/atribut_karyawan/' + this.$route.params.id)
     },
 
     /**
      *  Modal functionality
      */
     showCreateModal() {
-      $('[data-entity="atributKaryawan"][data-method="create"]').modal('show')
+      $('[data-entity="parameterAtributKaryawan"][data-method="create"]').modal('show')
     },
     showUpdateModal(id) {
       this.form.update.data = {}
-      this.$axios.get('/ajax/v1/master/atribut_karyawan/' + id)
+      this.$axios.get('/ajax/v1/master/parameter_atribut_karyawan/' + id)
         .then(res => {
           this.form.update.data = {
             id: id,
-            atribut_karyawan: res.data.container.atribut_karyawan
+            parameter_atribut_karyawan: res.data.container.parameter_atribut_karyawan,
+            pelanggaran: res.data.container.pelanggaran
           }
-          $('[data-entity="atributKaryawan"][data-method="update"]').modal('show')
+          $('[data-entity="parameterAtributKaryawan"][data-method="update"]').modal('show')
         })
     },
 
@@ -195,13 +227,15 @@ export default {
      */
     create() {
       this.form.create.loading = true
-      this.$axios.post('/ajax/v1/master/atribut_karyawan', this.form.create.data)
+      this.$axios.post('/ajax/v1/master/parameter_atribut_karyawan', this.form.create.data)
         .then(res => {
           this.form.create.data = {
-            atribut_karyawan: ''
+            parameter_atribut_karyawan: '',
+            atribut_karyawan_id: this.$route.params.id,
+            pelanggaran: null
           }
           this.prepare()
-          $('[data-entity="atributKaryawan"][data-method="create"]').modal('hide')
+          $('[data-entity="parameterAtributKaryawan"][data-method="create"]').modal('hide')
         })
         .catch(err => { console.log(err.response.data)
           if (err.response.status == 422) {
@@ -214,14 +248,15 @@ export default {
     },
     update() {
       this.form.update.loading = true
-      this.$axios.put('/ajax/v1/master/atribut_karyawan', this.form.update.data)
+      this.$axios.put('/ajax/v1/master/parameter_atribut_karyawan', this.form.update.data)
         .then(res => {
           this.form.update.data = {
             id: null,
-            atribut_karyawan: ''
+            parameter_atribut_karyawan: '',
+            pelanggaran: null
           }
           this.prepare()
-          $('[data-entity="atributKaryawan"][data-method="update"]').modal('hide')
+          $('[data-entity="parameterAtributKaryawan"][data-method="update"]').modal('hide')
         })
         .catch(err => {
           if (err.response.status == 422) {
