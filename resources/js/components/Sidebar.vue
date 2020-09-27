@@ -85,7 +85,7 @@ export default {
                 { title: 'Kegiatan Kebersihan', index: 'kegiatanKebersihan', to: 'master.kegiatanKebersihan' },
                 { title: 'General Cleaning', index: 'generalCleaning', to: 'master.generalCleaning' },
                 { title: 'Kelompok Foto', index: 'kelompokFoto', to: 'master.kelompokFoto' },
-                { title: 'Jenis Laporan Foto', index: 'jenisLaporanFoto', to: 'master.jenisLaporanFoto' },
+                { title: 'Kelompok Laporan Foto', index: 'kelompokLaporanFoto', to: 'master.kelompokLaporanFoto' },
                 { title: 'Aktivitas Marketing', index: 'aktivitasMarketing', to: 'master.aktivitasMarketing' },
                 { title: 'Item Marketing', index: 'itemMarketing', to: 'master.itemMarketing' },
               ]

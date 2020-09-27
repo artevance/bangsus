@@ -144,7 +144,25 @@ const routes = [
             name: 'master.qualityControl',
             component: require('../views/master/QualityControl').default,
             meta: { layout: 'default', title: 'Quality Control', sidebar: 'master', item: 'qualityControl' },
-            beforeEnter: Multiguard([middleware.auth, middleware.access])
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: ':id',
+                name: 'master.qualityControl.parameterQualityControl',
+                component: require('../views/master/quality_control/ParameterQualityControl').default,
+                meta: { layout: 'default', title: 'Parameter Quality Control', sidebar: 'master', item: 'qualityControl' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+                children: [
+                  {
+                    path: ':cid',
+                    name: 'master.qualityControl.parameterQualityControl.opsiParameterQualityControl',
+                    component: require('../views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl').default,
+                    meta: { layout: 'default', title: 'Opsi Parameter Quality Control', sidebar: 'master', item: 'qualityControl' },
+                    beforeEnter: Multiguard([middleware.auth, middleware.access]),
+                  }
+                ]
+              }
+            ]
           },
           { 
             path: 'aktivitas_karyawan',

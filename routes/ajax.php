@@ -118,7 +118,26 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::post('', 'TipeProsesLPG@store');
         Route::put('', 'TipeProsesLPG@amend');
       });
-
+      Route::prefix('quality_control')->group(function () {
+        Route::get('', 'QualityControl@index');
+        Route::get('{id}', 'QualityControl@get');
+        Route::post('', 'QualityControl@store');
+        Route::put('', 'QualityControl@amend');
+      });
+      Route::prefix('parameter_quality_control')->group(function () {
+        Route::get('', 'ParameterQualityControl@index');
+        Route::get('parent/{id}', 'ParameterQualityControl@parent');
+        Route::get('{id}', 'ParameterQualityControl@get');
+        Route::post('', 'ParameterQualityControl@store');
+        Route::put('', 'ParameterQualityControl@amend');
+      });
+      Route::prefix('opsi_parameter_quality_control')->group(function () {
+        Route::get('', 'OpsiParameterQualityControl@index');
+        Route::get('parent/{id}', 'OpsiParameterQualityControl@parent');
+        Route::get('{id}', 'OpsiParameterQualityControl@get');
+        Route::post('', 'OpsiParameterQualityControl@store');
+        Route::put('', 'OpsiParameterQualityControl@amend');
+      });
       Route::prefix('aktivitas_karyawan')->group(function () {
         Route::get('', 'AktivitasKaryawan@index');
         Route::get('{id}', 'AktivitasKaryawan@get');

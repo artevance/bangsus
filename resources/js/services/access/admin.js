@@ -105,7 +105,23 @@ export default {
         access: true,
         create: true,
         read: true,
-        update: true
+        update: true,
+        children: {
+          parameterQualityControl: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            children: {
+              opsiParameterQualityControl: {
+                access: true,
+                create: true,
+                read: true,
+                update: true,
+              }
+            }
+          }
+        }
       },
       aktivitasKaryawan: {
         access: true,

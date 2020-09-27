@@ -2072,9 +2072,9 @@ __webpack_require__.r(__webpack_exports__);
             index: 'kelompokFoto',
             to: 'master.kelompokFoto'
           }, {
-            title: 'Jenis Laporan Foto',
-            index: 'jenisLaporanFoto',
-            to: 'master.jenisLaporanFoto'
+            title: 'Kelompok Laporan Foto',
+            index: 'kelompokLaporanFoto',
+            to: 'master.kelompokLaporanFoto'
           }, {
             title: 'Aktivitas Marketing',
             index: 'aktivitasMarketing',
@@ -4715,6 +4715,261 @@ __webpack_require__.r(__webpack_exports__);
         _this5.prepare();
 
         $('[data-entity="kelompokLaporanFoto"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/QualityControl.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/QualityControl.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        quality_control: []
+      },
+      form: {
+        create: {
+          data: {
+            quality_control: ''
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            quality_control: ''
+          },
+          errors: {}
+        }
+      },
+      query: {
+        quality_control: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData()]).then(function (res) {
+        _this.data.quality_control = res[0].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.quality_control = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/quality_control?q=' + this.query.quality_control.q);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="qualityControl"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/quality_control/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          quality_control: res.data.container.quality_control
+        };
+        $('[data-entity="qualityControl"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.$axios.post('/ajax/v1/master/quality_control', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          quality_control: ''
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="qualityControl"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/quality_control', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          quality_control: ''
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="qualityControl"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
           _this5.form.update.errors = err.response.data.errors;
@@ -7703,6 +7958,555 @@ __webpack_require__.r(__webpack_exports__);
         _this5.prepare();
 
         $('[data-entity="tipeProsesTepung"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        parameter_quality_control: [],
+        parent: []
+      },
+      form: {
+        create: {
+          data: {
+            parameter_quality_control: '',
+            quality_control_id: this.$route.params.id
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            parameter_quality_control: ''
+          },
+          errors: {}
+        }
+      },
+      query: {
+        parameter_quality_control: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData(), this.fetchParentData()]).then(function (res) {
+        _this.data.parameter_quality_control = res[0].data.container;
+        _this.data.parent = res[1].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.parameter_quality_control = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/parameter_quality_control/parent/' + this.$route.params.id + '?q=' + this.query.parameter_quality_control.q);
+    },
+
+    /**
+     *  Fetch parent data
+     */
+    fetchParentData: function fetchParentData() {
+      return this.$axios.get('/ajax/v1/master/quality_control/' + this.$route.params.id);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="parameterQualityControl"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/parameter_quality_control/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          parameter_quality_control: res.data.container.parameter_quality_control
+        };
+        $('[data-entity="parameterQualityControl"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.$axios.post('/ajax/v1/master/parameter_quality_control', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          parameter_quality_control: '',
+          quality_control_id: _this4.$route.params.id
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="parameterQualityControl"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/parameter_quality_control', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          parameter_quality_control: ''
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="parameterQualityControl"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        opsi_parameter_quality_control: [],
+        parameter_quality_control_id: []
+      },
+      form: {
+        create: {
+          data: {
+            opsi_parameter_quality_control: '',
+            parameter_quality_control_id: this.$route.params.cid
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            opsi_parameter_quality_control: ''
+          },
+          errors: {}
+        }
+      },
+      query: {
+        opsi_parameter_quality_control: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData(), this.fetchParentData()]).then(function (res) {
+        console.log(res[1].data.container);
+        _this.data.opsi_parameter_quality_control = res[0].data.container;
+        _this.data.parent = res[1].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.parameter_quality_control = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/opsi_parameter_quality_control/parent/' + this.$route.params.cid + '?q=' + this.query.opsi_parameter_quality_control.q);
+    },
+
+    /**
+     *  Fetch parent data
+     */
+    fetchParentData: function fetchParentData() {
+      return this.$axios.get('/ajax/v1/master/parameter_quality_control/' + this.$route.params.cid);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="opsiParameterQualityControl"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/opsi_parameter_quality_control/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          opsi_parameter_quality_control: res.data.container.opsi_parameter_quality_control
+        };
+        $('[data-entity="opsiParameterQualityControl"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.$axios.post('/ajax/v1/master/opsi_parameter_quality_control', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          opsi_parameter_quality_control: '',
+          parameter_quality_control_id: _this4.$route.params.cid
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="opsiParameterQualityControl"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.$axios.put('/ajax/v1/master/opsi_parameter_quality_control', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          opsi_parameter_quality_control: ''
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="opsiParameterQualityControl"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
           _this5.form.update.errors = err.response.data.errors;
@@ -72230,6 +73034,516 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/QualityControl.vue?vue&type=template&id=650659dc&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/QualityControl.vue?vue&type=template&id=650659dc& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    { attrs: { name: "fade", mode: "out-in" } },
+    [
+      _vm.$route.name == "master.qualityControl"
+        ? _c(
+            "div",
+            { staticClass: "row mt-5" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "fade", mode: "out-in" } },
+                [
+                  _vm.state.page.loading
+                    ? _c("preloader-component")
+                    : _c(
+                        "div",
+                        { staticClass: "col-12 col-xl-12 stretch-card" },
+                        [
+                          _c("div", { staticClass: "card" }, [
+                            _c("div", { staticClass: "card-body" }, [
+                              _vm.$access("master.qualityControl", "create")
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      on: { click: _vm.showCreateModal }
+                                    },
+                                    [_vm._v("Tambah")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row mt-5" }, [
+                                _c("div", { staticClass: "col-12 col-md-6" }, [
+                                  _vm.$access("master.qualityControl", "read")
+                                    ? _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.query.quality_control.q,
+                                            expression:
+                                              "query.quality_control.q"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "text",
+                                          placeholder: "Cari sesuatu ..."
+                                        },
+                                        domProps: {
+                                          value: _vm.query.quality_control.q
+                                        },
+                                        on: {
+                                          keyup: _vm.queryData,
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.query.quality_control,
+                                              "q",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    : _vm._e()
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "table-responsive mt-2" },
+                                [
+                                  _vm.$access("master.qualityControl", "read")
+                                    ? _c(
+                                        "table",
+                                        { staticClass: "table table-hover" },
+                                        [
+                                          _c("thead", [
+                                            _c("th", [_vm._v("#")]),
+                                            _vm._v(" "),
+                                            _c("th", [
+                                              _vm._v("Aktivitas Karyawan")
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Aksi")])
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "tbody",
+                                            _vm._l(
+                                              _vm.data.quality_control,
+                                              function(quality_control, i) {
+                                                return _c("tr", [
+                                                  _c("td", [
+                                                    _vm._v(_vm._s(i + 1))
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        quality_control.quality_control
+                                                      )
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "td",
+                                                    [
+                                                      _vm.$access(
+                                                        "master.qualityControl",
+                                                        "update"
+                                                      )
+                                                        ? _c(
+                                                            "a",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-warning",
+                                                              attrs: {
+                                                                href: "#"
+                                                              },
+                                                              on: {
+                                                                click: function(
+                                                                  $event
+                                                                ) {
+                                                                  return _vm.showUpdateModal(
+                                                                    quality_control.id
+                                                                  )
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Ubah\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e(),
+                                                      _vm._v(" "),
+                                                      _vm.$access(
+                                                        "master.qualityControl.parameterQualityControl",
+                                                        "access"
+                                                      )
+                                                        ? _c(
+                                                            "router-link",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-info",
+                                                              attrs: {
+                                                                to: {
+                                                                  name:
+                                                                    "master.qualityControl.parameterQualityControl",
+                                                                  params: {
+                                                                    id:
+                                                                      quality_control.id
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Lihat Parameter\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e()
+                                                    ],
+                                                    1
+                                                  )
+                                                ])
+                                              }
+                                            ),
+                                            0
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]
+                              )
+                            ])
+                          ])
+                        ]
+                      )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.$access("master.qualityControl", "create")
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "qualityControl",
+                        "data-method": "create",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.create($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Tambah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.create.data
+                                              .quality_control,
+                                          expression:
+                                            "form.create.data.quality_control"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.create.data.quality_control
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.create.data,
+                                            "quality_control",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors.quality_control,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.create.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.create.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Tambah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$access("master.qualityControl", "update")
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "qualityControl",
+                        "data-method": "update",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.update($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Ubah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.update.data
+                                              .quality_control,
+                                          expression:
+                                            "form.update.data.quality_control"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.update.data.quality_control
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.update.data,
+                                            "quality_control",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.update.errors.quality_control,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.update.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.update.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Ubah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        : _c("router-view")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/Satuan.vue?vue&type=template&id=2ab8073a&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/Satuan.vue?vue&type=template&id=2ab8073a& ***!
@@ -77308,6 +78622,1134 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=template&id=4855a532&":
+/*!********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=template&id=4855a532& ***!
+  \********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    { attrs: { name: "fade", mode: "out-in" } },
+    [
+      _vm.$route.name == "master.qualityControl.parameterQualityControl"
+        ? _c(
+            "div",
+            { staticClass: "row mt-5" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "fade", mode: "out-in" } },
+                [
+                  _vm.state.page.loading
+                    ? _c("preloader-component")
+                    : _c(
+                        "div",
+                        { staticClass: "col-12 col-xl-12 stretch-card" },
+                        [
+                          _c("div", { staticClass: "card" }, [
+                            _c(
+                              "div",
+                              { staticClass: "card-body" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    attrs: {
+                                      to: { name: "master.qualityControl" }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-backspace"
+                                    }),
+                                    _vm._v(" Kembali\n            ")
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row" }, [
+                                  _c("div", { staticClass: "col" }, [
+                                    _c("div", { staticClass: "card-title" }, [
+                                      _vm._v(
+                                        _vm._s(_vm.data.parent.quality_control)
+                                      )
+                                    ])
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm.$access(
+                                  "master.qualityControl.parameterQualityControl",
+                                  "create"
+                                )
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-primary mt-3",
+                                        on: { click: _vm.showCreateModal }
+                                      },
+                                      [_vm._v("Tambah")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row mt-5" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-12 col-md-6" },
+                                    [
+                                      _vm.$access(
+                                        "master.qualityControl.parameterQualityControl",
+                                        "read"
+                                      )
+                                        ? _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value:
+                                                  _vm.query
+                                                    .parameter_quality_control
+                                                    .q,
+                                                expression:
+                                                  "query.parameter_quality_control.q"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder: "Cari sesuatu ..."
+                                            },
+                                            domProps: {
+                                              value:
+                                                _vm.query
+                                                  .parameter_quality_control.q
+                                            },
+                                            on: {
+                                              keyup: _vm.queryData,
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.query
+                                                    .parameter_quality_control,
+                                                  "q",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        : _vm._e()
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "table-responsive mt-2" },
+                                  [
+                                    _vm.$access(
+                                      "master.qualityControl.parameterQualityControl",
+                                      "read"
+                                    )
+                                      ? _c(
+                                          "table",
+                                          { staticClass: "table table-hover" },
+                                          [
+                                            _c("thead", [
+                                              _c("th", [_vm._v("#")]),
+                                              _vm._v(" "),
+                                              _c("th", [
+                                                _vm._v("Aktivitas Karyawan")
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("th", [_vm._v("Aksi")])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "tbody",
+                                              _vm._l(
+                                                _vm.data
+                                                  .parameter_quality_control,
+                                                function(
+                                                  parameter_quality_control,
+                                                  i
+                                                ) {
+                                                  return _c("tr", [
+                                                    _c("td", [
+                                                      _vm._v(_vm._s(i + 1))
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          parameter_quality_control.parameter_quality_control
+                                                        )
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "td",
+                                                      [
+                                                        _vm.$access(
+                                                          "master.qualityControl.parameterQualityControl",
+                                                          "update"
+                                                        )
+                                                          ? _c(
+                                                              "a",
+                                                              {
+                                                                staticClass:
+                                                                  "badge badge-warning",
+                                                                attrs: {
+                                                                  href: "#"
+                                                                },
+                                                                on: {
+                                                                  click: function(
+                                                                    $event
+                                                                  ) {
+                                                                    return _vm.showUpdateModal(
+                                                                      parameter_quality_control.id
+                                                                    )
+                                                                  }
+                                                                }
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "\n                        Ubah\n                      "
+                                                                )
+                                                              ]
+                                                            )
+                                                          : _vm._e(),
+                                                        _vm._v(" "),
+                                                        _vm.$access(
+                                                          "master.qualityControl.parameterQualityControl.opsiParameterQualityControl",
+                                                          "access"
+                                                        )
+                                                          ? _c(
+                                                              "router-link",
+                                                              {
+                                                                staticClass:
+                                                                  "badge badge-info",
+                                                                attrs: {
+                                                                  to: {
+                                                                    name:
+                                                                      "master.qualityControl.parameterQualityControl.opsiParameterQualityControl",
+                                                                    params: {
+                                                                      cid:
+                                                                        parameter_quality_control.id
+                                                                    }
+                                                                  }
+                                                                }
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "\n                        Lihat Opsi Parameter\n                      "
+                                                                )
+                                                              ]
+                                                            )
+                                                          : _vm._e()
+                                                      ],
+                                                      1
+                                                    )
+                                                  ])
+                                                }
+                                              ),
+                                              0
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.$access(
+                "master.qualityControl.parameterQualityControl",
+                "create"
+              )
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "parameterQualityControl",
+                        "data-method": "create",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.create($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Tambah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.create.data
+                                              .parameter_quality_control,
+                                          expression:
+                                            "form.create.data.parameter_quality_control"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.create.data
+                                            .parameter_quality_control
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.create.data,
+                                            "parameter_quality_control",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors
+                                        .parameter_quality_control,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.create.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.create.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Tambah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$access(
+                "master.qualityControl.parameterQualityControl",
+                "update"
+              )
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "parameterQualityControl",
+                        "data-method": "update",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.update($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Ubah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.update.data
+                                              .parameter_quality_control,
+                                          expression:
+                                            "form.update.data.parameter_quality_control"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.update.data
+                                            .parameter_quality_control
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.update.data,
+                                            "parameter_quality_control",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.update.errors
+                                        .parameter_quality_control,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.update.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.update.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Ubah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        : _c("router-view")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=template&id=0c529068&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=template&id=0c529068& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    { attrs: { name: "fade", mode: "out-in" } },
+    [
+      _vm.$route.name ==
+      "master.qualityControl.parameterQualityControl.opsiParameterQualityControl"
+        ? _c(
+            "div",
+            { staticClass: "row mt-5" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "fade", mode: "out-in" } },
+                [
+                  _vm.state.page.loading
+                    ? _c("preloader-component")
+                    : _c(
+                        "div",
+                        { staticClass: "col-12 col-xl-12 stretch-card" },
+                        [
+                          _c("div", { staticClass: "card" }, [
+                            _c(
+                              "div",
+                              { staticClass: "card-body" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    attrs: {
+                                      to: {
+                                        name:
+                                          "master.qualityControl.parameterQualityControl",
+                                        params: { id: _vm.$route.params.id }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-backspace"
+                                    }),
+                                    _vm._v(" Kembali\n            ")
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row" }, [
+                                  _c("div", { staticClass: "col" }, [
+                                    _c("div", { staticClass: "card-title" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.data.parent.quality_control
+                                            .quality_control
+                                        ) +
+                                          " - " +
+                                          _vm._s(
+                                            _vm.data.parent
+                                              .parameter_quality_control
+                                          )
+                                      )
+                                    ])
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm.$access(
+                                  "master.qualityControl.parameterQualityControl.opsiParameterQualityControl",
+                                  "create"
+                                )
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-primary mt-3",
+                                        on: { click: _vm.showCreateModal }
+                                      },
+                                      [_vm._v("Tambah")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row mt-5" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-12 col-md-6" },
+                                    [
+                                      _vm.$access(
+                                        "master.qualityControl.parameterQualityControl.opsiParameterQualityControl",
+                                        "read"
+                                      )
+                                        ? _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value:
+                                                  _vm.query
+                                                    .opsi_parameter_quality_control
+                                                    .q,
+                                                expression:
+                                                  "query.opsi_parameter_quality_control.q"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder: "Cari sesuatu ..."
+                                            },
+                                            domProps: {
+                                              value:
+                                                _vm.query
+                                                  .opsi_parameter_quality_control
+                                                  .q
+                                            },
+                                            on: {
+                                              keyup: _vm.queryData,
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.query
+                                                    .opsi_parameter_quality_control,
+                                                  "q",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        : _vm._e()
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "table-responsive mt-2" },
+                                  [
+                                    _vm.$access(
+                                      "master.qualityControl.parameterQualityControl.opsiParameterQualityControl",
+                                      "read"
+                                    )
+                                      ? _c(
+                                          "table",
+                                          { staticClass: "table table-hover" },
+                                          [
+                                            _c("thead", [
+                                              _c("th", [_vm._v("#")]),
+                                              _vm._v(" "),
+                                              _c("th", [
+                                                _vm._v("Aktivitas Karyawan")
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("th", [_vm._v("Aksi")])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "tbody",
+                                              _vm._l(
+                                                _vm.data
+                                                  .opsi_parameter_quality_control,
+                                                function(
+                                                  opsi_parameter_quality_control,
+                                                  i
+                                                ) {
+                                                  return _c("tr", [
+                                                    _c("td", [
+                                                      _vm._v(_vm._s(i + 1))
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          opsi_parameter_quality_control.opsi_parameter_quality_control
+                                                        )
+                                                      )
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("td", [
+                                                      _vm.$access(
+                                                        "master.qualityControl.parameterQualityControl.opsiParameterQualityControl",
+                                                        "update"
+                                                      )
+                                                        ? _c(
+                                                            "a",
+                                                            {
+                                                              staticClass:
+                                                                "badge badge-warning",
+                                                              attrs: {
+                                                                href: "#"
+                                                              },
+                                                              on: {
+                                                                click: function(
+                                                                  $event
+                                                                ) {
+                                                                  return _vm.showUpdateModal(
+                                                                    opsi_parameter_quality_control.id
+                                                                  )
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                        Ubah\n                      "
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e()
+                                                    ])
+                                                  ])
+                                                }
+                                              ),
+                                              0
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.$access(
+                "master.qualityControl.parameterQualityControl.opsiParameterQualityControl",
+                "create"
+              )
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "opsiParameterQualityControl",
+                        "data-method": "create",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.create($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Tambah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.create.data
+                                              .opsi_parameter_quality_control,
+                                          expression:
+                                            "form.create.data.opsi_parameter_quality_control"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.create.data
+                                            .opsi_parameter_quality_control
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.create.data,
+                                            "opsi_parameter_quality_control",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.create.errors
+                                        .opsi_parameter_quality_control,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.create.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.create.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Tambah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$access(
+                "master.qualityControl.parameterQualityControl.opsiParameterQualityControl",
+                "update"
+              )
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "modal fade",
+                      attrs: {
+                        "data-entity": "opsiParameterQualityControl",
+                        "data-method": "update",
+                        "data-backdrop": "static",
+                        "data-keyboard": "false",
+                        tabindex: "-1"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-dialog" }, [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.update($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "modal-header" }, [
+                                _c("h5", { staticClass: "modal-title" }, [
+                                  _vm._v("Ubah Aktivitas Karyawan")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "close",
+                                    attrs: {
+                                      type: "button",
+                                      "data-dismiss": "modal",
+                                      "aria-label": "Close"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { attrs: { "aria-hidden": "true" } },
+                                      [_vm._v("×")]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("label", [_vm._v("Aktivitas Karyawan")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.form.update.data
+                                              .opsi_parameter_quality_control,
+                                          expression:
+                                            "form.update.data.opsi_parameter_quality_control"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value:
+                                          _vm.form.update.data
+                                            .opsi_parameter_quality_control
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form.update.data,
+                                            "opsi_parameter_quality_control",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      _vm.form.update.errors
+                                        .opsi_parameter_quality_control,
+                                      function(msg, index) {
+                                        return _c(
+                                          "small",
+                                          {
+                                            key: index,
+                                            staticClass: "text-danger"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(msg) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    )
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-footer" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      type: "submit",
+                                      disabled: _vm.form.update.loading
+                                    }
+                                  },
+                                  [
+                                    _vm.form.update.loading
+                                      ? _c("spinner-component", {
+                                          attrs: { size: "sm", color: "light" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                Ubah\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        : _c("router-view")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -94471,7 +96913,23 @@ __webpack_require__.r(__webpack_exports__);
         access: true,
         create: true,
         read: true,
-        update: true
+        update: true,
+        children: {
+          parameterQualityControl: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            children: {
+              opsiParameterQualityControl: {
+                access: true,
+                create: true,
+                read: true,
+                update: true
+              }
+            }
+          }
+        }
       },
       aktivitasKaryawan: {
         access: true,
@@ -94907,7 +97365,31 @@ var routes = [{
         sidebar: 'master',
         item: 'qualityControl'
       },
-      beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
+      beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access]),
+      children: [{
+        path: ':id',
+        name: 'master.qualityControl.parameterQualityControl',
+        component: __webpack_require__(/*! ../views/master/quality_control/ParameterQualityControl */ "./resources/js/views/master/quality_control/ParameterQualityControl.vue")["default"],
+        meta: {
+          layout: 'default',
+          title: 'Parameter Quality Control',
+          sidebar: 'master',
+          item: 'qualityControl'
+        },
+        beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access]),
+        children: [{
+          path: ':cid',
+          name: 'master.qualityControl.parameterQualityControl.opsiParameterQualityControl',
+          component: __webpack_require__(/*! ../views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl */ "./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue")["default"],
+          meta: {
+            layout: 'default',
+            title: 'Opsi Parameter Quality Control',
+            sidebar: 'master',
+            item: 'qualityControl'
+          },
+          beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
+        }]
+      }]
     }, {
       path: 'aktivitas_karyawan',
       name: 'master.aktivitasKaryawan',
@@ -95988,17 +98470,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
+/* harmony import */ var _QualityControl_vue_vue_type_template_id_650659dc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./QualityControl.vue?vue&type=template&id=650659dc& */ "./resources/js/views/master/QualityControl.vue?vue&type=template&id=650659dc&");
+/* harmony import */ var _QualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./QualityControl.vue?vue&type=script&lang=js& */ "./resources/js/views/master/QualityControl.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _QualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _QualityControl_vue_vue_type_template_id_650659dc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _QualityControl_vue_vue_type_template_id_650659dc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -96006,8 +98491,42 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+/* hot reload */
+if (false) { var api; }
 component.options.__file = "resources/js/views/master/QualityControl.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/master/QualityControl.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/views/master/QualityControl.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_QualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./QualityControl.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/QualityControl.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_QualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/master/QualityControl.vue?vue&type=template&id=650659dc&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/views/master/QualityControl.vue?vue&type=template&id=650659dc& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_QualityControl_vue_vue_type_template_id_650659dc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./QualityControl.vue?vue&type=template&id=650659dc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/QualityControl.vue?vue&type=template&id=650659dc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_QualityControl_vue_vue_type_template_id_650659dc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_QualityControl_vue_vue_type_template_id_650659dc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -96834,6 +99353,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TipeProsesTepung_vue_vue_type_template_id_05b499eb___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TipeProsesTepung_vue_vue_type_template_id_05b499eb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/master/quality_control/ParameterQualityControl.vue":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/views/master/quality_control/ParameterQualityControl.vue ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ParameterQualityControl_vue_vue_type_template_id_4855a532___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ParameterQualityControl.vue?vue&type=template&id=4855a532& */ "./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=template&id=4855a532&");
+/* harmony import */ var _ParameterQualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ParameterQualityControl.vue?vue&type=script&lang=js& */ "./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ParameterQualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ParameterQualityControl_vue_vue_type_template_id_4855a532___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ParameterQualityControl_vue_vue_type_template_id_4855a532___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/master/quality_control/ParameterQualityControl.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterQualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParameterQualityControl.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterQualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=template&id=4855a532&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=template&id=4855a532& ***!
+  \**************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterQualityControl_vue_vue_type_template_id_4855a532___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ParameterQualityControl.vue?vue&type=template&id=4855a532& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/quality_control/ParameterQualityControl.vue?vue&type=template&id=4855a532&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterQualityControl_vue_vue_type_template_id_4855a532___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterQualityControl_vue_vue_type_template_id_4855a532___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue ***!
+  \*************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _OpsiParameterQualityControl_vue_vue_type_template_id_0c529068___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OpsiParameterQualityControl.vue?vue&type=template&id=0c529068& */ "./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=template&id=0c529068&");
+/* harmony import */ var _OpsiParameterQualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OpsiParameterQualityControl.vue?vue&type=script&lang=js& */ "./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _OpsiParameterQualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _OpsiParameterQualityControl_vue_vue_type_template_id_0c529068___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _OpsiParameterQualityControl_vue_vue_type_template_id_0c529068___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************!*\
+  !*** ./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OpsiParameterQualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./OpsiParameterQualityControl.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OpsiParameterQualityControl_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=template&id=0c529068&":
+/*!********************************************************************************************************************************************!*\
+  !*** ./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=template&id=0c529068& ***!
+  \********************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OpsiParameterQualityControl_vue_vue_type_template_id_0c529068___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./OpsiParameterQualityControl.vue?vue&type=template&id=0c529068& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/master/quality_control/parameter_quality_control/OpsiParameterQualityControl.vue?vue&type=template&id=0c529068&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OpsiParameterQualityControl_vue_vue_type_template_id_0c529068___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OpsiParameterQualityControl_vue_vue_type_template_id_0c529068___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

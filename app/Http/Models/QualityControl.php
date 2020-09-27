@@ -12,6 +12,6 @@ class QualityControl extends Model
 
   public function parameter_quality_control()
   {
-    return $this->hasMany('App\Http\Models\ParameterQualityControl');
+    return $this->hasMany('App\Http\Models\ParameterQualityControl')->with('opsi_parameter_quality_control');
   }
 }
