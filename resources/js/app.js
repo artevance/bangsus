@@ -20,6 +20,7 @@ import psstyle from 'perfect-scrollbar/css/perfect-scrollbar.css'
  */
 Vue.prototype.$axios = require('axios').default;
 Vue.prototype.$moment = require('moment').default;
+Vue.prototype.$access = require('./services/access.js').default;
 
 
 /**
@@ -54,6 +55,7 @@ Vue.component('plain-layout', require('./layouts/Plain.vue').default);
  */
 Vue.component('sidebar-component', require('./components/Sidebar.vue').default);
 Vue.component('navbar-component', require('./components/Navbar.vue').default);
+Vue.component('spinner-component', require('./components/Spinner.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

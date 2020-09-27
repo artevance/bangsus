@@ -28,7 +28,10 @@
                       </small>
                     </div>
                     <div class="mt-5">
-                      <button type="submit" class="btn btn-primary btn-block">Login</button>
+                      <button type="submit" class="btn btn-primary btn-block" :disabled="form.login.loading">
+                        <spinner-component size="sm" color="light" v-if="form.login.loading"/>
+                        Login
+                      </button>
                     </div>
                     <div class="mt-5">
                       Belum punya akun? <a href="#" class="mt-3">Daftar disini.</a>

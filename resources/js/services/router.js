@@ -11,6 +11,7 @@ const routes = [
     component: { template: `<router-view></router-view>`},
     redirect: '/app/dashboard',
     children: [
+      { path: '/', redirect: { name: 'dashboard' } },
       { path: 'login', name: 'login', component: require('../views/Login').default, meta: { layout: 'plain', title: 'Login' } },
       { path: 'logout', name: 'logout', component: require('../views/Logout').default, meta: { layout: 'plain', title: 'Logout' } },
 
@@ -19,12 +20,12 @@ const routes = [
         name: 'dashboard',
         component: { template: `<router-view></router-view>` },
         meta: { layout: 'default', title: 'Dashboard', sidebar: 'dashboard' },
-        beforeEnter: Multiguard([middleware.auth])
+        beforeEnter: Multiguard([middleware.auth, middleware.access])
       },
       {
         path: 'master',
         component: { template: `<router-view></router-view>` },
-        redirect: 'master/tipe_kontak',
+        redirect: { name: 'master.tipeKontak' },
         children: [
           { path: 'tipe_kontak', name: 'master.tipeKontak', component: require('../views/master/TipeKontak').default, meta: { layout: 'default', title: 'Tipe Kontak', sidebar: 'master', item: 'tipeKontak' } }
         ]
