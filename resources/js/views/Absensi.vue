@@ -1,354 +1,365 @@
 <template>
-  <div class="row mt-5">
-    <transition name="fade" mode="out-in">
-      <preloader-component v-if="state.page.loading"/>
-      <div class="col-12 col-xl-12 stretch-card" v-else>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-12">
-                <form data-role="search">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          Cabang
-                        </span>
+  <transition name="fade" mode="out-in">
+    <div class="row mt-5" v-if="$route.name === 'absensi'">
+      <transition name="fade" mode="out-in">
+        <preloader-component v-if="state.page.loading"/>
+        <div class="col-12 col-xl-12 stretch-card" v-else>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <form data-role="search">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            Cabang
+                          </span>
+                        </div>
+                        <select class="form-control" name="cabang_id" v-model="query.absensi.cabang_id" @change="queryData">
+                          <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
+                            {{ cabang.kode_cabang }} - {{ cabang.cabang }}
+                          </option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            Tipe Absensi
+                          </span>
+                        </div>
+                        <select class="form-control" name="cabang_id" v-model="query.absensi.tipe_absensi_id" @change="queryData">
+                          <option v-for="(tipe_absensi, i) in data.tipe_absensi" :key="i" :value="tipe_absensi.id">
+                            {{ tipe_absensi.tipe_absensi }}
+                          </option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            Tanggal Absensi
+                          </span>
+                        </div>
+                        <input type="date" class="form-control" name="tanggal_absensi" v-model="query.absensi.tanggal_absensi" @keyup="queryData">
                       </div>
-                      <select class="form-control" name="cabang_id" v-model="query.absensi.cabang_id" @change="queryData">
-                        <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
-                          {{ cabang.kode_cabang }} - {{ cabang.cabang }}
-                        </option>
-                      </select>
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          Tipe Absensi
-                        </span>
-                      </div>
-                      <select class="form-control" name="cabang_id" v-model="query.absensi.tipe_absensi_id" @change="queryData">
-                        <option v-for="(tipe_absensi, i) in data.tipe_absensi" :key="i" :value="tipe_absensi.id">
-                          {{ tipe_absensi.tipe_absensi }}
-                        </option>
-                      </select>
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          Tanggal Absensi
-                        </span>
-                      </div>
-                      <input type="date" class="form-control" name="tanggal_absensi" v-model="query.absensi.tanggal_absensi" @keyup="queryData">
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
-            </div>
-            <div class="table-responsive mt-2">
-              <table class="table table-hover" v-if="$access('absensi', 'read')">
-                <thead>
-                  <th>#</th>
-                  <th>NIP</th>
-                  <th>Nama Karyawan</th>
-                  <th>No. Finger</th>
-                  <th>Jam Jadwal Diajukan</th>
-                  <th>Jam Jadwal</th>
-                  <th>Jam Absen</th>
-                  <th>Aksi</th>
-                </thead>
-                <tbody>
-                  <tr v-for="(absensi, i) in data.absensi">
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ absensi.karyawan.nik }}</td>
-                    <td>{{ absensi.karyawan.nama_karyawan }}</td>
-                    <td>{{ absensi.no_finger }}</td>
-                    <td>{{ absensi.pengajuan_jadwal_absensi[0] == null ? '-' : absensi.pengajuan_jadwal_absensi[0].jam_jadwal }}</td>
-                    <td>{{ absensi.absensi[0] == null ? '-' : absensi.absensi[0].jam_jadwal }}</td>
-                    <td>{{ absensi.absensi[0] == null ? '-' : absensi.absensi[0].jam_absen }}</td>
-                    <td>
-                      <span v-if="absensi.absensi.length == 0">
-                        <a class="badge badge-primary" @click="showCreateModal(absensi.id)" href="#" v-if="$access('absensi', 'create')">
-                          Tambah
-                        </a>
-                      </span>
-                      <span v-else>
-                        <a class="badge badge-warning" @click="showUpdateModal(absensi.absensi[0].id)" href="#" v-if="$access('absensi', 'update')">
-                          Ubah
-                        </a>
-                        <a class="badge badge-danger" @click="showDestroyModal(absensi.absensi[0].id)" href="#" v-if="$access('absensi', 'destroy')">
-                          Hapus
-                        </a>
-                      </span>
-                      <span v-if="absensi.pengajuan_jadwal_absensi.length == 0">
-                        <a class="badge badge-light" @click="showCreatePengajuanModal(absensi.id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'create')">
-                          Ajukan Jam Jadwal
-                        </a>
-                      </span>
-                      <span v-else>
-                        <a class="badge badge-light" @click="showAcceptPengajuanModal(absensi.pengajuan_jadwal_absensi[0].id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'accept')">
-                          Terima Pengajuan
-                        </a>
-                        <a class="badge badge-danger" @click="showDestroyPengajuanModal(absensi.pengajuan_jadwal_absensi[0].id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'destroy')">
-                          Hapus Pengajuan
-                        </a>
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <router-link class="btn btn-secondary mt-2" v-if="$access('absensi.imporJadwal', 'access')" :to="{ name: 'absensi.imporJadwal' }">
+                <i class="far fa-file-import mr-1 fa-xs"></i>
+                Impor Jadwal
+              </router-link>
+              <router-link class="btn btn-secondary mt-2" v-if="$access('absensi.imporAbsensi', 'access')" :to="{ name: 'absensi.imporAbsensi' }">
+                <i class="far fa-file-import mr-1 fa-xs"></i>
+                Impor Absensi
+              </router-link>
+              <div class="table-responsive mt-2">
+                <table class="table table-hover" v-if="$access('absensi', 'read')">
+                  <thead>
+                    <th>#</th>
+                    <th>NIP</th>
+                    <th>Nama Karyawan</th>
+                    <th>No. Finger</th>
+                    <th>Jam Jadwal Diajukan</th>
+                    <th>Jam Jadwal</th>
+                    <th>Jam Absen</th>
+                    <th>Aksi</th>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(absensi, i) in data.absensi">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ absensi.karyawan.nik }}</td>
+                      <td>{{ absensi.karyawan.nama_karyawan }}</td>
+                      <td>{{ absensi.no_finger }}</td>
+                      <td>{{ absensi.pengajuan_jadwal_absensi[0] == null ? '-' : absensi.pengajuan_jadwal_absensi[0].jam_jadwal }}</td>
+                      <td>{{ absensi.absensi[0] == null ? '-' : absensi.absensi[0].jam_jadwal }}</td>
+                      <td>{{ absensi.absensi[0] == null ? '-' : absensi.absensi[0].jam_absen }}</td>
+                      <td>
+                        <span v-if="absensi.absensi.length == 0">
+                          <a class="badge badge-primary" @click="showCreateModal(absensi.id)" href="#" v-if="$access('absensi', 'create')">
+                            Tambah
+                          </a>
+                        </span>
+                        <span v-else>
+                          <a class="badge badge-warning" @click="showUpdateModal(absensi.absensi[0].id)" href="#" v-if="$access('absensi', 'update')">
+                            Ubah
+                          </a>
+                          <a class="badge badge-danger" @click="showDestroyModal(absensi.absensi[0].id)" href="#" v-if="$access('absensi', 'destroy')">
+                            Hapus
+                          </a>
+                        </span>
+                        <span v-if="absensi.pengajuan_jadwal_absensi.length == 0">
+                          <a class="badge badge-light" @click="showCreatePengajuanModal(absensi.id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'create')">
+                            Ajukan Jam Jadwal
+                          </a>
+                        </span>
+                        <span v-else>
+                          <a class="badge badge-light" @click="showAcceptPengajuanModal(absensi.pengajuan_jadwal_absensi[0].id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'accept')">
+                            Terima Pengajuan
+                          </a>
+                          <a class="badge badge-danger" @click="showDestroyPengajuanModal(absensi.pengajuan_jadwal_absensi[0].id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'destroy')">
+                            Hapus Pengajuan
+                          </a>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </transition>
+      </transition>
 
-    <!-- Modal -->
-    <div class="modal fade" data-entity="absensi" data-method="create" data-backdrop="static" data-keyboard="false" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form @submit.prevent="create">
-            <div class="modal-header">
-              <h5 class="modal-title">Tambah Absensi</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label>NIP</label>
-                <input type="text" class="form-control" readonly v-model="form.create.data.nip">
+      <!-- Modal -->
+      <div class="modal fade" data-entity="absensi" data-method="create" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form @submit.prevent="create">
+              <div class="modal-header">
+                <h5 class="modal-title">Tambah Absensi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
-              <div class="form-group">
-                <label>Nama Karyawan</label>
-                <input type="text" class="form-control" readonly v-model="form.create.data.nama_karyawan">
-              </div>
-              <div class="form-group row">
-                <div class="col-12 col-lg-4">
-                  <label>Kode Cabang</label>
-                  <input type="text" class="form-control" readonly v-model="form.create.data.kode_cabang">
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>NIP</label>
+                  <input type="text" class="form-control" readonly v-model="form.create.data.nip">
                 </div>
-                <div class="col-12 col-lg-8">
-                  <label>Nama Cabang</label>
-                  <input type="text" class="form-control" readonly v-model="form.create.data.nama_cabang">
+                <div class="form-group">
+                  <label>Nama Karyawan</label>
+                  <input type="text" class="form-control" readonly v-model="form.create.data.nama_karyawan">
+                </div>
+                <div class="form-group row">
+                  <div class="col-12 col-lg-4">
+                    <label>Kode Cabang</label>
+                    <input type="text" class="form-control" readonly v-model="form.create.data.kode_cabang">
+                  </div>
+                  <div class="col-12 col-lg-8">
+                    <label>Nama Cabang</label>
+                    <input type="text" class="form-control" readonly v-model="form.create.data.nama_cabang">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Tanggal Absensi</label>
+                  <input type="date" class="form-control" readonly v-model="form.create.data.tanggal_absensi">
+                </div>
+                <div class="form-group">
+                  <label>Tipe Absensi</label>
+                  <input text="date" class="form-control" readonly v-model="form.create.data.tipe_absensi">
+                </div>
+                <div class="form-group">
+                  <label>Jam Jadwal</label>
+                  <input type="time" class="form-control" v-model="form.create.data.jam_jadwal">
+                  <small class="text-danger" v-for="(msg, index) in form.update.errors.jam_jadwal" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label>Jam Absen</label>
+                  <input type="time" class="form-control" v-model="form.create.data.jam_absen">
+                  <small class="text-danger" v-for="(msg, index) in form.update.errors.jam_absen" :key="index">
+                    {{ msg }}
+                  </small>
                 </div>
               </div>
-              <div class="form-group">
-                <label>Tanggal Absensi</label>
-                <input type="date" class="form-control" readonly v-model="form.create.data.tanggal_absensi">
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" :disabled="form.create.loading">
+                  <spinner-component size="sm" color="light" v-if="form.create.loading"/>
+                  Tambah
+                </button>
               </div>
-              <div class="form-group">
-                <label>Tipe Absensi</label>
-                <input text="date" class="form-control" readonly v-model="form.create.data.tipe_absensi">
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" data-entity="absensi" data-method="update" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form @submit.prevent="update">
+              <div class="modal-header">
+                <h5 class="modal-title">Ubah Absensi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
-              <div class="form-group">
-                <label>Jam Jadwal</label>
-                <input type="time" class="form-control" v-model="form.create.data.jam_jadwal">
-                <small class="text-danger" v-for="(msg, index) in form.update.errors.jam_jadwal" :key="index">
-                  {{ msg }}
-                </small>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>NIP</label>
+                  <input type="text" class="form-control" readonly v-model="form.update.data.nip">
+                </div>
+                <div class="form-group">
+                  <label>Nama Karyawan</label>
+                  <input type="text" class="form-control" readonly v-model="form.update.data.nama_karyawan">
+                </div>
+                <div class="form-group row">
+                  <div class="col-12 col-lg-4">
+                    <label>Kode Cabang</label>
+                    <input type="text" class="form-control" readonly v-model="form.update.data.kode_cabang">
+                  </div>
+                  <div class="col-12 col-lg-8">
+                    <label>Nama Cabang</label>
+                    <input type="text" class="form-control" readonly v-model="form.update.data.nama_cabang">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Tanggal Absensi</label>
+                  <input type="date" class="form-control" readonly v-model="form.update.data.tanggal_absensi">
+                </div>
+                <div class="form-group">
+                  <label>Tipe Absensi</label>
+                  <input text="date" class="form-control" readonly v-model="form.update.data.tipe_absensi">
+                </div>
+                <div class="form-group">
+                  <label>Jam Jadwal</label>
+                  <input type="time" class="form-control" v-model="form.update.data.jam_jadwal">
+                  <small class="text-danger" v-for="(msg, index) in form.update.errors.jam_jadwal" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label>Jam Absen</label>
+                  <input type="time" class="form-control" v-model="form.update.data.jam_absen">
+                  <small class="text-danger" v-for="(msg, index) in form.update.errors.jam_absen" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
               </div>
-              <div class="form-group">
-                <label>Jam Absen</label>
-                <input type="time" class="form-control" v-model="form.create.data.jam_absen">
-                <small class="text-danger" v-for="(msg, index) in form.update.errors.jam_absen" :key="index">
-                  {{ msg }}
-                </small>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" :disabled="form.update.loading">
+                  <spinner-component size="sm" color="light" v-if="form.update.loading"/>
+                  Ubah
+                </button>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" :disabled="form.create.loading">
-                <spinner-component size="sm" color="light" v-if="form.create.loading"/>
-                Tambah
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" data-entity="absensi" data-method="destroy" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form @submit.prevent="destroy">
+              <div class="modal-header">
+                <h5 class="modal-title">Hapus Absensi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
+                  <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
+                  Hapus
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" data-entity="pengajuanJadwalAbsensi" data-method="create" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form @submit.prevent="createPengajuan">
+              <div class="modal-header">
+                <h5 class="modal-title">Ubah Absensi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>NIP</label>
+                  <input type="text" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.nip">
+                </div>
+                <div class="form-group">
+                  <label>Nama Karyawan</label>
+                  <input type="text" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.nama_karyawan">
+                </div>
+                <div class="form-group row">
+                  <div class="col-12 col-lg-4">
+                    <label>Kode Cabang</label>
+                    <input type="text" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.kode_cabang">
+                  </div>
+                  <div class="col-12 col-lg-8">
+                    <label>Nama Cabang</label>
+                    <input type="text" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.nama_cabang">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Tanggal Absensi</label>
+                  <input type="date" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.tanggal_absensi">
+                </div>
+                <div class="form-group">
+                  <label>Tipe Absensi</label>
+                  <input text="date" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.tipe_absensi">
+                </div>
+                <div class="form-group">
+                  <label>Jam Jadwal</label>
+                  <input type="time" class="form-control" v-model="form.pengajuan_jadwal_absensi.create.data.jam_jadwal">
+                  <small class="text-danger" v-for="(msg, index) in form.pengajuan_jadwal_absensi.create.errors.jam_jadwal" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" :disabled="form.pengajuan_jadwal_absensi.create.loading">
+                  <spinner-component size="sm" color="light" v-if="form.pengajuan_jadwal_absensi.create.loading"/>
+                  Ajukan
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" data-entity="pengajuanJadwalAbsensi" data-method="accept" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form @submit.prevent="acceptPengajuan">
+              <div class="modal-header">
+                <h5 class="modal-title">Terima Pengajuan Jadwal Absensi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" :disabled="form.pengajuan_jadwal_absensi.accept.loading">
+                  <spinner-component size="sm" color="light" v-if="form.pengajuan_jadwal_absensi.accept.loading"/>
+                  Terima
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" data-entity="pengajuanJadwalAbsensi" data-method="destroy" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form @submit.prevent="destroyPengajuan">
+              <div class="modal-header">
+                <h5 class="modal-title">Hapus Pengajuan Jadwal Absensi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" :disabled="form.pengajuan_jadwal_absensi.destroy.loading">
+                  <spinner-component size="sm" color="light" v-if="form.pengajuan_jadwal_absensi.destroy.loading"/>
+                  Hapus
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-    <div class="modal fade" data-entity="absensi" data-method="update" data-backdrop="static" data-keyboard="false" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form @submit.prevent="update">
-            <div class="modal-header">
-              <h5 class="modal-title">Ubah Absensi</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label>NIP</label>
-                <input type="text" class="form-control" readonly v-model="form.update.data.nip">
-              </div>
-              <div class="form-group">
-                <label>Nama Karyawan</label>
-                <input type="text" class="form-control" readonly v-model="form.update.data.nama_karyawan">
-              </div>
-              <div class="form-group row">
-                <div class="col-12 col-lg-4">
-                  <label>Kode Cabang</label>
-                  <input type="text" class="form-control" readonly v-model="form.update.data.kode_cabang">
-                </div>
-                <div class="col-12 col-lg-8">
-                  <label>Nama Cabang</label>
-                  <input type="text" class="form-control" readonly v-model="form.update.data.nama_cabang">
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Tanggal Absensi</label>
-                <input type="date" class="form-control" readonly v-model="form.update.data.tanggal_absensi">
-              </div>
-              <div class="form-group">
-                <label>Tipe Absensi</label>
-                <input text="date" class="form-control" readonly v-model="form.update.data.tipe_absensi">
-              </div>
-              <div class="form-group">
-                <label>Jam Jadwal</label>
-                <input type="time" class="form-control" v-model="form.update.data.jam_jadwal">
-                <small class="text-danger" v-for="(msg, index) in form.update.errors.jam_jadwal" :key="index">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group">
-                <label>Jam Absen</label>
-                <input type="time" class="form-control" v-model="form.update.data.jam_absen">
-                <small class="text-danger" v-for="(msg, index) in form.update.errors.jam_absen" :key="index">
-                  {{ msg }}
-                </small>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" :disabled="form.update.loading">
-                <spinner-component size="sm" color="light" v-if="form.update.loading"/>
-                Ubah
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" data-entity="absensi" data-method="destroy" data-backdrop="static" data-keyboard="false" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form @submit.prevent="destroy">
-            <div class="modal-header">
-              <h5 class="modal-title">Hapus Absensi</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Apakah anda yakin?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
-                <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
-                Hapus
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" data-entity="pengajuanJadwalAbsensi" data-method="create" data-backdrop="static" data-keyboard="false" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form @submit.prevent="createPengajuan">
-            <div class="modal-header">
-              <h5 class="modal-title">Ubah Absensi</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label>NIP</label>
-                <input type="text" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.nip">
-              </div>
-              <div class="form-group">
-                <label>Nama Karyawan</label>
-                <input type="text" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.nama_karyawan">
-              </div>
-              <div class="form-group row">
-                <div class="col-12 col-lg-4">
-                  <label>Kode Cabang</label>
-                  <input type="text" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.kode_cabang">
-                </div>
-                <div class="col-12 col-lg-8">
-                  <label>Nama Cabang</label>
-                  <input type="text" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.nama_cabang">
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Tanggal Absensi</label>
-                <input type="date" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.tanggal_absensi">
-              </div>
-              <div class="form-group">
-                <label>Tipe Absensi</label>
-                <input text="date" class="form-control" readonly v-model="form.pengajuan_jadwal_absensi.create.data.tipe_absensi">
-              </div>
-              <div class="form-group">
-                <label>Jam Jadwal</label>
-                <input type="time" class="form-control" v-model="form.pengajuan_jadwal_absensi.create.data.jam_jadwal">
-                <small class="text-danger" v-for="(msg, index) in form.pengajuan_jadwal_absensi.create.errors.jam_jadwal" :key="index">
-                  {{ msg }}
-                </small>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" :disabled="form.pengajuan_jadwal_absensi.create.loading">
-                <spinner-component size="sm" color="light" v-if="form.pengajuan_jadwal_absensi.create.loading"/>
-                Ajukan
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" data-entity="pengajuanJadwalAbsensi" data-method="accept" data-backdrop="static" data-keyboard="false" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form @submit.prevent="acceptPengajuan">
-            <div class="modal-header">
-              <h5 class="modal-title">Terima Pengajuan Jadwal Absensi</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Apakah anda yakin?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" :disabled="form.pengajuan_jadwal_absensi.accept.loading">
-                <spinner-component size="sm" color="light" v-if="form.pengajuan_jadwal_absensi.accept.loading"/>
-                Terima
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" data-entity="pengajuanJadwalAbsensi" data-method="destroy" data-backdrop="static" data-keyboard="false" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form @submit.prevent="destroyPengajuan">
-            <div class="modal-header">
-              <h5 class="modal-title">Hapus Pengajuan Jadwal Absensi</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Apakah anda yakin?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" :disabled="form.pengajuan_jadwal_absensi.destroy.loading">
-                <spinner-component size="sm" color="light" v-if="form.pengajuan_jadwal_absensi.destroy.loading"/>
-                Hapus
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+    <router-view v-else></router-view>
+  </transition>
 </template>
 
 <script>

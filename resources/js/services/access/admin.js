@@ -223,7 +223,15 @@ export default {
         create: false,
         accept: true,
         destroy: true,
-      }
+      },
+      imporJadwal: {
+        access: true,
+        create: true
+      },
+      imporAbsensi: {
+        access: true,
+        create: true
+      },
     }
   }
 }

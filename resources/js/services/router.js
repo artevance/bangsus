@@ -270,7 +270,23 @@ const routes = [
         name: 'absensi',
         component: require('../views/Absensi').default,
         meta: { layout: 'default', title: 'Absensi', sidebar: 'absensi' },
-        beforeEnter: Multiguard([middleware.auth, middleware.access])
+        beforeEnter: Multiguard([middleware.auth, middleware.access]),
+        children: [
+          {
+            path: 'impor_jadwal',
+            name: 'absensi.imporJadwal',
+            component: require('../views/absensi/ImporJadwal').default,
+            meta: { layout: 'default', title: 'Impor Jadwal', sidebar: 'absensi' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
+            path: 'impor_jadwal',
+            name: 'absensi.imporAbsensi',
+            component: require('../views/absensi/ImporAbsensi').default,
+            meta: { layout: 'default', title: 'Impor Absensi', sidebar: 'absensi' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+        ]
       }
     ]
   },
