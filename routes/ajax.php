@@ -229,6 +229,9 @@ Route::prefix('v1')->namespace('v1')->group(function () {
     Route::prefix('tugas_karyawan')->group(function () {
       Route::get('', 'TugasKaryawan@index');
       Route::get('parent/{id}', 'TugasKaryawan@parent');
+      Route::get('{id}', 'TugasKaryawan@get');
+      Route::post('', 'TugasKaryawan@store');
+      Route::put('', 'TugasKaryawan@amend');
     });
   });
 });
