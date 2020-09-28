@@ -2275,6 +2275,649 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Absensi.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Absensi.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: false
+        }
+      },
+      data: {
+        absensi: [],
+        cabang: [],
+        tipe_absensi: []
+      },
+      form: {
+        create: {
+          data: {
+            tugas_karyawan_id: null,
+            tipe_absensi_id: null,
+            tanggal_absensi: '',
+            jam_jadwal: '',
+            jam_absen: '',
+            nip: '',
+            nama_karyawan: '',
+            kode_cabang: '',
+            nama_cabang: '',
+            tipe_absensi: ''
+          },
+          errors: {}
+        },
+        update: {
+          data: {
+            id: null,
+            tanggal_absensi: '',
+            jam_jadwal: '',
+            jam_absen: '',
+            nip: '',
+            nama_karyawan: '',
+            kode_cabang: '',
+            nama_cabang: '',
+            tipe_absensi: ''
+          },
+          errors: {}
+        },
+        destroy: {
+          data: {
+            id: null
+          },
+          errors: {}
+        },
+        pengajuan_jadwal_absensi: {
+          create: {
+            data: {
+              tugas_karyawan_id: null,
+              tipe_absensi_id: null,
+              tanggal_absensi: '',
+              jam_jadwal: '',
+              nip: '',
+              nama_karyawan: '',
+              kode_cabang: '',
+              nama_cabang: '',
+              tipe_absensi: ''
+            },
+            errors: {}
+          },
+          accept: {
+            data: {
+              id: null,
+              tanggal_absensi: '',
+              jam_jadwal: '',
+              nip: '',
+              nama_karyawan: '',
+              kode_cabang: '',
+              nama_cabang: '',
+              tipe_absensi: ''
+            },
+            errors: {}
+          }
+        }
+      },
+      query: {
+        absensi: {
+          cabang_id: null,
+          tipe_absensi_id: null,
+          tanggal_absensi: null
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.prepare();
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData(), this.fetchCabang(), this.fetchTipeAbsensi()]).then(function (res) {
+        _this.data.absensi = res[0].data.container;
+        _this.data.cabang = res[1].data.container;
+        _this.data.tipe_absensi = res[2].data.container;
+        _this.query.absensi.cabang_id = res[1].data.container[0].id;
+        _this.query.absensi.tipe_absensi_id = res[2].data.container[0].id;
+        _this.query.absensi.tanggal_absensi = _this.$moment().format('YYYY-MM-DD');
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        console.log(err);
+
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.absensi = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/absensi/manual', {
+        params: this.query.absensi
+      });
+    },
+    fetchCabang: function fetchCabang() {
+      return this.$axios.get('/ajax/v1/master/cabang');
+    },
+    fetchTipeAbsensi: function fetchTipeAbsensi() {
+      return this.$axios.get('/ajax/v1/master/tipe_absensi');
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal(id) {
+      var _this3 = this;
+
+      this.$axios.get('/ajax/v1/tugas_karyawan/' + id).then(function (res) {
+        _this3.form.create.data.tugas_karyawan_id = id;
+        _this3.form.create.data.tipe_absensi_id = _this3.query.absensi.tipe_absensi_id;
+        _this3.form.create.data.tanggal_absensi = _this3.query.absensi.tanggal_absensi;
+        _this3.form.create.data.nip = res.data.container.karyawan.nip;
+        _this3.form.create.data.nama_karyawan = res.data.container.karyawan.nama_karyawan;
+        _this3.form.create.data.kode_cabang = res.data.container.cabang.kode_cabang;
+        _this3.form.create.data.nama_cabang = res.data.container.cabang.cabang;
+        Promise.all([_this3.$axios.get('/ajax/v1/master/tipe_absensi/' + _this3.query.absensi.tipe_absensi_id)]).then(function (res) {
+          _this3.form.create.data.tipe_absensi = res[0].data.container.tipe_absensi;
+          $('[data-entity="absensi"][data-method="create"]').modal('show');
+        })["catch"](function (err) {
+          return console.log(err);
+        });
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this4 = this;
+
+      this.$axios.get('/ajax/v1/absensi/' + id).then(function (res) {
+        _this4.form.update.data.id = id;
+        _this4.form.update.data.tipe_absensi_id = _this4.query.tipe_absensi_id;
+        _this4.form.update.data.tanggal_absensi = _this4.query.tanggal_absensi;
+        _this4.form.update.data.nip = res.data.container.tugas_karyawan.karyawan.nip;
+        _this4.form.update.data.nama_karyawan = res.data.container.tugas_karyawan.karyawan.nama_karyawan;
+        _this4.form.update.data.kode_cabang = res.data.container.tugas_karyawan.cabang.kode_cabang;
+        _this4.form.update.data.nama_cabang = res.data.container.tugas_karyawan.cabang.cabang;
+        _this4.form.update.data.tipe_absensi = res.data.container.tipe_absensi.tipe_absensi;
+        $('[data-entity="absensi"][data-method="update"]').modal('show');
+      });
+    },
+    showDestroyModal: function showDestroyModal(id) {
+      var _this5 = this;
+
+      this.$axios.get('/ajax/v1/absensi/' + id).then(function (res) {
+        _this5.form.destroy.data.id = id;
+        $('[data-entity="absensi"][data-method="destroy"]').modal('show');
+      });
+    },
+    showCreatePengajuanModal: function showCreatePengajuanModal(id) {
+      var _this6 = this;
+
+      this.$axios.get('/ajax/v1/tugas_karyawan/' + id).then(function (res) {
+        _this6.form.pengajuan_jadwal_absensi.create.data.tugas_karyawan_id = id;
+        _this6.form.pengajuan_jadwal_absensi.create.data.tipe_absensi_id = _this6.query.absensi.tipe_absensi_id;
+        _this6.form.pengajuan_jadwal_absensi.create.data.tanggal_absensi = _this6.query.absensi.tanggal_absensi;
+        _this6.form.pengajuan_jadwal_absensi.create.data.nip = res.data.container.karyawan.nip;
+        _this6.form.pengajuan_jadwal_absensi.create.data.nama_karyawan = res.data.container.karyawan.nama_karyawan;
+        _this6.form.pengajuan_jadwal_absensi.create.data.kode_cabang = res.data.container.cabang.kode_cabang;
+        _this6.form.pengajuan_jadwal_absensi.create.data.nama_cabang = res.data.container.cabang.cabang;
+        Promise.all([_this6.$axios.get('/ajax/v1/master/tipe_absensi/' + _this6.query.absensi.tipe_absensi_id)]).then(function (res) {
+          _this6.form.pengajuan_jadwal_absensi.create.data.tipe_absensi = res[0].data.container.tipe_absensi;
+          $('[data-entity="pengajuanJadwalAbsensi"][data-method="create"]').modal('show');
+        })["catch"](function (err) {
+          return console.log(err);
+        });
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    showAcceptPengajuanModal: function showAcceptPengajuanModal(id) {
+      $('[data-entity="pengajuanJadwalAbsensi"][data-method="accept"]').modal('show');
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this7 = this;
+
+      this.form.create.loading = true;
+      this.form.create.errors = {};
+      this.$axios.post('/ajax/v1/absensi', this.form.create.data).then(function (res) {
+        _this7.form.create.data = {
+          tugas_karyawan_id: null,
+          tipe_absensi_id: null,
+          tanggal_absensi: '',
+          jam_jadwal: '',
+          jam_absen: '',
+          nip: '',
+          nama_karyawan: '',
+          kode_cabang: '',
+          nama_cabang: '',
+          tipe_absensi: ''
+        };
+
+        _this7.prepare();
+
+        $('[data-entity="absensi"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this7.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this7.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this8 = this;
+
+      this.form.update.loading = true;
+      this.form.update.errors = {};
+      this.$axios.put('/ajax/v1/absensi', this.form.update.data).then(function (res) {
+        _this8.form.update.data = {
+          id: null,
+          tanggal_absensi: '',
+          jam_jadwal: '',
+          jam_absen: '',
+          nip: '',
+          nama_karyawan: '',
+          kode_cabang: '',
+          nama_cabang: '',
+          tipe_absensi: ''
+        };
+
+        _this8.prepare();
+
+        $('[data-entity="absensi"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this8.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this8.form.update.loading = false;
+      });
+    },
+    destroy: function destroy() {
+      var _this9 = this;
+
+      this.form.destroy.loading = true;
+      this.form.destroy.errors = {};
+      this.$axios["delete"]('/ajax/v1/absensi/', {
+        data: this.form.destroy.data
+      }).then(function (res) {
+        _this9.form.destroy.data.id = null;
+
+        _this9.prepare();
+
+        $('[data-entity="absensi"][data-method="destroy"]').modal('hide');
+      })["catch"](function (err) {
+        return console.log(err.response);
+      });
+    },
+    createPengajuan: function createPengajuan() {
+      var _this10 = this;
+
+      this.form.create.loading = true;
+      this.form.create.errors = {};
+      this.$axios.post('/ajax/v1/pengajuan_jadwal_absensi', this.form.pengajuan_jadwal_absensi.create.data).then(function (res) {
+        _this10.form.pengajuan_jadwal_absensi.create.data = {
+          tugas_karyawan_id: null,
+          tipe_absensi_id: null,
+          tanggal_absensi: '',
+          jam_jadwal: '',
+          jam_absen: '',
+          nip: '',
+          nama_karyawan: '',
+          kode_cabang: '',
+          nama_cabang: '',
+          tipe_absensi: ''
+        };
+
+        _this10.prepare();
+
+        $('[data-entity="pengajuanJadwalAbsensi"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this10.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this10.form.create.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Karyawan.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Karyawan.vue?vue&type=script&lang=js& ***!
@@ -3250,7 +3893,8 @@ __webpack_require__.r(__webpack_exports__);
             tanggal_selesai: '',
             no_finger: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -3262,7 +3906,8 @@ __webpack_require__.r(__webpack_exports__);
             tanggal_selesai: '',
             no_finger: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -71414,9 +72059,1633 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    { staticClass: "row mt-5" },
+    [
+      _c(
+        "transition",
+        { attrs: { name: "fade", mode: "out-in" } },
+        [
+          _vm.state.page.loading
+            ? _c("preloader-component")
+            : _c("div", { staticClass: "col-12 col-xl-12 stretch-card" }, [
+                _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-12" }, [
+                        _c("form", { attrs: { "data-role": "search" } }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("div", { staticClass: "input-group" }, [
+                              _c(
+                                "div",
+                                { staticClass: "input-group-prepend" },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "input-group-text" },
+                                    [
+                                      _vm._v(
+                                        "\n                        Cabang\n                      "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.query.absensi.cabang_id,
+                                      expression: "query.absensi.cabang_id"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { name: "cabang_id" },
+                                  on: {
+                                    change: [
+                                      function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.query.absensi,
+                                          "cabang_id",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      },
+                                      _vm.queryData
+                                    ]
+                                  }
+                                },
+                                _vm._l(_vm.data.cabang, function(cabang, i) {
+                                  return _c(
+                                    "option",
+                                    { key: i, domProps: { value: cabang.id } },
+                                    [
+                                      _vm._v(
+                                        "\n                        " +
+                                          _vm._s(cabang.kode_cabang) +
+                                          " - " +
+                                          _vm._s(cabang.cabang) +
+                                          "\n                      "
+                                      )
+                                    ]
+                                  )
+                                }),
+                                0
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "input-group-prepend" },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "input-group-text" },
+                                    [
+                                      _vm._v(
+                                        "\n                        Tipe Absensi\n                      "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.query.absensi.tipe_absensi_id,
+                                      expression:
+                                        "query.absensi.tipe_absensi_id"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { name: "cabang_id" },
+                                  on: {
+                                    change: [
+                                      function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.query.absensi,
+                                          "tipe_absensi_id",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      },
+                                      _vm.queryData
+                                    ]
+                                  }
+                                },
+                                _vm._l(_vm.data.tipe_absensi, function(
+                                  tipe_absensi,
+                                  i
+                                ) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: i,
+                                      domProps: { value: tipe_absensi.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                        " +
+                                          _vm._s(tipe_absensi.tipe_absensi) +
+                                          "\n                      "
+                                      )
+                                    ]
+                                  )
+                                }),
+                                0
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "input-group-prepend" },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "input-group-text" },
+                                    [
+                                      _vm._v(
+                                        "\n                        Tanggal Absensi\n                      "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.query.absensi.tanggal_absensi,
+                                    expression: "query.absensi.tanggal_absensi"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "date",
+                                  name: "tanggal_absensi"
+                                },
+                                domProps: {
+                                  value: _vm.query.absensi.tanggal_absensi
+                                },
+                                on: {
+                                  keyup: _vm.queryData,
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.query.absensi,
+                                      "tanggal_absensi",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "table-responsive mt-2" }, [
+                      _vm.$access("absensi", "read")
+                        ? _c("table", { staticClass: "table table-hover" }, [
+                            _c("thead", [
+                              _c("th", [_vm._v("#")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("NIP")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Nama Karyawan")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("No. Finger")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Jam Jadwal Diajukan")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Jam Jadwal")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Jam Absen")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Aksi")])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.data.absensi, function(absensi, i) {
+                                return _c("tr", [
+                                  _c("td", [_vm._v(_vm._s(i + 1))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(absensi.karyawan.nik))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(absensi.karyawan.nama_karyawan)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(absensi.no_finger))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        absensi.pengajuan_jadwal_absensi[0] ==
+                                          null
+                                          ? "-"
+                                          : absensi.pengajuan_jadwal_absensi[0]
+                                              .jam_jadwal
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        absensi.absensi[0] == null
+                                          ? "-"
+                                          : absensi.absensi[0].jam_jadwal
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        absensi.absensi[0] == null
+                                          ? "-"
+                                          : absensi.absensi[0].jam_absen
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    absensi.absensi.length == 0
+                                      ? _c("span", [
+                                          _vm.$access("absensi", "create")
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-primary",
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.showCreateModal(
+                                                        absensi.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                        Tambah\n                      "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ])
+                                      : _c("span", [
+                                          _vm.$access("absensi", "update")
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-warning",
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.showUpdateModal(
+                                                        absensi.absensi[0].id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                        Ubah\n                      "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.$access("absensi", "destroy")
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-danger",
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.showDestroyModal(
+                                                        absensi.absensi[0].id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                        Hapus\n                      "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ]),
+                                    _vm._v(" "),
+                                    absensi.pengajuan_jadwal_absensi.length == 0
+                                      ? _c("span", [
+                                          _vm.$access(
+                                            "absensi.pengajuanJadwalAbsensi",
+                                            "create"
+                                          )
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-light",
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.showCreatePengajuanModal(
+                                                        absensi.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                        Ajukan Jam Jadwal\n                      "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ])
+                                      : _c("span", [
+                                          _vm.$access(
+                                            "absensi.pengajuanJadwalAbsensi",
+                                            "accept"
+                                          )
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-light",
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.showAcceptPengajuanModal(
+                                                        absensi
+                                                          .pengajuan_jadwal_absensi[0]
+                                                          .id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                        Terima Jam Jadwal\n                      "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ])
+                                  ])
+                                ])
+                              }),
+                              0
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ])
+              ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            "data-entity": "absensi",
+            "data-method": "create",
+            "data-backdrop": "static",
+            "data-keyboard": "false",
+            tabindex: "-1"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.create($event)
+                    }
+                  }
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("NIP")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.create.data.nip,
+                            expression: "form.create.data.nip"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" },
+                        domProps: { value: _vm.form.create.data.nip },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.create.data,
+                              "nip",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Nama Karyawan")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.create.data.nama_karyawan,
+                            expression: "form.create.data.nama_karyawan"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" },
+                        domProps: { value: _vm.form.create.data.nama_karyawan },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.create.data,
+                              "nama_karyawan",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "col-12 col-lg-4" }, [
+                        _c("label", [_vm._v("Kode Cabang")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.create.data.kode_cabang,
+                              expression: "form.create.data.kode_cabang"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", readonly: "" },
+                          domProps: { value: _vm.form.create.data.kode_cabang },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.create.data,
+                                "kode_cabang",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-12 col-lg-8" }, [
+                        _c("label", [_vm._v("Nama Cabang")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.create.data.nama_cabang,
+                              expression: "form.create.data.nama_cabang"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", readonly: "" },
+                          domProps: { value: _vm.form.create.data.nama_cabang },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.create.data,
+                                "nama_cabang",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Tanggal Absensi")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.create.data.tanggal_absensi,
+                            expression: "form.create.data.tanggal_absensi"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "date", readonly: "" },
+                        domProps: {
+                          value: _vm.form.create.data.tanggal_absensi
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.create.data,
+                              "tanggal_absensi",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Tipe Absensi")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.create.data.tipe_absensi,
+                            expression: "form.create.data.tipe_absensi"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { text: "date", readonly: "" },
+                        domProps: { value: _vm.form.create.data.tipe_absensi },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.create.data,
+                              "tipe_absensi",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Jam Jadwal")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.create.data.jam_jadwal,
+                              expression: "form.create.data.jam_jadwal"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "time" },
+                          domProps: { value: _vm.form.create.data.jam_jadwal },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.create.data,
+                                "jam_jadwal",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._l(_vm.form.update.errors.jam_jadwal, function(
+                          msg,
+                          index
+                        ) {
+                          return _c(
+                            "small",
+                            { key: index, staticClass: "text-danger" },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(msg) +
+                                  "\n              "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Jam Absen")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.create.data.jam_absen,
+                              expression: "form.create.data.jam_absen"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "time" },
+                          domProps: { value: _vm.form.create.data.jam_absen },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.create.data,
+                                "jam_absen",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._l(_vm.form.update.errors.jam_absen, function(
+                          msg,
+                          index
+                        ) {
+                          return _c(
+                            "small",
+                            { key: index, staticClass: "text-danger" },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(msg) +
+                                  "\n              "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          type: "submit",
+                          disabled: _vm.form.create.loading
+                        }
+                      },
+                      [
+                        _vm.form.create.loading
+                          ? _c("spinner-component", {
+                              attrs: { size: "sm", color: "light" }
+                            })
+                          : _vm._e(),
+                        _vm._v("\n              Tambah\n            ")
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            "data-entity": "absensi",
+            "data-method": "update",
+            "data-backdrop": "static",
+            "data-keyboard": "false",
+            tabindex: "-1"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.update($event)
+                    }
+                  }
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("NIP")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.update.data.nip,
+                            expression: "form.update.data.nip"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" },
+                        domProps: { value: _vm.form.update.data.nip },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.update.data,
+                              "nip",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Nama Karyawan")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.update.data.nama_karyawan,
+                            expression: "form.update.data.nama_karyawan"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" },
+                        domProps: { value: _vm.form.update.data.nama_karyawan },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.update.data,
+                              "nama_karyawan",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "col-12 col-lg-4" }, [
+                        _c("label", [_vm._v("Kode Cabang")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.update.data.kode_cabang,
+                              expression: "form.update.data.kode_cabang"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", readonly: "" },
+                          domProps: { value: _vm.form.update.data.kode_cabang },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.update.data,
+                                "kode_cabang",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-12 col-lg-8" }, [
+                        _c("label", [_vm._v("Nama Cabang")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.update.data.nama_cabang,
+                              expression: "form.update.data.nama_cabang"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", readonly: "" },
+                          domProps: { value: _vm.form.update.data.nama_cabang },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.update.data,
+                                "nama_cabang",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Tanggal Absensi")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.update.data.tanggal_absensi,
+                            expression: "form.update.data.tanggal_absensi"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "date", readonly: "" },
+                        domProps: {
+                          value: _vm.form.update.data.tanggal_absensi
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.update.data,
+                              "tanggal_absensi",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Tipe Absensi")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.update.data.tipe_absensi,
+                            expression: "form.update.data.tipe_absensi"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { text: "date", readonly: "" },
+                        domProps: { value: _vm.form.update.data.tipe_absensi },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.update.data,
+                              "tipe_absensi",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Jam Jadwal")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.update.data.jam_jadwal,
+                              expression: "form.update.data.jam_jadwal"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "time" },
+                          domProps: { value: _vm.form.update.data.jam_jadwal },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.update.data,
+                                "jam_jadwal",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._l(_vm.form.update.errors.jam_jadwal, function(
+                          msg,
+                          index
+                        ) {
+                          return _c(
+                            "small",
+                            { key: index, staticClass: "text-danger" },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(msg) +
+                                  "\n              "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Jam Absen")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.update.data.jam_absen,
+                              expression: "form.update.data.jam_absen"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "time" },
+                          domProps: { value: _vm.form.update.data.jam_absen },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.update.data,
+                                "jam_absen",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._l(_vm.form.update.errors.jam_absen, function(
+                          msg,
+                          index
+                        ) {
+                          return _c(
+                            "small",
+                            { key: index, staticClass: "text-danger" },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(msg) +
+                                  "\n              "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          type: "submit",
+                          disabled: _vm.form.update.loading
+                        }
+                      },
+                      [
+                        _vm.form.update.loading
+                          ? _c("spinner-component", {
+                              attrs: { size: "sm", color: "light" }
+                            })
+                          : _vm._e(),
+                        _vm._v("\n              Ubah\n            ")
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            "data-entity": "absensi",
+            "data-method": "destroy",
+            "data-backdrop": "static",
+            "data-keyboard": "false",
+            tabindex: "-1"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.destroy($event)
+                    }
+                  }
+                },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          type: "submit",
+                          disabled: _vm.form.destroy.loading
+                        }
+                      },
+                      [
+                        _vm.form.destroy.loading
+                          ? _c("spinner-component", {
+                              attrs: { size: "sm", color: "light" }
+                            })
+                          : _vm._e(),
+                        _vm._v("\n              Hapus\n            ")
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            "data-entity": "pengajuanJadwalAbsensi",
+            "data-method": "create",
+            "data-backdrop": "static",
+            "data-keyboard": "false",
+            tabindex: "-1"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.createPengajuan($event)
+                    }
+                  }
+                },
+                [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("NIP")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value:
+                              _vm.form.pengajuan_jadwal_absensi.create.data.nip,
+                            expression:
+                              "form.pengajuan_jadwal_absensi.create.data.nip"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" },
+                        domProps: {
+                          value:
+                            _vm.form.pengajuan_jadwal_absensi.create.data.nip
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.pengajuan_jadwal_absensi.create.data,
+                              "nip",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Nama Karyawan")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value:
+                              _vm.form.pengajuan_jadwal_absensi.create.data
+                                .nama_karyawan,
+                            expression:
+                              "form.pengajuan_jadwal_absensi.create.data.nama_karyawan"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" },
+                        domProps: {
+                          value:
+                            _vm.form.pengajuan_jadwal_absensi.create.data
+                              .nama_karyawan
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.pengajuan_jadwal_absensi.create.data,
+                              "nama_karyawan",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "col-12 col-lg-4" }, [
+                        _c("label", [_vm._v("Kode Cabang")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value:
+                                _vm.form.pengajuan_jadwal_absensi.create.data
+                                  .kode_cabang,
+                              expression:
+                                "form.pengajuan_jadwal_absensi.create.data.kode_cabang"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", readonly: "" },
+                          domProps: {
+                            value:
+                              _vm.form.pengajuan_jadwal_absensi.create.data
+                                .kode_cabang
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.pengajuan_jadwal_absensi.create.data,
+                                "kode_cabang",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-12 col-lg-8" }, [
+                        _c("label", [_vm._v("Nama Cabang")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value:
+                                _vm.form.pengajuan_jadwal_absensi.create.data
+                                  .nama_cabang,
+                              expression:
+                                "form.pengajuan_jadwal_absensi.create.data.nama_cabang"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", readonly: "" },
+                          domProps: {
+                            value:
+                              _vm.form.pengajuan_jadwal_absensi.create.data
+                                .nama_cabang
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.pengajuan_jadwal_absensi.create.data,
+                                "nama_cabang",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Tanggal Absensi")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value:
+                              _vm.form.pengajuan_jadwal_absensi.create.data
+                                .tanggal_absensi,
+                            expression:
+                              "form.pengajuan_jadwal_absensi.create.data.tanggal_absensi"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "date", readonly: "" },
+                        domProps: {
+                          value:
+                            _vm.form.pengajuan_jadwal_absensi.create.data
+                              .tanggal_absensi
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.pengajuan_jadwal_absensi.create.data,
+                              "tanggal_absensi",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Tipe Absensi")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value:
+                              _vm.form.pengajuan_jadwal_absensi.create.data
+                                .tipe_absensi,
+                            expression:
+                              "form.pengajuan_jadwal_absensi.create.data.tipe_absensi"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { text: "date", readonly: "" },
+                        domProps: {
+                          value:
+                            _vm.form.pengajuan_jadwal_absensi.create.data
+                              .tipe_absensi
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form.pengajuan_jadwal_absensi.create.data,
+                              "tipe_absensi",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Jam Jadwal")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value:
+                                _vm.form.pengajuan_jadwal_absensi.create.data
+                                  .jam_jadwal,
+                              expression:
+                                "form.pengajuan_jadwal_absensi.create.data.jam_jadwal"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "time" },
+                          domProps: {
+                            value:
+                              _vm.form.pengajuan_jadwal_absensi.create.data
+                                .jam_jadwal
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.pengajuan_jadwal_absensi.create.data,
+                                "jam_jadwal",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._l(
+                          _vm.form.pengajuan_jadwal_absensi.create.errors
+                            .jam_jadwal,
+                          function(msg, index) {
+                            return _c(
+                              "small",
+                              { key: index, staticClass: "text-danger" },
+                              [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(msg) +
+                                    "\n              "
+                                )
+                              ]
+                            )
+                          }
+                        )
+                      ],
+                      2
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          type: "submit",
+                          disabled:
+                            _vm.form.pengajuan_jadwal_absensi.create.loading
+                        }
+                      },
+                      [
+                        _vm.form.pengajuan_jadwal_absensi.create.loading
+                          ? _c("spinner-component", {
+                              attrs: { size: "sm", color: "light" }
+                            })
+                          : _vm._e(),
+                        _vm._v("\n              Ajukan\n            ")
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Tambah Absensi")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Ubah Absensi")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Hapus Absensi")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("p", [_vm._v("Apakah anda yakin?")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Ubah Absensi")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -106377,7 +108646,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 
 Vue.prototype.$axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"];
-Vue.prototype.$moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js")["default"];
+Vue.prototype.$moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 Vue.prototype.$access = __webpack_require__(/*! ./services/access.js */ "./resources/js/services/access.js")["default"];
 /**
  * Importing necessary mixins.
@@ -107099,7 +109368,19 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   absensi: {
-    access: true
+    access: true,
+    create: true,
+    read: true,
+    update: true,
+    destroy: true,
+    children: {
+      pengajuanJadwalAbsensi: {
+        access: true,
+        create: true,
+        accept: true,
+        destroy: true
+      }
+    }
   }
 });
 
@@ -107114,7 +109395,235 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  dashboard: {
+    access: false
+  },
+  master: {
+    access: false,
+    children: {
+      tipeKontak: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      tipeAlamat: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      tipeFotoKaryawan: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      jabatan: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      divisi: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      tipeCabang: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      cabang: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      tipeAbsensi: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      satuan: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      supplier: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      itemGoreng: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      tipeProsesSambal: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      tipeProsesTepung: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      tipeProsesMinyak: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      tipeProsesMargarin: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      tipeProsesLPG: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      qualityControl: {
+        access: false,
+        create: false,
+        read: false,
+        update: false,
+        children: {
+          parameterQualityControl: {
+            access: false,
+            create: false,
+            read: false,
+            update: false,
+            children: {
+              opsiParameterQualityControl: {
+                access: false,
+                create: false,
+                read: false,
+                update: false
+              }
+            }
+          }
+        }
+      },
+      aktivitasKaryawan: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      atributKaryawan: {
+        access: false,
+        create: false,
+        read: false,
+        update: false,
+        children: {
+          parameterAtributKaryawan: {
+            access: false,
+            create: false,
+            read: false,
+            update: false
+          }
+        }
+      },
+      kegiatanKebersihan: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      generalCleaning: {
+        access: false,
+        create: false,
+        read: false,
+        update: false,
+        children: {
+          kegiatanGeneralCleaning: {
+            access: false,
+            create: false,
+            read: false,
+            update: false
+          }
+        }
+      },
+      kelompokFoto: {
+        access: false,
+        create: false,
+        read: false,
+        update: false,
+        children: {
+          dendaFoto: {
+            access: false,
+            create: false,
+            read: false,
+            update: false
+          }
+        }
+      },
+      kelompokLaporanFoto: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      aktivitasMarketing: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      },
+      itemMarketing: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      }
+    }
+  },
+  karyawan: {
+    access: false,
+    create: false,
+    read: false,
+    update: false,
+    children: {
+      tugasKaryawan: {
+        access: false,
+        create: false,
+        read: false,
+        update: false
+      }
+    }
+  },
+  absensi: {
+    access: true,
+    create: false,
+    read: true,
+    update: false,
+    destroy: true,
+    children: {
+      pengajuanJadwalAbsensi: {
+        access: true,
+        create: true,
+        accept: false,
+        destroy: true
+      }
+    }
+  }
+});
 
 /***/ }),
 
@@ -107734,15 +110243,17 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Absensi_vue_vue_type_template_id_259597e2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Absensi.vue?vue&type=template&id=259597e2& */ "./resources/js/views/Absensi.vue?vue&type=template&id=259597e2&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Absensi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Absensi.vue?vue&type=script&lang=js& */ "./resources/js/views/Absensi.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Absensi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Absensi_vue_vue_type_template_id_259597e2___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Absensi_vue_vue_type_template_id_259597e2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -107756,6 +110267,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/views/Absensi.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/Absensi.vue?vue&type=script&lang=js&":
+/*!*****************************************************************!*\
+  !*** ./resources/js/views/Absensi.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Absensi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Absensi.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Absensi.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Absensi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

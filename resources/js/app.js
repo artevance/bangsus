@@ -19,7 +19,7 @@ import psstyle from 'perfect-scrollbar/css/perfect-scrollbar.css'
  * Installing Vue prototype global variable.
  */
 Vue.prototype.$axios = require('axios').default;
-Vue.prototype.$moment = require('moment').default;
+Vue.prototype.$moment = require('moment');
 Vue.prototype.$access = require('./services/access.js').default;
 
 

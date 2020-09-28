@@ -290,7 +290,8 @@ export default {
             tanggal_selesai: '',
             no_finger: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -302,7 +303,8 @@ export default {
             tanggal_selesai: '',
             no_finger: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

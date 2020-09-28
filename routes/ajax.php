@@ -233,5 +233,20 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::post('', 'TugasKaryawan@store');
       Route::put('', 'TugasKaryawan@amend');
     });
+    Route::prefix('absensi')->group(function () {
+      Route::get('', 'Absensi@index');
+      Route::get('manual', 'Absensi@manual');
+      Route::get('{id}', 'Absensi@get');
+      Route::post('', 'Absensi@store');
+      Route::put('', 'Absensi@amend');
+      Route::delete('', 'Absensi@destroy');
+    });
+    Route::prefix('pengajuan_jadwal_absensi')->group(function () {
+      Route::get('', 'PengajuanJadwalAbsensi@index');
+      Route::get('{id}', 'PengajuanJadwalAbsensi@get');
+      Route::post('', 'PengajuanJadwalAbsensi@store');
+      Route::put('', 'PengajuanJadwalAbsensi@amend');
+      Route::delete('', 'PengajuanJadwalAbsensi@destroy');
+    });
   });
 });

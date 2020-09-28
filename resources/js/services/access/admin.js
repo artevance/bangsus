@@ -212,6 +212,18 @@ export default {
     }
   },
   absensi: {
-    access: true
+    access: true,
+    create: true,
+    read: true,
+    update: true,
+    destroy: true,
+    children: {
+      pengajuanJadwalAbsensi: {
+        access: true,
+        create: true,
+        accept: true,
+        destroy: true,
+      }
+    }
   }
 }

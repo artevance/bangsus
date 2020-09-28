@@ -18,7 +18,12 @@ class PengajuanJadwalAbsensi extends Model
   
   public function tugas_karyawan()
   {
-    return $this->belongsTo('App\Http\Models\TugasKaryawan');
+    return $this->belongsTo('App\Http\Models\TugasKaryawan')->with([
+      'karyawan',
+      'cabang',
+      'divisi',
+      'jabatan'
+    ]);
   }
 
   public function user()

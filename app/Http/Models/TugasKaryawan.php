@@ -32,7 +32,7 @@ class TugasKaryawan extends Model
 
   public function absensi()
   {
-    return $this->hasMany('App\Http\Models\Absensi');
+    return $this->hasMany('App\Http\Models\Absensi')->with(['tipe_absensi']);
   }
 
   public function pengajuan_jadwal_absensi()
