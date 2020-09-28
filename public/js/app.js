@@ -2744,8 +2744,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.query.absensi.tanggal_absensi = _this.query.absensi.tanggal_absensi == null ? _this.$moment().format('YYYY-MM-DD') : _this.query.absensi.tanggal_absensi;
         _this.state.page.loading = false;
       })["catch"](function (err) {
-        console.log(err);
-
         _this.$router.go(-1);
       });
     },
@@ -2839,12 +2837,8 @@ __webpack_require__.r(__webpack_exports__);
         Promise.all([_this6.$axios.get('/ajax/v1/master/tipe_absensi/' + _this6.query.absensi.tipe_absensi_id)]).then(function (res) {
           _this6.form.pengajuan_jadwal_absensi.create.data.tipe_absensi = res[0].data.container.tipe_absensi;
           $('[data-entity="pengajuanJadwalAbsensi"][data-method="create"]').modal('show');
-        })["catch"](function (err) {
-          return console.log(err);
-        });
-      })["catch"](function (err) {
-        console.log(err);
-      });
+        })["catch"](function (err) {});
+      })["catch"](function (err) {});
     },
     showAcceptPengajuanModal: function showAcceptPengajuanModal(id) {
       var _this7 = this;
@@ -2889,8 +2883,6 @@ __webpack_require__.r(__webpack_exports__);
 
         $('[data-entity="absensi"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
-        console.log(err.response.data);
-
         if (err.response.status == 422) {
           _this9.form.create.errors = err.response.data.errors;
         }
@@ -2969,8 +2961,6 @@ __webpack_require__.r(__webpack_exports__);
 
         $('[data-entity="pengajuanJadwalAbsensi"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
-        console.log(err.response.data);
-
         if (err.response.status == 422) {
           _this12.form.create.errors = err.response.data.errors;
         }
@@ -2990,8 +2980,6 @@ __webpack_require__.r(__webpack_exports__);
 
         $('[data-entity="pengajuanJadwalAbsensi"][data-method="accept"]').modal('hide');
       })["catch"](function (err) {
-        console.log(err.response.data);
-
         if (err.response.status == 422) {
           _this13.form.pengajuan_jadwal_absensi.accept.errors = err.response.data.errors;
         }
@@ -3013,8 +3001,6 @@ __webpack_require__.r(__webpack_exports__);
 
         $('[data-entity="pengajuanJadwalAbsensi"][data-method="destroy"]').modal('hide');
       })["catch"](function (err) {
-        console.log(err.response.data);
-
         if (err.response.status == 422) {
           _this14.form.pengajuan_jadwal_absensi.destroy.errors = err.response.data.errors;
         }

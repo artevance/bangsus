@@ -99,7 +99,7 @@ class PengajuanJadwalAbsensi extends Controller
     $model->delete();
   }
 
-  public function delete(Request $request)
+  public function destroy(Request $request)
   {
     $v = Validator::make($request->only(
       'id'

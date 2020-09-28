@@ -464,7 +464,7 @@ export default {
 
           this.state.page.loading = false
         })
-        .catch(err => { console.log(err)
+        .catch(err => {
           this.$router.go(-1)
         }) 
     },
@@ -557,9 +557,9 @@ export default {
               this.form.pengajuan_jadwal_absensi.create.data.tipe_absensi = res[0].data.container.tipe_absensi
               $('[data-entity="pengajuanJadwalAbsensi"][data-method="create"]').modal('show')
             })
-            .catch(err => console.log(err))
+            .catch(err => {})
         })
-        .catch(err => { console.log(err)
+        .catch(err => {
 
         })
     },
@@ -602,7 +602,7 @@ export default {
           this.prepare()
           $('[data-entity="absensi"][data-method="create"]').modal('hide')
         })
-        .catch(err => { console.log(err.response.data)
+        .catch(err => {
           if (err.response.status == 422) {
             this.form.create.errors = err.response.data.errors
           }
@@ -675,7 +675,7 @@ export default {
           this.prepare()
           $('[data-entity="pengajuanJadwalAbsensi"][data-method="create"]').modal('hide')
         })
-        .catch(err => { console.log(err.response.data)
+        .catch(err => {
           if (err.response.status == 422) {
             this.form.create.errors = err.response.data.errors
           }
@@ -693,7 +693,7 @@ export default {
           this.prepare()
           $('[data-entity="pengajuanJadwalAbsensi"][data-method="accept"]').modal('hide')
         })
-        .catch(err => { console.log(err.response.data)
+        .catch(err => {
           if (err.response.status == 422) {
             this.form.pengajuan_jadwal_absensi.accept.errors = err.response.data.errors
           }
@@ -711,7 +711,7 @@ export default {
           this.prepare()
           $('[data-entity="pengajuanJadwalAbsensi"][data-method="destroy"]').modal('hide')
         })
-        .catch(err => { console.log(err.response.data)
+        .catch(err => {
           if (err.response.status == 422) {
             this.form.pengajuan_jadwal_absensi.destroy.errors = err.response.data.errors
           }
