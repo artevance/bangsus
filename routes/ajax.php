@@ -224,6 +224,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::get('', 'Karyawan@index');
       Route::get('{id}', 'Karyawan@get');
       Route::post('', 'Karyawan@store');
+      Route::put('', 'Karyawan@amend');
     });
     Route::prefix('tugas_karyawan')->group(function () {
       Route::get('', 'TugasKaryawan@index');
