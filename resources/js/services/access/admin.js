@@ -196,5 +196,22 @@ export default {
         update: true
       },
     }
+  },
+  karyawan: {
+    access: true,
+    create: true,
+    read: true,
+    update: true,
+    children: {
+      tugasKaryawan: {
+        access: true,
+        create: true,
+        read: true,
+        update: true
+      }
+    }
+  },
+  absensi: {
+    access: true
   }
 }

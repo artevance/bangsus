@@ -188,6 +188,7 @@ export default {
      */
     create() {
       this.form.create.loading = true
+      this.form.create.errors = {}
       this.$axios.post('/ajax/v1/master/divisi', this.form.create.data)
         .then(res => {
           this.form.create.data = {
@@ -207,6 +208,7 @@ export default {
     },
     update() {
       this.form.update.loading = true
+      this.form.update.errors = {}
       this.$axios.put('/ajax/v1/master/divisi', this.form.update.data)
         .then(res => {
           this.form.update.data = {

@@ -34,10 +34,10 @@
               </div>
             </template>
             <template v-else>
-              <a class="nav-link" :class="item.disabled ? 'disabled text-muted' : ''" href="#" @click="clickSidebar">
+              <router-link class="nav-link" :class="item.disabled ? 'disabled text-muted' : ''" :to="{ name: item.to }" @click.native="clickSidebar">
                 <i class="link-icon" :class="item.icon"></i>
                 <span class="link-title">{{ item.title }}</span>
-              </a>
+              </router-link>
             </template>
           </li>
         </template>
@@ -90,8 +90,8 @@ export default {
                 { title: 'Item Marketing', index: 'itemMarketing', to: 'master.itemMarketing' },
               ]
             },
-            { icon: 'far fa-users', title: 'Karyawan', index: 'karyawan', to: 'master.tipeKontak' },
-            { icon: 'far fa-users-class', title: 'Absensi', index: 'absensi', to: 'master.tipeKontak' },
+            { icon: 'far fa-users', title: 'Karyawan', index: 'karyawan', to: 'karyawan' },
+            { icon: 'far fa-users-class', title: 'Absensi', index: 'absensi', to: 'absensi' },
             {
               icon: 'far fa-file-invoice',
               title: 'Form Operasional',

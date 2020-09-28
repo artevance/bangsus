@@ -70,6 +70,18 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::post('', 'TipeAbsensi@store');
         Route::put('', 'TipeAbsensi@amend');
       });
+      Route::prefix('golongan_darah')->group(function () {
+        Route::get('', 'GolonganDarah@index');
+        Route::get('{id}', 'GolonganDarah@get');
+        Route::post('', 'GolonganDarah@store');
+        Route::put('', 'GolonganDarah@amend');
+      });
+      Route::prefix('jenis_kelamin')->group(function () {
+        Route::get('', 'JenisKelamin@index');
+        Route::get('{id}', 'JenisKelamin@get');
+        Route::post('', 'JenisKelamin@store');
+        Route::put('', 'JenisKelamin@amend');
+      });
       Route::prefix('satuan')->group(function () {
         Route::get('', 'Satuan@index');
         Route::get('{id}', 'Satuan@get');
@@ -207,6 +219,15 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::post('', 'ItemMarketing@store');
         Route::put('', 'ItemMarketing@amend');
       });
+    });
+    Route::prefix('karyawan')->group(function () {
+      Route::get('', 'Karyawan@index');
+      Route::get('{id}', 'Karyawan@get');
+      Route::post('', 'Karyawan@store');
+    });
+    Route::prefix('tugas_karyawan')->group(function () {
+      Route::get('', 'TugasKaryawan@index');
+      Route::get('parent/{id}', 'TugasKaryawan@parent');
     });
   });
 });

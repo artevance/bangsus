@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/app',
-    component: { template: `<router-view></router-view>`},
+    component: { template: `<transition name="fade" mode="out-in"><router-view></router-view></transition>`},
     redirect: '/app/dashboard',
     children: [
       { path: '/', redirect: { name: 'dashboard' } },
@@ -24,7 +24,7 @@ const routes = [
       },
       {
         path: 'master',
-        component: { template: `<router-view></router-view>` },
+        component: { template: `<transition name="fade" mode="out-in"><router-view></router-view></transition>` },
         redirect: { name: 'master.tipeKontak' },
         children: [
           { 
@@ -248,6 +248,29 @@ const routes = [
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
         ]
+      },
+      {
+        path: 'karyawan',
+        name: 'karyawan',
+        component: require('../views/Karyawan').default,
+        meta: { layout: 'default', title: 'Karyawan', sidebar: 'karyawan' },
+        beforeEnter: Multiguard([middleware.auth, middleware.access]),
+        children: [
+          {
+            path: 'tugas_karyawan/:id',
+            name: 'karyawan.tugasKaryawan',
+            component: require('../views/karyawan/TugasKaryawan').default,
+            meta: { layout: 'default', title: 'Tugas Karyawan', sidebar: 'karyawan' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          }
+        ]
+      },
+      {
+        path: 'absensi',
+        name: 'absensi',
+        component: require('../views/Absensi').default,
+        meta: { layout: 'default', title: 'Absensi', sidebar: 'absensi' },
+        beforeEnter: Multiguard([middleware.auth, middleware.access])
       }
     ]
   },

@@ -10,6 +10,10 @@ export default {
   title() {
     return this.$route.meta.title + ' | BangsusApp'
   },
+  created() {
+    document.title = 'BangsusApp'
+  },
+
   watch: {
     '$route' (to, from) {
       document.title = to.meta.title + ' | BangsusApp'
