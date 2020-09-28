@@ -220,7 +220,7 @@ export default {
     children: {
       pengajuanJadwalAbsensi: {
         access: true,
-        create: true,
+        create: false,
         accept: true,
         destroy: true,
       }

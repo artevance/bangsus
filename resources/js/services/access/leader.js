@@ -216,13 +216,13 @@ export default {
     create: false,
     read: true,
     update: false,
-    destroy: true,
+    destroy: false,
     children: {
       pengajuanJadwalAbsensi: {
         access: true,
         create: true,
         accept: false,
-        destroy: true,
+        destroy: false,
       }
     }
   }

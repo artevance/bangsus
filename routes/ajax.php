@@ -246,6 +246,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::get('{id}', 'PengajuanJadwalAbsensi@get');
       Route::post('', 'PengajuanJadwalAbsensi@store');
       Route::put('', 'PengajuanJadwalAbsensi@amend');
+      Route::put('approve', 'PengajuanJadwalAbsensi@approve');
       Route::delete('', 'PengajuanJadwalAbsensi@destroy');
     });
   });

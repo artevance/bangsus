@@ -2588,12 +2588,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       state: {
         page: {
-          loading: false
+          loading: true
         }
       },
       data: {
@@ -2654,14 +2703,13 @@ __webpack_require__.r(__webpack_exports__);
           },
           accept: {
             data: {
-              id: null,
-              tanggal_absensi: '',
-              jam_jadwal: '',
-              nip: '',
-              nama_karyawan: '',
-              kode_cabang: '',
-              nama_cabang: '',
-              tipe_absensi: ''
+              id: null
+            },
+            errors: {}
+          },
+          destroy: {
+            data: {
+              id: null
             },
             errors: {}
           }
@@ -2686,14 +2734,14 @@ __webpack_require__.r(__webpack_exports__);
     prepare: function prepare() {
       var _this = this;
 
-      this.state.page.loading = true;
+      // this.state.page.loading = true
       Promise.all([this.fetchMainData(), this.fetchCabang(), this.fetchTipeAbsensi()]).then(function (res) {
         _this.data.absensi = res[0].data.container;
         _this.data.cabang = res[1].data.container;
         _this.data.tipe_absensi = res[2].data.container;
-        _this.query.absensi.cabang_id = res[1].data.container[0].id;
-        _this.query.absensi.tipe_absensi_id = res[2].data.container[0].id;
-        _this.query.absensi.tanggal_absensi = _this.$moment().format('YYYY-MM-DD');
+        _this.query.absensi.cabang_id = _this.query.absensi.cabang_id == null ? res[1].data.container[0].id : _this.query.absensi.cabang_id;
+        _this.query.absensi.tipe_absensi_id = _this.query.absensi.tipe_absensi_id == null ? res[2].data.container[0].id : _this.query.absensi.tipe_absensi_id;
+        _this.query.absensi.tanggal_absensi = _this.query.absensi.tanggal_absensi == null ? _this.$moment().format('YYYY-MM-DD') : _this.query.absensi.tanggal_absensi;
         _this.state.page.loading = false;
       })["catch"](function (err) {
         console.log(err);
@@ -2764,6 +2812,8 @@ __webpack_require__.r(__webpack_exports__);
         _this4.form.update.data.kode_cabang = res.data.container.tugas_karyawan.cabang.kode_cabang;
         _this4.form.update.data.nama_cabang = res.data.container.tugas_karyawan.cabang.cabang;
         _this4.form.update.data.tipe_absensi = res.data.container.tipe_absensi.tipe_absensi;
+        _this4.form.update.data.jam_jadwal = res.data.container.jam_jadwal;
+        _this4.form.update.data.jam_absen = res.data.container.jam_absen;
         $('[data-entity="absensi"][data-method="update"]').modal('show');
       });
     },
@@ -2797,19 +2847,32 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     showAcceptPengajuanModal: function showAcceptPengajuanModal(id) {
-      $('[data-entity="pengajuanJadwalAbsensi"][data-method="accept"]').modal('show');
+      var _this7 = this;
+
+      this.$axios.get('/ajax/v1/pengajuan_jadwal_absensi/' + id).then(function (res) {
+        _this7.form.pengajuan_jadwal_absensi.accept.data.id = id;
+        $('[data-entity="pengajuanJadwalAbsensi"][data-method="accept"]').modal('show');
+      });
+    },
+    showDestroyPengajuanModal: function showDestroyPengajuanModal(id) {
+      var _this8 = this;
+
+      this.$axios.get('/ajax/v1/pengajuan_jadwal_absensi/' + id).then(function (res) {
+        _this8.form.pengajuan_jadwal_absensi.destroy.data.id = id;
+        $('[data-entity="pengajuanJadwalAbsensi"][data-method="destroy"]').modal('show');
+      });
     },
 
     /**
      *  Form request handler
      */
     create: function create() {
-      var _this7 = this;
+      var _this9 = this;
 
       this.form.create.loading = true;
       this.form.create.errors = {};
       this.$axios.post('/ajax/v1/absensi', this.form.create.data).then(function (res) {
-        _this7.form.create.data = {
+        _this9.form.create.data = {
           tugas_karyawan_id: null,
           tipe_absensi_id: null,
           tanggal_absensi: '',
@@ -2822,74 +2885,27 @@ __webpack_require__.r(__webpack_exports__);
           tipe_absensi: ''
         };
 
-        _this7.prepare();
+        _this9.prepare();
 
         $('[data-entity="absensi"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this7.form.create.errors = err.response.data.errors;
+          _this9.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this7.form.create.loading = false;
+        _this9.form.create.loading = false;
       });
     },
     update: function update() {
-      var _this8 = this;
+      var _this10 = this;
 
       this.form.update.loading = true;
       this.form.update.errors = {};
       this.$axios.put('/ajax/v1/absensi', this.form.update.data).then(function (res) {
-        _this8.form.update.data = {
+        _this10.form.update.data = {
           id: null,
-          tanggal_absensi: '',
-          jam_jadwal: '',
-          jam_absen: '',
-          nip: '',
-          nama_karyawan: '',
-          kode_cabang: '',
-          nama_cabang: '',
-          tipe_absensi: ''
-        };
-
-        _this8.prepare();
-
-        $('[data-entity="absensi"][data-method="update"]').modal('hide');
-      })["catch"](function (err) {
-        if (err.response.status == 422) {
-          _this8.form.update.errors = err.response.data.errors;
-        }
-      })["finally"](function () {
-        _this8.form.update.loading = false;
-      });
-    },
-    destroy: function destroy() {
-      var _this9 = this;
-
-      this.form.destroy.loading = true;
-      this.form.destroy.errors = {};
-      this.$axios["delete"]('/ajax/v1/absensi/', {
-        data: this.form.destroy.data
-      }).then(function (res) {
-        _this9.form.destroy.data.id = null;
-
-        _this9.prepare();
-
-        $('[data-entity="absensi"][data-method="destroy"]').modal('hide');
-      })["catch"](function (err) {
-        return console.log(err.response);
-      });
-    },
-    createPengajuan: function createPengajuan() {
-      var _this10 = this;
-
-      this.form.create.loading = true;
-      this.form.create.errors = {};
-      this.$axios.post('/ajax/v1/pengajuan_jadwal_absensi', this.form.pengajuan_jadwal_absensi.create.data).then(function (res) {
-        _this10.form.pengajuan_jadwal_absensi.create.data = {
-          tugas_karyawan_id: null,
-          tipe_absensi_id: null,
           tanggal_absensi: '',
           jam_jadwal: '',
           jam_absen: '',
@@ -2902,15 +2918,108 @@ __webpack_require__.r(__webpack_exports__);
 
         _this10.prepare();
 
+        $('[data-entity="absensi"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this10.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this10.form.update.loading = false;
+      });
+    },
+    destroy: function destroy() {
+      var _this11 = this;
+
+      this.form.destroy.loading = true;
+      this.form.destroy.errors = {};
+      this.$axios["delete"]('/ajax/v1/absensi/', {
+        data: this.form.destroy.data
+      }).then(function (res) {
+        _this11.form.destroy.data.id = null;
+
+        _this11.prepare();
+
+        $('[data-entity="absensi"][data-method="destroy"]').modal('hide');
+      })["catch"](function (err) {
+        return console.log(err.response);
+      })["finally"](function () {
+        _this11.form.destroy.loading = false;
+      });
+    },
+    createPengajuan: function createPengajuan() {
+      var _this12 = this;
+
+      this.form.create.loading = true;
+      this.form.create.errors = {};
+      this.$axios.post('/ajax/v1/pengajuan_jadwal_absensi', this.form.pengajuan_jadwal_absensi.create.data).then(function (res) {
+        _this12.form.pengajuan_jadwal_absensi.create.data = {
+          tugas_karyawan_id: null,
+          tipe_absensi_id: null,
+          tanggal_absensi: '',
+          jam_jadwal: '',
+          jam_absen: '',
+          nip: '',
+          nama_karyawan: '',
+          kode_cabang: '',
+          nama_cabang: '',
+          tipe_absensi: ''
+        };
+
+        _this12.prepare();
+
         $('[data-entity="pengajuanJadwalAbsensi"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         console.log(err.response.data);
 
         if (err.response.status == 422) {
-          _this10.form.create.errors = err.response.data.errors;
+          _this12.form.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this10.form.create.loading = false;
+        _this12.form.create.loading = false;
+      });
+    },
+    acceptPengajuan: function acceptPengajuan() {
+      var _this13 = this;
+
+      this.form.pengajuan_jadwal_absensi.accept.loading = true;
+      this.form.pengajuan_jadwal_absensi.accept.errors = {};
+      this.$axios.put('/ajax/v1/pengajuan_jadwal_absensi/approve', this.form.pengajuan_jadwal_absensi.accept.data).then(function (res) {
+        _this13.form.pengajuan_jadwal_absensi.accept.data.id = null;
+
+        _this13.prepare();
+
+        $('[data-entity="pengajuanJadwalAbsensi"][data-method="accept"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this13.form.pengajuan_jadwal_absensi.accept.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this13.form.pengajuan_jadwal_absensi.accept.loading = false;
+      });
+    },
+    destroyPengajuan: function destroyPengajuan() {
+      var _this14 = this;
+
+      this.form.pengajuan_jadwal_absensi.destroy.loading = true;
+      this.form.pengajuan_jadwal_absensi.destroy.errors = {};
+      this.$axios["delete"]('/ajax/v1/pengajuan_jadwal_absensi', {
+        data: this.form.pengajuan_jadwal_absensi.destroy.data
+      }).then(function (res) {
+        _this14.form.pengajuan_jadwal_absensi.destroy.data.id = null;
+
+        _this14.prepare();
+
+        $('[data-entity="pengajuanJadwalAbsensi"][data-method="destroy"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this14.form.pengajuan_jadwal_absensi.destroy.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this14.form.pengajuan_jadwal_absensi.destroy.loading = false;
       });
     }
   }
@@ -72477,7 +72586,35 @@ var render = function() {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                        Terima Jam Jadwal\n                      "
+                                                    "\n                        Terima Pengajuan\n                      "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.$access(
+                                            "absensi.pengajuanJadwalAbsensi",
+                                            "destroy"
+                                          )
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-danger",
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.showDestroyPengajuanModal(
+                                                        absensi
+                                                          .pengajuan_jadwal_absensi[0]
+                                                          .id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                        Hapus Pengajuan\n                      "
                                                   )
                                                 ]
                                               )
@@ -73587,6 +73724,124 @@ var render = function() {
             ])
           ])
         ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            "data-entity": "pengajuanJadwalAbsensi",
+            "data-method": "accept",
+            "data-backdrop": "static",
+            "data-keyboard": "false",
+            tabindex: "-1"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.acceptPengajuan($event)
+                    }
+                  }
+                },
+                [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          type: "submit",
+                          disabled:
+                            _vm.form.pengajuan_jadwal_absensi.accept.loading
+                        }
+                      },
+                      [
+                        _vm.form.pengajuan_jadwal_absensi.accept.loading
+                          ? _c("spinner-component", {
+                              attrs: { size: "sm", color: "light" }
+                            })
+                          : _vm._e(),
+                        _vm._v("\n              Terima\n            ")
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            "data-entity": "pengajuanJadwalAbsensi",
+            "data-method": "destroy",
+            "data-backdrop": "static",
+            "data-keyboard": "false",
+            tabindex: "-1"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.destroyPengajuan($event)
+                    }
+                  }
+                },
+                [
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _vm._m(8),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          type: "submit",
+                          disabled:
+                            _vm.form.pengajuan_jadwal_absensi.destroy.loading
+                        }
+                      },
+                      [
+                        _vm.form.pengajuan_jadwal_absensi.destroy.loading
+                          ? _c("spinner-component", {
+                              attrs: { size: "sm", color: "light" }
+                            })
+                          : _vm._e(),
+                        _vm._v("\n              Hapus\n            ")
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ]
       )
     ],
     1
@@ -73683,6 +73938,68 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Terima Pengajuan Jadwal Absensi")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("p", [_vm._v("Apakah anda yakin?")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Hapus Pengajuan Jadwal Absensi")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("p", [_vm._v("Apakah anda yakin?")])
     ])
   }
 ]
@@ -109376,7 +109693,7 @@ __webpack_require__.r(__webpack_exports__);
     children: {
       pengajuanJadwalAbsensi: {
         access: true,
-        create: true,
+        create: false,
         accept: true,
         destroy: true
       }
@@ -109613,13 +109930,13 @@ __webpack_require__.r(__webpack_exports__);
     create: false,
     read: true,
     update: false,
-    destroy: true,
+    destroy: false,
     children: {
       pengajuanJadwalAbsensi: {
         access: true,
         create: true,
         accept: false,
-        destroy: true
+        destroy: false
       }
     }
   }

@@ -83,7 +83,10 @@
                       </span>
                       <span v-else>
                         <a class="badge badge-light" @click="showAcceptPengajuanModal(absensi.pengajuan_jadwal_absensi[0].id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'accept')">
-                          Terima Jam Jadwal
+                          Terima Pengajuan
+                        </a>
+                        <a class="badge badge-danger" @click="showDestroyPengajuanModal(absensi.pengajuan_jadwal_absensi[0].id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'destroy')">
+                          Hapus Pengajuan
                         </a>
                       </span>
                     </td>
@@ -299,6 +302,52 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" data-entity="pengajuanJadwalAbsensi" data-method="accept" data-backdrop="static" data-keyboard="false" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form @submit.prevent="acceptPengajuan">
+            <div class="modal-header">
+              <h5 class="modal-title">Terima Pengajuan Jadwal Absensi</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Apakah anda yakin?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" :disabled="form.pengajuan_jadwal_absensi.accept.loading">
+                <spinner-component size="sm" color="light" v-if="form.pengajuan_jadwal_absensi.accept.loading"/>
+                Terima
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" data-entity="pengajuanJadwalAbsensi" data-method="destroy" data-backdrop="static" data-keyboard="false" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form @submit.prevent="destroyPengajuan">
+            <div class="modal-header">
+              <h5 class="modal-title">Hapus Pengajuan Jadwal Absensi</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Apakah anda yakin?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" :disabled="form.pengajuan_jadwal_absensi.destroy.loading">
+                <spinner-component size="sm" color="light" v-if="form.pengajuan_jadwal_absensi.destroy.loading"/>
+                Hapus
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -306,7 +355,7 @@
 export default {
   data() {
     return {
-      state: { page: { loading: false } },
+      state: { page: { loading: true } },
       data: {
         absensi: [],
         cabang: [],
@@ -368,15 +417,13 @@ export default {
           },
           accept: {
             data: {
-              id: null,
-              tanggal_absensi: '',
-              jam_jadwal: '',
-
-              nip: '',
-              nama_karyawan: '',
-              kode_cabang: '',
-              nama_cabang: '',
-              tipe_absensi: ''
+              id: null
+            },
+            errors: {}
+          },
+          destroy: {
+            data: {
+              id: null
             },
             errors: {}
           }
@@ -400,7 +447,7 @@ export default {
      *  Prepare the page.
      */
     prepare() {
-      this.state.page.loading = true
+      // this.state.page.loading = true
       Promise.all([
         this.fetchMainData(),
         this.fetchCabang(),
@@ -411,9 +458,9 @@ export default {
           this.data.cabang = res[1].data.container
           this.data.tipe_absensi = res[2].data.container
 
-          this.query.absensi.cabang_id = res[1].data.container[0].id
-          this.query.absensi.tipe_absensi_id = res[2].data.container[0].id
-          this.query.absensi.tanggal_absensi = this.$moment().format('YYYY-MM-DD')
+          this.query.absensi.cabang_id = this.query.absensi.cabang_id == null ? res[1].data.container[0].id : this.query.absensi.cabang_id
+          this.query.absensi.tipe_absensi_id = this.query.absensi.tipe_absensi_id == null ? res[2].data.container[0].id : this.query.absensi.tipe_absensi_id
+          this.query.absensi.tanggal_absensi = this.query.absensi.tanggal_absensi == null ? this.$moment().format('YYYY-MM-DD') : this.query.absensi.tanggal_absensi
 
           this.state.page.loading = false
         })
@@ -481,6 +528,8 @@ export default {
           this.form.update.data.kode_cabang = res.data.container.tugas_karyawan.cabang.kode_cabang
           this.form.update.data.nama_cabang = res.data.container.tugas_karyawan.cabang.cabang
           this.form.update.data.tipe_absensi = res.data.container.tipe_absensi.tipe_absensi
+          this.form.update.data.jam_jadwal = res.data.container.jam_jadwal
+          this.form.update.data.jam_absen = res.data.container.jam_absen
           $('[data-entity="absensi"][data-method="update"]').modal('show')
         })
     },
@@ -515,7 +564,18 @@ export default {
         })
     },
     showAcceptPengajuanModal(id) {
-      $('[data-entity="pengajuanJadwalAbsensi"][data-method="accept"]').modal('show')
+      this.$axios.get('/ajax/v1/pengajuan_jadwal_absensi/' + id)
+        .then(res => {
+          this.form.pengajuan_jadwal_absensi.accept.data.id = id
+          $('[data-entity="pengajuanJadwalAbsensi"][data-method="accept"]').modal('show')
+        })
+    },
+    showDestroyPengajuanModal(id) {
+      this.$axios.get('/ajax/v1/pengajuan_jadwal_absensi/' + id)
+        .then(res => {
+          this.form.pengajuan_jadwal_absensi.destroy.data.id = id
+          $('[data-entity="pengajuanJadwalAbsensi"][data-method="destroy"]').modal('show')
+        })
     },
 
     /**
@@ -590,6 +650,9 @@ export default {
           $('[data-entity="absensi"][data-method="destroy"]').modal('hide')
         })
         .catch(err => console.log(err.response))
+        .finally(() => {
+          this.form.destroy.loading = false
+        })
     },
     createPengajuan() {
       this.form.create.loading = true
@@ -619,6 +682,42 @@ export default {
         })
         .finally(() => {
           this.form.create.loading = false
+        })
+    },
+    acceptPengajuan() {
+      this.form.pengajuan_jadwal_absensi.accept.loading = true
+      this.form.pengajuan_jadwal_absensi.accept.errors = {}
+      this.$axios.put('/ajax/v1/pengajuan_jadwal_absensi/approve', this.form.pengajuan_jadwal_absensi.accept.data)
+        .then(res => {
+          this.form.pengajuan_jadwal_absensi.accept.data.id = null
+          this.prepare()
+          $('[data-entity="pengajuanJadwalAbsensi"][data-method="accept"]').modal('hide')
+        })
+        .catch(err => { console.log(err.response.data)
+          if (err.response.status == 422) {
+            this.form.pengajuan_jadwal_absensi.accept.errors = err.response.data.errors
+          }
+        })
+        .finally(() => {
+          this.form.pengajuan_jadwal_absensi.accept.loading = false
+        })
+    },
+    destroyPengajuan() {
+      this.form.pengajuan_jadwal_absensi.destroy.loading = true
+      this.form.pengajuan_jadwal_absensi.destroy.errors = {}
+      this.$axios.delete('/ajax/v1/pengajuan_jadwal_absensi', { data: this.form.pengajuan_jadwal_absensi.destroy.data })
+        .then(res => {
+          this.form.pengajuan_jadwal_absensi.destroy.data.id = null
+          this.prepare()
+          $('[data-entity="pengajuanJadwalAbsensi"][data-method="destroy"]').modal('hide')
+        })
+        .catch(err => { console.log(err.response.data)
+          if (err.response.status == 422) {
+            this.form.pengajuan_jadwal_absensi.destroy.errors = err.response.data.errors
+          }
+        })
+        .finally(() => {
+          this.form.pengajuan_jadwal_absensi.destroy.loading = false
         })
     }
   }
