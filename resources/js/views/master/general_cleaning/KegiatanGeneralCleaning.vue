@@ -124,14 +124,16 @@ export default {
             kegiatan_general_cleaning: '',
             area_general_cleaning_id: this.$route.params.id
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             kegiatan_general_cleaning: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

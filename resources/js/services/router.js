@@ -257,6 +257,13 @@ const routes = [
         beforeEnter: Multiguard([middleware.auth, middleware.access]),
         children: [
           {
+            path: ':id',
+            name: 'karyawan.profil',
+            component: require('../views/karyawan/Profil').default,
+            meta: { layout: 'default', title: 'Profil Karyawan', sidebar: 'karyawan' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
             path: 'tugas_karyawan/:id',
             name: 'karyawan.tugasKaryawan',
             component: require('../views/karyawan/TugasKaryawan').default,

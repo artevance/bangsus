@@ -111,14 +111,16 @@ export default {
           data: {
             kelompok_laporan_foto: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             kelompok_laporan_foto: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

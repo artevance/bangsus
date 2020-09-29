@@ -150,7 +150,8 @@ export default {
             cabang: '',
             tipe_cabang_id: null,
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -159,7 +160,8 @@ export default {
             cabang: '',
             tipe_cabang_id: null,
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

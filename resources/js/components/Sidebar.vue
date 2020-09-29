@@ -18,7 +18,7 @@
           <!-- <li class="nav-item nav-category">{{ s.category }}</li> -->
           <li class="nav-item" v-for="item in s.children" :class="{'active': $route.meta.sidebar === item.index}">
             <template v-if="Array.isArray(item.children)">
-              <a class="nav-link" :class="{'disabled text-muted': item.disabled}" data-toggle="collapse" v-bind:href="'#' + item.href">
+              <a class="nav-link" :class="{'disabled text-muted': item.disabled}" data-toggle="collapse" v-bind:href="'#' + item.href" v-if="$access(item.to, 'access')">
                 <i class="link-icon" :class="item.icon"></i>
                 <span class="link-title">{{ item.title }}</span>
                 <i class="link-arrow far fa-chevron-down"></i>
@@ -26,7 +26,7 @@
               <div class="collapse" v-bind:id="item.href" :class="{'show': $route.meta.sidebar === item.index}">
                 <ul class="nav sub-menu">
                   <li class="nav-item" v-for="link in item.children">
-                    <router-link class="nav-link" :class="{'active': $route.meta.item === link.index}" :to="{ name: link.to }" @click.native="clickSidebar">
+                    <router-link class="nav-link" :class="{'active': $route.meta.item === link.index}" :to="{ name: link.to }" @click.native="clickSidebar" v-if="$access(link.to, 'access')">
                       {{ link.title }}
                     </router-link>
                   </li>
@@ -34,7 +34,7 @@
               </div>
             </template>
             <template v-else>
-              <router-link class="nav-link" :class="item.disabled ? 'disabled text-muted' : ''" :to="{ name: item.to }" @click.native="clickSidebar">
+              <router-link class="nav-link" :class="item.disabled ? 'disabled text-muted' : ''" :to="{ name: item.to }" @click.native="clickSidebar" v-if="$access(item.to, 'access')">
                 <i class="link-icon" :class="item.icon"></i>
                 <span class="link-title">{{ item.title }}</span>
               </router-link>
@@ -62,6 +62,7 @@ export default {
               title: 'Master',
               index: 'master',
               href: 'master',
+              to: 'master',
               children: [
                 { title: 'Tipe Kontak', index: 'tipeKontak', to: 'master.tipeKontak' },
                 { title: 'Tipe Alamat', index: 'tipeAlamat', to: 'master.tipeAlamat' },
@@ -97,6 +98,7 @@ export default {
               title: 'Form Operasional',
               index: 'formOperasional',
               href: 'operationalForm',
+              to: 'operationalForm',
               children: [
                 { title: 'Form C1', index: 'formC1', to: 'master.tipeKontak' },
                 { title: 'Form C2', index: 'formC2', to: 'master.tipeKontak' },

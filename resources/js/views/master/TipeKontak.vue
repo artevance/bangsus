@@ -111,14 +111,16 @@ export default {
           data: {
             tipe_kontak: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_kontak: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

@@ -111,14 +111,16 @@ export default {
           data: {
             tipe_proses_lpg: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_proses_lpg: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

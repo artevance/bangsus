@@ -111,14 +111,16 @@ export default {
           data: {
             tipe_foto_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_foto_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

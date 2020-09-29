@@ -111,14 +111,16 @@ export default {
           data: {
             satuan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             satuan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

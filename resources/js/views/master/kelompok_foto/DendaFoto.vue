@@ -143,7 +143,8 @@ export default {
             kelompok_foto_id: this.$route.params.id,
             nominal: 0
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -151,7 +152,8 @@ export default {
             denda_foto: '',
             nominal: 0
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

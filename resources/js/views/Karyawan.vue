@@ -30,7 +30,11 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{ karyawan.nip }}</td>
                       <td>{{ karyawan.nik }}</td>
-                      <td>{{ karyawan.nama_karyawan }}</td>
+                      <td>
+                        <router-link :to="{ name: 'karyawan.profil', params: { id: karyawan.id } }">
+                          {{ karyawan.nama_karyawan }}
+                        </router-link>
+                      </td>
                       <td>{{ karyawan.tempat_lahir }}</td>
                       <td>{{ karyawan.tanggal_lahir }}</td>
                       <td>{{ karyawan.golongan_darah.golongan_darah }}</td>
@@ -332,7 +336,8 @@ export default {
             jenis_kelamin_id: null,
             no_finger: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -344,7 +349,8 @@ export default {
             golongan_darah_id: null,
             jenis_kelamin_id: null
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

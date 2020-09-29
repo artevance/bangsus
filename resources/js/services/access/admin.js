@@ -203,6 +203,9 @@ export default {
     read: true,
     update: true,
     children: {
+      profil: {
+        access: true
+      },
       tugasKaryawan: {
         access: true,
         create: true,

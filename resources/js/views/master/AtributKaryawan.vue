@@ -117,14 +117,16 @@ export default {
           data: {
             atribut_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             atribut_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

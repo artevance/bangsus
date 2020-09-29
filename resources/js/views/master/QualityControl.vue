@@ -117,14 +117,16 @@ export default {
           data: {
             quality_control: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             quality_control: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

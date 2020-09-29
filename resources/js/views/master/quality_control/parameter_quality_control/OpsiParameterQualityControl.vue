@@ -124,14 +124,16 @@ export default {
             opsi_parameter_quality_control: '',
             parameter_quality_control_id: this.$route.params.cid
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             opsi_parameter_quality_control: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

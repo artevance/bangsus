@@ -1,6 +1,6 @@
 export default {
   dashboard: {
-    access: false
+    access: true
   },
   master: {
     access: false,

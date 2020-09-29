@@ -111,14 +111,16 @@ export default {
           data: {
             tipe_absensi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_absensi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

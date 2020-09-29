@@ -152,7 +152,8 @@ export default {
             nominal: 0,
             qty_minimum_form: 0
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -161,7 +162,8 @@ export default {
             denda_tidak_kirim: false,
             qty_minimum_form: 0
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

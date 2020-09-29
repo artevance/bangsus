@@ -117,14 +117,16 @@ export default {
           data: {
             area_general_cleaning: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             area_general_cleaning: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

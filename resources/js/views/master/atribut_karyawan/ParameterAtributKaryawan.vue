@@ -140,14 +140,16 @@ export default {
             parameter_atribut_karyawan: '',
             atribut_karyawan_id: this.$route.params.id
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             parameter_atribut_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

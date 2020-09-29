@@ -1983,6 +1983,7 @@ __webpack_require__.r(__webpack_exports__);
           title: 'Master',
           index: 'master',
           href: 'master',
+          to: 'master',
           children: [{
             title: 'Tipe Kontak',
             index: 'tipeKontak',
@@ -2099,6 +2100,7 @@ __webpack_require__.r(__webpack_exports__);
           title: 'Form Operasional',
           index: 'formOperasional',
           href: 'operationalForm',
+          to: 'operationalForm',
           children: [{
             title: 'Form C1',
             index: 'formC1',
@@ -2687,6 +2689,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2717,7 +2727,8 @@ __webpack_require__.r(__webpack_exports__);
             nama_cabang: '',
             tipe_absensi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -2731,13 +2742,15 @@ __webpack_require__.r(__webpack_exports__);
             nama_cabang: '',
             tipe_absensi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         destroy: {
           data: {
             id: null
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         pengajuan_jadwal_absensi: {
           create: {
@@ -2752,7 +2765,8 @@ __webpack_require__.r(__webpack_exports__);
               nama_cabang: '',
               tipe_absensi: ''
             },
-            errors: {}
+            errors: {},
+            loading: false
           },
           accept: {
             data: {
@@ -2764,15 +2778,16 @@ __webpack_require__.r(__webpack_exports__);
             data: {
               id: null
             },
-            errors: {}
+            errors: {},
+            loading: false
           }
         }
       },
       query: {
         absensi: {
-          cabang_id: this.$route.params.cabang_id || null,
-          tipe_absensi_id: this.$route.params.tipe_absensi_id || null,
-          tanggal_absensi: this.$route.params.tanggal_absensi || this.$moment().format('YYYY-MM-DD')
+          cabang_id: this.$route.query.cabang_id || null,
+          tipe_absensi_id: this.$route.query.tipe_absensi_id || null,
+          tanggal_absensi: this.$route.query.tanggal_absensi || this.$moment().format('YYYY-MM-DD')
         }
       }
     };
@@ -2825,9 +2840,7 @@ __webpack_require__.r(__webpack_exports__);
       var withSpinner = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
       if (withSpinner) this.state.table.loading = true;
       this.fetchMainData().then(function (res) {
-        var query = _this2.$route.query;
-
-        if (!_this2.$_.isEqual(query, _this2.query.absensi)) {
+        if (!_this2.$_.isEqual(_this2.$route.query, _this2.query.absensi)) {
           _this2.$router.push({
             name: 'absensi',
             query: _this2.query.absensi
@@ -3021,8 +3034,8 @@ __webpack_require__.r(__webpack_exports__);
     createPengajuan: function createPengajuan() {
       var _this12 = this;
 
-      this.form.create.loading = true;
-      this.form.create.errors = {};
+      this.form.pengajuan_jadwal_absensi.create.loading = true;
+      this.form.pengajuan_jadwal_absensi.create.errors = {};
       this.$axios.post('/ajax/v1/pengajuan_jadwal_absensi', this.form.pengajuan_jadwal_absensi.create.data).then(function (res) {
         _this12.form.pengajuan_jadwal_absensi.create.data = {
           tugas_karyawan_id: null,
@@ -3042,10 +3055,10 @@ __webpack_require__.r(__webpack_exports__);
         $('[data-entity="pengajuanJadwalAbsensi"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
         if (err.response.status == 422) {
-          _this12.form.create.errors = err.response.data.errors;
+          _this12.form.pengajuan_jadwal_absensi.create.errors = err.response.data.errors;
         }
       })["finally"](function () {
-        _this12.form.create.loading = false;
+        _this12.form.pengajuan_jadwal_absensi.create.loading = false;
       });
     },
     acceptPengajuan: function acceptPengajuan() {
@@ -3408,6 +3421,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3439,7 +3456,8 @@ __webpack_require__.r(__webpack_exports__);
             jenis_kelamin_id: null,
             no_finger: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -3451,7 +3469,8 @@ __webpack_require__.r(__webpack_exports__);
             golongan_darah_id: null,
             jenis_kelamin_id: null
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -3741,6 +3760,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -4363,14 +4385,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             aktivitas_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             aktivitas_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -4614,14 +4638,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             aktivitas_marketing: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             aktivitas_marketing: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -4871,14 +4897,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             atribut_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             atribut_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -5161,7 +5189,8 @@ __webpack_require__.r(__webpack_exports__);
             cabang: '',
             tipe_cabang_id: null
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -5170,7 +5199,8 @@ __webpack_require__.r(__webpack_exports__);
             cabang: '',
             tipe_cabang_id: null
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -5428,14 +5458,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             divisi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             divisi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -5685,14 +5717,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             area_general_cleaning: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             area_general_cleaning: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -5936,14 +5970,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             item_goreng: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             item_goreng: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -6187,14 +6223,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             item_marketing: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             item_marketing: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -6438,14 +6476,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             jabatan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             jabatan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -6689,14 +6729,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             kegiatan_kebersihan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             kegiatan_kebersihan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -6981,7 +7023,8 @@ __webpack_require__.r(__webpack_exports__);
             nominal: 0,
             qty_minimum_form: 0
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -6990,7 +7033,8 @@ __webpack_require__.r(__webpack_exports__);
             denda_tidak_kirim: false,
             qty_minimum_form: 0
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -7242,14 +7286,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             kelompok_laporan_foto: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             kelompok_laporan_foto: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -7499,14 +7545,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             quality_control: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             quality_control: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -7750,14 +7798,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             satuan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             satuan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -8001,14 +8051,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             supplier: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             supplier: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -8252,14 +8304,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             tipe_absensi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_absensi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -8503,14 +8557,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             tipe_alamat: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_alamat: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -8754,14 +8810,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             tipe_cabang: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_cabang: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -9005,14 +9063,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             tipe_foto_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_foto_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -9256,14 +9316,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             tipe_kontak: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_kontak: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -9507,14 +9569,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             tipe_proses_lpg: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_proses_lpg: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -9758,14 +9822,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             tipe_proses_margarin: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_proses_margarin: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -10009,14 +10075,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             tipe_proses_minyak: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_proses_minyak: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -10260,14 +10328,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             tipe_proses_sambal: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_proses_sambal: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -10511,14 +10581,16 @@ __webpack_require__.r(__webpack_exports__);
           data: {
             tipe_proses_tepung: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_proses_tepung: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -10791,14 +10863,16 @@ __webpack_require__.r(__webpack_exports__);
             parameter_atribut_karyawan: '',
             atribut_karyawan_id: this.$route.params.id
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             parameter_atribut_karyawan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -11067,14 +11141,16 @@ __webpack_require__.r(__webpack_exports__);
             kegiatan_general_cleaning: '',
             area_general_cleaning_id: this.$route.params.id
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             kegiatan_general_cleaning: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -11360,7 +11436,8 @@ __webpack_require__.r(__webpack_exports__);
             kelompok_foto_id: this.$route.params.id,
             nominal: 0
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -11368,7 +11445,8 @@ __webpack_require__.r(__webpack_exports__);
             denda_foto: '',
             nominal: 0
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -11645,14 +11723,16 @@ __webpack_require__.r(__webpack_exports__);
             parameter_quality_control: '',
             quality_control_id: this.$route.params.id
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             parameter_quality_control: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -11918,14 +11998,16 @@ __webpack_require__.r(__webpack_exports__);
             opsi_parameter_quality_control: '',
             parameter_quality_control_id: this.$route.params.cid
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             opsi_parameter_quality_control: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {
@@ -77325,31 +77407,33 @@ var render = function() {
                 [
                   Array.isArray(item.children)
                     ? [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "nav-link",
-                            class: { "disabled text-muted": item.disabled },
-                            attrs: {
-                              "data-toggle": "collapse",
-                              href: "#" + item.href
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "link-icon",
-                              class: item.icon
-                            }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "link-title" }, [
-                              _vm._v(_vm._s(item.title))
-                            ]),
-                            _vm._v(" "),
-                            _c("i", {
-                              staticClass: "link-arrow far fa-chevron-down"
-                            })
-                          ]
-                        ),
+                        _vm.$access(item.to, "access")
+                          ? _c(
+                              "a",
+                              {
+                                staticClass: "nav-link",
+                                class: { "disabled text-muted": item.disabled },
+                                attrs: {
+                                  "data-toggle": "collapse",
+                                  href: "#" + item.href
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "link-icon",
+                                  class: item.icon
+                                }),
+                                _vm._v(" "),
+                                _c("span", { staticClass: "link-title" }, [
+                                  _vm._v(_vm._s(item.title))
+                                ]),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "link-arrow far fa-chevron-down"
+                                })
+                              ]
+                            )
+                          : _vm._e(),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -77369,29 +77453,32 @@ var render = function() {
                                   "li",
                                   { staticClass: "nav-item" },
                                   [
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass: "nav-link",
-                                        class: {
-                                          active:
-                                            _vm.$route.meta.item === link.index
-                                        },
-                                        attrs: { to: { name: link.to } },
-                                        nativeOn: {
-                                          click: function($event) {
-                                            return _vm.clickSidebar($event)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                    " +
-                                            _vm._s(link.title) +
-                                            "\n                  "
+                                    _vm.$access(link.to, "access")
+                                      ? _c(
+                                          "router-link",
+                                          {
+                                            staticClass: "nav-link",
+                                            class: {
+                                              active:
+                                                _vm.$route.meta.item ===
+                                                link.index
+                                            },
+                                            attrs: { to: { name: link.to } },
+                                            nativeOn: {
+                                              click: function($event) {
+                                                return _vm.clickSidebar($event)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                    " +
+                                                _vm._s(link.title) +
+                                                "\n                  "
+                                            )
+                                          ]
                                         )
-                                      ]
-                                    )
+                                      : _vm._e()
                                   ],
                                   1
                                 )
@@ -77402,29 +77489,33 @@ var render = function() {
                         )
                       ]
                     : [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
-                            class: item.disabled ? "disabled text-muted" : "",
-                            attrs: { to: { name: item.to } },
-                            nativeOn: {
-                              click: function($event) {
-                                return _vm.clickSidebar($event)
-                              }
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "link-icon",
-                              class: item.icon
-                            }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "link-title" }, [
-                              _vm._v(_vm._s(item.title))
-                            ])
-                          ]
-                        )
+                        _vm.$access(item.to, "access")
+                          ? _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                class: item.disabled
+                                  ? "disabled text-muted"
+                                  : "",
+                                attrs: { to: { name: item.to } },
+                                nativeOn: {
+                                  click: function($event) {
+                                    return _vm.clickSidebar($event)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "link-icon",
+                                  class: item.icon
+                                }),
+                                _vm._v(" "),
+                                _c("span", { staticClass: "link-title" }, [
+                                  _vm._v(_vm._s(item.title))
+                                ])
+                              ]
+                            )
+                          : _vm._e()
                       ]
                 ],
                 2
@@ -78003,19 +78094,60 @@ var render = function() {
                                                             _vm._v(
                                                               _vm._s(
                                                                 absensi.karyawan
-                                                                  .nik
+                                                                  .nip
                                                               )
                                                             )
                                                           ]),
                                                           _vm._v(" "),
-                                                          _c("td", [
-                                                            _vm._v(
-                                                              _vm._s(
-                                                                absensi.karyawan
-                                                                  .nama_karyawan
+                                                          _c(
+                                                            "td",
+                                                            [
+                                                              _vm.$access(
+                                                                "karyawan.profil",
+                                                                "access"
                                                               )
-                                                            )
-                                                          ]),
+                                                                ? _c(
+                                                                    "router-link",
+                                                                    {
+                                                                      attrs: {
+                                                                        to: {
+                                                                          name:
+                                                                            "karyawan.profil",
+                                                                          params: {
+                                                                            id:
+                                                                              absensi
+                                                                                .karyawan
+                                                                                .id
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _vm._v(
+                                                                        "\n                          " +
+                                                                          _vm._s(
+                                                                            absensi
+                                                                              .karyawan
+                                                                              .nama_karyawan
+                                                                          ) +
+                                                                          "\n                        "
+                                                                      )
+                                                                    ]
+                                                                  )
+                                                                : _c("span", [
+                                                                    _vm._v(
+                                                                      "\n                          " +
+                                                                        _vm._s(
+                                                                          absensi
+                                                                            .karyawan
+                                                                            .nama_karyawan
+                                                                        ) +
+                                                                        "\n                        "
+                                                                    )
+                                                                  ])
+                                                            ],
+                                                            1
+                                                          ),
                                                           _vm._v(" "),
                                                           _c("td", [
                                                             _vm._v(
@@ -79206,7 +79338,7 @@ var render = function() {
                         [
                           _c("div", { staticClass: "modal-header" }, [
                             _c("h5", { staticClass: "modal-title" }, [
-                              _vm._v("Ubah Absensi")
+                              _vm._v("Pengajuan Jadwal Absensi")
                             ]),
                             _vm._v(" "),
                             _c(
@@ -79881,13 +80013,35 @@ var render = function() {
                                                   _vm._v(_vm._s(karyawan.nik))
                                                 ]),
                                                 _vm._v(" "),
-                                                _c("td", [
-                                                  _vm._v(
-                                                    _vm._s(
-                                                      karyawan.nama_karyawan
+                                                _c(
+                                                  "td",
+                                                  [
+                                                    _c(
+                                                      "router-link",
+                                                      {
+                                                        attrs: {
+                                                          to: {
+                                                            name:
+                                                              "karyawan.profil",
+                                                            params: {
+                                                              id: karyawan.id
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "\n                        " +
+                                                            _vm._s(
+                                                              karyawan.nama_karyawan
+                                                            ) +
+                                                            "\n                      "
+                                                        )
+                                                      ]
                                                     )
-                                                  )
-                                                ]),
+                                                  ],
+                                                  1
+                                                ),
                                                 _vm._v(" "),
                                                 _c("td", [
                                                   _vm._v(
@@ -81970,17 +82124,49 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "transition",
-    { attrs: { name: "fade", mode: "out-in" } },
+    "div",
     [
-      _vm.$route.meta.layout === "default"
-        ? _c("default-layout")
-        : _vm.$route.meta.layout === "plain"
-        ? _c("plain-layout")
-        : _vm._e()
+      _c("vue-progress-bar"),
+      _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "fade", mode: "out-in" } },
+        [
+          _vm.$route.meta.layout === "default"
+            ? _c("default-layout")
+            : _vm.$route.meta.layout === "plain"
+            ? _c("plain-layout")
+            : _vm._e()
+        ],
+        1
+      )
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/karyawan/Profil.vue?vue&type=template&id=7f3c569c&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/karyawan/Profil.vue?vue&type=template&id=7f3c569c& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -98266,6 +98452,18 @@ function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-progressbar/dist/vue-progressbar.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/vue-progressbar/dist/vue-progressbar.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,o){ true?module.exports=o():undefined}(this,function(){"use strict";!function(){if("undefined"!=typeof document){var t=document.head||document.getElementsByTagName("head")[0],o=document.createElement("style"),i=" .__cov-progress { opacity: 1; z-index: 999999; } ";o.type="text/css",o.styleSheet?o.styleSheet.cssText=i:o.appendChild(document.createTextNode(i)),t.appendChild(o)}}();var t="undefined"!=typeof window,r={render:function(){var t=this,o=t.$createElement;return(t._self._c||o)("div",{staticClass:"__cov-progress",style:t.style})},staticRenderFns:[],name:"VueProgress",serverCacheKey:function(){return"Progress"},computed:{style:function(){var t=this.progress,o=t.options,i=!!o.show,e=o.location,s={"background-color":o.canSuccess?o.color:o.failedColor,opacity:o.show?1:0,position:o.position};return"top"===e||"bottom"===e?("top"===e?s.top="0px":s.bottom="0px",o.inverse?s.right="0px":s.left="0px",s.width=t.percent+"%",s.height=o.thickness,s.transition=(i?"width "+o.transition.speed+", ":"")+"opacity "+o.transition.opacity):"left"!==e&&"right"!==e||("left"===e?s.left="0px":s.right="0px",o.inverse?s.top="0px":s.bottom="0px",s.height=t.percent+"%",s.width=o.thickness,s.transition=(i?"height "+o.transition.speed+", ":"")+"opacity "+o.transition.opacity),s},progress:function(){return t?window.VueProgressBarEventBus.RADON_LOADING_BAR:{percent:0,options:{canSuccess:!0,show:!1,color:"rgb(19, 91, 55)",failedColor:"red",thickness:"2px",transition:{speed:"0.2s",opacity:"0.6s",termination:300},location:"top",autoRevert:!0,inverse:!1}}}}};return{install:function(o){var t=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{},i=(o.version.split(".")[0],"undefined"!=typeof window),e={$vm:null,state:{tFailColor:"",tColor:"",timer:null,cut:0},init:function(t){this.$vm=t},start:function(t){var o=this;this.$vm&&(t||(t=3e3),this.$vm.RADON_LOADING_BAR.percent=0,this.$vm.RADON_LOADING_BAR.options.show=!0,this.$vm.RADON_LOADING_BAR.options.canSuccess=!0,this.state.cut=1e4/Math.floor(t),clearInterval(this.state.timer),this.state.timer=setInterval(function(){o.increase(o.state.cut*Math.random()),95<o.$vm.RADON_LOADING_BAR.percent&&o.$vm.RADON_LOADING_BAR.options.autoFinish&&o.finish()},100))},set:function(t){this.$vm.RADON_LOADING_BAR.options.show=!0,this.$vm.RADON_LOADING_BAR.options.canSuccess=!0,this.$vm.RADON_LOADING_BAR.percent=Math.floor(t)},get:function(){return Math.floor(this.$vm.RADON_LOADING_BAR.percent)},increase:function(t){this.$vm.RADON_LOADING_BAR.percent=Math.min(99,this.$vm.RADON_LOADING_BAR.percent+Math.floor(t))},decrease:function(t){this.$vm.RADON_LOADING_BAR.percent=this.$vm.RADON_LOADING_BAR.percent-Math.floor(t)},hide:function(){var t=this;clearInterval(this.state.timer),this.state.timer=null,setTimeout(function(){t.$vm.RADON_LOADING_BAR.options.show=!1,o.nextTick(function(){setTimeout(function(){t.$vm.RADON_LOADING_BAR.percent=0},100),t.$vm.RADON_LOADING_BAR.options.autoRevert&&setTimeout(function(){t.revert()},300)})},this.$vm.RADON_LOADING_BAR.options.transition.termination)},pause:function(){clearInterval(this.state.timer)},finish:function(){this.$vm&&(this.$vm.RADON_LOADING_BAR.percent=100,this.hide())},fail:function(){this.$vm.RADON_LOADING_BAR.options.canSuccess=!1,this.$vm.RADON_LOADING_BAR.percent=100,this.hide()},setFailColor:function(t){this.$vm.RADON_LOADING_BAR.options.failedColor=t},setColor:function(t){this.$vm.RADON_LOADING_BAR.options.color=t},setLocation:function(t){this.$vm.RADON_LOADING_BAR.options.location=t},setTransition:function(t){this.$vm.RADON_LOADING_BAR.options.transition=t},tempFailColor:function(t){this.state.tFailColor=this.$vm.RADON_LOADING_BAR.options.failedColor,this.$vm.RADON_LOADING_BAR.options.failedColor=t},tempColor:function(t){this.state.tColor=this.$vm.RADON_LOADING_BAR.options.color,this.$vm.RADON_LOADING_BAR.options.color=t},tempLocation:function(t){this.state.tLocation=this.$vm.RADON_LOADING_BAR.options.location,this.$vm.RADON_LOADING_BAR.options.location=t},tempTransition:function(t){this.state.tTransition=this.$vm.RADON_LOADING_BAR.options.transition,this.$vm.RADON_LOADING_BAR.options.transition=t},revertColor:function(){this.$vm.RADON_LOADING_BAR.options.color=this.state.tColor,this.state.tColor=""},revertFailColor:function(){this.$vm.RADON_LOADING_BAR.options.failedColor=this.state.tFailColor,this.state.tFailColor=""},revertLocation:function(){this.$vm.RADON_LOADING_BAR.options.location=this.state.tLocation,this.state.tLocation=""},revertTransition:function(){this.$vm.RADON_LOADING_BAR.options.transition=this.state.tTransition,this.state.tTransition={}},revert:function(){this.$vm.RADON_LOADING_BAR.options.autoRevert&&(this.state.tColor&&this.revertColor(),this.state.tFailColor&&this.revertFailColor(),this.state.tLocation&&this.revertLocation(),!this.state.tTransition||void 0===this.state.tTransition.speed&&void 0===this.state.tTransition.opacity||this.revertTransition())},parseMeta:function(t){for(var o in t.func){var i=t.func[o];switch(i.call){case"color":switch(i.modifier){case"set":this.setColor(i.argument);break;case"temp":this.tempColor(i.argument)}break;case"fail":switch(i.modifier){case"set":this.setFailColor(i.argument);break;case"temp":this.tempFailColor(i.argument)}break;case"location":switch(i.modifier){case"set":this.setLocation(i.argument);break;case"temp":this.tempLocation(i.argument)}break;case"transition":switch(i.modifier){case"set":this.setTransition(i.argument);break;case"temp":this.tempTransition(i.argument)}}}}},s=function(t,o){for(var i,e,s=1;s<arguments.length;++s)for(i in e=arguments[s])Object.prototype.hasOwnProperty.call(e,i)&&(t[i]=e[i]);return t}({canSuccess:!0,show:!1,color:"#73ccec",position:"fixed",failedColor:"red",thickness:"2px",transition:{speed:"0.2s",opacity:"0.6s",termination:300},autoRevert:!0,location:"top",inverse:!1,autoFinish:!0},t),n=new o({data:{RADON_LOADING_BAR:{percent:0,options:s}}});i&&(window.VueProgressBarEventBus=n,e.init(n)),o.component("vue-progress-bar",r),o.prototype.$Progress=e}}});
 
 
 /***/ }),
@@ -114678,8 +114876,9 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_router_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./services/router.js */ "./resources/js/services/router.js");
 /* harmony import */ var _services_store_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/store.js */ "./resources/js/services/store.js");
-/* harmony import */ var perfect_scrollbar_css_perfect_scrollbar_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! perfect-scrollbar/css/perfect-scrollbar.css */ "./node_modules/perfect-scrollbar/css/perfect-scrollbar.css");
-/* harmony import */ var perfect_scrollbar_css_perfect_scrollbar_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(perfect_scrollbar_css_perfect_scrollbar_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _services_progress_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/progress.js */ "./resources/js/services/progress.js");
+/* harmony import */ var perfect_scrollbar_css_perfect_scrollbar_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! perfect-scrollbar/css/perfect-scrollbar.css */ "./node_modules/perfect-scrollbar/css/perfect-scrollbar.css");
+/* harmony import */ var perfect_scrollbar_css_perfect_scrollbar_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(perfect_scrollbar_css_perfect_scrollbar_css__WEBPACK_IMPORTED_MODULE_3__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -114695,6 +114894,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
+
+Object(_services_progress_js__WEBPACK_IMPORTED_MODULE_2__["default"])();
 /**
  * Installing Vue prototype global variable.
  */
@@ -114747,7 +114948,7 @@ var app = new Vue({
   el: '#app',
   router: _services_router_js__WEBPACK_IMPORTED_MODULE_0__["default"],
   store: _services_store_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-  psstyle: perfect_scrollbar_css_perfect_scrollbar_css__WEBPACK_IMPORTED_MODULE_2___default.a
+  psstyle: perfect_scrollbar_css_perfect_scrollbar_css__WEBPACK_IMPORTED_MODULE_3___default.a
 });
 
 /***/ }),
@@ -115414,6 +115615,9 @@ __webpack_require__.r(__webpack_exports__);
     read: true,
     update: true,
     children: {
+      profil: {
+        access: true
+      },
       tugasKaryawan: {
         access: true,
         create: true,
@@ -115460,7 +115664,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   dashboard: {
-    access: false
+    access: true
   },
   master: {
     access: false,
@@ -115801,6 +116005,40 @@ var title = {
     }
   }
 };
+
+/***/ }),
+
+/***/ "./resources/js/services/progress.js":
+/*!*******************************************!*\
+  !*** ./resources/js/services/progress.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return init; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-progressbar */ "./node_modules/vue-progressbar/dist/vue-progressbar.js");
+/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_progressbar__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function init() {
+  vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_progressbar__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    color: '#bffaf3',
+    failedColor: '#874b4b',
+    thickness: '5px',
+    transition: {
+      speed: '0.2s',
+      opacity: '0.6s',
+      termination: 300
+    },
+    autoRevert: true,
+    location: 'left',
+    inverse: false
+  });
+}
 
 /***/ }),
 
@@ -116218,6 +116456,16 @@ var routes = [{
     },
     beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access]),
     children: [{
+      path: ':id',
+      name: 'karyawan.profil',
+      component: __webpack_require__(/*! ../views/karyawan/Profil */ "./resources/js/views/karyawan/Profil.vue")["default"],
+      meta: {
+        layout: 'default',
+        title: 'Profil Karyawan',
+        sidebar: 'karyawan'
+      },
+      beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
+    }, {
       path: 'tugas_karyawan/:id',
       name: 'karyawan.tugasKaryawan',
       component: __webpack_require__(/*! ../views/karyawan/TugasKaryawan */ "./resources/js/views/karyawan/TugasKaryawan.vue")["default"],
@@ -116723,6 +116971,59 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 component.options.__file = "resources/js/views/absensi/ImporJadwal.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/karyawan/Profil.vue":
+/*!************************************************!*\
+  !*** ./resources/js/views/karyawan/Profil.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Profil_vue_vue_type_template_id_7f3c569c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Profil.vue?vue&type=template&id=7f3c569c& */ "./resources/js/views/karyawan/Profil.vue?vue&type=template&id=7f3c569c&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _Profil_vue_vue_type_template_id_7f3c569c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Profil_vue_vue_type_template_id_7f3c569c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/karyawan/Profil.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/karyawan/Profil.vue?vue&type=template&id=7f3c569c&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/views/karyawan/Profil.vue?vue&type=template&id=7f3c569c& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profil_vue_vue_type_template_id_7f3c569c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Profil.vue?vue&type=template&id=7f3c569c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/karyawan/Profil.vue?vue&type=template&id=7f3c569c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profil_vue_vue_type_template_id_7f3c569c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profil_vue_vue_type_template_id_7f3c569c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

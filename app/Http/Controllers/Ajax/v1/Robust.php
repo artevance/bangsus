@@ -12,8 +12,7 @@ class Robust extends Controller
   {
     $authentication = ! is_null($request->user());
     $internetConn = true;
-    // $user = User::with(['picture', 'role'])->find(Auth::id());
-    $user = User::with(['role'])->find(1);
+    $user = User::with(['role'])->find(Auth::id());
 
     return $this->data([
       'authentication' => $authentication,

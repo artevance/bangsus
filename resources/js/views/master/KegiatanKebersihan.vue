@@ -111,14 +111,16 @@ export default {
           data: {
             kegiatan_kebersihan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             kegiatan_kebersihan: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

@@ -67,6 +67,7 @@ class PengajuanJadwalAbsensi extends Controller
         }
       ]
     ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $model = new PengajuanJadwalAbsensiModel;
     $model->tugas_karyawan_id = $request->input('tugas_karyawan_id');
@@ -84,6 +85,7 @@ class PengajuanJadwalAbsensi extends Controller
     ), [
       'id' => 'required|exists:pengajuan_jadwal_absensi,id'
     ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $model = PengajuanJadwalAbsensiModel::find($request->input('id'));
 
@@ -106,6 +108,7 @@ class PengajuanJadwalAbsensi extends Controller
     ), [
       'id' => 'required|exists:pengajuan_jadwal_absensi,id'
     ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $model = PengajuanJadwalAbsensiModel::find($request->input('id'));
     $model->delete();

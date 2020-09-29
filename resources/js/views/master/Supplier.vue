@@ -111,14 +111,16 @@ export default {
           data: {
             supplier: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             supplier: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

@@ -111,14 +111,16 @@ export default {
           data: {
             divisi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             divisi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

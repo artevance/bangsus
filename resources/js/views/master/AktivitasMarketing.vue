@@ -111,14 +111,16 @@ export default {
           data: {
             aktivitas_marketing: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             aktivitas_marketing: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

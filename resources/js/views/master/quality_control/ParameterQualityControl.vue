@@ -130,14 +130,16 @@ export default {
             parameter_quality_control: '',
             quality_control_id: this.$route.params.id
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             parameter_quality_control: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

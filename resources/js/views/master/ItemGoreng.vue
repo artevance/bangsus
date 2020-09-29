@@ -111,14 +111,16 @@ export default {
           data: {
             item_goreng: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             item_goreng: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

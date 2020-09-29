@@ -111,14 +111,16 @@ export default {
           data: {
             tipe_cabang: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
             id: null,
             tipe_cabang: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         }
       },
       query: {

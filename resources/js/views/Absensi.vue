@@ -73,8 +73,15 @@
                     <template v-else>
                       <tr v-for="(absensi, i) in data.absensi">
                         <td>{{ i + 1 }}</td>
-                        <td>{{ absensi.karyawan.nik }}</td>
-                        <td>{{ absensi.karyawan.nama_karyawan }}</td>
+                        <td>{{ absensi.karyawan.nip }}</td>
+                        <td>
+                          <router-link :to="{ name: 'karyawan.profil', params: { id: absensi.karyawan.id } }" v-if="$access('karyawan.profil', 'access')">
+                            {{ absensi.karyawan.nama_karyawan }}
+                          </router-link>
+                          <span v-else>
+                            {{ absensi.karyawan.nama_karyawan }}
+                          </span>
+                        </td>
                         <td>{{ absensi.no_finger }}</td>
                         <td>
                           {{
@@ -123,6 +130,7 @@
                               Hapus
                             </a>
                           </span>
+
                           <span v-if="absensi.pengajuan_jadwal_absensi.length == 0">
                             <a class="badge badge-light" @click="showCreatePengajuanModal(absensi.id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'create')">
                               Ajukan Jam Jadwal
@@ -300,7 +308,7 @@
           <div class="modal-content">
             <form @submit.prevent="createPengajuan">
               <div class="modal-header">
-                <h5 class="modal-title">Ubah Absensi</h5>
+                <h5 class="modal-title">Pengajuan Jadwal Absensi</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -426,7 +434,8 @@ export default {
             nama_cabang: '',
             tipe_absensi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         update: {
           data: {
@@ -441,13 +450,15 @@ export default {
             nama_cabang: '',
             tipe_absensi: ''
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         destroy: {
           data: {
             id: null
           },
-          errors: {}
+          errors: {},
+          loading: false
         },
         pengajuan_jadwal_absensi: {
           create: {
@@ -463,7 +474,8 @@ export default {
               nama_cabang: '',
               tipe_absensi: ''
             },
-            errors: {}
+            errors: {},
+            loading: false
           },
           accept: {
             data: {
@@ -475,15 +487,16 @@ export default {
             data: {
               id: null
             },
-            errors: {}
+            errors: {},
+            loading: false
           }
         }
       },
       query: {
         absensi: {
-          cabang_id: this.$route.params.cabang_id || null,
-          tipe_absensi_id: this.$route.params.tipe_absensi_id || null,
-          tanggal_absensi: this.$route.params.tanggal_absensi || this.$moment().format('YYYY-MM-DD')
+          cabang_id: this.$route.query.cabang_id || null,
+          tipe_absensi_id: this.$route.query.tipe_absensi_id || null,
+          tanggal_absensi: this.$route.query.tanggal_absensi || this.$moment().format('YYYY-MM-DD')
         }
       }
     }
@@ -531,8 +544,7 @@ export default {
       if (withSpinner) this.state.table.loading = true
       this.fetchMainData()
         .then(res => {
-          let query = this.$route.query
-          if ( ! this.$_.isEqual(query, this.query.absensi)) {
+          if ( ! this.$_.isEqual(this.$route.query, this.query.absensi)) {
             this.$router.push({
               name: 'absensi',
               query: this.query.absensi
@@ -720,8 +732,8 @@ export default {
         })
     },
     createPengajuan() {
-      this.form.create.loading = true
-      this.form.create.errors = {}
+      this.form.pengajuan_jadwal_absensi.create.loading = true
+      this.form.pengajuan_jadwal_absensi.create.errors = {}
       this.$axios.post('/ajax/v1/pengajuan_jadwal_absensi', this.form.pengajuan_jadwal_absensi.create.data)
         .then(res => {
           this.form.pengajuan_jadwal_absensi.create.data = {
@@ -742,11 +754,11 @@ export default {
         })
         .catch(err => {
           if (err.response.status == 422) {
-            this.form.create.errors = err.response.data.errors
+            this.form.pengajuan_jadwal_absensi.create.errors = err.response.data.errors
           }
         })
         .finally(() => {
-          this.form.create.loading = false
+          this.form.pengajuan_jadwal_absensi.create.loading = false
         })
     },
     acceptPengajuan() {

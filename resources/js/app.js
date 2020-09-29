@@ -13,7 +13,10 @@ window.Vue = require('vue');
  */
 import router from './services/router.js'
 import store from './services/store.js'
+import progress from './services/progress.js'
 import psstyle from 'perfect-scrollbar/css/perfect-scrollbar.css'
+
+progress()
 
 /**
  * Installing Vue prototype global variable.
