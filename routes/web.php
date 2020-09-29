@@ -18,6 +18,8 @@ Route::get('/laravel', function () {
 });
 Route::get('/sandbox', 'Sandbox@index');
 
+Route::get('/sanctum/csrf-cookie', 'CsrfCookie@show');
+
 Route::permanentRedirect('/', '/dashboard');
 Route::permanentRedirect('/home', '/dashboard');
 
