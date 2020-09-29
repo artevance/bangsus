@@ -76,9 +76,39 @@
                         <td>{{ absensi.karyawan.nik }}</td>
                         <td>{{ absensi.karyawan.nama_karyawan }}</td>
                         <td>{{ absensi.no_finger }}</td>
-                        <td>{{ absensi.pengajuan_jadwal_absensi[0] == null ? '-' : absensi.pengajuan_jadwal_absensi[0].jam_jadwal }}</td>
-                        <td>{{ absensi.absensi[0] == null ? '-' : absensi.absensi[0].jam_jadwal }}</td>
-                        <td>{{ absensi.absensi[0] == null ? '-' : absensi.absensi[0].jam_absen }}</td>
+                        <td>
+                          {{
+                            absensi.pengajuan_jadwal_absensi[0] == null
+                              ? ''
+                              : (
+                                absensi.pengajuan_jadwal_absensi[0].jam_jadwal == null 
+                                  ? '-'
+                                  : absensi.pengajuan_jadwal_absensi[0].jam_jadwal
+                              )
+                          }}
+                        </td>
+                        <td>
+                          {{
+                            absensi.absensi[0] == null
+                              ? ''
+                              : (
+                                absensi.absensi[0].jam_jadwal == null
+                                  ? '-'
+                                  : absensi.absensi[0].jam_jadwal
+                              )
+                          }}
+                        </td>
+                        <td>
+                          {{
+                            absensi.absensi[0] == null
+                              ? ''
+                              : (
+                                absensi.absensi[0].jam_absen == null
+                                  ? '-'
+                                  : absensi.absensi[0].jam_absen
+                              )
+                          }}
+                        </td>
                         <td>
                           <span v-if="absensi.absensi.length == 0">
                             <a class="badge badge-primary" @click="showCreateModal(absensi.id)" href="#" v-if="$access('absensi', 'create')">
@@ -497,8 +527,8 @@ export default {
     /**
      *  Query result.
      */
-    queryData() {
-      this.state.table.loading = true
+    queryData(withSpinner = true) {
+      if (withSpinner) this.state.table.loading = true
       this.fetchMainData()
         .then(res => {
           let query = this.$route.query
@@ -509,7 +539,7 @@ export default {
             })
           }
           this.data.absensi = res.data.container
-          this.state.table.loading = false
+          if (withSpinner) this.state.table.loading = false
         })
         .catch(err => {})
     },
@@ -634,7 +664,7 @@ export default {
             nama_cabang: '',
             tipe_absensi: ''
           }
-          this.prepare()
+          this.queryData(false)
           $('[data-entity="absensi"][data-method="create"]').modal('hide')
         })
         .catch(err => {
@@ -663,7 +693,7 @@ export default {
             nama_cabang: '',
             tipe_absensi: ''
           }
-          this.prepare()
+          this.queryData(false)
           $('[data-entity="absensi"][data-method="update"]').modal('hide')
         })
         .catch(err => {
@@ -681,7 +711,7 @@ export default {
       this.$axios.delete('/ajax/v1/absensi/', { data: this.form.destroy.data })
         .then(res => {
           this.form.destroy.data.id = null
-          this.prepare()
+          this.queryData(false)
           $('[data-entity="absensi"][data-method="destroy"]').modal('hide')
         })
         .catch(err => console.log(err.response))
@@ -707,7 +737,7 @@ export default {
             nama_cabang: '',
             tipe_absensi: ''
           }
-          this.prepare()
+          this.queryData(false)
           $('[data-entity="pengajuanJadwalAbsensi"][data-method="create"]').modal('hide')
         })
         .catch(err => {
@@ -725,7 +755,7 @@ export default {
       this.$axios.put('/ajax/v1/pengajuan_jadwal_absensi/approve', this.form.pengajuan_jadwal_absensi.accept.data)
         .then(res => {
           this.form.pengajuan_jadwal_absensi.accept.data.id = null
-          this.prepare()
+          this.queryData(false)
           $('[data-entity="pengajuanJadwalAbsensi"][data-method="accept"]').modal('hide')
         })
         .catch(err => {
@@ -743,7 +773,7 @@ export default {
       this.$axios.delete('/ajax/v1/pengajuan_jadwal_absensi', { data: this.form.pengajuan_jadwal_absensi.destroy.data })
         .then(res => {
           this.form.pengajuan_jadwal_absensi.destroy.data.id = null
-          this.prepare()
+          this.queryData(false)
           $('[data-entity="pengajuanJadwalAbsensi"][data-method="destroy"]').modal('hide')
         })
         .catch(err => {

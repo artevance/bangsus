@@ -2657,6 +2657,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2792,7 +2822,8 @@ __webpack_require__.r(__webpack_exports__);
     queryData: function queryData() {
       var _this2 = this;
 
-      this.state.table.loading = true;
+      var withSpinner = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      if (withSpinner) this.state.table.loading = true;
       this.fetchMainData().then(function (res) {
         var query = _this2.$route.query;
 
@@ -2804,7 +2835,7 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         _this2.data.absensi = res.data.container;
-        _this2.state.table.loading = false;
+        if (withSpinner) _this2.state.table.loading = false;
       })["catch"](function (err) {});
     },
 
@@ -2928,7 +2959,7 @@ __webpack_require__.r(__webpack_exports__);
           tipe_absensi: ''
         };
 
-        _this9.prepare();
+        _this9.queryData(false);
 
         $('[data-entity="absensi"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
@@ -2957,7 +2988,7 @@ __webpack_require__.r(__webpack_exports__);
           tipe_absensi: ''
         };
 
-        _this10.prepare();
+        _this10.queryData(false);
 
         $('[data-entity="absensi"][data-method="update"]').modal('hide');
       })["catch"](function (err) {
@@ -2978,7 +3009,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         _this11.form.destroy.data.id = null;
 
-        _this11.prepare();
+        _this11.queryData(false);
 
         $('[data-entity="absensi"][data-method="destroy"]').modal('hide');
       })["catch"](function (err) {
@@ -3006,7 +3037,7 @@ __webpack_require__.r(__webpack_exports__);
           tipe_absensi: ''
         };
 
-        _this12.prepare();
+        _this12.queryData(false);
 
         $('[data-entity="pengajuanJadwalAbsensi"][data-method="create"]').modal('hide');
       })["catch"](function (err) {
@@ -3025,7 +3056,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$axios.put('/ajax/v1/pengajuan_jadwal_absensi/approve', this.form.pengajuan_jadwal_absensi.accept.data).then(function (res) {
         _this13.form.pengajuan_jadwal_absensi.accept.data.id = null;
 
-        _this13.prepare();
+        _this13.queryData(false);
 
         $('[data-entity="pengajuanJadwalAbsensi"][data-method="accept"]').modal('hide');
       })["catch"](function (err) {
@@ -3046,7 +3077,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         _this14.form.pengajuan_jadwal_absensi.destroy.data.id = null;
 
-        _this14.prepare();
+        _this14.queryData(false);
 
         $('[data-entity="pengajuanJadwalAbsensi"][data-method="destroy"]').modal('hide');
       })["catch"](function (err) {
@@ -77996,43 +78027,64 @@ var render = function() {
                                                           _vm._v(" "),
                                                           _c("td", [
                                                             _vm._v(
-                                                              _vm._s(
-                                                                absensi
-                                                                  .pengajuan_jadwal_absensi[0] ==
-                                                                  null
-                                                                  ? "-"
-                                                                  : absensi
-                                                                      .pengajuan_jadwal_absensi[0]
-                                                                      .jam_jadwal
-                                                              )
+                                                              "\n                        " +
+                                                                _vm._s(
+                                                                  absensi
+                                                                    .pengajuan_jadwal_absensi[0] ==
+                                                                    null
+                                                                    ? ""
+                                                                    : absensi
+                                                                        .pengajuan_jadwal_absensi[0]
+                                                                        .jam_jadwal ==
+                                                                      null
+                                                                    ? "-"
+                                                                    : absensi
+                                                                        .pengajuan_jadwal_absensi[0]
+                                                                        .jam_jadwal
+                                                                ) +
+                                                                "\n                      "
                                                             )
                                                           ]),
                                                           _vm._v(" "),
                                                           _c("td", [
                                                             _vm._v(
-                                                              _vm._s(
-                                                                absensi
-                                                                  .absensi[0] ==
-                                                                  null
-                                                                  ? "-"
-                                                                  : absensi
-                                                                      .absensi[0]
-                                                                      .jam_jadwal
-                                                              )
+                                                              "\n                        " +
+                                                                _vm._s(
+                                                                  absensi
+                                                                    .absensi[0] ==
+                                                                    null
+                                                                    ? ""
+                                                                    : absensi
+                                                                        .absensi[0]
+                                                                        .jam_jadwal ==
+                                                                      null
+                                                                    ? "-"
+                                                                    : absensi
+                                                                        .absensi[0]
+                                                                        .jam_jadwal
+                                                                ) +
+                                                                "\n                      "
                                                             )
                                                           ]),
                                                           _vm._v(" "),
                                                           _c("td", [
                                                             _vm._v(
-                                                              _vm._s(
-                                                                absensi
-                                                                  .absensi[0] ==
-                                                                  null
-                                                                  ? "-"
-                                                                  : absensi
-                                                                      .absensi[0]
-                                                                      .jam_absen
-                                                              )
+                                                              "\n                        " +
+                                                                _vm._s(
+                                                                  absensi
+                                                                    .absensi[0] ==
+                                                                    null
+                                                                    ? ""
+                                                                    : absensi
+                                                                        .absensi[0]
+                                                                        .jam_absen ==
+                                                                      null
+                                                                    ? "-"
+                                                                    : absensi
+                                                                        .absensi[0]
+                                                                        .jam_absen
+                                                                ) +
+                                                                "\n                      "
                                                             )
                                                           ]),
                                                           _vm._v(" "),

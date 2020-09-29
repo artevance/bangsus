@@ -82,7 +82,7 @@ class Absensi extends Controller
       'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'tanggal_absensi' => 'required|date_format:Y-m-d',
       'tipe_absensi_id' => 'required|exists:tipe_absensi,id',
-      'jam_jadwal' => 'required',
+      'jam_jadwal' => 'nullable',
       'jam_absen' => 'nullable'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
@@ -105,8 +105,8 @@ class Absensi extends Controller
       'jam_absen'
     ), [
       'id' => 'required|exists:absensi,id',
-      'jam_jadwal' => 'required',
-      'jam_absen' => 'required'
+      'jam_jadwal' => 'nullable',
+      'jam_absen' => 'nullable'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
