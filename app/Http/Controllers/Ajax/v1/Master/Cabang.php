@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Models\Cabang as CabangModel;
+use App\Http\Models\Role;
+use App\Http\Models\UserCabang;
 
 class Cabang extends Controller
 {
@@ -25,6 +27,26 @@ class Cabang extends Controller
           $q->where('tipe_cabang', '%' . $request->input('q') . '%');
         })
         ->get()
+      )
+      ->response(200);
+  }
+
+  public function authorized(Request $request)
+  {
+    return $this
+      ->data(CabangModel::with(['tipe_cabang'])
+        ->where(function ($q) use ($request) {
+          $q->where('kode_cabang', 'like', '%' . $request->input('q') . '%')
+            ->orWhere('cabang', 'like', '%' . $request->input('q') . '%')
+            ->orWhereHas('tipe_cabang', function ($q) use ($request) {
+              $q->where('tipe_cabang', '%' . $request->input('q') . '%');
+            });
+        })
+        ->find(
+          Role::find($request->user()->role_id)->akses_semua_cabang
+            ? CabangModel::all()->pluck('id')->all()
+            : UserCabang::where('user_id', $request->user()->id)->get()->pluck('cabang_id')->all()
+        )
       )
       ->response(200);
   }

@@ -60,6 +60,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       });
       Route::prefix('cabang')->group(function () {
         Route::get('', 'Cabang@index');
+        Route::get('terotorisasi', 'Cabang@authorized');
         Route::get('{id}', 'Cabang@get');
         Route::post('', 'Cabang@store');
         Route::put('', 'Cabang@amend');

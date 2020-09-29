@@ -63,43 +63,52 @@
                     <th>Aksi</th>
                   </thead>
                   <tbody>
-                    <tr v-for="(absensi, i) in data.absensi">
-                      <td>{{ i + 1 }}</td>
-                      <td>{{ absensi.karyawan.nik }}</td>
-                      <td>{{ absensi.karyawan.nama_karyawan }}</td>
-                      <td>{{ absensi.no_finger }}</td>
-                      <td>{{ absensi.pengajuan_jadwal_absensi[0] == null ? '-' : absensi.pengajuan_jadwal_absensi[0].jam_jadwal }}</td>
-                      <td>{{ absensi.absensi[0] == null ? '-' : absensi.absensi[0].jam_jadwal }}</td>
-                      <td>{{ absensi.absensi[0] == null ? '-' : absensi.absensi[0].jam_absen }}</td>
-                      <td>
-                        <span v-if="absensi.absensi.length == 0">
-                          <a class="badge badge-primary" @click="showCreateModal(absensi.id)" href="#" v-if="$access('absensi', 'create')">
-                            Tambah
-                          </a>
-                        </span>
-                        <span v-else>
-                          <a class="badge badge-warning" @click="showUpdateModal(absensi.absensi[0].id)" href="#" v-if="$access('absensi', 'update')">
-                            Ubah
-                          </a>
-                          <a class="badge badge-danger" @click="showDestroyModal(absensi.absensi[0].id)" href="#" v-if="$access('absensi', 'destroy')">
-                            Hapus
-                          </a>
-                        </span>
-                        <span v-if="absensi.pengajuan_jadwal_absensi.length == 0">
-                          <a class="badge badge-light" @click="showCreatePengajuanModal(absensi.id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'create')">
-                            Ajukan Jam Jadwal
-                          </a>
-                        </span>
-                        <span v-else>
-                          <a class="badge badge-light" @click="showAcceptPengajuanModal(absensi.pengajuan_jadwal_absensi[0].id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'accept')">
-                            Terima Pengajuan
-                          </a>
-                          <a class="badge badge-danger" @click="showDestroyPengajuanModal(absensi.pengajuan_jadwal_absensi[0].id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'destroy')">
-                            Hapus Pengajuan
-                          </a>
-                        </span>
-                      </td>
-                    </tr>
+                    <template v-if="state.table.loading">
+                      <tr>
+                        <td class="text-center" colspan="8">
+                          <spinner-component/>
+                        </td>
+                      </tr>
+                    </template>
+                    <template v-else>
+                      <tr v-for="(absensi, i) in data.absensi">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ absensi.karyawan.nik }}</td>
+                        <td>{{ absensi.karyawan.nama_karyawan }}</td>
+                        <td>{{ absensi.no_finger }}</td>
+                        <td>{{ absensi.pengajuan_jadwal_absensi[0] == null ? '-' : absensi.pengajuan_jadwal_absensi[0].jam_jadwal }}</td>
+                        <td>{{ absensi.absensi[0] == null ? '-' : absensi.absensi[0].jam_jadwal }}</td>
+                        <td>{{ absensi.absensi[0] == null ? '-' : absensi.absensi[0].jam_absen }}</td>
+                        <td>
+                          <span v-if="absensi.absensi.length == 0">
+                            <a class="badge badge-primary" @click="showCreateModal(absensi.id)" href="#" v-if="$access('absensi', 'create')">
+                              Tambah
+                            </a>
+                          </span>
+                          <span v-else>
+                            <a class="badge badge-warning" @click="showUpdateModal(absensi.absensi[0].id)" href="#" v-if="$access('absensi', 'update')">
+                              Ubah
+                            </a>
+                            <a class="badge badge-danger" @click="showDestroyModal(absensi.absensi[0].id)" href="#" v-if="$access('absensi', 'destroy')">
+                              Hapus
+                            </a>
+                          </span>
+                          <span v-if="absensi.pengajuan_jadwal_absensi.length == 0">
+                            <a class="badge badge-light" @click="showCreatePengajuanModal(absensi.id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'create')">
+                              Ajukan Jam Jadwal
+                            </a>
+                          </span>
+                          <span v-else>
+                            <a class="badge badge-light" @click="showAcceptPengajuanModal(absensi.pengajuan_jadwal_absensi[0].id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'accept')">
+                              Terima Pengajuan
+                            </a>
+                            <a class="badge badge-danger" @click="showDestroyPengajuanModal(absensi.pengajuan_jadwal_absensi[0].id)" href="#" v-if="$access('absensi.pengajuanJadwalAbsensi', 'destroy')">
+                              Hapus Pengajuan
+                            </a>
+                          </span>
+                        </td>
+                      </tr>
+                    </template>
                   </tbody>
                 </table>
               </div>
@@ -366,7 +375,7 @@
 export default {
   data() {
     return {
-      state: { page: { loading: true } },
+      state: { page: { loading: true }, table: { loading: false } },
       data: {
         absensi: [],
         cabang: [],
@@ -442,9 +451,9 @@ export default {
       },
       query: {
         absensi: {
-          cabang_id: null,
-          tipe_absensi_id: null,
-          tanggal_absensi: null
+          cabang_id: this.$route.params.cabang_id || null,
+          tipe_absensi_id: this.$route.params.tipe_absensi_id || null,
+          tanggal_absensi: this.$route.params.tanggal_absensi || this.$moment().format('YYYY-MM-DD')
         }
       }
     }
@@ -460,19 +469,25 @@ export default {
     prepare() {
       // this.state.page.loading = true
       Promise.all([
-        this.fetchMainData(),
         this.fetchCabang(),
         this.fetchTipeAbsensi()
       ])
         .then(res => {
-          this.data.absensi = res[0].data.container
-          this.data.cabang = res[1].data.container
-          this.data.tipe_absensi = res[2].data.container
+          this.data.cabang = res[0].data.container
+          this.data.tipe_absensi = res[1].data.container
 
-          this.query.absensi.cabang_id = this.query.absensi.cabang_id == null ? res[1].data.container[0].id : this.query.absensi.cabang_id
-          this.query.absensi.tipe_absensi_id = this.query.absensi.tipe_absensi_id == null ? res[2].data.container[0].id : this.query.absensi.tipe_absensi_id
-          this.query.absensi.tanggal_absensi = this.query.absensi.tanggal_absensi == null ? this.$moment().format('YYYY-MM-DD') : this.query.absensi.tanggal_absensi
+          if (this.data.cabang.length <= 0 || this.data.tipe_absensi <= 0) {
+            this.$router.go(-1)
+          }
 
+          if (this.query.absensi.cabang_id == null || ! this.$_.isUndefined(this.$_.findWhere(this.data.cabang, { id: this.query.absensi.cabang_id }))) {
+            this.query.absensi.cabang_id = this.data.cabang[0].id || null
+          }
+          if (this.query.absensi.tipe_absensi_id == null || ! this.$_.isUndefined(this.$_.findWhere(this.data.tipe_absensi, { id: this.query.absensi.tipe_absensi_id }))) {
+            this.query.absensi.tipe_absensi_id = this.data.tipe_absensi[0].id || null
+          }
+
+          this.queryData()
           this.state.page.loading = false
         })
         .catch(err => {
@@ -483,9 +498,18 @@ export default {
      *  Query result.
      */
     queryData() {
+      this.state.table.loading = true
       this.fetchMainData()
         .then(res => {
+          let query = this.$route.query
+          if ( ! this.$_.isEqual(query, this.query.absensi)) {
+            this.$router.push({
+              name: 'absensi',
+              query: this.query.absensi
+            })
+          }
           this.data.absensi = res.data.container
+          this.state.table.loading = false
         })
         .catch(err => {})
     },
@@ -496,7 +520,7 @@ export default {
       return this.$axios.get('/ajax/v1/absensi/manual', { params: this.query.absensi })
     },
     fetchCabang() {
-      return this.$axios.get('/ajax/v1/master/cabang')
+      return this.$axios.get('/ajax/v1/master/cabang/terotorisasi')
     },
     fetchTipeAbsensi() {
       return this.$axios.get('/ajax/v1/master/tipe_absensi')

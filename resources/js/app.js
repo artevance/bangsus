@@ -21,6 +21,7 @@ import psstyle from 'perfect-scrollbar/css/perfect-scrollbar.css'
 Vue.prototype.$axios = require('axios').default;
 Vue.prototype.$moment = require('moment');
 Vue.prototype.$access = require('./services/access.js').default;
+Vue.prototype.$_ = require('underscore');
 
 
 /**
