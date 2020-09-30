@@ -3936,7 +3936,9 @@ __webpack_require__.r(__webpack_exports__);
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (res) {
-        console.log(res.data.container);
+        _this2.$refs.file.type = 'text';
+        _this2.$refs.file.type = 'file';
+        _this2.form.impor_jadwal.preview = false;
       })["catch"](function (err) {
         console.log(err.response);
       })["finally"](function () {

@@ -116,8 +116,11 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
-        .then(res => { console.log(res.data.container)
-          
+        .then(res => {
+          this.$refs.file.type = 'text'
+          this.$refs.file.type = 'file'
+
+          this.form.impor_jadwal.preview = false
         })
         .catch(err => { console.log(err.response)
           
