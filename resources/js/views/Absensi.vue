@@ -6,40 +6,64 @@
         <div class="col-12 col-xl-12 stretch-card" v-else>
           <div class="card">
             <div class="card-body">
-              <div class="row">
+              <!-- If the user uses laptop or tablet -->
+              <div class="row d-none d-md-block">
                 <div class="col-12">
-                  <form data-role="search">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            Cabang
-                          </span>
-                        </div>
-                        <select class="form-control" name="cabang_id" v-model="query.absensi.cabang_id" @change="queryData">
-                          <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
-                            {{ cabang.kode_cabang }} - {{ cabang.cabang }}
-                          </option>
-                        </select>
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            Tipe Absensi
-                          </span>
-                        </div>
-                        <select class="form-control" name="cabang_id" v-model="query.absensi.tipe_absensi_id" @change="queryData">
-                          <option v-for="(tipe_absensi, i) in data.tipe_absensi" :key="i" :value="tipe_absensi.id">
-                            {{ tipe_absensi.tipe_absensi }}
-                          </option>
-                        </select>
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            Tanggal Absensi
-                          </span>
-                        </div>
-                        <input type="date" class="form-control" name="tanggal_absensi" v-model="query.absensi.tanggal_absensi" @keyup="queryData">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Cabang
+                        </span>
                       </div>
+                      <select class="form-control" name="cabang_id" v-model="query.absensi.cabang_id" @change="queryData">
+                        <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
+                          {{ cabang.kode_cabang }} - {{ cabang.cabang }}
+                        </option>
+                      </select>
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Tipe Absensi
+                        </span>
+                      </div>
+                      <select class="form-control" name="cabang_id" v-model="query.absensi.tipe_absensi_id" @change="queryData">
+                        <option v-for="(tipe_absensi, i) in data.tipe_absensi" :key="i" :value="tipe_absensi.id">
+                          {{ tipe_absensi.tipe_absensi }}
+                        </option>
+                      </select>
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Tanggal Absensi
+                        </span>
+                      </div>
+                      <input type="date" class="form-control" name="tanggal_absensi" v-model="query.absensi.tanggal_absensi" @keyup="queryData">
                     </div>
-                  </form>
+                  </div>
+                </div>
+              </div>
+              <!-- else -->
+              <div class="row d-md-none">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label>Cabang</label>
+                    <select class="form-control" name="cabang_id" v-model="query.absensi.cabang_id" @change="queryData">
+                      <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
+                        {{ cabang.kode_cabang }} - {{ cabang.cabang }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Tipe Absensi</label>
+                    <select class="form-control" name="cabang_id" v-model="query.absensi.tipe_absensi_id" @change="queryData">
+                      <option v-for="(tipe_absensi, i) in data.tipe_absensi" :key="i" :value="tipe_absensi.id">
+                        {{ tipe_absensi.tipe_absensi }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Tanggal Absensi</label>
+                    <input type="date" class="form-control" name="tanggal_absensi" v-model="query.absensi.tanggal_absensi" @keyup="queryData">
+                  </div>
                 </div>
               </div>
               <router-link class="btn btn-secondary mt-2" v-if="$access('absensi.imporJadwal', 'access')" :to="{ name: 'absensi.imporJadwal' }">

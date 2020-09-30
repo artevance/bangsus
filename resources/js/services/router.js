@@ -294,6 +294,29 @@ const routes = [
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
         ]
+      },
+      {
+        path: 'form_operasional',
+        name: 'formOperasional',
+        component: { template: `<transition name="fade" mode="out-in"><router-view></router-view></transition>` },
+        meta: { layout: 'default', title: 'Absensi', sidebar: 'formOperasional' },
+        beforeEnter: Multiguard([middleware.auth, middleware.access]),
+        children: [
+          {
+            path: 'form_c1',
+            name: 'formOperasional.formC1',
+            component: require('../views/form_operasional/FormC1').default,
+            meta: { layout: 'default', title: 'Form C1', sidebar: 'formC1' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
+            path: 'form_c2',
+            name: 'formOperasional.formC2',
+            component: require('../views/form_operasional/FormC2').default,
+            meta: { layout: 'default', title: 'Form C2', sidebar: 'formC2' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+        ]
       }
     ]
   },

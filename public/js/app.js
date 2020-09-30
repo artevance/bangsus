@@ -2099,41 +2099,46 @@ __webpack_require__.r(__webpack_exports__);
           icon: 'far fa-file-invoice',
           title: 'Form Operasional',
           index: 'formOperasional',
-          href: 'operationalForm',
-          to: 'operationalForm',
+          href: 'formOperasional',
+          to: 'formOperasional',
           children: [{
             title: 'Form C1',
             index: 'formC1',
-            to: 'master.tipeKontak'
+            to: 'formOperasional.formC1'
           }, {
             title: 'Form C2',
             index: 'formC2',
-            to: 'master.tipeKontak'
+            to: 'formOperasional.formC2'
           }, {
             title: 'Form C3',
             index: 'formC3',
-            to: 'master.tipeKontak'
+            to: 'formOperasional.formC3'
           }, {
             title: 'Form C4',
             index: 'formC4',
-            to: 'master.tipeKontak'
+            to: 'formOperasional.formC4'
           }, {
             title: 'Form C5',
             index: 'formC5',
-            to: 'master.tipeKontak'
+            to: 'formOperasional.formC5'
           }, {
             title: 'Form Foto',
             index: 'formFoto',
-            to: 'master.tipeKontak'
+            to: 'formOperasional.formFoto'
           }, {
             title: 'Form Laporan Foto',
             index: 'formLaporanFoto',
-            to: 'master.tipeKontak'
+            to: 'formOperasional.formLaporanFoto'
           }, {
             title: 'Form Denda Foto',
             index: 'formDendaFoto',
-            to: 'master.tipeKontak'
+            to: 'formOperasional.formDendaFoto'
           }]
+        }, {
+          icon: 'far fa-chart-pie',
+          title: 'Report Center',
+          index: 'reportCenter',
+          to: 'reportCenter'
         }]
       }]
     };
@@ -2286,6 +2291,30 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3780,6 +3809,209 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     '$route': function $route(to, from) {
       document.title = to.meta.title + ' | BangsusApp';
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      state: {
+        page: {
+          loading: true
+        }
+      },
+      data: {
+        divisi: []
+      },
+      form: {
+        create: {
+          data: {
+            divisi: ''
+          },
+          errors: {},
+          loading: false
+        },
+        update: {
+          data: {
+            id: null,
+            divisi: ''
+          },
+          errors: {},
+          loading: false
+        }
+      },
+      query: {
+        divisi: {
+          q: ''
+        }
+      }
+    };
+  },
+  created: function created() {// this.prepare()
+  },
+  methods: {
+    /**
+     *  Prepare the page.
+     */
+    prepare: function prepare() {
+      var _this = this;
+
+      this.state.page.loading = true;
+      Promise.all([this.fetchMainData()]).then(function (res) {
+        _this.data.divisi = res[0].data.container;
+        _this.state.page.loading = false;
+      })["catch"](function (err) {
+        _this.$router.go(-1);
+      });
+    },
+
+    /**
+     *  Query result.
+     */
+    queryData: function queryData() {
+      var _this2 = this;
+
+      this.fetchMainData().then(function (res) {
+        _this2.data.divisi = res.data.container;
+      })["catch"](function (err) {});
+    },
+
+    /**
+     *  Fetch data
+     */
+    fetchMainData: function fetchMainData() {
+      return this.$axios.get('/ajax/v1/master/divisi?q=' + this.query.divisi.q);
+    },
+
+    /**
+     *  Modal functionality
+     */
+    showCreateModal: function showCreateModal() {
+      $('[data-entity="divisi"][data-method="create"]').modal('show');
+    },
+    showUpdateModal: function showUpdateModal(id) {
+      var _this3 = this;
+
+      this.form.update.data = {};
+      this.$axios.get('/ajax/v1/master/divisi/' + id).then(function (res) {
+        _this3.form.update.data = {
+          id: id,
+          divisi: res.data.container.divisi
+        };
+        $('[data-entity="divisi"][data-method="update"]').modal('show');
+      });
+    },
+
+    /**
+     *  Form request handler
+     */
+    create: function create() {
+      var _this4 = this;
+
+      this.form.create.loading = true;
+      this.form.create.errors = {};
+      this.$axios.post('/ajax/v1/master/divisi', this.form.create.data).then(function (res) {
+        _this4.form.create.data = {
+          divisi: ''
+        };
+
+        _this4.prepare();
+
+        $('[data-entity="divisi"][data-method="create"]').modal('hide');
+      })["catch"](function (err) {
+        console.log(err.response.data);
+
+        if (err.response.status == 422) {
+          _this4.form.create.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this4.form.create.loading = false;
+      });
+    },
+    update: function update() {
+      var _this5 = this;
+
+      this.form.update.loading = true;
+      this.form.update.errors = {};
+      this.$axios.put('/ajax/v1/master/divisi', this.form.update.data).then(function (res) {
+        _this5.form.update.data = {
+          id: null,
+          divisi: ''
+        };
+
+        _this5.prepare();
+
+        $('[data-entity="divisi"][data-method="update"]').modal('hide');
+      })["catch"](function (err) {
+        if (err.response.status == 422) {
+          _this5.form.update.errors = err.response.data.errors;
+        }
+      })["finally"](function () {
+        _this5.form.update.loading = false;
+      });
     }
   }
 });
@@ -77701,285 +77933,456 @@ var render = function() {
                               "div",
                               { staticClass: "card-body" },
                               [
-                                _c("div", { staticClass: "row" }, [
-                                  _c("div", { staticClass: "col-12" }, [
-                                    _c(
-                                      "form",
-                                      { attrs: { "data-role": "search" } },
-                                      [
+                                _c(
+                                  "div",
+                                  { staticClass: "row d-none d-md-block" },
+                                  [
+                                    _c("div", { staticClass: "col-12" }, [
+                                      _c("div", { staticClass: "form-group" }, [
                                         _c(
                                           "div",
-                                          { staticClass: "form-group" },
+                                          { staticClass: "input-group" },
                                           [
                                             _c(
                                               "div",
-                                              { staticClass: "input-group" },
+                                              {
+                                                staticClass:
+                                                  "input-group-prepend"
+                                              },
                                               [
                                                 _c(
-                                                  "div",
+                                                  "span",
                                                   {
                                                     staticClass:
-                                                      "input-group-prepend"
+                                                      "input-group-text"
                                                   },
                                                   [
-                                                    _c(
-                                                      "span",
-                                                      {
-                                                        staticClass:
-                                                          "input-group-text"
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          "\n                          Cabang\n                        "
-                                                        )
-                                                      ]
+                                                    _vm._v(
+                                                      "\n                        Cabang\n                      "
                                                     )
                                                   ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "select",
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "select",
+                                              {
+                                                directives: [
                                                   {
-                                                    directives: [
-                                                      {
-                                                        name: "model",
-                                                        rawName: "v-model",
-                                                        value:
-                                                          _vm.query.absensi
-                                                            .cabang_id,
-                                                        expression:
-                                                          "query.absensi.cabang_id"
-                                                      }
-                                                    ],
-                                                    staticClass: "form-control",
-                                                    attrs: {
-                                                      name: "cabang_id"
-                                                    },
-                                                    on: {
-                                                      change: [
-                                                        function($event) {
-                                                          var $$selectedVal = Array.prototype.filter
-                                                            .call(
-                                                              $event.target
-                                                                .options,
-                                                              function(o) {
-                                                                return o.selected
-                                                              }
-                                                            )
-                                                            .map(function(o) {
-                                                              var val =
-                                                                "_value" in o
-                                                                  ? o._value
-                                                                  : o.value
-                                                              return val
-                                                            })
-                                                          _vm.$set(
-                                                            _vm.query.absensi,
-                                                            "cabang_id",
-                                                            $event.target
-                                                              .multiple
-                                                              ? $$selectedVal
-                                                              : $$selectedVal[0]
-                                                          )
-                                                        },
-                                                        _vm.queryData
-                                                      ]
-                                                    }
-                                                  },
-                                                  _vm._l(
-                                                    _vm.data.cabang,
-                                                    function(cabang, i) {
-                                                      return _c(
-                                                        "option",
-                                                        {
-                                                          key: i,
-                                                          domProps: {
-                                                            value: cabang.id
-                                                          }
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            "\n                          " +
-                                                              _vm._s(
-                                                                cabang.kode_cabang
-                                                              ) +
-                                                              " - " +
-                                                              _vm._s(
-                                                                cabang.cabang
-                                                              ) +
-                                                              "\n                        "
-                                                          )
-                                                        ]
-                                                      )
-                                                    }
-                                                  ),
-                                                  0
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "input-group-prepend"
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "span",
-                                                      {
-                                                        staticClass:
-                                                          "input-group-text"
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          "\n                          Tipe Absensi\n                        "
-                                                        )
-                                                      ]
-                                                    )
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "select",
-                                                  {
-                                                    directives: [
-                                                      {
-                                                        name: "model",
-                                                        rawName: "v-model",
-                                                        value:
-                                                          _vm.query.absensi
-                                                            .tipe_absensi_id,
-                                                        expression:
-                                                          "query.absensi.tipe_absensi_id"
-                                                      }
-                                                    ],
-                                                    staticClass: "form-control",
-                                                    attrs: {
-                                                      name: "cabang_id"
-                                                    },
-                                                    on: {
-                                                      change: [
-                                                        function($event) {
-                                                          var $$selectedVal = Array.prototype.filter
-                                                            .call(
-                                                              $event.target
-                                                                .options,
-                                                              function(o) {
-                                                                return o.selected
-                                                              }
-                                                            )
-                                                            .map(function(o) {
-                                                              var val =
-                                                                "_value" in o
-                                                                  ? o._value
-                                                                  : o.value
-                                                              return val
-                                                            })
-                                                          _vm.$set(
-                                                            _vm.query.absensi,
-                                                            "tipe_absensi_id",
-                                                            $event.target
-                                                              .multiple
-                                                              ? $$selectedVal
-                                                              : $$selectedVal[0]
-                                                          )
-                                                        },
-                                                        _vm.queryData
-                                                      ]
-                                                    }
-                                                  },
-                                                  _vm._l(
-                                                    _vm.data.tipe_absensi,
-                                                    function(tipe_absensi, i) {
-                                                      return _c(
-                                                        "option",
-                                                        {
-                                                          key: i,
-                                                          domProps: {
-                                                            value:
-                                                              tipe_absensi.id
-                                                          }
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            "\n                          " +
-                                                              _vm._s(
-                                                                tipe_absensi.tipe_absensi
-                                                              ) +
-                                                              "\n                        "
-                                                          )
-                                                        ]
-                                                      )
-                                                    }
-                                                  ),
-                                                  0
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "input-group-prepend"
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "span",
-                                                      {
-                                                        staticClass:
-                                                          "input-group-text"
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          "\n                          Tanggal Absensi\n                        "
-                                                        )
-                                                      ]
-                                                    )
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c("input", {
-                                                  directives: [
-                                                    {
-                                                      name: "model",
-                                                      rawName: "v-model",
-                                                      value:
-                                                        _vm.query.absensi
-                                                          .tanggal_absensi,
-                                                      expression:
-                                                        "query.absensi.tanggal_absensi"
-                                                    }
-                                                  ],
-                                                  staticClass: "form-control",
-                                                  attrs: {
-                                                    type: "date",
-                                                    name: "tanggal_absensi"
-                                                  },
-                                                  domProps: {
+                                                    name: "model",
+                                                    rawName: "v-model",
                                                     value:
                                                       _vm.query.absensi
-                                                        .tanggal_absensi
-                                                  },
-                                                  on: {
-                                                    keyup: _vm.queryData,
-                                                    input: function($event) {
-                                                      if (
-                                                        $event.target.composing
-                                                      ) {
-                                                        return
-                                                      }
+                                                        .cabang_id,
+                                                    expression:
+                                                      "query.absensi.cabang_id"
+                                                  }
+                                                ],
+                                                staticClass: "form-control",
+                                                attrs: { name: "cabang_id" },
+                                                on: {
+                                                  change: [
+                                                    function($event) {
+                                                      var $$selectedVal = Array.prototype.filter
+                                                        .call(
+                                                          $event.target.options,
+                                                          function(o) {
+                                                            return o.selected
+                                                          }
+                                                        )
+                                                        .map(function(o) {
+                                                          var val =
+                                                            "_value" in o
+                                                              ? o._value
+                                                              : o.value
+                                                          return val
+                                                        })
                                                       _vm.$set(
                                                         _vm.query.absensi,
-                                                        "tanggal_absensi",
-                                                        $event.target.value
+                                                        "cabang_id",
+                                                        $event.target.multiple
+                                                          ? $$selectedVal
+                                                          : $$selectedVal[0]
                                                       )
+                                                    },
+                                                    _vm.queryData
+                                                  ]
+                                                }
+                                              },
+                                              _vm._l(_vm.data.cabang, function(
+                                                cabang,
+                                                i
+                                              ) {
+                                                return _c(
+                                                  "option",
+                                                  {
+                                                    key: i,
+                                                    domProps: {
+                                                      value: cabang.id
                                                     }
-                                                  }
-                                                })
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                        " +
+                                                        _vm._s(
+                                                          cabang.kode_cabang
+                                                        ) +
+                                                        " - " +
+                                                        _vm._s(cabang.cabang) +
+                                                        "\n                      "
+                                                    )
+                                                  ]
+                                                )
+                                              }),
+                                              0
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass:
+                                                  "input-group-prepend"
+                                              },
+                                              [
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "input-group-text"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                        Tipe Absensi\n                      "
+                                                    )
+                                                  ]
+                                                )
                                               ]
-                                            )
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "select",
+                                              {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value:
+                                                      _vm.query.absensi
+                                                        .tipe_absensi_id,
+                                                    expression:
+                                                      "query.absensi.tipe_absensi_id"
+                                                  }
+                                                ],
+                                                staticClass: "form-control",
+                                                attrs: { name: "cabang_id" },
+                                                on: {
+                                                  change: [
+                                                    function($event) {
+                                                      var $$selectedVal = Array.prototype.filter
+                                                        .call(
+                                                          $event.target.options,
+                                                          function(o) {
+                                                            return o.selected
+                                                          }
+                                                        )
+                                                        .map(function(o) {
+                                                          var val =
+                                                            "_value" in o
+                                                              ? o._value
+                                                              : o.value
+                                                          return val
+                                                        })
+                                                      _vm.$set(
+                                                        _vm.query.absensi,
+                                                        "tipe_absensi_id",
+                                                        $event.target.multiple
+                                                          ? $$selectedVal
+                                                          : $$selectedVal[0]
+                                                      )
+                                                    },
+                                                    _vm.queryData
+                                                  ]
+                                                }
+                                              },
+                                              _vm._l(
+                                                _vm.data.tipe_absensi,
+                                                function(tipe_absensi, i) {
+                                                  return _c(
+                                                    "option",
+                                                    {
+                                                      key: i,
+                                                      domProps: {
+                                                        value: tipe_absensi.id
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                        " +
+                                                          _vm._s(
+                                                            tipe_absensi.tipe_absensi
+                                                          ) +
+                                                          "\n                      "
+                                                      )
+                                                    ]
+                                                  )
+                                                }
+                                              ),
+                                              0
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass:
+                                                  "input-group-prepend"
+                                              },
+                                              [
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "input-group-text"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                        Tanggal Absensi\n                      "
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    _vm.query.absensi
+                                                      .tanggal_absensi,
+                                                  expression:
+                                                    "query.absensi.tanggal_absensi"
+                                                }
+                                              ],
+                                              staticClass: "form-control",
+                                              attrs: {
+                                                type: "date",
+                                                name: "tanggal_absensi"
+                                              },
+                                              domProps: {
+                                                value:
+                                                  _vm.query.absensi
+                                                    .tanggal_absensi
+                                              },
+                                              on: {
+                                                keyup: _vm.queryData,
+                                                input: function($event) {
+                                                  if ($event.target.composing) {
+                                                    return
+                                                  }
+                                                  _vm.$set(
+                                                    _vm.query.absensi,
+                                                    "tanggal_absensi",
+                                                    $event.target.value
+                                                  )
+                                                }
+                                              }
+                                            })
                                           ]
                                         )
-                                      ]
-                                    )
+                                      ])
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row d-md-none" }, [
+                                  _c("div", { staticClass: "col-12" }, [
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("label", [_vm._v("Cabang")]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "select",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value:
+                                                _vm.query.absensi.cabang_id,
+                                              expression:
+                                                "query.absensi.cabang_id"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { name: "cabang_id" },
+                                          on: {
+                                            change: [
+                                              function($event) {
+                                                var $$selectedVal = Array.prototype.filter
+                                                  .call(
+                                                    $event.target.options,
+                                                    function(o) {
+                                                      return o.selected
+                                                    }
+                                                  )
+                                                  .map(function(o) {
+                                                    var val =
+                                                      "_value" in o
+                                                        ? o._value
+                                                        : o.value
+                                                    return val
+                                                  })
+                                                _vm.$set(
+                                                  _vm.query.absensi,
+                                                  "cabang_id",
+                                                  $event.target.multiple
+                                                    ? $$selectedVal
+                                                    : $$selectedVal[0]
+                                                )
+                                              },
+                                              _vm.queryData
+                                            ]
+                                          }
+                                        },
+                                        _vm._l(_vm.data.cabang, function(
+                                          cabang,
+                                          i
+                                        ) {
+                                          return _c(
+                                            "option",
+                                            {
+                                              key: i,
+                                              domProps: { value: cabang.id }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                      " +
+                                                  _vm._s(cabang.kode_cabang) +
+                                                  " - " +
+                                                  _vm._s(cabang.cabang) +
+                                                  "\n                    "
+                                              )
+                                            ]
+                                          )
+                                        }),
+                                        0
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("label", [_vm._v("Tipe Absensi")]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "select",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value:
+                                                _vm.query.absensi
+                                                  .tipe_absensi_id,
+                                              expression:
+                                                "query.absensi.tipe_absensi_id"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { name: "cabang_id" },
+                                          on: {
+                                            change: [
+                                              function($event) {
+                                                var $$selectedVal = Array.prototype.filter
+                                                  .call(
+                                                    $event.target.options,
+                                                    function(o) {
+                                                      return o.selected
+                                                    }
+                                                  )
+                                                  .map(function(o) {
+                                                    var val =
+                                                      "_value" in o
+                                                        ? o._value
+                                                        : o.value
+                                                    return val
+                                                  })
+                                                _vm.$set(
+                                                  _vm.query.absensi,
+                                                  "tipe_absensi_id",
+                                                  $event.target.multiple
+                                                    ? $$selectedVal
+                                                    : $$selectedVal[0]
+                                                )
+                                              },
+                                              _vm.queryData
+                                            ]
+                                          }
+                                        },
+                                        _vm._l(_vm.data.tipe_absensi, function(
+                                          tipe_absensi,
+                                          i
+                                        ) {
+                                          return _c(
+                                            "option",
+                                            {
+                                              key: i,
+                                              domProps: {
+                                                value: tipe_absensi.id
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                      " +
+                                                  _vm._s(
+                                                    tipe_absensi.tipe_absensi
+                                                  ) +
+                                                  "\n                    "
+                                              )
+                                            ]
+                                          )
+                                        }),
+                                        0
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("label", [_vm._v("Tanggal Absensi")]),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.query.absensi.tanggal_absensi,
+                                            expression:
+                                              "query.absensi.tanggal_absensi"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "date",
+                                          name: "tanggal_absensi"
+                                        },
+                                        domProps: {
+                                          value:
+                                            _vm.query.absensi.tanggal_absensi
+                                        },
+                                        on: {
+                                          keyup: _vm.queryData,
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.query.absensi,
+                                              "tanggal_absensi",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ])
                                   ])
                                 ]),
                                 _vm._v(" "),
@@ -82143,6 +82546,317 @@ var render = function() {
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/form_operasional/FormC1.vue?vue&type=template&id=5f63c08c&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/form_operasional/FormC1.vue?vue&type=template&id=5f63c08c& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    { attrs: { name: "fade", mode: "out-in" } },
+    [
+      _vm.$route.name === "formOperasional.formC1"
+        ? _c(
+            "div",
+            { staticClass: "row mt-5" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "fade", mode: "out-in" } },
+                [
+                  _vm.state.page.loading
+                    ? _c("preloader-component")
+                    : _c(
+                        "div",
+                        { staticClass: "col-12 col-xl-12 stretch-card" },
+                        [
+                          _c("div", { staticClass: "card" }, [
+                            _c("div", { staticClass: "card-body" }, [
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-12" }, [
+                                  _c("div", { staticClass: "form-group" }, [
+                                    _c("div", { staticClass: "input-group" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "input-group-prepend" },
+                                        [
+                                          _c(
+                                            "span",
+                                            { staticClass: "input-group-text" },
+                                            [
+                                              _vm._v(
+                                                "\n                        Cabang\n                      "
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "select",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value:
+                                                _vm.query.absensi.cabang_id,
+                                              expression:
+                                                "query.absensi.cabang_id"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { name: "cabang_id" },
+                                          on: {
+                                            change: [
+                                              function($event) {
+                                                var $$selectedVal = Array.prototype.filter
+                                                  .call(
+                                                    $event.target.options,
+                                                    function(o) {
+                                                      return o.selected
+                                                    }
+                                                  )
+                                                  .map(function(o) {
+                                                    var val =
+                                                      "_value" in o
+                                                        ? o._value
+                                                        : o.value
+                                                    return val
+                                                  })
+                                                _vm.$set(
+                                                  _vm.query.absensi,
+                                                  "cabang_id",
+                                                  $event.target.multiple
+                                                    ? $$selectedVal
+                                                    : $$selectedVal[0]
+                                                )
+                                              },
+                                              _vm.queryData
+                                            ]
+                                          }
+                                        },
+                                        _vm._l(_vm.data.cabang, function(
+                                          cabang,
+                                          i
+                                        ) {
+                                          return _c(
+                                            "option",
+                                            {
+                                              key: i,
+                                              domProps: { value: cabang.id }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                        " +
+                                                  _vm._s(cabang.kode_cabang) +
+                                                  " - " +
+                                                  _vm._s(cabang.cabang) +
+                                                  "\n                      "
+                                              )
+                                            ]
+                                          )
+                                        }),
+                                        0
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "input-group-prepend" },
+                                        [
+                                          _c(
+                                            "span",
+                                            { staticClass: "input-group-text" },
+                                            [
+                                              _vm._v(
+                                                "\n                        Tipe Absensi\n                      "
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "select",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value:
+                                                _vm.query.absensi
+                                                  .tipe_absensi_id,
+                                              expression:
+                                                "query.absensi.tipe_absensi_id"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { name: "cabang_id" },
+                                          on: {
+                                            change: [
+                                              function($event) {
+                                                var $$selectedVal = Array.prototype.filter
+                                                  .call(
+                                                    $event.target.options,
+                                                    function(o) {
+                                                      return o.selected
+                                                    }
+                                                  )
+                                                  .map(function(o) {
+                                                    var val =
+                                                      "_value" in o
+                                                        ? o._value
+                                                        : o.value
+                                                    return val
+                                                  })
+                                                _vm.$set(
+                                                  _vm.query.absensi,
+                                                  "tipe_absensi_id",
+                                                  $event.target.multiple
+                                                    ? $$selectedVal
+                                                    : $$selectedVal[0]
+                                                )
+                                              },
+                                              _vm.queryData
+                                            ]
+                                          }
+                                        },
+                                        _vm._l(_vm.data.tipe_absensi, function(
+                                          tipe_absensi,
+                                          i
+                                        ) {
+                                          return _c(
+                                            "option",
+                                            {
+                                              key: i,
+                                              domProps: {
+                                                value: tipe_absensi.id
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                        " +
+                                                  _vm._s(
+                                                    tipe_absensi.tipe_absensi
+                                                  ) +
+                                                  "\n                      "
+                                              )
+                                            ]
+                                          )
+                                        }),
+                                        0
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "input-group-prepend" },
+                                        [
+                                          _c(
+                                            "span",
+                                            { staticClass: "input-group-text" },
+                                            [
+                                              _vm._v(
+                                                "\n                        Tanggal Absensi\n                      "
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.query.absensi.tanggal_absensi,
+                                            expression:
+                                              "query.absensi.tanggal_absensi"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "date",
+                                          name: "tanggal_absensi"
+                                        },
+                                        domProps: {
+                                          value:
+                                            _vm.query.absensi.tanggal_absensi
+                                        },
+                                        on: {
+                                          keyup: _vm.queryData,
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.query.absensi,
+                                              "tanggal_absensi",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ])
+                                  ])
+                                ])
+                              ])
+                            ])
+                          ])
+                        ]
+                      )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _c("router-view")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/form_operasional/FormC2.vue?vue&type=template&id=5f47918a&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/form_operasional/FormC2.vue?vue&type=template&id=5f47918a& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -115648,6 +116362,35 @@ __webpack_require__.r(__webpack_exports__);
         create: true
       }
     }
+  },
+  formOperasional: {
+    access: true,
+    children: {
+      formC1: {
+        access: true
+      },
+      formC2: {
+        access: true
+      },
+      formC3: {
+        access: true
+      },
+      formC4: {
+        access: true
+      },
+      formC5: {
+        access: true
+      },
+      formFoto: {
+        access: true
+      },
+      formLaporanFoto: {
+        access: true
+      },
+      formDendaFoto: {
+        access: true
+      }
+    }
   }
 });
 
@@ -116507,6 +117250,39 @@ var routes = [{
       },
       beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
     }]
+  }, {
+    path: 'form_operasional',
+    name: 'formOperasional',
+    component: {
+      template: "<transition name=\"fade\" mode=\"out-in\"><router-view></router-view></transition>"
+    },
+    meta: {
+      layout: 'default',
+      title: 'Absensi',
+      sidebar: 'formOperasional'
+    },
+    beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access]),
+    children: [{
+      path: 'form_c1',
+      name: 'formOperasional.formC1',
+      component: __webpack_require__(/*! ../views/form_operasional/FormC1 */ "./resources/js/views/form_operasional/FormC1.vue")["default"],
+      meta: {
+        layout: 'default',
+        title: 'Form C1',
+        sidebar: 'formC1'
+      },
+      beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
+    }, {
+      path: 'form_c2',
+      name: 'formOperasional.formC2',
+      component: __webpack_require__(/*! ../views/form_operasional/FormC2 */ "./resources/js/views/form_operasional/FormC2.vue")["default"],
+      meta: {
+        layout: 'default',
+        title: 'Form C2',
+        sidebar: 'formC2'
+      },
+      beforeEnter: vue_router_multiguard__WEBPACK_IMPORTED_MODULE_2___default()([_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].auth, _middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"].access])
+    }]
   }]
 }];
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
@@ -116971,6 +117747,129 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 component.options.__file = "resources/js/views/absensi/ImporJadwal.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/form_operasional/FormC1.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/views/form_operasional/FormC1.vue ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FormC1_vue_vue_type_template_id_5f63c08c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormC1.vue?vue&type=template&id=5f63c08c& */ "./resources/js/views/form_operasional/FormC1.vue?vue&type=template&id=5f63c08c&");
+/* harmony import */ var _FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormC1.vue?vue&type=script&lang=js& */ "./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FormC1_vue_vue_type_template_id_5f63c08c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FormC1_vue_vue_type_template_id_5f63c08c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/form_operasional/FormC1.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./FormC1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/form_operasional/FormC1.vue?vue&type=template&id=5f63c08c&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/views/form_operasional/FormC1.vue?vue&type=template&id=5f63c08c& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormC1_vue_vue_type_template_id_5f63c08c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./FormC1.vue?vue&type=template&id=5f63c08c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/form_operasional/FormC1.vue?vue&type=template&id=5f63c08c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormC1_vue_vue_type_template_id_5f63c08c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormC1_vue_vue_type_template_id_5f63c08c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/form_operasional/FormC2.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/views/form_operasional/FormC2.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FormC2_vue_vue_type_template_id_5f47918a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormC2.vue?vue&type=template&id=5f47918a& */ "./resources/js/views/form_operasional/FormC2.vue?vue&type=template&id=5f47918a&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _FormC2_vue_vue_type_template_id_5f47918a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FormC2_vue_vue_type_template_id_5f47918a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/form_operasional/FormC2.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/form_operasional/FormC2.vue?vue&type=template&id=5f47918a&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/views/form_operasional/FormC2.vue?vue&type=template&id=5f47918a& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormC2_vue_vue_type_template_id_5f47918a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./FormC2.vue?vue&type=template&id=5f47918a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/form_operasional/FormC2.vue?vue&type=template&id=5f47918a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormC2_vue_vue_type_template_id_5f47918a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormC2_vue_vue_type_template_id_5f47918a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

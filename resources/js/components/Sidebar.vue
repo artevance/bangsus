@@ -97,19 +97,20 @@ export default {
               icon: 'far fa-file-invoice',
               title: 'Form Operasional',
               index: 'formOperasional',
-              href: 'operationalForm',
-              to: 'operationalForm',
+              href: 'formOperasional',
+              to: 'formOperasional',
               children: [
-                { title: 'Form C1', index: 'formC1', to: 'master.tipeKontak' },
-                { title: 'Form C2', index: 'formC2', to: 'master.tipeKontak' },
-                { title: 'Form C3', index: 'formC3', to: 'master.tipeKontak' },
-                { title: 'Form C4', index: 'formC4', to: 'master.tipeKontak' },
-                { title: 'Form C5', index: 'formC5', to: 'master.tipeKontak' },
-                { title: 'Form Foto', index: 'formFoto', to: 'master.tipeKontak' },
-                { title: 'Form Laporan Foto', index: 'formLaporanFoto', to: 'master.tipeKontak' },
-                { title: 'Form Denda Foto', index: 'formDendaFoto', to: 'master.tipeKontak' }
+                { title: 'Form C1', index: 'formC1', to: 'formOperasional.formC1' },
+                { title: 'Form C2', index: 'formC2', to: 'formOperasional.formC2' },
+                { title: 'Form C3', index: 'formC3', to: 'formOperasional.formC3' },
+                { title: 'Form C4', index: 'formC4', to: 'formOperasional.formC4' },
+                { title: 'Form C5', index: 'formC5', to: 'formOperasional.formC5' },
+                { title: 'Form Foto', index: 'formFoto', to: 'formOperasional.formFoto' },
+                { title: 'Form Laporan Foto', index: 'formLaporanFoto', to: 'formOperasional.formLaporanFoto' },
+                { title: 'Form Denda Foto', index: 'formDendaFoto', to: 'formOperasional.formDendaFoto' }
               ]
             },
+            { icon: 'far fa-chart-pie', title: 'Report Center', index: 'reportCenter', to: 'reportCenter' },
           ]
         }
       ]

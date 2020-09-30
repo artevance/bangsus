@@ -236,5 +236,34 @@ export default {
         create: true
       },
     }
+  },
+  formOperasional: {
+    access: true,
+    children: {
+      formC1: {
+        access: true
+      },
+      formC2: {
+        access: true
+      },
+      formC3: {
+        access: true
+      },
+      formC4: {
+        access: true
+      },
+      formC5: {
+        access: true
+      },
+      formFoto: {
+        access: true
+      },
+      formLaporanFoto: {
+        access: true
+      },
+      formDendaFoto: {
+        access: true
+      },
+    }
   }
 }
