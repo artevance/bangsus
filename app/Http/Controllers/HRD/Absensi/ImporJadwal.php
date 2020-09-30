@@ -136,8 +136,6 @@ class ImporJadwal extends Controller
       }
     }
 
-    // return ['data' => $data, 'cabangID' => $cabangID];
-
     foreach ($data as $d) {
       $noFinger = $d['no_finger'];
       $validator = Validator::make($d, [

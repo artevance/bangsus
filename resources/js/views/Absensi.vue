@@ -526,7 +526,7 @@ export default {
     }
   },
   created() {
-    this.prepare()
+    if (this.$route.name === 'absensi') this.prepare()
   },
 
   methods: {

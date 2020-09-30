@@ -2822,7 +2822,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.prepare();
+    if (this.$route.name === 'absensi') this.prepare();
   },
   methods: {
     /**
@@ -3815,10 +3815,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/absensi/ImporJadwal.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/absensi/ImporJadwal.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3875,142 +3875,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      state: {
-        page: {
-          loading: true
-        }
-      },
-      data: {
-        divisi: []
-      },
       form: {
-        create: {
+        impor_jadwal: {
           data: {
-            divisi: ''
+            reset: true,
+            file: null
           },
-          errors: {},
+          preview: false,
+          preview_data: [],
+          preview_loading: false,
           loading: false
-        },
-        update: {
-          data: {
-            id: null,
-            divisi: ''
-          },
-          errors: {},
-          loading: false
-        }
-      },
-      query: {
-        divisi: {
-          q: ''
         }
       }
     };
   },
-  created: function created() {// this.prepare()
-  },
   methods: {
-    /**
-     *  Prepare the page.
-     */
-    prepare: function prepare() {
+    wrapForm: function wrapForm() {
+      var formData = new FormData();
+      formData.append('file', this.form.impor_jadwal.data.file);
+      formData.append('reset', this.form.impor_jadwal.data.reset);
+      return formData;
+    },
+    handleImporJadwalFileChange: function handleImporJadwalFileChange() {
+      this.form.impor_jadwal.preview = false;
+      this.form.impor_jadwal.preview_data = [];
+      this.form.impor_jadwal.data.file = this.$refs.file.files[0];
+    },
+    preview: function preview() {
       var _this = this;
 
-      this.state.page.loading = true;
-      Promise.all([this.fetchMainData()]).then(function (res) {
-        _this.data.divisi = res[0].data.container;
-        _this.state.page.loading = false;
-      })["catch"](function (err) {
-        _this.$router.go(-1);
+      this.form.impor_jadwal.preview_loading = true;
+      axios.post('/ajax/v1/absensi/impor_jadwal/preview', this.wrapForm(), {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (res) {
+        _this.form.impor_jadwal.preview = true;
+        _this.form.impor_jadwal.preview_data = res.data.container;
+      })["catch"](function (err) {})["finally"](function () {
+        _this.form.impor_jadwal.preview_loading = false;
       });
     },
-
-    /**
-     *  Query result.
-     */
-    queryData: function queryData() {
+    impor: function impor() {
       var _this2 = this;
 
-      this.fetchMainData().then(function (res) {
-        _this2.data.divisi = res.data.container;
-      })["catch"](function (err) {});
-    },
-
-    /**
-     *  Fetch data
-     */
-    fetchMainData: function fetchMainData() {
-      return this.$axios.get('/ajax/v1/master/divisi?q=' + this.query.divisi.q);
-    },
-
-    /**
-     *  Modal functionality
-     */
-    showCreateModal: function showCreateModal() {
-      $('[data-entity="divisi"][data-method="create"]').modal('show');
-    },
-    showUpdateModal: function showUpdateModal(id) {
-      var _this3 = this;
-
-      this.form.update.data = {};
-      this.$axios.get('/ajax/v1/master/divisi/' + id).then(function (res) {
-        _this3.form.update.data = {
-          id: id,
-          divisi: res.data.container.divisi
-        };
-        $('[data-entity="divisi"][data-method="update"]').modal('show');
-      });
-    },
-
-    /**
-     *  Form request handler
-     */
-    create: function create() {
-      var _this4 = this;
-
-      this.form.create.loading = true;
-      this.form.create.errors = {};
-      this.$axios.post('/ajax/v1/master/divisi', this.form.create.data).then(function (res) {
-        _this4.form.create.data = {
-          divisi: ''
-        };
-
-        _this4.prepare();
-
-        $('[data-entity="divisi"][data-method="create"]').modal('hide');
-      })["catch"](function (err) {
-        console.log(err.response.data);
-
-        if (err.response.status == 422) {
-          _this4.form.create.errors = err.response.data.errors;
+      this.form.impor_jadwal.loading = true;
+      axios.post('/ajax/v1/absensi/impor_jadwal', this.wrapForm(), {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
-      })["finally"](function () {
-        _this4.form.create.loading = false;
-      });
-    },
-    update: function update() {
-      var _this5 = this;
-
-      this.form.update.loading = true;
-      this.form.update.errors = {};
-      this.$axios.put('/ajax/v1/master/divisi', this.form.update.data).then(function (res) {
-        _this5.form.update.data = {
-          id: null,
-          divisi: ''
-        };
-
-        _this5.prepare();
-
-        $('[data-entity="divisi"][data-method="update"]').modal('hide');
+      }).then(function (res) {
+        console.log(res.data.container);
       })["catch"](function (err) {
-        if (err.response.status == 422) {
-          _this5.form.update.errors = err.response.data.errors;
-        }
+        console.log(err.response);
       })["finally"](function () {
-        _this5.form.update.loading = false;
+        _this2.form.impor_jadwal.loading = false;
       });
     }
   }
@@ -77812,6 +77742,1605 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/contents/TutorialImporJadwal.vue?vue&type=template&id=7979d122&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/contents/TutorialImporJadwal.vue?vue&type=template&id=7979d122& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("h5", { staticClass: "mt-5 mb-3" }, [
+        _vm._v(
+          "Bagi teman-teman yang ingin melihat cara mengimpor jadwal, bisa melihat tutorial di bawah ini."
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-title" }, [
+        _vm._v("Contoh Format File Impor Jadwal")
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "Misalkan ada kasus ingin mengimpor jadwal cabang Kantor Pusat (Kode Cabang: 100) bulan Agustus 2020"
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "table-responsive mt-2" }, [
+        _c("table", { staticClass: "table table-bordered table-sm" }, [
+          _c("tbody", [
+            _c("tr", [
+              _c(
+                "th",
+                {
+                  staticClass: "text-center text-muted",
+                  staticStyle: { width: "3%" }
+                },
+                [_vm._v("x")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("A")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("B")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("C")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("D")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("E")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("F")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("G")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("H")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("I")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("J")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("K")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("L")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("M")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("N")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("O")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("P")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("Q")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("R")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("S")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("T")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("U")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("V")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("W")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("X")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("Y")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("Z")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("AA")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("AB")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("AC")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("AD")]
+              ),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", staticStyle: { width: "10%" } },
+                [_vm._v("AE")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "text-center" }, [_vm._v("1")]),
+              _vm._v(" "),
+              _c("td", { attrs: { colspan: "2" } }, [
+                _vm._v("Laporan Jadwal Outlet")
+              ]),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "text-center" }, [_vm._v("2")]),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }, [
+                _vm._v("Kode Cabang")
+              ]),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass: "table-warning text-right",
+                  staticStyle: { width: "10%" }
+                },
+                [_vm._v("100")]
+              ),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "text-center" }, [_vm._v("3")]),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }, [
+                _vm._v("Bulan Tahun")
+              ]),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass: "table-warning text-right",
+                  staticStyle: { width: "10%" }
+                },
+                [_vm._v("8")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass: "table-warning text-right",
+                  staticStyle: { width: "10%" }
+                },
+                [_vm._v("2020")]
+              ),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "text-center" }, [_vm._v("4")]),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("1")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("2")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("3")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("4")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("5")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("6")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("7")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("8")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("9")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("10")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("11")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("12")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("13")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("14")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("15")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("16")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("17")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("18")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("19")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("20")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("21")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("22")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("23")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("24")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("25")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("26")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("27")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("28")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("29")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("30")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-danger", staticStyle: { width: "10%" } },
+                [_vm._v("31")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "text-center" }, [_vm._v("5")]),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-warning", staticStyle: { width: "10%" } },
+                [_vm._v("ID:")]
+              ),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-warning", staticStyle: { width: "10%" } },
+                [_vm._v("1")]
+              ),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticStyle: { width: "20%" }, attrs: { colspan: "2" } },
+                [_vm._v("Budi Santoso")]
+              ),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "text-center" }, [_vm._v("6")]),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c("td", {
+                staticClass: "table-success",
+                staticStyle: { width: "10%" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "text-center" }, [_vm._v("7")]),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-warning", staticStyle: { width: "10%" } },
+                [_vm._v("ID:")]
+              ),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-warning", staticStyle: { width: "10%" } },
+                [_vm._v("2")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticStyle: { width: "20%" }, attrs: { colspan: "2" } },
+                [_vm._v("Budi Santoso")]
+              ),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "text-center" }, [_vm._v("8")]),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c("td", {
+                staticClass: "table-success",
+                staticStyle: { width: "10%" }
+              }),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c("td", {
+                staticClass: "table-success",
+                staticStyle: { width: "10%" }
+              }),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c("td", {
+                staticClass: "table-success",
+                staticStyle: { width: "10%" }
+              }),
+              _vm._v(" "),
+              _c("td", {
+                staticClass: "table-success",
+                staticStyle: { width: "10%" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "text-center" }, [_vm._v("9")]),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-warning", staticStyle: { width: "10%" } },
+                [_vm._v("ID:")]
+              ),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-warning", staticStyle: { width: "10%" } },
+                [_vm._v("3")]
+              ),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticStyle: { width: "20%" }, attrs: { colspan: "2" } },
+                [_vm._v("Budi Santoso")]
+              ),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } }),
+              _vm._v(" "),
+              _c("td", { staticStyle: { width: "10%" } })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "text-center" }, [_vm._v("10")]),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c("td", {
+                staticClass: "table-success",
+                staticStyle: { width: "10%" }
+              }),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c("td", {
+                staticClass: "table-success",
+                staticStyle: { width: "10%" }
+              }),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c("td", {
+                staticClass: "table-success",
+                staticStyle: { width: "10%" }
+              }),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "table-success", staticStyle: { width: "10%" } },
+                [_vm._v("'09:00")]
+              ),
+              _vm._v(" "),
+              _c("td", {
+                staticClass: "table-success",
+                staticStyle: { width: "10%" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("tr", [_c("td", { staticClass: "border-0" })]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", { staticClass: "border-0" }),
+              _vm._v(" "),
+              _c("td", [_c("b", [_vm._v("Sheet1")])]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-muted" }, [_vm._v("Sheet2")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-muted" }, [_vm._v("Sheet3")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [_vm._v("+")])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mt-2" }, [_vm._v("Catatan:")]),
+      _vm._v(" "),
+      _c("ol", [
+        _c("li", [
+          _vm._v("Perhatikan nama sheet. Nama sheet haruslah "),
+          _c("b", [_vm._v("Sheet1")]),
+          _vm._v(".")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v("Perhatikan kolom yang berwarna "),
+          _c("span", { staticClass: "text-danger" }, [_vm._v("merah")]),
+          _vm._v(". Kolom berwarna merah tidak boleh diubah-ubah.")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v("Perhatikan kolom yang berwarna "),
+          _c("span", { staticClass: "text-warning" }, [_vm._v("kuning")]),
+          _vm._v(
+            ". Kolom berwarna kuning adalah kolom yang dapat diubah dengan syarat dan ketentuan tertentu."
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v("Perhatikan kolom yang berwarna "),
+          _c("span", { staticClass: "text-success" }, [_vm._v("hijau")]),
+          _vm._v(". Kolom berwarna hijau adalah kolom jam yang akan diisikan.")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "Kolom putih tidak berpengaruh dalam prosesi impor, dan dapat digunakan sebagai sarana untuk mencatat."
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mt-2" }, [_vm._v("Ketentuan:")]),
+      _vm._v(" "),
+      _c("ol", [
+        _c("li", [
+          _vm._v(
+            "Kolom berwarna merah adalah tanggal, dan dalam kondisi apapun tidak boleh diganti termasuk bila dalam suatu bulan hanya terdapat 30 hari, atau 28 hari. Penggantian terhadap kolom ini tidak berakibat fatal bagi sistem, namun sistem akan tetap membaca data jam yang diberikan sesuai keadaan seperti diatas. Semisal bila anda mengganti kolom A4 dari angka 1 ke 3, sistem akan tetap membaca data di bawahnya sebagai data tanggal 1 Agustus 2020, tidak serta merta menjadi 3 Agustus 2020."
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "Kolom kuning adalah data-data yang dapat anda isi sesuai ketentuan:"
+          )
+        ]),
+        _vm._v(" "),
+        _c("ol", [
+          _c("li", [
+            _vm._v(
+              "Kolom B2 harus diisikan kode cabang yang valid. Bila kode cabang tidak valid maka data tidak akan masuk."
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "Kolom B3 dan C3 harus diisikan bulan dan tahun yang valid secara valid. Bila tidak valid maka konsekuensi seperti poin diatas akan terjadi."
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "Setiap kali anda ingin memasukkan sebuah data, anda wajib menuliskan "
+            ),
+            _c("b", [_vm._v("ID:")]),
+            _vm._v(
+              " pada kolom A, diikuti dengan nomor ID Finger pada kolom C. Keduanya harus sejajar. Bila tulisan "
+            ),
+            _c("b", [_vm._v("ID:")]),
+            _vm._v(
+              " tidak ada, atau nomor ID Finger tidak valid, maka sistem akan mengabaikan data."
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "Kolom hijau adalah data jam jadwal yang dapat anda isi sesuai ketentuan:"
+          )
+        ]),
+        _vm._v(" "),
+        _c("ol", [
+          _c("li", [
+            _vm._v("Harus diisikan 1 baris dibawah tulisan "),
+            _c("b", [_vm._v("ID:")]),
+            _vm._v(" dan nomor ID Finger.")
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v("Format haruslah "),
+            _c("b", [_vm._v("'hh:mm")]),
+            _vm._v(" (sesuai standar "),
+            _c(
+              "a",
+              {
+                attrs: {
+                  href: "https://id.wikipedia.org/wiki/ISO_8601#Waktu",
+                  target: "_blank"
+                }
+              },
+              [_vm._v("ISO 8601")]
+            ),
+            _vm._v(", dengan pengecualian "),
+            _c("b", [_vm._v("tanpa ada detik")]),
+            _vm._v("). Contoh, pukul 9 pagi lebih 12 menit menjadi "),
+            _c("b", [_vm._v("'09:12")]),
+            _vm._v(", pukul 1 siang lebih 44 menit menjadi "),
+            _c("b", [_vm._v("'13:44")]),
+            _vm._v(".")
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v("Tanda "),
+            _c("b", [_vm._v("'")]),
+            _vm._v(
+              " harus ditambahkan di depan jam supaya format tidak bergeser karena Excel."
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "Bila pada tanggal tertentu seorang karyawan libur / off / tidak masuk karena "
+            ),
+            _c("b", [_vm._v("penyebab apapun")]),
+            _vm._v(", kolom dikosongkan saja, jangan ada tulisan apapun.")
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/layouts/Default.vue?vue&type=template&id=6a25d30d&":
 /*!*******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/layouts/Default.vue?vue&type=template&id=6a25d30d& ***!
@@ -82554,6 +84083,237 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/absensi/ImporJadwal.vue?vue&type=template&id=190dfc17&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/absensi/ImporJadwal.vue?vue&type=template&id=190dfc17& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row mt-5" }, [
+    _c("div", { staticClass: "col-12 col-xl-12 stretch-card" }, [
+      _c("div", { staticClass: "card" }, [
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          [
+            _c("div", { staticClass: "card-title" }, [_vm._v("Impor Jadwal")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.impor_jadwal.data.reset,
+                    expression: "form.impor_jadwal.data.reset"
+                  }
+                ],
+                attrs: { type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.form.impor_jadwal.data.reset)
+                    ? _vm._i(_vm.form.impor_jadwal.data.reset, null) > -1
+                    : _vm.form.impor_jadwal.data.reset
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.form.impor_jadwal.data.reset,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.form.impor_jadwal.data,
+                            "reset",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.form.impor_jadwal.data,
+                            "reset",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.form.impor_jadwal.data, "reset", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { staticClass: "ml-2" }, [
+                _vm._v("Reset data di cabang dan bulan terlampir")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [
+                _vm._v("File (harus excel berformat .xls atau .xlsx)")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                ref: "file",
+                staticClass: "form-control",
+                attrs: { type: "file" },
+                on: { change: _vm.handleImporJadwalFileChange }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: {
+                  disabled:
+                    _vm.form.impor_jadwal.preview_loading ||
+                    _vm.form.impor_jadwal.preview
+                },
+                on: { click: _vm.preview }
+              },
+              [
+                _vm.form.impor_jadwal.preview_loading
+                  ? _c("spinner-component", {
+                      attrs: { size: "sm", color: "light" }
+                    })
+                  : _vm._e(),
+                _vm._v("\n          Preview\n        ")
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "transition",
+              { attrs: { name: "fade", mode: "out-in" } },
+              [
+                _vm.form.impor_jadwal.preview
+                  ? _c("div", [
+                      _c("div", { staticClass: "card-title mt-5" }, [
+                        _vm._v("Silahkan review data yang akan anda impor")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { disabled: _vm.form.impor_jadwal.loading },
+                          on: { click: _vm.impor }
+                        },
+                        [
+                          _vm.form.impor_jadwal.loading
+                            ? _c("spinner-component", {
+                                attrs: { size: "sm", color: "light" }
+                              })
+                            : _vm._e(),
+                          _vm._v("\n              Impor\n            ")
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "alert alert-warning mt-5" }, [
+                        _c("h5", [
+                          _vm._v(
+                            "Cabang: " +
+                              _vm._s(
+                                _vm.form.impor_jadwal.preview_data.cabang.cabang
+                              )
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "Tanggal Awal: " +
+                              _vm._s(
+                                _vm.form.impor_jadwal.preview_data.tanggal_awal
+                              )
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "Tanggal Akhir: " +
+                              _vm._s(
+                                _vm.form.impor_jadwal.preview_data.tanggal_akhir
+                              )
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "table-responsive mt-3" }, [
+                        _c("table", { staticClass: "table table-responsive" }, [
+                          _c("thead", [
+                            _c("th", [_vm._v("#")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Nama Karyawan")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("No Finger")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Tanggal Absensi")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Jam Jadwal")])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(
+                              _vm.form.impor_jadwal.preview_data.data,
+                              function(data, i) {
+                                return _c("tr", [
+                                  _c("td", [_vm._v(_vm._s(i + 1))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        data.tugas_karyawan.karyawan
+                                          .nama_karyawan
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.no_finger))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(data.tanggal_absensi))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(data.jam_jadwal))])
+                                ])
+                              }
+                            ),
+                            0
+                          )
+                        ])
+                      ])
+                    ])
+                  : _c("c-tutorial-impor-jadwal")
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/form_operasional/FormC1.vue?vue&type=template&id=5f63c08c&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/form_operasional/FormC1.vue?vue&type=template&id=5f63c08c& ***!
@@ -82569,270 +84329,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "transition",
-    { attrs: { name: "fade", mode: "out-in" } },
-    [
-      _vm.$route.name === "formOperasional.formC1"
-        ? _c(
-            "div",
-            { staticClass: "row mt-5" },
-            [
-              _c(
-                "transition",
-                { attrs: { name: "fade", mode: "out-in" } },
-                [
-                  _vm.state.page.loading
-                    ? _c("preloader-component")
-                    : _c(
-                        "div",
-                        { staticClass: "col-12 col-xl-12 stretch-card" },
-                        [
-                          _c("div", { staticClass: "card" }, [
-                            _c("div", { staticClass: "card-body" }, [
-                              _c("div", { staticClass: "row" }, [
-                                _c("div", { staticClass: "col-12" }, [
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c("div", { staticClass: "input-group" }, [
-                                      _c(
-                                        "div",
-                                        { staticClass: "input-group-prepend" },
-                                        [
-                                          _c(
-                                            "span",
-                                            { staticClass: "input-group-text" },
-                                            [
-                                              _vm._v(
-                                                "\n                        Cabang\n                      "
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "select",
-                                        {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value:
-                                                _vm.query.absensi.cabang_id,
-                                              expression:
-                                                "query.absensi.cabang_id"
-                                            }
-                                          ],
-                                          staticClass: "form-control",
-                                          attrs: { name: "cabang_id" },
-                                          on: {
-                                            change: [
-                                              function($event) {
-                                                var $$selectedVal = Array.prototype.filter
-                                                  .call(
-                                                    $event.target.options,
-                                                    function(o) {
-                                                      return o.selected
-                                                    }
-                                                  )
-                                                  .map(function(o) {
-                                                    var val =
-                                                      "_value" in o
-                                                        ? o._value
-                                                        : o.value
-                                                    return val
-                                                  })
-                                                _vm.$set(
-                                                  _vm.query.absensi,
-                                                  "cabang_id",
-                                                  $event.target.multiple
-                                                    ? $$selectedVal
-                                                    : $$selectedVal[0]
-                                                )
-                                              },
-                                              _vm.queryData
-                                            ]
-                                          }
-                                        },
-                                        _vm._l(_vm.data.cabang, function(
-                                          cabang,
-                                          i
-                                        ) {
-                                          return _c(
-                                            "option",
-                                            {
-                                              key: i,
-                                              domProps: { value: cabang.id }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                        " +
-                                                  _vm._s(cabang.kode_cabang) +
-                                                  " - " +
-                                                  _vm._s(cabang.cabang) +
-                                                  "\n                      "
-                                              )
-                                            ]
-                                          )
-                                        }),
-                                        0
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "input-group-prepend" },
-                                        [
-                                          _c(
-                                            "span",
-                                            { staticClass: "input-group-text" },
-                                            [
-                                              _vm._v(
-                                                "\n                        Tipe Absensi\n                      "
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "select",
-                                        {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value:
-                                                _vm.query.absensi
-                                                  .tipe_absensi_id,
-                                              expression:
-                                                "query.absensi.tipe_absensi_id"
-                                            }
-                                          ],
-                                          staticClass: "form-control",
-                                          attrs: { name: "cabang_id" },
-                                          on: {
-                                            change: [
-                                              function($event) {
-                                                var $$selectedVal = Array.prototype.filter
-                                                  .call(
-                                                    $event.target.options,
-                                                    function(o) {
-                                                      return o.selected
-                                                    }
-                                                  )
-                                                  .map(function(o) {
-                                                    var val =
-                                                      "_value" in o
-                                                        ? o._value
-                                                        : o.value
-                                                    return val
-                                                  })
-                                                _vm.$set(
-                                                  _vm.query.absensi,
-                                                  "tipe_absensi_id",
-                                                  $event.target.multiple
-                                                    ? $$selectedVal
-                                                    : $$selectedVal[0]
-                                                )
-                                              },
-                                              _vm.queryData
-                                            ]
-                                          }
-                                        },
-                                        _vm._l(_vm.data.tipe_absensi, function(
-                                          tipe_absensi,
-                                          i
-                                        ) {
-                                          return _c(
-                                            "option",
-                                            {
-                                              key: i,
-                                              domProps: {
-                                                value: tipe_absensi.id
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                        " +
-                                                  _vm._s(
-                                                    tipe_absensi.tipe_absensi
-                                                  ) +
-                                                  "\n                      "
-                                              )
-                                            ]
-                                          )
-                                        }),
-                                        0
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "input-group-prepend" },
-                                        [
-                                          _c(
-                                            "span",
-                                            { staticClass: "input-group-text" },
-                                            [
-                                              _vm._v(
-                                                "\n                        Tanggal Absensi\n                      "
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value:
-                                              _vm.query.absensi.tanggal_absensi,
-                                            expression:
-                                              "query.absensi.tanggal_absensi"
-                                          }
-                                        ],
-                                        staticClass: "form-control",
-                                        attrs: {
-                                          type: "date",
-                                          name: "tanggal_absensi"
-                                        },
-                                        domProps: {
-                                          value:
-                                            _vm.query.absensi.tanggal_absensi
-                                        },
-                                        on: {
-                                          keyup: _vm.queryData,
-                                          input: function($event) {
-                                            if ($event.target.composing) {
-                                              return
-                                            }
-                                            _vm.$set(
-                                              _vm.query.absensi,
-                                              "tanggal_absensi",
-                                              $event.target.value
-                                            )
-                                          }
-                                        }
-                                      })
-                                    ])
-                                  ])
-                                ])
-                              ])
-                            ])
-                          ])
-                        ]
-                      )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        : _c("router-view")
-    ],
-    1
-  )
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -115652,6 +117149,7 @@ Vue.component('sidebar-component', __webpack_require__(/*! ./components/Sidebar.
 Vue.component('navbar-component', __webpack_require__(/*! ./components/Navbar.vue */ "./resources/js/components/Navbar.vue")["default"]);
 Vue.component('spinner-component', __webpack_require__(/*! ./components/Spinner.vue */ "./resources/js/components/Spinner.vue")["default"]);
 Vue.component('preloader-component', __webpack_require__(/*! ./components/Preloader.vue */ "./resources/js/components/Preloader.vue")["default"]);
+Vue.component('c-tutorial-impor-jadwal', __webpack_require__(/*! ./contents/TutorialImporJadwal */ "./resources/js/contents/TutorialImporJadwal.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -115951,6 +117449,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Spinner_vue_vue_type_template_id_7ae326fe___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Spinner_vue_vue_type_template_id_7ae326fe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/contents/TutorialImporJadwal.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/contents/TutorialImporJadwal.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TutorialImporJadwal_vue_vue_type_template_id_7979d122___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TutorialImporJadwal.vue?vue&type=template&id=7979d122& */ "./resources/js/contents/TutorialImporJadwal.vue?vue&type=template&id=7979d122&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _TutorialImporJadwal_vue_vue_type_template_id_7979d122___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TutorialImporJadwal_vue_vue_type_template_id_7979d122___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/contents/TutorialImporJadwal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/contents/TutorialImporJadwal.vue?vue&type=template&id=7979d122&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/contents/TutorialImporJadwal.vue?vue&type=template&id=7979d122& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TutorialImporJadwal_vue_vue_type_template_id_7979d122___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./TutorialImporJadwal.vue?vue&type=template&id=7979d122& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/contents/TutorialImporJadwal.vue?vue&type=template&id=7979d122&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TutorialImporJadwal_vue_vue_type_template_id_7979d122___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TutorialImporJadwal_vue_vue_type_template_id_7979d122___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -117727,42 +119278,9 @@ component.options.__file = "resources/js/views/absensi/ImporAbsensi.vue"
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-component.options.__file = "resources/js/views/absensi/ImporJadwal.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/form_operasional/FormC1.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/views/form_operasional/FormC1.vue ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _FormC1_vue_vue_type_template_id_5f63c08c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormC1.vue?vue&type=template&id=5f63c08c& */ "./resources/js/views/form_operasional/FormC1.vue?vue&type=template&id=5f63c08c&");
-/* harmony import */ var _FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormC1.vue?vue&type=script&lang=js& */ "./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _ImporJadwal_vue_vue_type_template_id_190dfc17___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ImporJadwal.vue?vue&type=template&id=190dfc17& */ "./resources/js/views/absensi/ImporJadwal.vue?vue&type=template&id=190dfc17&");
+/* harmony import */ var _ImporJadwal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ImporJadwal.vue?vue&type=script&lang=js& */ "./resources/js/views/absensi/ImporJadwal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -117771,7 +119289,74 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ImporJadwal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ImporJadwal_vue_vue_type_template_id_190dfc17___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ImporJadwal_vue_vue_type_template_id_190dfc17___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/absensi/ImporJadwal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/absensi/ImporJadwal.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/views/absensi/ImporJadwal.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ImporJadwal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ImporJadwal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/absensi/ImporJadwal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ImporJadwal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/absensi/ImporJadwal.vue?vue&type=template&id=190dfc17&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/views/absensi/ImporJadwal.vue?vue&type=template&id=190dfc17& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ImporJadwal_vue_vue_type_template_id_190dfc17___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ImporJadwal.vue?vue&type=template&id=190dfc17& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/absensi/ImporJadwal.vue?vue&type=template&id=190dfc17&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ImporJadwal_vue_vue_type_template_id_190dfc17___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ImporJadwal_vue_vue_type_template_id_190dfc17___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/form_operasional/FormC1.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/views/form_operasional/FormC1.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FormC1_vue_vue_type_template_id_5f63c08c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormC1.vue?vue&type=template&id=5f63c08c& */ "./resources/js/views/form_operasional/FormC1.vue?vue&type=template&id=5f63c08c&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
   _FormC1_vue_vue_type_template_id_5f63c08c___WEBPACK_IMPORTED_MODULE_0__["render"],
   _FormC1_vue_vue_type_template_id_5f63c08c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -117785,20 +119370,6 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/views/form_operasional/FormC1.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./FormC1.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/form_operasional/FormC1.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormC1_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

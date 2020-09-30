@@ -62,6 +62,8 @@ Vue.component('navbar-component', require('./components/Navbar.vue').default);
 Vue.component('spinner-component', require('./components/Spinner.vue').default);
 Vue.component('preloader-component', require('./components/Preloader.vue').default);
 
+Vue.component('c-tutorial-impor-jadwal', require('./contents/TutorialImporJadwal').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

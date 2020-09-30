@@ -239,6 +239,15 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::get('manual', 'Absensi@manual');
       Route::get('{id}', 'Absensi@get');
       Route::post('', 'Absensi@store');
+      Route::prefix('impor_jadwal')->group(function () {
+        Route::post('', 'Absensi\ImporJadwal@store');
+        Route::post('preview', 'Absensi\ImporJadwal@preview');
+      });
+      Route::prefix('impor_absensi')->group(function () {
+        Route::post('', 'Absensi\ImporAbsensi@store');
+        Route::post('preview', 'Absensi\ImporAbsensi@preview');
+      });
+        
       Route::put('', 'Absensi@amend');
       Route::delete('', 'Absensi@destroy');
     });
