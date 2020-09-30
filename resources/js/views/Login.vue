@@ -7,7 +7,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="auth-form-wrapper p-5">
-                  <a href="#" class="noble-ui-logo d-block mb-2">Bangsus<span>.Sys</span></a>
+                  <a href="#" class="noble-ui-logo d-block mb-2">Bangsus<span>App</span></a>
                   <h5 class="text-muted font-weight-normal mb-4">Selamat Datang Kembali! Silahkan login untuk melanjutkan.</h5>
                   <div class="alert alert-warning" v-if="form.login.errors.length > 0">
                     Login Gagal

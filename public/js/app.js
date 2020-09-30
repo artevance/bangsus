@@ -83997,7 +83997,7 @@ var staticRenderFns = [
     return _c(
       "a",
       { staticClass: "noble-ui-logo d-block mb-2", attrs: { href: "#" } },
-      [_vm._v("Bangsus"), _c("span", [_vm._v(".Sys")])]
+      [_vm._v("Bangsus"), _c("span", [_vm._v("App")])]
     )
   },
   function() {
