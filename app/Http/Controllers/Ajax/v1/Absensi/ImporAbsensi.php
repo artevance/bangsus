@@ -56,7 +56,7 @@ class ImporAbsensi extends Controller
         }
       });
     } catch (\Exception $e) {
-      $v->after(function ($v) use ($request) {
+      $v->after(function ($v) use ($request, $e) {
         $v->errors()
           ->add(
             'impor_jadwal', 
@@ -112,15 +112,20 @@ class ImporAbsensi extends Controller
       }
 
       if ( ! is_null($noFinger)) {
-        foreach ($jadwalData as $i => $d)
+        foreach ($jadwalData as $i => $d) {
+          $d = ! is_null($d)
+            ? substr((is_string($d) ? trim($d, "'") : $d), 0, 5)
+            : null;
+          $d = trim($d);
+          $d = $d === '' ? null : $d;
           if ( ! is_null($d)) {
-            $d = substr((is_string($d) ? trim($d, "'") : $d), 0, 5);
             $data[] = [
-              'jam_jadwal' => $d,
+              'jam_absen' => $d,
               'no_finger' => $noFinger,
               'tanggal_absensi' => $year . '-' . $month . '-' . $dates[$i]
             ];
           }
+        }
         $noFinger = null;
       }
     }
@@ -143,7 +148,7 @@ class ImporAbsensi extends Controller
           if ( ! $exists) $f('No finger: ' . $v['no_finger'] . ' pada tanggal: ' . $v['tanggal_absensi'] . ' tidak valid');
         }
       ],
-      'data.*.jam_jadwal' => 'required|date_format:H:i',
+      'data.*.jam_absen' => 'required|date_format:H:i',
       'data.*.no_finger' => 'required|numeric',
       'data.*.tanggal_absensi' => 'required|date_format:Y-m-d'
     ]);
@@ -210,7 +215,7 @@ class ImporAbsensi extends Controller
         }
       });
     } catch (\Exception $e) {
-      $v->after(function ($v) use ($request) {
+      $v->after(function ($v) use ($request, $e) {
         $v->errors()
           ->add(
             'impor_jadwal', 
@@ -266,15 +271,20 @@ class ImporAbsensi extends Controller
       }
 
       if ( ! is_null($noFinger)) {
-        foreach ($jadwalData as $i => $d)
+        foreach ($jadwalData as $i => $d) {
+          $d = ! is_null($d)
+            ? substr((is_string($d) ? trim($d, "'") : $d), 0, 5)
+            : null;
+          $d = trim($d);
+          $d = $d === '' ? null : $d;
           if ( ! is_null($d)) {
-            $d = substr((is_string($d) ? trim($d, "'") : $d), 0, 5);
             $data[] = [
-              'jam_jadwal' => $d,
+              'jam_absen' => $d,
               'no_finger' => $noFinger,
               'tanggal_absensi' => $year . '-' . $month . '-' . $dates[$i]
             ];
           }
+        }
         $noFinger = null;
       }
     }
@@ -297,7 +307,7 @@ class ImporAbsensi extends Controller
           if ( ! $exists) $f('No finger: ' . $v['no_finger'] . ' pada tanggal: ' . $v['tanggal_absensi'] . ' tidak valid');
         }
       ],
-      'data.*.jam_jadwal' => 'required|date_format:H:i',
+      'data.*.jam_absen' => 'required|date_format:H:i',
       'data.*.no_finger' => 'required|numeric',
       'data.*.tanggal_absensi' => 'required|date_format:Y-m-d'
     ]);
@@ -308,7 +318,7 @@ class ImporAbsensi extends Controller
         AbsensiModel::whereHas('tugas_karyawan', function ($q) use ($cabangID) {
           $q->where('cabang_id', $cabangID);
         })->where('tanggal_absensi', $year . '-' . $month . '-' . $date)->update([
-          'jam_jadwal' => null
+          'jam_absen' => null
         ]);
       }
     }
@@ -330,7 +340,7 @@ class ImporAbsensi extends Controller
         'tipe_absensi_id' => 1,
         'tanggal_absensi' => $d['tanggal_absensi']
       ], [
-        'jam_jadwal' => $d['jam_jadwal'],
+        'jam_absen' => $d['jam_absen'],
         'user_id' => $request->user()->id
       ]);
     }

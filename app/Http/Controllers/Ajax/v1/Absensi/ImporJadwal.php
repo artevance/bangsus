@@ -56,7 +56,7 @@ class ImporJadwal extends Controller
         }
       });
     } catch (\Exception $e) {
-      $v->after(function ($v) use ($request) {
+      $v->after(function ($v) use ($request, $e) {
         $v->errors()
           ->add(
             'impor_jadwal', 
@@ -112,15 +112,20 @@ class ImporJadwal extends Controller
       }
 
       if ( ! is_null($noFinger)) {
-        foreach ($jadwalData as $i => $d)
+        foreach ($jadwalData as $i => $d) {
+          $d = ! is_null($d)
+            ? substr((is_string($d) ? trim($d, "'") : $d), 0, 5)
+            : null;
+          $d = trim($d);
+          $d = $d === '' ? null : $d;
           if ( ! is_null($d)) {
-            $d = substr((is_string($d) ? trim($d, "'") : $d), 0, 5);
             $data[] = [
               'jam_jadwal' => $d,
               'no_finger' => $noFinger,
               'tanggal_absensi' => $year . '-' . $month . '-' . $dates[$i]
             ];
           }
+        }
         $noFinger = null;
       }
     }
@@ -210,7 +215,7 @@ class ImporJadwal extends Controller
         }
       });
     } catch (\Exception $e) {
-      $v->after(function ($v) use ($request) {
+      $v->after(function ($v) use ($request, $e) {
         $v->errors()
           ->add(
             'impor_jadwal', 
@@ -266,15 +271,20 @@ class ImporJadwal extends Controller
       }
 
       if ( ! is_null($noFinger)) {
-        foreach ($jadwalData as $i => $d)
+        foreach ($jadwalData as $i => $d) {
+          $d = ! is_null($d)
+            ? substr((is_string($d) ? trim($d, "'") : $d), 0, 5)
+            : null;
+          $d = trim($d);
+          $d = $d === '' ? null : $d;
           if ( ! is_null($d)) {
-            $d = substr((is_string($d) ? trim($d, "'") : $d), 0, 5);
             $data[] = [
               'jam_jadwal' => $d,
               'no_finger' => $noFinger,
               'tanggal_absensi' => $year . '-' . $month . '-' . $dates[$i]
             ];
           }
+        }
         $noFinger = null;
       }
     }

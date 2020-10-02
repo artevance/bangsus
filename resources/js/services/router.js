@@ -287,7 +287,7 @@ const routes = [
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
           {
-            path: 'impor_jadwal',
+            path: 'impor_absensi',
             name: 'absensi.imporAbsensi',
             component: require('../views/absensi/ImporAbsensi').default,
             meta: { layout: 'default', title: 'Impor Absensi', sidebar: 'absensi' },
