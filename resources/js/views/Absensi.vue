@@ -526,7 +526,7 @@ export default {
     }
   },
   created() {
-    if (this.$route.name === 'absensi') this.prepare()
+    this.prepare()
   },
 
   methods: {
@@ -568,7 +568,7 @@ export default {
       if (withSpinner) this.state.table.loading = true
       this.fetchMainData()
         .then(res => {
-          if ( ! this.$_.isEqual(this.$route.query, this.query.absensi)) {
+          if ( ! this.$_.isEqual(this.$route.query, this.query.absensi) && this.$route.name === 'absensi') {
             this.$router.push({
               name: 'absensi',
               query: this.query.absensi

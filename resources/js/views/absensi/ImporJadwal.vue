@@ -3,6 +3,9 @@
     <div class="col-12 col-xl-12 stretch-card">
       <div class="card">
         <div class="card-body">
+          <router-link :to="{ name: 'absensi' }">
+            <i class="fas fa-backspace"></i> Kembali
+          </router-link>
           <div class="card-title">Impor Jadwal</div>
           <div class="form-group">
             <input type="checkbox" v-model="form.impor_jadwal.data.reset">
@@ -16,6 +19,15 @@
             <spinner-component size="sm" color="light" v-if="form.impor_jadwal.preview_loading"/>
             Preview
           </button>
+          <div class="alert alert-danger mt-3" v-if="!$_.isEqual(form.impor_jadwal.errors, {})">
+            <template v-for="(message, index) in form.impor_jadwal.errors">
+              <ul>
+                <li v-for="(msg, i) in message">
+                  {{ msg }}
+                </li>
+              </ul>
+            </template>
+          </div>
           <transition name="fade" mode="out-in">
             <div v-if="form.impor_jadwal.preview">
               <div class="card-title mt-5">Silahkan review data yang akan anda impor</div>
@@ -70,7 +82,8 @@ export default {
           preview: false,
           preview_data: [],
           preview_loading: false,
-          loading: false
+          loading: false,
+          errors: {}
         }
       }
     }
@@ -103,7 +116,9 @@ export default {
           
         })
         .catch(err => {
-          
+          if (err.response.status == 422) {
+            this.form.impor_jadwal.errors = err.response.data.errors
+          }
         })
         .finally(() => {
           this.form.impor_jadwal.preview_loading = false
