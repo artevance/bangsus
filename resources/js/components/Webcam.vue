@@ -3,19 +3,29 @@
     <transition name="fade" mode="out-in">
       <div class="camera row justify-content-center align-items-center" v-show="state.camera.open">
         <div class="">
-          <video id="video" :width="config.width" :height="config.height" playsinline autoplay></video>
+          <video id="video" :width="config.width" :height="config.height" playsinline autoplay v-show="state.video"></video>
+          <canvas id="canvas" :width="config.width" :height="config.height" v-show="state.canvas"></canvas>
         </div>
-        <a href="#" class="close">
+        <a href="#" class="close" @click="close">
           <i class="far fa-arrow-left text-white"></i>
         </a>
         <a href="#" class="flip" @click="flip">
           <i class="far fa-repeat-alt text-white fa-2x"></i>
         </a>
-        <a href="#" class="capture text-center">
-          <i class="fas fa-camera text-white fa-3x"></i>
-        </a>
+        <div class="capture text-center">
+          <a href="#" class="mx-2" v-if="!state.captured" @click="capture">
+            <i class="fas fa-camera text-white fa-3x"></i>
+          </a>
+          <a href="#" class="mx-2" v-if="state.captured" @click="init">
+            <i class="fas fa-times text-white fa-3x"></i>
+          </a>
+          <a href="#" class="mx-2" v-if="state.captured" @click="close">
+            <i class="fas fa-check text-white fa-3x"></i>
+          </a>
+        </div>
       </div>
     </transition>
+    <input type="hidden" v-model="result">
     <button class="btn btn-secondary btn-sm" type="button" @click="openCamera">Ambil Foto</button>
   </div>
 </template>
@@ -27,7 +37,9 @@ export default {
       state: {
         camera: {
           open: false
-        }
+        },
+        video: false,
+        canvas: false
       },
       config: {
         width: 0,
@@ -38,7 +50,8 @@ export default {
       },
       mode: {
         environment: false
-      }
+      },
+      result: ''
     }
   },
 
@@ -47,6 +60,9 @@ export default {
       this.init()
     },
     init() {
+      this.state.captured = false
+      this.state.video = true
+      this.state.canvas = false
       try {
         console.log('webcam.js log: Initiating webcam with asynchronous method')
         navigator.mediaDevices.getUserMedia({
@@ -79,6 +95,16 @@ export default {
       this.mode.environment = ! this.mode.environment
       this.stop()
       this.init()
+    },
+    close() {
+      this.state.camera.open = false
+    },
+    capture() {
+      this.state.captured = true
+      this.state.canvas = true
+      document.getElementById('canvas').getContext('2d').drawImage(document.getElementById('video'), 0, 0, this.config.width, this.config.height)
+      this.stop()
+      this.state.video = false
     }
   }
 }
