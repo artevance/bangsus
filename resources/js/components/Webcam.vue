@@ -2,12 +2,12 @@
   <div class="d-block">
     <transition name="fade" mode="out-in">
       <div class="camera row justify-content-center align-items-center" v-show="state.camera.open">
+        <div class="">
+          <video id="video" :width="config.width" :height="config.height" playsinline autoplay></video>
+        </div>
         <a href="#" class="close">
           <i class="far fa-arrow-left text-white"></i>
         </a>
-        <div class="col text-center p-0 m-0">
-          <video id="video" :width="config.width" :height="config.height" playsinline autoplay></video>
-        </div>
         <a href="#" class="capture text-center">
           <i class="fas fa-camera text-white fa-3x"></i>
         </a>
