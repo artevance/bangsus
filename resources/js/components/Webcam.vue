@@ -72,8 +72,12 @@ export default {
         console.log('webcam.js log: Exception on Webcam: ' + e.toString())
       }
     },
+    stop() {
+      this.stream.getTracks().forEach((track) => track.stop());
+    },
     flip() {
       this.mode.environment = ! this.mode.environment
+      this.stop()
       this.init()
     }
   }
