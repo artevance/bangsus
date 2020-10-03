@@ -92,5 +92,9 @@ export default {
   left: 0;
   padding: 20px;
 }
+video {
+  margin: 0px;
+  padding: 0px;
+}
 
 </style>
