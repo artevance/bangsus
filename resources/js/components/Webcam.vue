@@ -8,10 +8,11 @@
           </a>
           <video id="video" :width="config.width" :height="config.height" playsinline autoplay></video>
           <div class="row justify-content-center mt-3">
-            <a href="#">
-              <i class="fas fa-camera text-white fa-3x"></i>
-            </a>
+            
           </div>
+          <a href="#" class="capture">
+            <i class="fas fa-camera text-white fa-3x"></i>
+          </a>
         </div>
       </div>
     </transition>
@@ -83,8 +84,11 @@ export default {
   background-color: black;
 }
 .capture {
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: 20px;
 }
 .close {
   position: fixed;
