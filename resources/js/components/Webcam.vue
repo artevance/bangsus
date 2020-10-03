@@ -31,6 +31,9 @@ export default {
       config: {
         width: 0,
         height: 0
+      },
+      max: {
+        width: 640
       }
     }
   },
@@ -50,6 +53,10 @@ export default {
             this.stream = stream
             window.stream = stream
             let { width, height } = this.stream.getTracks()[0].getSettings()
+            if (width > this.max.width) {
+              height = (height / width) * this.max.width
+              width = this.max.width
+            }
             this.config.width = width
             this.config.height = height
 
