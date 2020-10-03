@@ -8,6 +8,9 @@
         <a href="#" class="close">
           <i class="far fa-arrow-left text-white"></i>
         </a>
+        <a href="#" class="flip" @click="flip">
+          <i class="far fa-repeat-alt text-white fa-2x"></i>
+        </a>
         <a href="#" class="capture text-center">
           <i class="fas fa-camera text-white fa-3x"></i>
         </a>
@@ -32,6 +35,9 @@ export default {
       },
       max: {
         width: 640
+      },
+      mode: {
+        environment: false
       }
     }
   },
@@ -45,7 +51,7 @@ export default {
         console.log('webcam.js log: Initiating webcam with asynchronous method')
         navigator.mediaDevices.getUserMedia({
           audio: false,
-          video: true
+          video: { 'facingMode': this.mode.environment ? 'environment' : 'user' }
         })
           .then(stream => {
             this.stream = stream
@@ -65,6 +71,10 @@ export default {
       } catch (e) {
         console.log('webcam.js log: Exception on Webcam: ' + e.toString())
       }
+    },
+    flip() {
+      this.mode.environment = ! this.mode.environment
+      this.init()
     }
   }
 }
@@ -91,6 +101,12 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
+  padding: 20px;
+}
+.flip {
+  position: fixed;
+  top: 0;
+  right: 0;
   padding: 20px;
 }
 video {
