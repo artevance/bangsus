@@ -2,18 +2,15 @@
   <div class="d-block">
     <transition name="fade" mode="out-in">
       <div class="camera row justify-content-center align-items-center" v-show="state.camera.open">
+        <a href="#" class="close">
+          <i class="far fa-arrow-left text-white"></i>
+        </a>
         <div class="col text-center p-0 m-0">
-          <a href="#" class="close">
-            <i class="far fa-arrow-left text-white"></i>
-          </a>
           <video id="video" :width="config.width" :height="config.height" playsinline autoplay></video>
-          <div class="row justify-content-center mt-3">
-            
-          </div>
-          <a href="#" class="capture">
-            <i class="fas fa-camera text-white fa-3x"></i>
-          </a>
         </div>
+        <a href="#" class="capture text-center">
+          <i class="fas fa-camera text-white fa-3x"></i>
+        </a>
       </div>
     </transition>
     <button class="btn btn-secondary btn-sm" type="button" @click="openCamera">Ambil Foto</button>
