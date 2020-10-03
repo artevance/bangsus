@@ -11,6 +11,8 @@ const routes = [
     component: { template: `<transition name="fade" mode="out-in"><router-view></router-view></transition>`},
     redirect: '/app/dashboard',
     children: [
+      { path: 'debug', component: require('../views/Debug').default, meta: { layout: 'plain' } },
+
       { path: '/', redirect: { name: 'dashboard' } },
       { path: 'login', name: 'login', component: require('../views/Login').default, meta: { layout: 'plain', title: 'Login' } },
       { path: 'logout', name: 'logout', component: require('../views/Logout').default, meta: { layout: 'plain', title: 'Logout' } },
@@ -306,8 +308,18 @@ const routes = [
             path: 'form_c1',
             name: 'formOperasional.formC1',
             component: require('../views/form_operasional/FormC1').default,
-            meta: { layout: 'default', title: 'Form C1', sidebar: 'formC1' },
-            beforeEnter: Multiguard([middleware.auth, middleware.access])
+            meta: { layout: 'default', title: 'Form C1', sidebar: 'formOperasional', item: 'formC1' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            redirect: { name: 'formOperasional.formC1.formThawingAyam' },
+            children: [
+              {
+                path: 'form_thawing_ayam',
+                name: 'formOperasional.formC1.formThawingAyam',
+                component: require('../views/form_operasional/form_c1/FormThawingAyam').default,
+                meta: { layout: 'default', title: 'Form C1', sidebar: 'formOperasional', item: 'formC1' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+            ]
           },
           {
             path: 'form_c2',

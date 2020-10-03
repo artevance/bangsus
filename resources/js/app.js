@@ -61,6 +61,7 @@ Vue.component('sidebar-component', require('./components/Sidebar.vue').default);
 Vue.component('navbar-component', require('./components/Navbar.vue').default);
 Vue.component('spinner-component', require('./components/Spinner.vue').default);
 Vue.component('preloader-component', require('./components/Preloader.vue').default);
+Vue.component('webcam-component', require('./components/Webcam.vue').default);
 
 Vue.component('c-tutorial-impor-jadwal', require('./contents/TutorialImporJadwal').default);
 

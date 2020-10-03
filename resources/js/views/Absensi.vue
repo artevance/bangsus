@@ -16,7 +16,7 @@
                           Cabang
                         </span>
                       </div>
-                      <select class="form-control" name="cabang_id" v-model="query.absensi.cabang_id" @change="queryData">
+                      <select class="form-control" v-model="query.absensi.cabang_id" @change="queryData">
                         <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
                           {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                         </option>
@@ -26,7 +26,7 @@
                           Tipe Absensi
                         </span>
                       </div>
-                      <select class="form-control" name="cabang_id" v-model="query.absensi.tipe_absensi_id" @change="queryData">
+                      <select class="form-control" v-model="query.absensi.tipe_absensi_id" @change="queryData">
                         <option v-for="(tipe_absensi, i) in data.tipe_absensi" :key="i" :value="tipe_absensi.id">
                           {{ tipe_absensi.tipe_absensi }}
                         </option>
@@ -36,7 +36,7 @@
                           Tanggal Absensi
                         </span>
                       </div>
-                      <input type="date" class="form-control" name="tanggal_absensi" v-model="query.absensi.tanggal_absensi" @keyup="queryData">
+                      <input type="date" class="form-control" v-model="query.absensi.tanggal_absensi" @keyup="queryData">
                     </div>
                   </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="col-12">
                   <div class="form-group">
                     <label>Cabang</label>
-                    <select class="form-control" name="cabang_id" v-model="query.absensi.cabang_id" @change="queryData">
+                    <select class="form-control" v-model="query.absensi.cabang_id" @change="queryData">
                       <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
                         {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                       </option>
@@ -54,7 +54,7 @@
                   </div>
                   <div class="form-group">
                     <label>Tipe Absensi</label>
-                    <select class="form-control" name="cabang_id" v-model="query.absensi.tipe_absensi_id" @change="queryData">
+                    <select class="form-control" v-model="query.absensi.tipe_absensi_id" @change="queryData">
                       <option v-for="(tipe_absensi, i) in data.tipe_absensi" :key="i" :value="tipe_absensi.id">
                         {{ tipe_absensi.tipe_absensi }}
                       </option>
@@ -62,7 +62,7 @@
                   </div>
                   <div class="form-group">
                     <label>Tanggal Absensi</label>
-                    <input type="date" class="form-control" name="tanggal_absensi" v-model="query.absensi.tanggal_absensi" @keyup="queryData">
+                    <input type="date" class="form-control" v-model="query.absensi.tanggal_absensi" @keyup="queryData">
                   </div>
                 </div>
               </div>

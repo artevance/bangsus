@@ -31,9 +31,32 @@ class TugasKaryawan extends Controller
       ->response(200);
   }
 
+  public function branch(Request $request)
+  {
+    $query = [
+      'cabang_id' => $request->query('cabang_id'),
+      'tanggal_penugasan' => $request->query('tanggal_penugasan')
+    ];
+
+    return $this
+      ->data(
+        TugasKaryawanModel::with(['karyawan', 'cabang', 'divisi', 'jabatan'])
+          ->where('cabang_id', $query['cabang_id'])
+          ->where(function ($q) use ($query) {
+            $q->whereDate('tanggal_mulai', '<=', $query['tanggal_penugasan'])
+              ->where(function ($q) use ($query) {
+                $q->whereDate('tanggal_selesai', '>=', $query['tanggal_penugasan'])
+                  ->orWhere('tanggal_selesai', null);
+              });
+          })
+          ->get()
+        )
+      ->response(200);
+  }
+
   public function get(Request $request, $id)
   {
-    if ( ! TugasKaryawanModel::find($id)->exists()) return $this->response(404);
+    if ( ! TugasKaryawanModel::where($id)->exists()) return $this->response(404);
 
     return $this
       ->data(

@@ -3,6 +3,9 @@
     <div class="col-12 col-xl-12 stretch-card">
       <div class="card">
         <div class="card-body">
+          <router-link :to="{ name: 'absensi' }">
+            <i class="fas fa-backspace"></i> Kembali
+          </router-link>
           <div class="card-title">Impor Absensi</div>
           <div class="form-group">
             <input type="checkbox" v-model="form.impor_absensi.data.reset">

@@ -230,6 +230,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
     Route::prefix('tugas_karyawan')->group(function () {
       Route::get('', 'TugasKaryawan@index');
       Route::get('parent/{id}', 'TugasKaryawan@parent');
+      Route::get('cabang', 'TugasKaryawan@branch');
       Route::get('{id}', 'TugasKaryawan@get');
       Route::post('', 'TugasKaryawan@store');
       Route::put('', 'TugasKaryawan@amend');
@@ -239,6 +240,8 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::get('manual', 'Absensi@manual');
       Route::get('{id}', 'Absensi@get');
       Route::post('', 'Absensi@store');
+      Route::put('', 'Absensi@amend');
+      Route::delete('', 'Absensi@destroy');
       Route::prefix('impor_jadwal')->group(function () {
         Route::post('', 'Absensi\ImporJadwal@store');
         Route::post('preview', 'Absensi\ImporJadwal@preview');
@@ -247,9 +250,6 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::post('', 'Absensi\ImporAbsensi@store');
         Route::post('preview', 'Absensi\ImporAbsensi@preview');
       });
-        
-      Route::put('', 'Absensi@amend');
-      Route::delete('', 'Absensi@destroy');
     });
     Route::prefix('pengajuan_jadwal_absensi')->group(function () {
       Route::get('', 'PengajuanJadwalAbsensi@index');
@@ -258,6 +258,18 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::put('', 'PengajuanJadwalAbsensi@amend');
       Route::put('approve', 'PengajuanJadwalAbsensi@approve');
       Route::delete('', 'PengajuanJadwalAbsensi@destroy');
+    });
+    Route::prefix('form_operasional')->namespace('FormOperasional')->group(function () {
+      Route::prefix('form_c1')->namespace('FormC1')->group(function () {
+        Route::prefix('form_thawing_ayam')->group(function () {
+          Route::get('', 'FormThawingAyam@index');
+          Route::get('cabang_harian', 'FormThawingAyam@dailyBranch');
+          Route::get('{id}', 'FormThawingAyam@get');
+          Route::post('', 'FormThawingAyam@store');
+          Route::put('', 'FormThawingAyam@amend');
+          Route::delete('', 'FormThawingAyam@destroy');
+        });
+      });
     });
   });
 });

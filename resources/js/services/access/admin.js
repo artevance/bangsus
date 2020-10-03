@@ -241,7 +241,217 @@ export default {
     access: true,
     children: {
       formC1: {
-        access: true
+        access: true,
+        children: {
+          formThawingAyam: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true,
+            children: {
+              create: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false,
+              },
+              read: {
+                changeDate: false,
+                dateSpanBefore: 0,
+                dateSpanAfter: 0
+              },
+              update: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false
+              }
+            }
+          },
+          formGoreng: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true,
+            children: {
+              create: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false,
+              },
+              read: {
+                changeDate: false,
+                dateSpanBefore: 0,
+                dateSpanAfter: 0
+              },
+              update: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false
+              }
+            }
+          },
+          formMasakNasi: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true,
+            children: {
+              create: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false,
+              },
+              read: {
+                changeDate: false,
+                dateSpanBefore: 0,
+                dateSpanAfter: 0
+              },
+              update: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false
+              }
+            }
+          },
+          formSambal: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true,
+            children: {
+              create: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false,
+              },
+              read: {
+                changeDate: false,
+                dateSpanBefore: 0,
+                dateSpanAfter: 0
+              },
+              update: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false
+              }
+            }
+          },
+          formTepung: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true,
+            children: {
+              create: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false,
+              },
+              read: {
+                changeDate: false,
+                dateSpanBefore: 0,
+                dateSpanAfter: 0
+              },
+              update: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false
+              }
+            }
+          },
+          formMinyak: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true,
+            children: {
+              create: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false,
+              },
+              read: {
+                changeDate: false,
+                dateSpanBefore: 0,
+                dateSpanAfter: 0
+              },
+              update: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false
+              }
+            }
+          },
+          formMargarin: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true,
+            children: {
+              create: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false,
+              },
+              read: {
+                changeDate: false,
+                dateSpanBefore: 0,
+                dateSpanAfter: 0
+              },
+              update: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false
+              }
+            }
+          },
+          formLPG: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true,
+            children: {
+              create: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false,
+              },
+              read: {
+                changeDate: false,
+                dateSpanBefore: 0,
+                dateSpanAfter: 0
+              },
+              update: {
+                readonlyTime: false,
+                automatedTime: false,
+                pickFile: false,
+                takePhoto: false
+              }
+            }
+          },
+        }
       },
       formC2: {
         access: true
