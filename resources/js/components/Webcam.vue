@@ -2,7 +2,7 @@
   <div class="d-block">
     <transition name="fade" mode="out-in">
       <div class="camera row justify-content-center align-items-center" v-show="state.camera.open">
-        <div class="col text-center">
+        <div class="col text-center p-0 m-0">
           <a href="#" class="close">
             <i class="far fa-arrow-left text-white"></i>
           </a>
