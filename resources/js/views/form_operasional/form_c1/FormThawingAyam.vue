@@ -212,25 +212,44 @@
                     {{ msg }}
                   </small>
                 </div>
-                <div class="col-12 col-lg-3">
-                  <label>Qty</label>
-                  <input type="number" class="form-control" step="any" v-model="form.create.data.qty">
-                  <small class="text-danger" v-for="(msg, i) in form.create.errors.qty">
-                    {{ msg }}
-                  </small>
-                </div>
-                <div class="col-12 col-lg-3">
-                  <label>Satuan</label>
-                  <select class="form-control" v-model="form.create.data.satuan_id">
-                    <option value="null">-- Pilih Satuan --</option>
-                    <option v-for="(satuan, i) in data.satuan" :value="satuan.id">
-                      {{ satuan.satuan }}
-                    </option>
-                  </select>
-                  <small class="text-danger" v-for="(msg, i) in form.create.errors.satuan_id">
-                    {{ msg }}
-                  </small>
-                </div>
+                <template v-if="$access('formOperasional.formC1.formThawingAyam.create', 'changeSatuan')">
+                  <div class="col-12 col-lg-3">
+                    <label>Qty</label>
+                    <input type="number" class="form-control" step="any" v-model="form.create.data.qty">
+                    <small class="text-danger" v-for="(msg, i) in form.create.errors.qty">
+                      {{ msg }}
+                    </small>
+                  </div>
+                  <div class="col-12 col-lg-3">
+                    <label>Satuan</label>
+                    <select class="form-control" v-model="form.create.data.satuan_id">
+                      <option value="null">-- Pilih Satuan --</option>
+                      <option v-for="(satuan, i) in data.satuan" :value="satuan.id">
+                        {{ satuan.satuan }}
+                      </option>
+                    </select>
+                    <small class="text-danger" v-for="(msg, i) in form.create.errors.satuan_id">
+                      {{ msg }}
+                    </small>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="col-12 col-lg-3">
+                    <label>Qty</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control" step="any" v-model="form.create.data.qty">
+                      <input type="hidden" value="2" v-model="form.create.data.satuan_id">
+                      <div class="input-group-prepend">
+                        <small class="input-group-text">
+                          PACK
+                        </small>
+                      </div>  
+                    </div>
+                    <small class="text-danger" v-for="(msg, i) in form.create.errors.qty">
+                      {{ msg }}
+                    </small>
+                  </div>
+                </template>
               </div>
               <div class="form-group">
                 <label>Gambar</label>
@@ -344,18 +363,44 @@
                     {{ msg }}
                   </small>
                 </div>
-                <div class="col-12 col-lg-3">
-                  <label>Satuan</label>
-                  <select class="form-control" v-model="form.update.data.satuan_id">
-                    <option value="null">-- Pilih Satuan --</option>
-                    <option v-for="(satuan, i) in data.satuan" :value="satuan.id">
-                      {{ satuan.satuan }}
-                    </option>
-                  </select>
-                  <small class="text-danger" v-for="(msg, i) in form.update.errors.satuan_id">
-                    {{ msg }}
-                  </small>
-                </div>
+                <template v-if="$access('formOperasional.formC1.formThawingAyam.update', 'changeSatuan')">
+                  <div class="col-12 col-lg-3">
+                    <label>Qty</label>
+                    <input type="number" class="form-control" step="any" v-model="form.update.data.qty">
+                    <small class="text-danger" v-for="(msg, i) in form.update.errors.qty">
+                      {{ msg }}
+                    </small>
+                  </div>
+                  <div class="col-12 col-lg-3">
+                    <label>Satuan</label>
+                    <select class="form-control" v-model="form.update.data.satuan_id">
+                      <option value="null">-- Pilih Satuan --</option>
+                      <option v-for="(satuan, i) in data.satuan" :value="satuan.id">
+                        {{ satuan.satuan }}
+                      </option>
+                    </select>
+                    <small class="text-danger" v-for="(msg, i) in form.update.errors.satuan_id">
+                      {{ msg }}
+                    </small>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="col-12 col-lg-3">
+                    <label>Qty</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control" step="any" v-model="form.update.data.qty">
+                      <input type="hidden" value="2" v-model="form.update.data.satuan_id">
+                      <div class="input-group-prepend">
+                        <small class="input-group-text">
+                          PACK
+                        </small>
+                      </div>  
+                    </div>
+                    <small class="text-danger" v-for="(msg, i) in form.update.errors.qty">
+                      {{ msg }}
+                    </small>
+                  </div>
+                </template>
               </div>
               <div class="form-group" v-if="$access('formOperasional.formC1.formThawingAyam.update', 'takePhoto')">
                 <label>Gambar</label>
@@ -446,9 +491,10 @@ export default {
             tugas_karyawan_id: null,
             supplier_id: null,
             qty: null,
-            satuan_id: null,
+            satuan_id: 2,
             gambar: '',
-            keterangan: ''          },
+            keterangan: ''
+          },
           errors: {},
           loading: false
         },
@@ -462,7 +508,7 @@ export default {
             tugas_karyawan_id: null,
             supplier_id: null,
             qty: null,
-            satuan_id: null,
+            satuan_id: 2,
             gambar: null,
             keterangan: ''
           },

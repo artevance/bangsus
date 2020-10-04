@@ -254,8 +254,8 @@ export default {
                 timeFree: false,
                 dateMin: 0,
                 dateMax: 0,
-
-                automatedTime: true,
+                automatedTime: false,
+                changeSatuan: false
               },
               read: {
                 timeFree: true,
@@ -266,9 +266,9 @@ export default {
                 timeFree: false,
                 dateMin: 0,
                 dateMax: 0,
-
                 readonlyTime: false,
                 takePhoto: true,
+                changeSatuan: true
               },
               destroy: {
                 timeFree: true,
