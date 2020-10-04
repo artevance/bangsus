@@ -379,6 +379,45 @@
         </div>
       </div>
     </div>
+    <div class="modal fade"
+      data-entity="formThawingAyam"
+      data-method="destroy"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      v-if="
+        $access('formOperasional.formC1.formThawingAyam', 'destroy') && (
+          $access('formOperasional.formC1.formThawingAyam.destroy', 'timeFree') ||
+          $moment($moment(query.form_thawing_ayam.tanggal_form)).isBetween(
+            $moment().subtract($access('formOperasional.formC1.formThawingAyam.destroy', 'dateMin')).format('YYYY-MM-DD'),
+            $moment().add($access('formOperasional.formC1.formThawingAyam.destroy', 'dateMax')).format('YYYY-MM-DD'),
+            undefined,
+            '[]'
+          )
+        )
+      ">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form @submit.prevent="destroy">
+              <div class="modal-header">
+                <h5 class="modal-title">Hapus Form Thawing Ayam</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
+                  <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
+                  Hapus
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -426,6 +465,13 @@ export default {
             satuan_id: null,
             gambar: null,
             keterangan: ''
+          },
+          errors: {},
+          loading: false
+        },
+        destroy: {
+          data: {
+            id: null
           },
           errors: {},
           loading: false
@@ -633,7 +679,8 @@ export default {
         .catch(err => {})
     },
     showDestroyModal(id) {
-
+      this.form.destroy.data.id = id
+      $('[data-entity="formThawingAyam"][data-method="destroy"]').modal('show')
     },
     hideCreateModal() {
       $('[data-entity="formThawingAyam"][data-method="create"]').modal('hide')
@@ -806,13 +853,13 @@ export default {
     destroy() {
       this.form.destroy.loading = true
       this.form.destroy.errors = {}
-      this.$axios.delete('/ajax/v1/absensi/', { data: this.form.destroy.data })
+      this.$axios.delete('/ajax/v1/form_operasional/form_c1/form_thawing_ayam', { data: this.form.destroy.data })
         .then(res => {
           this.form.destroy.data.id = null
           this.queryData(false)
           this.hideDestroyModal()
         })
-        .catch(err => console.log(err.response))
+        .catch(err => {})
         .finally(() => {
           this.form.destroy.loading = false
         })
