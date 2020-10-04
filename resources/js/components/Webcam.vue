@@ -1,10 +1,10 @@
 <template>
   <div class="d-block">
     <transition name="fade" mode="out-in">
-      <div class="camera row justify-content-center align-items-center" v-if="state.open">
+      <div class="camera row justify-content-center align-items-center" v-show="state.open">
         <div class="">
-          <video id="video" :width="config.width" :height="config.height" playsinline autoplay v-show="state.video"></video>
-          <canvas id="canvas" :width="config.width" :height="config.height" v-show="state.canvas"></canvas>
+          <video ref="video" :width="config.width" :height="config.height" playsinline autoplay v-show="state.video"></video>
+          <canvas ref="canvas" :width="config.width" :height="config.height" v-show="state.canvas"></canvas>
         </div>
         <a href="#" class="close" @click="close">
           <i class="far fa-arrow-left text-white"></i>
@@ -69,7 +69,9 @@ export default {
 
       // Handle if the image is already captured and exists as an encoded input
       if (this.state.captured) {
-
+        let image = new Image()
+        image.onload = () => this.$refs.canvas.getContext('2d').drawImage(image, 0, 0)
+        image.src = this.result
       } else {
         this.init()
       }
@@ -97,7 +99,7 @@ export default {
             this.config.width = width
             this.config.height = height
 
-            document.getElementById('video').srcObject = this.stream
+            this.$refs.video.srcObject = this.stream
 
             this.state.open = true
           })
@@ -125,11 +127,11 @@ export default {
     capture() {
       this.state.captured = true
       this.state.canvas = true
-      document.getElementById('canvas').getContext('2d').drawImage(document.getElementById('video'), 0, 0, this.config.width, this.config.height)
+      this.$refs.canvas.getContext('2d').drawImage(this.$refs.video, 0, 0, this.config.width, this.config.height)
       this.stop()
       this.state.video = false
 
-      this.result = document.getElementById('canvas').toDataURL('image/jpeg')
+      this.result = this.$refs.canvas.toDataURL('image/jpeg')
       this.$emit('input', this.result)
     },
     /**
@@ -138,6 +140,30 @@ export default {
     close() {
       if (this.state.video) this.stop()
       this.state.open = false
+    },
+    /**
+     *  Reset the component
+     */
+    reset() {
+      this.state = {
+        allowCapture: false,
+        open: false,
+        video: false,
+        canvas: false,
+        done: false,
+        captured: false,
+      }
+      this.config = {
+        width: 0,
+        height: 0
+      }
+      this.max = {
+        width: 640
+      }
+      this.mode = {
+        environment: false
+      }
+      this.result = ''
     }
   }
 }

@@ -275,7 +275,7 @@
               </div>
               <div class="form-group">
                 <label>Gambar</label>
-                <webcam-component v-model="form.create.data.gambar"></webcam-component>
+                <webcam-component v-model="form.create.data.gambar" ref="webcam"></webcam-component>
                 <small class="text-danger" v-for="(msg, i) in form.create.errors.gambar">
                   {{ msg }}
                 </small>
@@ -419,7 +419,7 @@
               </div>
               <div class="form-group" v-if="$access('formOperasional.formC1.formGoreng.update', 'takePhoto')">
                 <label>Gambar</label>
-                <webcam-component v-model="form.update.data.gambar"></webcam-component>
+                <webcam-component v-model="form.update.data.gambar" ref="webcam"></webcam-component>
                 <small class="text-danger" v-for="(msg, i) in form.update.errors.gambar">
                   {{ msg }}
                 </small>
@@ -877,6 +877,7 @@ export default {
             gambar: ''
           }
           this.queryData(false)
+          this.$refs.webcam.reset()
           this.hideCreateModal()
         })
         .catch(err => {
@@ -908,6 +909,7 @@ export default {
             keterangan: ''
           }
           this.queryData(false)
+          this.$refs.webcam.reset()
           this.hideUpdateModal()
         })
         .catch(err => {
