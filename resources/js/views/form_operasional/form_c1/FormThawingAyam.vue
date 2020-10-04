@@ -23,7 +23,13 @@
                     Tanggal Form
                   </span>
                 </div>
-                <input type="date" class="form-control" v-model="query.form_thawing_ayam.tanggal_form" @keyup="queryData">
+                <input type="date"
+                  class="form-control"
+                  v-model="query.form_thawing_ayam.tanggal_form"
+                  @keyup="queryData"
+                  :min="$moment().subtract($access('formOperasional.formC1.formThawingAyam.read', 'minDate')).format('YYYY-MM-DD')"
+                  :max="$moment().subtract($access('formOperasional.formC1.formThawingAyam.read', 'maxDate')).format('YYYY-MM-DD')"
+                  >
               </div>
             </div>
           </div>
@@ -45,7 +51,21 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-primary" @click="showCreateModal" v-if="$access('formOperasional.formC1.formThawingAyam', 'create')">Tambah</button>
+        <button class="btn btn-primary"
+          @click="showCreateModal"
+          v-if="
+            $access('formOperasional.formC1.formThawingAyam', 'create') && (
+              $access('formOperasional.formC1.formThawingAyam.create', 'timeFree') ||
+              $moment($moment(query.form_thawing_ayam.tanggal_form)).isBetween(
+                $moment().subtract($access('formOperasional.formC1.formThawingAyam.create', 'dateMin')).format('YYYY-MM-DD'),
+                $moment().add($access('formOperasional.formC1.formThawingAyam.create', 'dateMax')).format('YYYY-MM-DD'),
+                undefined,
+                '[]'
+              )
+            )
+          ">
+          Tambah
+        </button>
         <div class="table-responsive mt-2">
           <table class="table table-hover" v-if="$access('formOperasional.formC1.formThawingAyam', 'read')">
             <thead>
@@ -68,7 +88,38 @@
                 <td>{{ form_thawing_ayam.satuan.satuan }}</td>
                 <td>{{ form_thawing_ayam.supplier.supplier }}</td>
                 <td>
-                  
+                  <a class="badge badge-warning"
+                    @click="showUpdateModal(form_thawing_ayam.id)"
+                    href="#"
+                    v-if="
+                      $access('formOperasional.formC1.formThawingAyam', 'update') && (
+                        $access('formOperasional.formC1.formThawingAyam.update', 'timeFree') ||
+                        $moment($moment(query.form_thawing_ayam.tanggal_form)).isBetween(
+                          $moment().subtract($access('formOperasional.formC1.formThawingAyam.update', 'dateMin')).format('YYYY-MM-DD'),
+                          $moment().add($access('formOperasional.formC1.formThawingAyam.update', 'dateMax')).format('YYYY-MM-DD'),
+                          undefined,
+                          '[]'
+                        )
+                      )
+                    ">
+                    Ubah
+                  </a>
+                  <a class="badge badge-danger"
+                    @click="showDestroyModal(form_thawing_ayam.id)"
+                    href="#"
+                    v-if="
+                      $access('formOperasional.formC1.formThawingAyam', 'destroy') && (
+                        $access('formOperasional.formC1.formThawingAyam.destroy', 'timeFree') ||
+                        $moment($moment(query.form_thawing_ayam.tanggal_form)).isBetween(
+                          $moment().subtract($access('formOperasional.formC1.formThawingAyam.destroy', 'dateMin')).format('YYYY-MM-DD'),
+                          $moment().add($access('formOperasional.formC1.formThawingAyam.destroy', 'dateMax')).format('YYYY-MM-DD'),
+                          undefined,
+                          '[]'
+                        )
+                      )
+                    ">
+                    Hapus
+                  </a>
                 </td>
               </tr>
             </tbody>
@@ -78,7 +129,23 @@
     </transition>
 
     <!-- Modal -->
-    <div class="modal fade" data-entity="formThawingAyam" data-method="create" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal fade"
+      data-entity="formThawingAyam"
+      data-method="create"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      v-if="
+        $access('formOperasional.formC1.formThawingAyam', 'create') && (
+          $access('formOperasional.formC1.formThawingAyam.create', 'timeFree') ||
+          $moment($moment(query.form_thawing_ayam.tanggal_form)).isBetween(
+            $moment().subtract($access('formOperasional.formC1.formThawingAyam.create', 'dateMin')).format('YYYY-MM-DD'),
+            $moment().add($access('formOperasional.formC1.formThawingAyam.create', 'dateMax')).format('YYYY-MM-DD'),
+            undefined,
+            '[]'
+          )
+        )
+      ">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <form @submit.prevent="create">
@@ -109,7 +176,7 @@
                 </div>
                 <div class="col-12 col-lg-6">
                   <label>Jam</label>
-                  <input type="time" class="form-control">
+                  <input type="time" class="form-control" v-model="form.create.data.jam">
                   <small class="text-danger" v-for="(msg, i) in form.create.errors.jam">
                     {{ msg }}
                   </small>
@@ -117,7 +184,7 @@
               </div>
               <div class="form-group">
                 <label>Karyawan</label>
-                <select class="form-control">
+                <select class="form-control" v-model="form.create.data.tugas_karyawan_id">
                   <option value="null">-- Pilih Karyawan --</option>
                   <option v-for="(tugas_karyawan, i) in data.tugas_karyawan" :value="tugas_karyawan.id">
                     {{ tugas_karyawan.karyawan.nip }} - {{ tugas_karyawan.karyawan.nama_karyawan }}
@@ -130,7 +197,7 @@
               <div class="form-group row">
                 <div class="col-12 col-lg-3">
                   <label>Supplier</label>
-                  <select class="form-control">
+                  <select class="form-control" v-model="form.create.data.supplier_id">
                     <option value="null">-- Pilih Supplier --</option>
                     <option v-for="(supplier, i) in data.supplier" :value="supplier.id">
                       {{ supplier.supplier }}
@@ -142,14 +209,14 @@
                 </div>
                 <div class="col-12 col-lg-3">
                   <label>Qty</label>
-                  <input type="number" class="form-control" step="any">
+                  <input type="number" class="form-control" step="any" v-model="form.create.data.qty">
                   <small class="text-danger" v-for="(msg, i) in form.create.errors.qty">
                     {{ msg }}
                   </small>
                 </div>
                 <div class="col-12 col-lg-3">
                   <label>Satuan</label>
-                  <select class="form-control">
+                  <select class="form-control" v-model="form.create.data.satuan_id">
                     <option value="null">-- Pilih Satuan --</option>
                     <option v-for="(satuan, i) in data.satuan" :value="satuan.id">
                       {{ satuan.satuan }}
@@ -162,12 +229,14 @@
               </div>
               <div class="form-group">
                 <label>Gambar</label>
-                <input type="hidden" v-model="form.create.data.gambar">
-                <webcam-component></webcam-component>
+                <webcam-component v-model="form.create.data.gambar"></webcam-component>
+                <small class="text-danger" v-for="(msg, i) in form.create.errors.gambar">
+                  {{ msg }}
+                </small>
               </div>
               <div class="form-group">
                 <label>Keterangan</label>
-                <textarea class="form-control form-control-sm"></textarea>
+                <textarea class="form-control form-control-sm" v-model="form.create.data.keterangan"></textarea>
                 <small class="text-danger" v-for="(msg, i) in form.create.errors.keterangan">
                   {{ msg }}
                 </small>
@@ -220,7 +289,18 @@ export default {
       query: {
         form_thawing_ayam: {
           cabang_id: this.$route.query.cabang_id || null,
-          tanggal_form: this.$route.query.tanggal_form || this.$moment().format('YYYY-MM-DD')
+          tanggal_form: this.$access('formOperasional.formC1.formThawingAyam.read', 'timeFree')
+            ? this.$moment(this.$route.query.tanggal_form).format('YYYY-MM-DD')
+            : (
+              this.$moment(this.$moment(this.$route.query.tanggal_form).format('YYYY-MM-DD')).isBetween(
+                this.$moment().subtract(this.$access('formOperasional.formC1.formThawingAyam.read', 'dateMin')).format('YYYY-MM-DD'),
+                this.$moment().add(this.$access('formOperasional.formC1.formThawingAyam.read', 'dateMax')).format('YYYY-MM-DD'),
+                undefined,
+                '[]'
+              )
+                ? this.$moment(this.$route.query.tanggal_form).format('YYYY-MM-DD')
+                : this.$moment().format('YYYY-MM-DD')
+            )
         }
       }
     }
@@ -229,6 +309,26 @@ export default {
     this.prepare()
   },
 
+  watch: {
+    'query.form_thawing_ayam.tanggal_form'(n, o) {
+      if (this.$access('formOperasional.formC1.formThawingAyam.read', 'timeFree')) {
+        this.query.form_thawing_ayam.tanggal_form = n
+      } else {
+        if (
+          this.$moment(this.$moment(n).format('YYYY-MM-DD')).isBetween(
+            this.$moment().subtract(this.$access('formOperasional.formC1.formThawingAyam.read', 'dateMin')).format('YYYY-MM-DD'),
+            this.$moment().add(this.$access('formOperasional.formC1.formThawingAyam.read', 'dateMax')).format('YYYY-MM-DD'),
+            undefined,
+            '[]'
+          )
+        ) {
+          this.query.form_thawing_ayam.tanggal_form = n
+        } else {
+          this.query.form_thawing_ayam.tanggal_form = o
+        }
+      }
+    }
+  },
   methods: {
     /**
      *  Prepare the page.
@@ -329,6 +429,9 @@ export default {
           $('[data-entity="formThawingAyam"][data-method="update"]').modal('show')
         })
         .catch(err => {})
+    },
+    showDestroyModal(id) {
+
     },
 
     /**

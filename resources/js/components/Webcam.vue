@@ -1,7 +1,7 @@
 <template>
   <div class="d-block">
     <transition name="fade" mode="out-in">
-      <div class="camera row justify-content-center align-items-center" v-show="state.camera.open">
+      <div class="camera row justify-content-center align-items-center" v-show="state.open">
         <div class="">
           <video id="video" :width="config.width" :height="config.height" playsinline autoplay v-show="state.video"></video>
           <canvas id="canvas" :width="config.width" :height="config.height" v-show="state.canvas"></canvas>
@@ -9,7 +9,7 @@
         <a href="#" class="close" @click="close">
           <i class="far fa-arrow-left text-white"></i>
         </a>
-        <a href="#" class="flip" @click="flip">
+        <a href="#" class="flip" @click="flip" v-if="!state.captured">
           <i class="far fa-repeat-alt text-white fa-2x"></i>
         </a>
         <div class="capture text-center">
@@ -17,16 +17,14 @@
             <i class="fas fa-camera text-white fa-3x"></i>
           </a>
           <a href="#" class="mx-2" v-if="state.captured" @click="init">
-            <i class="fas fa-times text-white fa-3x"></i>
-          </a>
-          <a href="#" class="mx-2" v-if="state.captured" @click="close">
-            <i class="fas fa-check text-white fa-3x"></i>
+            <i class="fas fa-redo text-white fa-3x"></i>
           </a>
         </div>
       </div>
     </transition>
-    <input type="hidden" v-model="result">
-    <button class="btn btn-secondary btn-sm" type="button" @click="openCamera">Ambil Foto</button>
+    <input type="hidden" :value="result" @input="$emit('input', $event.target.value)">
+    <button class="btn btn-secondary btn-sm" type="button" @click="open" v-if="!state.captured">Ambil Foto</button>
+    <button class="btn btn-secondary btn-sm" type="button" @click="open" v-else>Lihat Foto</button>
   </div>
 </template>
 
@@ -35,11 +33,12 @@ export default {
   data() {
     return {
       state: {
-        camera: {
-          open: false
-        },
+        allowCapture: false,
+        open: false,
         video: false,
-        canvas: false
+        canvas: false,
+        done: false,
+        captured: false,
       },
       config: {
         width: 0,
@@ -54,17 +53,35 @@ export default {
       result: ''
     }
   },
+  created() {
+    this.result = this.value
+  },
 
+  props: [
+    'value'
+  ],
   methods: {
-    openCamera() {
-      this.init()
+    /**
+     *  Open the wrapper
+     */
+    open() {
+      this.state.open = true
+
+      // Handle if the image is already captured and exists as an encoded input
+      if (this.state.captured) {
+
+      } else {
+        this.init()
+      }
     },
+    /**
+     *  Initialize webcam
+     */
     init() {
       this.state.captured = false
       this.state.video = true
       this.state.canvas = false
       try {
-        console.log('webcam.js log: Initiating webcam with asynchronous method')
         navigator.mediaDevices.getUserMedia({
           audio: false,
           video: { 'facingMode': this.mode.environment ? 'environment' : 'user' }
@@ -82,29 +99,45 @@ export default {
 
             document.getElementById('video').srcObject = this.stream
 
-            this.state.camera.open = true
+            this.state.open = true
           })
       } catch (e) {
         console.log('webcam.js log: Exception on Webcam: ' + e.toString())
       }
     },
+    /**
+     *  Stop webcam
+     */
     stop() {
       this.stream.getTracks().forEach((track) => track.stop());
     },
+    /**
+     *  Flip the camera orientation
+     */
     flip() {
       this.mode.environment = ! this.mode.environment
       this.stop()
       this.init()
     },
-    close() {
-      this.state.camera.open = false
-    },
+    /**
+     *  Capture the image
+     */
     capture() {
       this.state.captured = true
       this.state.canvas = true
       document.getElementById('canvas').getContext('2d').drawImage(document.getElementById('video'), 0, 0, this.config.width, this.config.height)
       this.stop()
       this.state.video = false
+
+      this.result = document.getElementById('canvas').toDataURL('image/jpeg')
+      this.$emit('input', this.result)
+    },
+    /**
+     *  Close the component
+     */
+    close() {
+      if (this.state.video) this.stop()
+      this.state.open = false
     }
   }
 }

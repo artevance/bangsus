@@ -248,24 +248,32 @@ export default {
             create: true,
             read: true,
             update: true,
-            delete: true,
+            destroy: true,
             children: {
               create: {
                 readonlyTime: false,
                 automatedTime: false,
-                pickFile: false,
-                takePhoto: false,
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
               },
               read: {
-                changeDate: false,
-                dateSpanBefore: 0,
-                dateSpanAfter: 0
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
               },
               update: {
                 readonlyTime: false,
                 automatedTime: false,
-                pickFile: false,
-                takePhoto: false
+                takePhoto: true,
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
+              },
+              destroy: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
               }
             }
           },
@@ -274,7 +282,7 @@ export default {
             create: true,
             read: true,
             update: true,
-            delete: true,
+            destroy: true,
             children: {
               create: {
                 readonlyTime: false,
@@ -300,7 +308,7 @@ export default {
             create: true,
             read: true,
             update: true,
-            delete: true,
+            destroy: true,
             children: {
               create: {
                 readonlyTime: false,
@@ -326,7 +334,7 @@ export default {
             create: true,
             read: true,
             update: true,
-            delete: true,
+            destroy: true,
             children: {
               create: {
                 readonlyTime: false,
@@ -352,7 +360,7 @@ export default {
             create: true,
             read: true,
             update: true,
-            delete: true,
+            destroy: true,
             children: {
               create: {
                 readonlyTime: false,
@@ -378,7 +386,7 @@ export default {
             create: true,
             read: true,
             update: true,
-            delete: true,
+            destroy: true,
             children: {
               create: {
                 readonlyTime: false,
@@ -404,7 +412,7 @@ export default {
             create: true,
             read: true,
             update: true,
-            delete: true,
+            destroy: true,
             children: {
               create: {
                 readonlyTime: false,
@@ -430,7 +438,7 @@ export default {
             create: true,
             read: true,
             update: true,
-            delete: true,
+            destroy: true,
             children: {
               create: {
                 readonlyTime: false,

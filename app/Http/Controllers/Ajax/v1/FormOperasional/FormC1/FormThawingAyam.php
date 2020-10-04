@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
+use App\Http\Models\Gambar;
+use App\Http\Models\FormFoto;
 use App\Http\Models\FormThawingAyam as FormThawingAyamModel;
 use App\Http\Models\Cabang;
 
@@ -57,7 +59,16 @@ class FormThawingAyam extends Controller
 
   public function store(Request $request)
   {
-    $request->validate([
+    $v = Validator::make($request->only(
+      'tugas_karyawan_id',
+      'tanggal_form',
+      'jam',
+      'qty',
+      'satuan_id',
+      'supplier_id',
+      'gambar',
+      'keterangan'
+    ), [
       'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'tanggal_form' => 'required|date_format:Y-m-d',
       'jam' => 'required',
@@ -67,6 +78,7 @@ class FormThawingAyam extends Controller
       'gambar' => 'required',
       'keterangan' => 'nullable|max:200'
     ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $gambarModel = new Gambar;
     $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
