@@ -319,6 +319,55 @@ const routes = [
                 meta: { layout: 'default', title: 'Form C1', sidebar: 'formOperasional', item: 'formC1' },
                 beforeEnter: Multiguard([middleware.auth, middleware.access])
               },
+              {
+                path: 'form_goreng',
+                name: 'formOperasional.formC1.formGoreng',
+                component: require('../views/form_operasional/form_c1/FormGoreng').default,
+                meta: { layout: 'default', title: 'Form C1', sidebar: 'formOperasional', item: 'formC1' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'form_masak_nasi',
+                name: 'formOperasional.formC1.formMasakNasi',
+                component: require('../views/form_operasional/form_c1/FormMasakNasi').default,
+                meta: { layout: 'default', title: 'Form C1', sidebar: 'formOperasional', item: 'formC1' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'form_sambal',
+                name: 'formOperasional.formC1.formSambal',
+                component: require('../views/form_operasional/form_c1/FormSambal').default,
+                meta: { layout: 'default', title: 'Form C1', sidebar: 'formOperasional', item: 'formC1' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'form_tepung',
+                name: 'formOperasional.formC1.formTepung',
+                component: require('../views/form_operasional/form_c1/FormTepung').default,
+                meta: { layout: 'default', title: 'Form C1', sidebar: 'formOperasional', item: 'formC1' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'form_minyak',
+                name: 'formOperasional.formC1.formMinyak',
+                component: require('../views/form_operasional/form_c1/FormMinyak').default,
+                meta: { layout: 'default', title: 'Form C1', sidebar: 'formOperasional', item: 'formC1' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'form_margarin',
+                name: 'formOperasional.formC1.formMargarin',
+                component: require('../views/form_operasional/form_c1/FormMargarin').default,
+                meta: { layout: 'default', title: 'Form C1', sidebar: 'formOperasional', item: 'formC1' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'form_lpg',
+                name: 'formOperasional.formC1.formLPG',
+                component: require('../views/form_operasional/form_c1/FormLPG').default,
+                meta: { layout: 'default', title: 'Form C1', sidebar: 'formOperasional', item: 'formC1' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
             ]
           },
           {

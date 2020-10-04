@@ -251,11 +251,11 @@ export default {
             destroy: true,
             children: {
               create: {
-                timeFree: false,
+                timeFree: true,
                 dateMin: 0,
                 dateMax: 0,
                 automatedTime: false,
-                changeSatuan: false
+                changeSatuan: true
               },
               read: {
                 timeFree: true,
@@ -263,7 +263,7 @@ export default {
                 dateMax: 0
               },
               update: {
-                timeFree: false,
+                timeFree: true,
                 dateMin: 0,
                 dateMax: 0,
                 readonlyTime: false,
@@ -285,21 +285,29 @@ export default {
             destroy: true,
             children: {
               create: {
-                readonlyTime: false,
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 automatedTime: false,
-                pickFile: false,
-                takePhoto: false,
+                changeSatuan: false
               },
               read: {
-                changeDate: false,
-                dateSpanBefore: 0,
-                dateSpanAfter: 0
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               },
               update: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 readonlyTime: false,
-                automatedTime: false,
-                pickFile: false,
-                takePhoto: false
+                takePhoto: true,
+                changeSatuan: true
+              },
+              destroy: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               }
             }
           },
@@ -311,21 +319,29 @@ export default {
             destroy: true,
             children: {
               create: {
-                readonlyTime: false,
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 automatedTime: false,
-                pickFile: false,
-                takePhoto: false,
+                changeSatuan: false
               },
               read: {
-                changeDate: false,
-                dateSpanBefore: 0,
-                dateSpanAfter: 0
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               },
               update: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 readonlyTime: false,
-                automatedTime: false,
-                pickFile: false,
-                takePhoto: false
+                takePhoto: true,
+                changeSatuan: true
+              },
+              destroy: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               }
             }
           },
@@ -337,21 +353,29 @@ export default {
             destroy: true,
             children: {
               create: {
-                readonlyTime: false,
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 automatedTime: false,
-                pickFile: false,
-                takePhoto: false,
+                changeSatuan: false
               },
               read: {
-                changeDate: false,
-                dateSpanBefore: 0,
-                dateSpanAfter: 0
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               },
               update: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 readonlyTime: false,
-                automatedTime: false,
-                pickFile: false,
-                takePhoto: false
+                takePhoto: true,
+                changeSatuan: true
+              },
+              destroy: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               }
             }
           },
@@ -363,21 +387,29 @@ export default {
             destroy: true,
             children: {
               create: {
-                readonlyTime: false,
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 automatedTime: false,
-                pickFile: false,
-                takePhoto: false,
+                changeSatuan: false
               },
               read: {
-                changeDate: false,
-                dateSpanBefore: 0,
-                dateSpanAfter: 0
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               },
               update: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 readonlyTime: false,
-                automatedTime: false,
-                pickFile: false,
-                takePhoto: false
+                takePhoto: true,
+                changeSatuan: true
+              },
+              destroy: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               }
             }
           },
@@ -389,21 +421,29 @@ export default {
             destroy: true,
             children: {
               create: {
-                readonlyTime: false,
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 automatedTime: false,
-                pickFile: false,
-                takePhoto: false,
+                changeSatuan: false
               },
               read: {
-                changeDate: false,
-                dateSpanBefore: 0,
-                dateSpanAfter: 0
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               },
               update: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 readonlyTime: false,
-                automatedTime: false,
-                pickFile: false,
-                takePhoto: false
+                takePhoto: true,
+                changeSatuan: true
+              },
+              destroy: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               }
             }
           },
@@ -415,21 +455,29 @@ export default {
             destroy: true,
             children: {
               create: {
-                readonlyTime: false,
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 automatedTime: false,
-                pickFile: false,
-                takePhoto: false,
+                changeSatuan: false
               },
               read: {
-                changeDate: false,
-                dateSpanBefore: 0,
-                dateSpanAfter: 0
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               },
               update: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 readonlyTime: false,
-                automatedTime: false,
-                pickFile: false,
-                takePhoto: false
+                takePhoto: true,
+                changeSatuan: true
+              },
+              destroy: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               }
             }
           },
@@ -441,21 +489,29 @@ export default {
             destroy: true,
             children: {
               create: {
-                readonlyTime: false,
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 automatedTime: false,
-                pickFile: false,
-                takePhoto: false,
+                changeSatuan: false
               },
               read: {
-                changeDate: false,
-                dateSpanBefore: 0,
-                dateSpanAfter: 0
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               },
               update: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0,
                 readonlyTime: false,
-                automatedTime: false,
-                pickFile: false,
-                takePhoto: false
+                takePhoto: true,
+                changeSatuan: true
+              },
+              destroy: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
               }
             }
           },

@@ -27,8 +27,16 @@
                   class="form-control"
                   v-model="query.form_thawing_ayam.tanggal_form"
                   @keyup="queryData"
-                  :min="$moment().subtract($access('formOperasional.formC1.formThawingAyam.read', 'minDate')).format('YYYY-MM-DD')"
-                  :max="$moment().subtract($access('formOperasional.formC1.formThawingAyam.read', 'maxDate')).format('YYYY-MM-DD')"
+                  :min="
+                    $access('formOperasional.formC1.formThawingAyam.read', 'timeFree')
+                      ? false
+                      : $moment().subtract($access('formOperasional.formC1.formThawingAyam.read', 'minDate')).format('YYYY-MM-DD')
+                  "
+                  :max="
+                    $access('formOperasional.formC1.formThawingAyam.read', 'timeFree')
+                      ? false
+                      : $moment().subtract($access('formOperasional.formC1.formThawingAyam.read', 'maxDate')).format('YYYY-MM-DD')
+                  "
                   >
               </div>
             </div>
@@ -353,13 +361,6 @@
                     </option>
                   </select>
                   <small class="text-danger" v-for="(msg, i) in form.update.errors.supplier_id">
-                    {{ msg }}
-                  </small>
-                </div>
-                <div class="col-12 col-lg-3">
-                  <label>Qty</label>
-                  <input type="number" class="form-control" step="any" v-model="form.update.data.qty">
-                  <small class="text-danger" v-for="(msg, i) in form.update.errors.qty">
                     {{ msg }}
                   </small>
                 </div>
@@ -713,11 +714,6 @@ export default {
               this.data.supplier = res[1].data.container
               this.data.satuan = res[2].data.container
 
-              this.form.create.data.tanggal_form = this.query.form_thawing_ayam.tanggal_form
-              let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_thawing_ayam.cabang_id)})
-              this.form.create.data.kode_cabang = currentCabang.kode_cabang
-              this.form.create.data.nama_cabang = currentCabang.cabang
-
               $('[data-entity="formThawingAyam"][data-method="update"]').modal('show')
             })
             .catch(err => {})
@@ -850,7 +846,7 @@ export default {
             tugas_karyawan_id: null,
             supplier_id: null,
             qty: null,
-            satuan_id: null,
+            satuan_id: 2,
             keterangan: '',
             gambar: ''
           }
@@ -880,7 +876,7 @@ export default {
             tugas_karyawan_id: null,
             supplier_id: null,
             qty: null,
-            satuan_id: null,
+            satuan_id: 2,
             gambar: null,
             keterangan: ''
           }

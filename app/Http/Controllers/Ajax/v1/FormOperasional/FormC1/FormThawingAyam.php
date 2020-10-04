@@ -20,8 +20,10 @@ class FormThawingAyam extends Controller
   {
     return $this
       ->data(FormThawingAyamModel::with([
-        'golongan_darah',
-        'jenis_kelamin'
+        'tugas_karyawan',
+        'supplier',
+        'satuan',
+        'user'
       ]))
       ->response(200);
   }
@@ -113,7 +115,17 @@ class FormThawingAyam extends Controller
 
   public function amend(Request $request)
   {
-    $request->validate([
+    $v = Validator::make($request->only(
+      'id',
+      'tugas_karyawan_id',
+      'tanggal_form',
+      'jam',
+      'qty',
+      'satuan_id',
+      'supplier_id',
+      'gambar',
+      'keterangan'
+    ), [
       'id' => 'required|exists:form_thawing_ayam,id',
       'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'tanggal_form' => 'required|date_format:Y-m-d',
@@ -124,6 +136,7 @@ class FormThawingAyam extends Controller
       'gambar' => 'nullable',
       'keterangan' => 'nullable|max:200'
     ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     if ($request->filled('gambar')) {
       $gambarModel = new Gambar;
@@ -156,9 +169,10 @@ class FormThawingAyam extends Controller
 
   public function destroy(Request $request)
   {
-    $request->validate([
+    $v = Validator::make($request->only('id'), [
       'id' => 'required|exists:form_thawing_ayam,id'
     ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $formThawingAyamModel = FormThawingAyamModel::find($request->input('id'));
     $formThawingAyamModel->user_id = $request->user()->id;

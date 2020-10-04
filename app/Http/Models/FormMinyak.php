@@ -14,7 +14,10 @@ class FormMinyak extends Model
 
   public function tugas_karyawan()
   {
-    return $this->belongsTo('App\Http\Models\TugasKaryawan');
+    return $this->belongsTo('App\Http\Models\TugasKaryawan')->with([
+      'karyawan',
+      'cabang'
+    ]);
   }
 
   public function user()
@@ -32,25 +35,10 @@ class FormMinyak extends Model
     return $this->belongsTo('App\Http\Models\TipeProsesMinyak');
   }
 
-  public static function cabangHarian($cabangID, $tanggalForm)
+  public function scopeByCabang($q, $id)
   {
-    return DB::table('form_minyak')
-                ->leftJoin('tugas_karyawan', function ($join) use ($cabangID) {
-                  $join->on('tugas_karyawan.id', '=', 'tugas_karyawan_id')
-                        ->leftJoin('cabang', 'cabang.id', '=', 'cabang_id')
-                        ->leftJoin('divisi', 'divisi.id', '=', 'divisi_id')
-                        ->leftJoin('jabatan', 'jabatan.id', '=', 'jabatan_id')
-                        ->leftJoin('karyawan', 'karyawan.id', '=', 'karyawan_id');
-                })
-                ->leftJoin('tipe_proses_minyak', 'tipe_proses_minyak.id', '=', 'tipe_proses_minyak_id')
-                ->leftJoin('satuan', 'satuan.id', '=', 'satuan_id')
-                ->where('cabang_id', $cabangID)
-                ->where('tanggal_form', '=', $tanggalForm)
-                ->select(
-                  '*',
-                  'form_minyak.id AS id'
-                )
-                ->orderBy('jam', 'ASC')
-                ->get();
+    return $q->whereHas('tugas_karyawan', function ($q) use ($id) {
+      $q->where('cabang_id', $id);
+    });
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="d-block">
     <transition name="fade" mode="out-in">
-      <div class="camera row justify-content-center align-items-center" v-show="state.open">
+      <div class="camera row justify-content-center align-items-center" v-if="state.open">
         <div class="">
           <video id="video" :width="config.width" :height="config.height" playsinline autoplay v-show="state.video"></video>
           <canvas id="canvas" :width="config.width" :height="config.height" v-show="state.canvas"></canvas>

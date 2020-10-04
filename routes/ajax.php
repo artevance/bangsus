@@ -269,6 +269,62 @@ Route::prefix('v1')->namespace('v1')->group(function () {
           Route::put('', 'FormThawingAyam@amend');
           Route::delete('', 'FormThawingAyam@destroy');
         });
+        Route::prefix('form_goreng')->group(function () {
+          Route::get('', 'FormGoreng@index');
+          Route::get('cabang_harian', 'FormGoreng@dailyBranch');
+          Route::get('{id}', 'FormGoreng@get');
+          Route::post('', 'FormGoreng@store');
+          Route::put('', 'FormGoreng@amend');
+          Route::delete('', 'FormGoreng@destroy');
+        });
+        Route::prefix('form_masak_nasi')->group(function () {
+          Route::get('', 'FormMasakNasi@index');
+          Route::get('cabang_harian', 'FormMasakNasi@dailyBranch');
+          Route::get('{id}', 'FormMasakNasi@get');
+          Route::post('', 'FormMasakNasi@store');
+          Route::put('', 'FormMasakNasi@amend');
+          Route::delete('', 'FormMasakNasi@destroy');
+        });
+        Route::prefix('form_sambal')->group(function () {
+          Route::get('', 'FormSambal@index');
+          Route::get('cabang_harian', 'FormSambal@dailyBranch');
+          Route::get('{id}', 'FormSambal@get');
+          Route::post('', 'FormSambal@store');
+          Route::put('', 'FormSambal@amend');
+          Route::delete('', 'FormSambal@destroy');
+        });
+        Route::prefix('form_tepung')->group(function () {
+          Route::get('', 'FormTepung@index');
+          Route::get('cabang_harian', 'FormTepung@dailyBranch');
+          Route::get('{id}', 'FormTepung@get');
+          Route::post('', 'FormTepung@store');
+          Route::put('', 'FormTepung@amend');
+          Route::delete('', 'FormTepung@destroy');
+        });
+        Route::prefix('form_minyak')->group(function () {
+          Route::get('', 'FormMinyak@index');
+          Route::get('cabang_harian', 'FormMinyak@dailyBranch');
+          Route::get('{id}', 'FormMinyak@get');
+          Route::post('', 'FormMinyak@store');
+          Route::put('', 'FormMinyak@amend');
+          Route::delete('', 'FormMinyak@destroy');
+        });
+        Route::prefix('form_margarin')->group(function () {
+          Route::get('', 'FormMargarin@index');
+          Route::get('cabang_harian', 'FormMargarin@dailyBranch');
+          Route::get('{id}', 'FormMargarin@get');
+          Route::post('', 'FormMargarin@store');
+          Route::put('', 'FormMargarin@amend');
+          Route::delete('', 'FormMargarin@destroy');
+        });
+        Route::prefix('form_lpg')->group(function () {
+          Route::get('', 'FormLPG@index');
+          Route::get('cabang_harian', 'FormLPG@dailyBranch');
+          Route::get('{id}', 'FormLPG@get');
+          Route::post('', 'FormLPG@store');
+          Route::put('', 'FormLPG@amend');
+          Route::delete('', 'FormLPG@destroy');
+        });
       });
     });
   });
