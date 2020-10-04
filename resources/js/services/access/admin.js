@@ -268,7 +268,6 @@ export default {
                 dateMax: 0,
 
                 readonlyTime: false,
-                automatedTime: false,
                 takePhoto: true,
               },
               destroy: {

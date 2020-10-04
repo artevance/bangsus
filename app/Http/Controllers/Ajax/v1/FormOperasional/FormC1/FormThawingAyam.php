@@ -32,7 +32,9 @@ class FormThawingAyam extends Controller
 
     return $this->data(FormThawingAyamModel::with([
       'tugas_karyawan',
-      'tipe_absensi'
+      'supplier',
+      'satuan',
+      'user'
     ])->find($id))->response(200);
   }
 
@@ -120,7 +122,7 @@ class FormThawingAyam extends Controller
       'satuan_id' => 'required|exists:satuan,id',
       'supplier_id' => 'required|exists:supplier,id',
       'gambar' => 'nullable',
-      'keterangan' => 'required|max:200'
+      'keterangan' => 'nullable|max:200'
     ]);
 
     if ($request->filled('gambar')) {
@@ -146,7 +148,7 @@ class FormThawingAyam extends Controller
       $formFotoModel->tanggal_form = $request->input('tanggal_form');
       $formFotoModel->jam = $request->input('jam');
       $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
-      $formFotoModel->gambar_id = $gambarModel->id;
+      if ($request->filled('gambar')) $formFotoModel->gambar_id = $gambarModel->id;
       $formFotoModel->user_id = $request->user()->id;
       $formFotoModel->save();
     }

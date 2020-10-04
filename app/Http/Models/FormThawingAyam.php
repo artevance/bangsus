@@ -35,6 +35,11 @@ class FormThawingAyam extends Model
     return $this->belongsTo('App\Http\Models\Supplier');
   }
 
+  public function form_foto()
+  {
+    return $this->belongsTo('App\Http\Models\FormFoto')->with(['gambar']);
+  }
+
   public function scopeByCabang($q, $id)
   {
     return $q->whereHas('tugas_karyawan', function ($q) use ($id) {

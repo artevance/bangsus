@@ -254,6 +254,131 @@
         </div>
       </div>
     </div>
+    <div class="modal fade"
+      data-entity="formThawingAyam"
+      data-method="update"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      v-if="
+        $access('formOperasional.formC1.formThawingAyam', 'update') && (
+          $access('formOperasional.formC1.formThawingAyam.update', 'timeFree') ||
+          $moment($moment(query.form_thawing_ayam.tanggal_form)).isBetween(
+            $moment().subtract($access('formOperasional.formC1.formThawingAyam.update', 'dateMin')).format('YYYY-MM-DD'),
+            $moment().add($access('formOperasional.formC1.formThawingAyam.update', 'dateMax')).format('YYYY-MM-DD'),
+            undefined,
+            '[]'
+          )
+        )
+      ">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form @submit.prevent="update">
+            <div class="modal-header">
+              <h5 class="modal-title">Ubah Form Thawing Ayam</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group row">
+                <div class="col-12 col-lg-4">
+                  <label>Kode Cabang</label>
+                  <input type="text" class="form-control" v-model="form.update.data.kode_cabang" readonly>
+                </div>
+                <div class="col-12 col-lg-8">
+                  <label>Nama Cabang</label>
+                  <input type="text" class="form-control" v-model="form.update.data.nama_cabang" readonly>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-12 col-lg-6">
+                  <label>Tanggal Form</label>
+                  <input type="date" class="form-control" readonly v-model="form.update.data.tanggal_form">
+                  <small class="text-danger" v-for="(msg, i) in form.update.errors.tanggal_form">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <label>Jam</label>
+                  <input
+                    type="time"
+                    class="form-control"
+                    v-model="form.update.data.jam"
+                    :readonly="$access('formOperasional.formC1.formThawingAyam.update', 'readonlyTime')"
+                    >
+                  <small class="text-danger" v-for="(msg, i) in form.update.errors.jam">
+                    {{ msg }}
+                  </small>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Karyawan</label>
+                <select class="form-control" v-model="form.update.data.tugas_karyawan_id">
+                  <option value="null">-- Pilih Karyawan --</option>
+                  <option v-for="(tugas_karyawan, i) in data.tugas_karyawan" :value="tugas_karyawan.id">
+                    {{ tugas_karyawan.karyawan.nip }} - {{ tugas_karyawan.karyawan.nama_karyawan }}
+                  </option>
+                </select>
+                <small class="text-danger" v-for="(msg, i) in form.update.errors.tugas_karyawan_id">
+                  {{ msg }}
+                </small>
+              </div>
+              <div class="form-group row">
+                <div class="col-12 col-lg-3">
+                  <label>Supplier</label>
+                  <select class="form-control" v-model="form.update.data.supplier_id">
+                    <option value="null">-- Pilih Supplier --</option>
+                    <option v-for="(supplier, i) in data.supplier" :value="supplier.id">
+                      {{ supplier.supplier }}
+                    </option>
+                  </select>
+                  <small class="text-danger" v-for="(msg, i) in form.update.errors.supplier_id">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="col-12 col-lg-3">
+                  <label>Qty</label>
+                  <input type="number" class="form-control" step="any" v-model="form.update.data.qty">
+                  <small class="text-danger" v-for="(msg, i) in form.update.errors.qty">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="col-12 col-lg-3">
+                  <label>Satuan</label>
+                  <select class="form-control" v-model="form.update.data.satuan_id">
+                    <option value="null">-- Pilih Satuan --</option>
+                    <option v-for="(satuan, i) in data.satuan" :value="satuan.id">
+                      {{ satuan.satuan }}
+                    </option>
+                  </select>
+                  <small class="text-danger" v-for="(msg, i) in form.update.errors.satuan_id">
+                    {{ msg }}
+                  </small>
+                </div>
+              </div>
+              <div class="form-group" v-if="$access('formOperasional.formC1.formThawingAyam.update', 'takePhoto')">
+                <label>Gambar</label>
+                <webcam-component v-model="form.update.data.gambar"></webcam-component>
+                <small class="text-danger" v-for="(msg, i) in form.update.errors.gambar">
+                  {{ msg }}
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Keterangan</label>
+                <textarea class="form-control form-control-sm" v-model="form.update.data.keterangan"></textarea>
+                <small class="text-danger" v-for="(msg, i) in form.update.errors.keterangan">
+                  {{ msg }}
+                </small>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Ubah</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -284,8 +409,23 @@ export default {
             qty: null,
             satuan_id: null,
             gambar: '',
-            keterangan: '',
-            gambar: ''
+            keterangan: ''          },
+          errors: {},
+          loading: false
+        },
+        update: {
+          data: {
+            id: null,
+            kode_cabang: '',
+            nama_cabang: '',
+            tanggal_form: '',
+            jam: '',
+            tugas_karyawan_id: null,
+            supplier_id: null,
+            qty: null,
+            satuan_id: null,
+            gambar: null,
+            keterangan: ''
           },
           errors: {},
           loading: false
@@ -454,15 +594,41 @@ export default {
         })
         .catch(err => {})
     },
-    showUpdateModal(id) { return
+    showUpdateModal(id) {
       this.form.update.data = {}
-      this.$axios.get('/ajax/v1/master/aktivitas_karyawan/' + id)
+      this.$axios.get('/ajax/v1/form_operasional/form_c1/form_thawing_ayam/' + id)
         .then(res => {
+          let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_thawing_ayam.cabang_id)})
           this.form.update.data = {
             id: id,
-            aktivitas_karyawan: res.data.container.aktivitas_karyawan
+            kode_cabang: currentCabang.kode_cabang,
+            nama_cabang: currentCabang.nama_cabang,
+            tanggal_form: this.query.form_thawing_ayam.tanggal_form,
+            jam: res.data.container.jam,
+            tugas_karyawan_id: res.data.container.tugas_karyawan_id,
+            supplier_id: res.data.container.supplier_id,
+            qty: res.data.container.qty,
+            satuan_id: res.data.container.satuan_id,
+            keterangan: res.data.container.keterangan
           }
-          $('[data-entity="formThawingAyam"][data-method="update"]').modal('show')
+          Promise.all([
+            this.fetchTugasKaryawan(this.query.form_thawing_ayam.cabang_id, this.query.form_thawing_ayam.tanggal_penugasan),
+            this.fetchSupplier(),
+            this.fetchSatuan()
+          ])
+            .then(res => {
+              this.data.tugas_karyawan = res[0].data.container
+              this.data.supplier = res[1].data.container
+              this.data.satuan = res[2].data.container
+
+              this.form.create.data.tanggal_form = this.query.form_thawing_ayam.tanggal_form
+              let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_thawing_ayam.cabang_id)})
+              this.form.create.data.kode_cabang = currentCabang.kode_cabang
+              this.form.create.data.nama_cabang = currentCabang.cabang
+
+              $('[data-entity="formThawingAyam"][data-method="update"]').modal('show')
+            })
+            .catch(err => {})
         })
         .catch(err => {})
     },
@@ -610,19 +776,20 @@ export default {
     update() {
       this.form.update.loading = true
       this.form.update.errors = {}
-      this.$axios.put('/ajax/v1/absensi', this.form.update.data)
+      this.$axios.put('/ajax/v1/form_operasional/form_c1/form_thawing_ayam', this.form.update.data)
         .then(res => {
           this.form.update.data = {
             id: null,
-            tanggal_absensi: '',
-            jam_jadwal: '',
-            jam_absen: '',
-
-            nip: '',
-            nama_karyawan: '',
             kode_cabang: '',
             nama_cabang: '',
-            tipe_absensi: ''
+            tanggal_form: '',
+            jam: '',
+            tugas_karyawan_id: null,
+            supplier_id: null,
+            qty: null,
+            satuan_id: null,
+            gambar: null,
+            keterangan: ''
           }
           this.queryData(false)
           this.hideUpdateModal()

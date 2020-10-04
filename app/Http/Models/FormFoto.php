@@ -36,4 +36,9 @@ class FormFoto extends Model
   {
     return $this->belongsTo('App\Http\Models\Cabang');
   }
+
+  public function gambar()
+  {
+    return $this->belongsTo('App\Http\Models\Gambar');
+  }
 }
