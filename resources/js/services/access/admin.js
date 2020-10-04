@@ -289,7 +289,7 @@ export default {
                 dateMin: 0,
                 dateMax: 0,
                 automatedTime: false,
-                changeSatuan: false
+                changeSatuan: true
               },
               read: {
                 timeFree: true,
@@ -323,7 +323,7 @@ export default {
                 dateMin: 0,
                 dateMax: 0,
                 automatedTime: false,
-                changeSatuan: false
+                changeSatuan: true
               },
               read: {
                 timeFree: true,
@@ -357,7 +357,7 @@ export default {
                 dateMin: 0,
                 dateMax: 0,
                 automatedTime: false,
-                changeSatuan: false
+                changeSatuan: true
               },
               read: {
                 timeFree: true,
@@ -391,7 +391,7 @@ export default {
                 dateMin: 0,
                 dateMax: 0,
                 automatedTime: false,
-                changeSatuan: false
+                changeSatuan: true
               },
               read: {
                 timeFree: true,
@@ -425,7 +425,7 @@ export default {
                 dateMin: 0,
                 dateMax: 0,
                 automatedTime: false,
-                changeSatuan: false
+                changeSatuan: true
               },
               read: {
                 timeFree: true,
@@ -459,7 +459,7 @@ export default {
                 dateMin: 0,
                 dateMax: 0,
                 automatedTime: false,
-                changeSatuan: false
+                changeSatuan: true
               },
               read: {
                 timeFree: true,
@@ -493,7 +493,7 @@ export default {
                 dateMin: 0,
                 dateMax: 0,
                 automatedTime: false,
-                changeSatuan: false
+                changeSatuan: true
               },
               read: {
                 timeFree: true,

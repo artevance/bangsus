@@ -233,5 +233,308 @@ export default {
         create: false
       },
     }
+  },
+  formOperasional: {
+    access: true,
+    children: {
+      formC1: {
+        access: true,
+        children: {
+          formThawingAyam: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            destroy: true,
+            children: {
+              create: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                automatedTime: true,
+                changeSatuan: false
+              },
+              read: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
+              },
+              update: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                readonlyTime: true,
+                takePhoto: false,
+                changeSatuan: false
+              },
+              destroy: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
+              }
+            }
+          },
+          formGoreng: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            destroy: true,
+            children: {
+              create: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                automatedTime: true,
+                changeSatuan: false
+              },
+              read: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
+              },
+              update: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                readonlyTime: true,
+                takePhoto: false,
+                changeSatuan: false
+              },
+              destroy: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
+              }
+            }
+          },
+          formMasakNasi: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            destroy: true,
+            children: {
+              create: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                automatedTime: true,
+                changeSatuan: false
+              },
+              read: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
+              },
+              update: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                readonlyTime: true,
+                takePhoto: false,
+                changeSatuan: false
+              },
+              destroy: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
+              }
+            }
+          },
+          formSambal: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            destroy: true,
+            children: {
+              create: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                automatedTime: true,
+                changeSatuan: false
+              },
+              read: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
+              },
+              update: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                readonlyTime: true,
+                takePhoto: false,
+                changeSatuan: false
+              },
+              destroy: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
+              }
+            }
+          },
+          formTepung: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            destroy: true,
+            children: {
+              create: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                automatedTime: true,
+                changeSatuan: false
+              },
+              read: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
+              },
+              update: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                readonlyTime: true,
+                takePhoto: false,
+                changeSatuan: false
+              },
+              destroy: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
+              }
+            }
+          },
+          formMinyak: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            destroy: true,
+            children: {
+              create: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                automatedTime: true,
+                changeSatuan: false
+              },
+              read: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
+              },
+              update: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                readonlyTime: true,
+                takePhoto: false,
+                changeSatuan: false
+              },
+              destroy: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
+              }
+            }
+          },
+          formMargarin: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            destroy: true,
+            children: {
+              create: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                automatedTime: true,
+                changeSatuan: false
+              },
+              read: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
+              },
+              update: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                readonlyTime: true,
+                takePhoto: false,
+                changeSatuan: false
+              },
+              destroy: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
+              }
+            }
+          },
+          formLPG: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            destroy: true,
+            children: {
+              create: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                automatedTime: true,
+                changeSatuan: false
+              },
+              read: {
+                timeFree: true,
+                dateMin: 0,
+                dateMax: 0
+              },
+              update: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+                readonlyTime: true,
+                takePhoto: false,
+                changeSatuan: false
+              },
+              destroy: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0
+              }
+            }
+          },
+        }
+      },
+      formC2: {
+        access: true
+      },
+      formC3: {
+        access: true
+      },
+      formC4: {
+        access: true
+      },
+      formC5: {
+        access: true
+      },
+      formFoto: {
+        access: true
+      },
+      formLaporanFoto: {
+        access: true
+      },
+      formDendaFoto: {
+        access: true
+      },
+    }
   }
 }
