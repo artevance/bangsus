@@ -251,27 +251,28 @@ export default {
             destroy: true,
             children: {
               create: {
-                readonlyTime: false,
-                automatedTime: false,
                 timeFree: false,
                 dateMin: 0,
-                dateMax: 0
+                dateMax: 0,
+
+                automatedTime: true,
               },
               read: {
-                timeFree: false,
+                timeFree: true,
                 dateMin: 0,
                 dateMax: 0
               },
               update: {
+                timeFree: false,
+                dateMin: 0,
+                dateMax: 0,
+
                 readonlyTime: false,
                 automatedTime: false,
                 takePhoto: true,
-                timeFree: false,
-                dateMin: 0,
-                dateMax: 0
               },
               destroy: {
-                timeFree: false,
+                timeFree: true,
                 dateMin: 0,
                 dateMax: 0
               }

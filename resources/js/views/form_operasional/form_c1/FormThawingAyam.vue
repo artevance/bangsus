@@ -57,8 +57,8 @@
             $access('formOperasional.formC1.formThawingAyam', 'create') && (
               $access('formOperasional.formC1.formThawingAyam.create', 'timeFree') ||
               $moment($moment(query.form_thawing_ayam.tanggal_form)).isBetween(
-                $moment().subtract($access('formOperasional.formC1.formThawingAyam.create', 'dateMin')).format('YYYY-MM-DD'),
-                $moment().add($access('formOperasional.formC1.formThawingAyam.create', 'dateMax')).format('YYYY-MM-DD'),
+                $moment(utils.date).subtract($access('formOperasional.formC1.formThawingAyam.create', 'dateMin')).format('YYYY-MM-DD'),
+                $moment(utils.date).add($access('formOperasional.formC1.formThawingAyam.create', 'dateMax')).format('YYYY-MM-DD'),
                 undefined,
                 '[]'
               )
@@ -95,8 +95,8 @@
                       $access('formOperasional.formC1.formThawingAyam', 'update') && (
                         $access('formOperasional.formC1.formThawingAyam.update', 'timeFree') ||
                         $moment($moment(query.form_thawing_ayam.tanggal_form)).isBetween(
-                          $moment().subtract($access('formOperasional.formC1.formThawingAyam.update', 'dateMin')).format('YYYY-MM-DD'),
-                          $moment().add($access('formOperasional.formC1.formThawingAyam.update', 'dateMax')).format('YYYY-MM-DD'),
+                          $moment(utils.date).subtract($access('formOperasional.formC1.formThawingAyam.update', 'dateMin')).format('YYYY-MM-DD'),
+                          $moment(utils.date).add($access('formOperasional.formC1.formThawingAyam.update', 'dateMax')).format('YYYY-MM-DD'),
                           undefined,
                           '[]'
                         )
@@ -111,8 +111,8 @@
                       $access('formOperasional.formC1.formThawingAyam', 'destroy') && (
                         $access('formOperasional.formC1.formThawingAyam.destroy', 'timeFree') ||
                         $moment($moment(query.form_thawing_ayam.tanggal_form)).isBetween(
-                          $moment().subtract($access('formOperasional.formC1.formThawingAyam.destroy', 'dateMin')).format('YYYY-MM-DD'),
-                          $moment().add($access('formOperasional.formC1.formThawingAyam.destroy', 'dateMax')).format('YYYY-MM-DD'),
+                          $moment(utils.date).subtract($access('formOperasional.formC1.formThawingAyam.destroy', 'dateMin')).format('YYYY-MM-DD'),
+                          $moment(utils.date).add($access('formOperasional.formC1.formThawingAyam.destroy', 'dateMax')).format('YYYY-MM-DD'),
                           undefined,
                           '[]'
                         )
@@ -176,7 +176,12 @@
                 </div>
                 <div class="col-12 col-lg-6">
                   <label>Jam</label>
-                  <input type="time" class="form-control" v-model="form.create.data.jam">
+                  <input
+                    type="time"
+                    class="form-control"
+                    v-model="form.create.data.jam"
+                    :readonly="$access('formOperasional.formC1.formThawingAyam.create', 'automatedTime')"
+                    >
                   <small class="text-danger" v-for="(msg, i) in form.create.errors.jam">
                     {{ msg }}
                   </small>
@@ -302,11 +307,42 @@ export default {
                 : this.$moment().format('YYYY-MM-DD')
             )
         }
+      },
+      interval: {
+        form: {
+          create: {
+            data: {
+              jam: null
+            }
+          },
+          update: {
+            data: {
+              jam: null
+            }
+          }
+        },
+        utils: {
+          date: null
+        }
+      },
+      utils: {
+        date: this.$moment().format('YYYY-MM-DD')
       }
     }
   },
   created() {
     this.prepare()
+  },
+  mounted() {
+    this.setDateWatcher()
+
+    if (this.$access('formOperasional.formC1.formThawingAyam', 'create') && this.$access('formOperasional.formC1.formThawingAyam.create', 'automatedTime')) {
+      this.setCreateClockInterval()
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.interval.utils.date)
+    clearInterval(this.interval.form.create.data.jam)
   },
 
   watch: {
@@ -315,7 +351,7 @@ export default {
         this.query.form_thawing_ayam.tanggal_form = n
       } else {
         if (
-          this.$moment(this.$moment(n).format('YYYY-MM-DD')).isBetween(
+          this.$moment(this.$moment(n)).isBetween(
             this.$moment().subtract(this.$access('formOperasional.formC1.formThawingAyam.read', 'dateMin')).format('YYYY-MM-DD'),
             this.$moment().add(this.$access('formOperasional.formC1.formThawingAyam.read', 'dateMax')).format('YYYY-MM-DD'),
             undefined,
@@ -396,7 +432,7 @@ export default {
     },
 
     /**
-     *  Modal functionality
+     *  Modal functionality & utils
      */
     showCreateModal() {
       Promise.all([
@@ -433,6 +469,111 @@ export default {
     showDestroyModal(id) {
 
     },
+    hideCreateModal() {
+      $('[data-entity="formThawingAyam"][data-method="create"]').modal('hide')
+    },
+    hideUpdateModal() {
+      $('[data-entity="formThawingAyam"][data-method="update"]').modal('hide')
+    },
+    hideDestroyModal() {
+      $('[data-entity="formThawingAyam"][data-method="destroy"]').modal('hide')
+    },
+    setCreateClockInterval() {
+      this.interval.form.create.data.jam = setInterval(function () {
+        this.form.create.data.jam = this.$moment().format('HH:mm:ss')
+      }.bind(this), 1000)
+    },
+    setDateWatcher() {
+      this.interval.utils.date = setInterval(function () {
+        let o = this.utils.date
+        let n = this.$moment().format('YYYY-MM-DD')
+
+        if ( ! this.$moment(n).isSame(o)) {
+          this.dateChangeHandler()
+        }
+
+        this.utils.date = n
+      }.bind(this), 1000)
+    },
+    dateChangeHandler() {
+      // Handle date change on read action
+      if (this.$access('formOperasional.formC1.formThawingAyam', 'read')) {
+        if (this.$access('formOperasional.formC1.formThawingAyam.read', 'timeFree')) {
+
+        } else {
+          if (
+            this.$moment(this.utils.date).isBetween(
+              this.$moment().subtract(this.$access('formOperasional.formC1.formThawingAyam.read', 'dateMin')).format('YYYY-MM-DD'),
+              this.$moment().add(this.$access('formOperasional.formC1.formThawingAyam.read', 'dateMax')).format('YYYY-MM-DD'),
+              undefined,
+              '[]'
+            )
+          ) {
+
+          } else {
+            this.query.form_thawing_ayam.tanggal_form = this.$moment().format('YYYY-MM-DD')
+            this.queryData()
+          }
+        }
+      }
+      // Handle date change on create action
+      if (this.$access('formOperasional.formC1.formThawingAyam', 'create')) {
+        if (this.$access('formOperasional.formC1.formThawingAyam.create', 'timeFree')) {
+
+        } else {
+          if (
+            this.$moment(this.utils.date).isBetween(
+              this.$moment().subtract(this.$access('formOperasional.formC1.formThawingAyam.create', 'dateMin')).format('YYYY-MM-DD'),
+              this.$moment().add(this.$access('formOperasional.formC1.formThawingAyam.create', 'dateMax')).format('YYYY-MM-DD'),
+              undefined,
+              '[]'
+            )
+          ) {
+
+          } else {
+            this.hideCreateModal()
+          }
+        }
+      }
+      // Handle data change on update action
+      if (this.$access('formOperasional.formC1.formThawingAyam', 'update')) {
+        if (this.$access('formOperasional.formC1.formThawingAyam.update', 'timeFree')) {
+
+        } else {
+          if (
+            this.$moment(this.utils.date).isBetween(
+              this.$moment().subtract(this.$access('formOperasional.formC1.formThawingAyam.update', 'dateMin')).format('YYYY-MM-DD'),
+              this.$moment().add(this.$access('formOperasional.formC1.formThawingAyam.update', 'dateMax')).format('YYYY-MM-DD'),
+              undefined,
+              '[]'
+            )
+          ) {
+
+          } else {
+            this.hideUpdateModal()
+          }
+        }
+      }
+      // Handle data change on destroy action
+      if (this.$access('formOperasional.formC1.formThawingAyam', 'destroy')) {
+        if (this.$access('formOperasional.formC1.formThawingAyam.destroy', 'timeFree')) {
+
+        } else {
+          if (
+            this.$moment(this.utils.date).isBetween(
+              this.$moment().subtract(this.$access('formOperasional.formC1.formThawingAyam.destroy', 'dateMin')).format('YYYY-MM-DD'),
+              this.$moment().add(this.$access('formOperasional.formC1.formThawingAyam.destroy', 'dateMax')).format('YYYY-MM-DD'),
+              undefined,
+              '[]'
+            )
+          ) {
+
+          } else {
+            this.hideDestroyModal()
+          }
+        }
+      } 
+    },
 
     /**
      *  Form request handler
@@ -455,7 +596,7 @@ export default {
             gambar: ''
           }
           this.queryData(false)
-          $('[data-entity="formThawingAyam"][data-method="create"]').modal('hide')
+          this.hideCreateModal()
         })
         .catch(err => {
           if (err.response.status == 422) {
@@ -484,7 +625,7 @@ export default {
             tipe_absensi: ''
           }
           this.queryData(false)
-          $('[data-entity="absensi"][data-method="update"]').modal('hide')
+          this.hideUpdateModal()
         })
         .catch(err => {
           if (err.response.status == 422) {
@@ -502,7 +643,7 @@ export default {
         .then(res => {
           this.form.destroy.data.id = null
           this.queryData(false)
-          $('[data-entity="absensi"][data-method="destroy"]').modal('hide')
+          this.hideDestroyModal()
         })
         .catch(err => console.log(err.response))
         .finally(() => {
