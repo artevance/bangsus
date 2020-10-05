@@ -241,7 +241,15 @@
               </div>
               <div class="form-group">
                 <label>Kelompok Foto</label>
-                <input type="text" class="form-control" v-model="form.create.data.kelompok_foto" readonly>
+                <select class="form-control" v-model="form.create.data.kelompok_foto_id">
+                  <option value="null">-- Pilih Kelompok Foto --</option>
+                  <option v-for="(kelompok_foto, i) in data.kelompok_foto" :value="kelompok_foto.id">
+                    {{ kelompok_foto.kelompok_foto }}
+                  </option>
+                </select>
+                <small class="text-danger" v-for="(msg, i) in form.create.errors.kelompok_foto_id">
+                  {{ msg }}
+                </small>
               </div>
               <div class="form-group">
                 <label>Gambar</label>
@@ -337,7 +345,15 @@
               </div>
               <div class="form-group">
                 <label>Kelompok Foto</label>
-                <input type="text" class="form-control" v-model="form.update.data.kelompok_foto" readonly>
+                <select class="form-control" v-model="form.update.data.kelompok_foto_id">
+                  <option value="null">-- Pilih Kelompok Foto --</option>
+                  <option v-for="(kelompok_foto, i) in data.kelompok_foto" :value="kelompok_foto.id">
+                    {{ kelompok_foto.kelompok_foto }}
+                  </option>
+                </select>
+                <small class="text-danger" v-for="(msg, i) in form.update.errors.kelompok_foto_id">
+                  {{ msg }}
+                </small>
               </div>
               <div class="form-group" v-if="$access('formOperasional.formFoto.update', 'takePhoto')">
                 <label>Gambar</label>
@@ -605,18 +621,17 @@ export default {
      */
     showCreateModal() {
       Promise.all([
-        this.fetchTugasKaryawan(this.query.form_foto.cabang_id, this.query.form_foto.tanggal_penugasan)
+        this.fetchTugasKaryawan(this.query.form_foto.cabang_id, this.query.form_foto.tanggal_penugasan),
+        this.fetchKelompokFoto()
       ])
         .then(res => {
           this.data.tugas_karyawan = res[0].data.container
+          this.data.kelompok_foto = res[1].data.container
 
           this.form.create.data.tanggal_form = this.query.form_foto.tanggal_form
           let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_foto.cabang_id)})
           this.form.create.data.kode_cabang = currentCabang.kode_cabang
           this.form.create.data.nama_cabang = currentCabang.cabang
-          let currentKelompokFoto = this.$_.findWhere(this.data.kelompok_foto, {id: parseInt(this.query.form_foto.kelompok_foto_id)})
-          this.form.create.data.kelompok_foto_id = currentKelompokFoto.id
-          this.form.create.data.kelompok_foto = currentKelompokFoto.kelompok_foto
 
           $('[data-entity="formFoto"][data-method="create"]').modal('show')
         })
@@ -627,23 +642,23 @@ export default {
       this.$axios.get('/ajax/v1/form_operasional/form_foto/' + id)
         .then(res => {
           let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_foto.cabang_id)})
-          let currentKelompokFoto = this.$_.findWhere(this.data.kelompok_foto, {id: parseInt(this.query.form_foto.kelompok_foto_id)})
           this.form.update.data = {
             id: id,
             kode_cabang: currentCabang.kode_cabang,
-            nama_cabang: currentCabang.nama_cabang,
+            nama_cabang: currentCabang.cabang,
             tanggal_form: this.query.form_foto.tanggal_form,
             jam: res.data.container.jam,
             tugas_karyawan_id: res.data.container.tugas_karyawan_id,
             kelompok_foto_id: res.data.container.kelompok_foto_id,
-            kelompok_foto: currentKelompokFoto.kelompok_foto,
             keterangan: res.data.container.keterangan
           }
           Promise.all([
-            this.fetchTugasKaryawan(this.query.form_foto.cabang_id, this.query.form_foto.tanggal_penugasan)
+            this.fetchTugasKaryawan(this.query.form_foto.cabang_id, this.query.form_foto.tanggal_penugasan),
+            this.fetchKelompokFoto()
           ])
             .then(res => {
               this.data.tugas_karyawan = res[0].data.container
+              this.data.kelompok_foto = res[1].data.container
 
               $('[data-entity="formFoto"][data-method="update"]').modal('show')
             })
