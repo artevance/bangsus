@@ -352,7 +352,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       });
       Route::prefix('form_c5')->group(function () {
         Route::get('', 'FormC5@index');
-        Route::get('cabang_harian', 'FormC5@dailyBranch');
+        Route::get('cabang_tipe_harian', 'FormC5@dailyBranchType');
         Route::get('{id}', 'FormC5@get');
         Route::post('', 'FormC5@store');
         Route::put('', 'FormC5@amend');

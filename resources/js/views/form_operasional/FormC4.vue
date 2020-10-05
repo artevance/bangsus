@@ -162,7 +162,7 @@
         <div class="modal-content">
           <form @submit.prevent="create">
             <div class="modal-header">
-              <h5 class="modal-title">Tambah Form Goreng</h5>
+              <h5 class="modal-title">Tambah Form C4</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -275,7 +275,7 @@
         <div class="modal-content">
           <form @submit.prevent="update">
             <div class="modal-header">
-              <h5 class="modal-title">Ubah Form Goreng</h5>
+              <h5 class="modal-title">Ubah Form C4</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -388,7 +388,7 @@
           <div class="modal-content">
             <form @submit.prevent="destroy">
               <div class="modal-header">
-                <h5 class="modal-title">Hapus Form Goreng</h5>
+                <h5 class="modal-title">Hapus Form C4</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -582,7 +582,6 @@ export default {
             })
           }
           this.data.form_c4 = res.data.container
-          console.log(this.data.form_c4)
           if (withSpinner) this.state.table.loading = false
         })
         .catch(err => {})
@@ -633,7 +632,7 @@ export default {
           this.form.update.data = {
             id: id,
             kode_cabang: currentCabang.kode_cabang,
-            nama_cabang: currentCabang.nama_cabang,
+            nama_cabang: currentCabang.cabang,
             tanggal_form: this.query.form_c4.tanggal_form,
             jam: res.data.container.jam,
             tugas_karyawan_id: res.data.container.tugas_karyawan_id,

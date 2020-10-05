@@ -10,6 +10,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 use App\Http\Models\FormGeneralCleaning;
+use App\Http\Models\KegiatanGeneralCleaning;
+use App\Http\Models\Cabang;
 
 class FormC5 extends Controller
 {
@@ -35,7 +37,7 @@ class FormC5 extends Controller
     ])->find($id))->response(200);
   }
 
-  public function dailyBranch(Request $request)
+  public function dailyBranchType(Request $request)
   {
     $query = [
       'cabang_id' => $request->input('cabang_id', Cabang::first()->id),
@@ -46,10 +48,12 @@ class FormC5 extends Controller
       ->data(
         KegiatanGeneralCleaning::with([
           'form_general_cleaning' => function ($q) use ($query) {
-            $q->byCabang($query['cabang_id']);
-          }
+            $q->byCabang($query['cabang_id'])
+              ->where('tanggal_form', $query['tanggal_form'])
+              ->orderBy('jam');
+          },
+          'area_general_cleaning'
         ])
-        ->where('tanggal_form', $query['tanggal_form'])
         ->get()
       )->response(200);
   }
@@ -72,7 +76,7 @@ class FormC5 extends Controller
       'keterangan' => 'nullable|max:200'
     ]);
 
-    $formGeneralCleaningModel = new FormGeneralCleaningModel;
+    $formGeneralCleaningModel = new FormGeneralCleaning;
     $formGeneralCleaningModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     $formGeneralCleaningModel->tanggal_form = $request->input('tanggal_form');
     $formGeneralCleaningModel->jam = $request->input('jam');
@@ -103,7 +107,7 @@ class FormC5 extends Controller
       'keterangan' => 'nullable|max:200'
     ]);
 
-    $formGeneralCleaningModel = FormGeneralCleaningModel::find($request->input('id'));
+    $formGeneralCleaningModel = FormGeneralCleaning::find($request->input('id'));
     if ($request->has('tugas_karyawan_id')) $formGeneralCleaningModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     if ($request->has('tanggal_form')) $formGeneralCleaningModel->tanggal_form = $request->input('tanggal_form');
     if ($request->has('jam')) $formGeneralCleaningModel->jam = $request->input('jam');
@@ -122,7 +126,7 @@ class FormC5 extends Controller
       'id' => 'required|exists:form_goreng,id'
     ]);
 
-    $formGeneralCleaningModel = FormGeneralCleaningModel::find($request->input('id'));
+    $formGeneralCleaningModel = FormGeneralCleaning::find($request->input('id'));
     $formGeneralCleaningModel->user_id = $request->user()->id;
     $formGeneralCleaningModel->save();
     $formGeneralCleaningModel->delete();
