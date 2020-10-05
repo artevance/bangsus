@@ -55,7 +55,21 @@
             </div>
             <div class="form-group">
               <label>Tanggal Form</label>
-              <input type="date" class="form-control" v-model="query.form_lpg.tanggal_form" :readonly="!$access('formOperasional.formC1.formLPG.read', 'changeDate')" @keyup="queryData">
+              <input type="date"
+                class="form-control"
+                v-model="query.form_lpg.tanggal_form"
+                @keyup="queryData"
+                :min="
+                  $access('formOperasional.formC1.formLPG.read', 'timeFree')
+                    ? false
+                    : $moment().subtract($access('formOperasional.formC1.formLPG.read', 'minDate')).format('YYYY-MM-DD')
+                "
+                :max="
+                  $access('formOperasional.formC1.formLPG.read', 'timeFree')
+                    ? false
+                    : $moment().subtract($access('formOperasional.formC1.formLPG.read', 'maxDate')).format('YYYY-MM-DD')
+                "
+                >
             </div>
           </div>
         </div>

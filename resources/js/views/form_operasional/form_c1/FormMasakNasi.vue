@@ -55,7 +55,21 @@
             </div>
             <div class="form-group">
               <label>Tanggal Form</label>
-              <input type="date" class="form-control" v-model="query.form_masak_nasi.tanggal_form" :readonly="!$access('formOperasional.formC1.formMasakNasi.read', 'changeDate')" @keyup="queryData">
+              <input type="date"
+                class="form-control"
+                v-model="query.form_masak_nasi.tanggal_form"
+                @keyup="queryData"
+                :min="
+                  $access('formOperasional.formC1.formMasakNasi.read', 'timeFree')
+                    ? false
+                    : $moment().subtract($access('formOperasional.formC1.formMasakNasi.read', 'minDate')).format('YYYY-MM-DD')
+                "
+                :max="
+                  $access('formOperasional.formC1.formMasakNasi.read', 'timeFree')
+                    ? false
+                    : $moment().subtract($access('formOperasional.formC1.formMasakNasi.read', 'maxDate')).format('YYYY-MM-DD')
+                "
+                >
             </div>
           </div>
         </div>
