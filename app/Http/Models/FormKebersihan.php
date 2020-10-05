@@ -29,4 +29,11 @@ class FormKebersihan extends Model
   {
     return $this->belongsTo('App\Http\Models\KegiatanKebersihan');
   }
+
+  public function scopeByCabang($q, $id)
+  {
+    return $q->whereHas('tugas_karyawan', function ($q) use ($id) {
+      $q->where('cabang_id', $id);
+    });
+  }
 }

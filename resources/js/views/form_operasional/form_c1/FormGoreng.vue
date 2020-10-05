@@ -225,7 +225,7 @@
                 <div class="col-12 col-lg-3">
                   <label>Item Goreng</label>
                   <select class="form-control" v-model="form.create.data.item_goreng_id">
-                    <option value="null">-- Pilih Supplier --</option>
+                    <option value="null">-- Pilih Item Goreng --</option>
                     <option v-for="(item_goreng, i) in data.item_goreng" :value="item_goreng.id">
                       {{ item_goreng.item_goreng }}
                     </option>
@@ -369,7 +369,7 @@
                 <div class="col-12 col-lg-3">
                   <label>Item Goreng</label>
                   <select class="form-control" v-model="form.update.data.item_goreng_id">
-                    <option value="null">-- Pilih Supplier --</option>
+                    <option value="null">-- Pilih Item Goreng --</option>
                     <option v-for="(item_goreng, i) in data.item_goreng" :value="item_goreng.id">
                       {{ item_goreng.item_goreng }}
                     </option>

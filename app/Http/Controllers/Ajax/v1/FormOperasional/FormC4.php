@@ -10,14 +10,14 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 use App\Http\Models\FormKebersihan;
+use App\Http\Models\Cabang;
 
 class FormC4 extends Controller
 {
   public function index(Request $request)
   {
     return $this
-      ->data(FormAtributKaryawan::with([
-        'd',
+      ->data(FormKebersihan::with([
         'tugas_karyawan',
         'kegiatan_kebersihan',
         'user'
@@ -27,10 +27,9 @@ class FormC4 extends Controller
 
   public function get(Request $request, $id)
   {
-    if ( ! FormAtributKaryawan::find($id)->exists()) return $this->response(404);
+    if ( ! FormKebersihan::find($id)->exists()) return $this->response(404);
 
-    return $this->data(FormAtributKaryawan::with([
-      'd',
+    return $this->data(FormKebersihan::with([
       'tugas_karyawan',
       'kegiatan_kebersihan',
       'user'
@@ -46,8 +45,7 @@ class FormC4 extends Controller
 
     return $this
       ->data(
-        FormAtributKaryawan::with([
-          'd',
+        FormKebersihan::with([
           'tugas_karyawan',
           'kegiatan_kebersihan',
           'user'
@@ -60,7 +58,7 @@ class FormC4 extends Controller
 
   public function store(Request $request)
   {
-    $v = Validator::make($request->(
+    $v = Validator::make($request->only(
       'tugas_karyawan_id',
       'tanggal_form',
       'jam',
@@ -90,7 +88,7 @@ class FormC4 extends Controller
 
   public function amed(Request $request)
   {
-    $v = Validator::make($request->(
+    $v = Validator::make($request->only(
       'id',
       'tugas_karyawan_id',
       'tanggal_form',
@@ -122,7 +120,7 @@ class FormC4 extends Controller
 
   public function destroy(Request $request)
   {
-    $v = Validator::make($request->(
+    $v = Validator::make($request->only(
       'id'
     ), [
       'id' => 'required|exists:form_goreng,id'

@@ -67,6 +67,14 @@
                     </select>
                   </div>
                   <div class="form-group">
+                    <label>Quality Control</label>
+                    <select class="form-control" v-model="query.form_c2.quality_control_id" @change="queryData">
+                      <option v-for="(quality_control, i) in data.quality_control" :key="i" :value="quality_control.id">
+                        {{ quality_control.quality_control }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label>Tanggal Form</label>
                     <input type="date" class="form-control" v-model="query.form_c2.tanggal_form" :readonly="!$access('formOperasional.formC2.read', 'changeDate')" @keyup="queryData">
                   </div>
@@ -400,6 +408,7 @@ export default {
       data: {
         cabang: [],
         form_c2: [],
+        quality_control: [],
         tugas_karyawan: [],
         supplier: [],
         satuan: [],

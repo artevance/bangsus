@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 
 use App\Http\Models\FormAtributKaryawan;
 use App\Http\Models\FormAtributKaryawanD;
+use App\Http\Models\Cabang;
 
 class FormC3 extends Controller
 {
@@ -28,7 +29,7 @@ class FormC3 extends Controller
 
   public function get(Request $request, $id)
   {
-    if ( ! FormAtributKaryawan::find($id)->exists()) return $this->response(404);
+    if (is_null(FormAtributKaryawan::find($id))) return $this->response(404);
 
     return $this->data(FormAtributKaryawan::with([
       'd',
@@ -61,7 +62,7 @@ class FormC3 extends Controller
 
   public function store(Request $request)
   {
-    $v = Validatior::make($request->only(
+    $v = Validator::make($request->only(
       'tugas_karyawan_id',
       'tanggal_form',
       'jam',
@@ -99,7 +100,7 @@ class FormC3 extends Controller
 
   public function amed(Request $request)
   {
-    $v = Validatior::make($request->only(
+    $v = Validator::make($request->only(
       'id',
       'tugas_karyawan_id',
       'tanggal_form',
@@ -109,7 +110,7 @@ class FormC3 extends Controller
       'form_atribut_karyawan_d_id',
       'parameter_atribut_karyawan_id'
     ), [
-      'id' => 'required|exists:form_atribut_karyawan,id'
+      'id' => 'required|exists:form_atribut_karyawan,id',
       'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'tanggal_form' => 'required|date_format:Y-m-d',
       'jam' => 'required',
@@ -139,9 +140,10 @@ class FormC3 extends Controller
 
   public function delete(Request $request)
   {
-    $request->validate([
-      'id' => 'required|exists:form_atribut_karyawan,id',
-      'user_id' => 'required|exists:user,id'
+    $v = Validator::make($request->only(
+      'id'
+    ), [
+      'id' => 'required|exists:form_atribut_karyawan,id'
     ]);
 
     $formAtributKaryawanDModel = FormAtributKaryawanD::where('form_atribut_karyawan_id', $request->input('id'));
