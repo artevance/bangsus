@@ -142,7 +142,7 @@
 
     <!-- Modal -->
     <div class="modal fade"
-      data-entity="formGoreng"
+      data-entity="formC4"
       data-method="create"
       data-backdrop="static"
       data-keyboard="false"
@@ -212,37 +212,32 @@
                 </small>
               </div>
               <div class="form-group row">
-                <div class="col-12 col-lg-3">
-                  <label>Supplier</label>
-                  <select class="form-control" v-model="form.create.data.supplier_id">
-                    <option value="null">-- Pilih Supplier --</option>
-                    <option v-for="(supplier, i) in data.supplier" :value="supplier.id">
-                      {{ supplier.supplier }}
+                <div class="col-12 col-lg-6">
+                  <label>Kegiatan Kebersihan</label>
+                  <select class="form-control" v-model="form.create.data.kegiatan_kebersihan_id">
+                    <option value="null">-- Pilih Kegiatan Kebersihan --</option>
+                    <option v-for="(kegiatan_kebersihan, i) in data.kegiatan_kebersihan" :value="kegiatan_kebersihan.id">
+                      {{ kegiatan_kebersihan.kegiatan_kebersihan }}
                     </option>
                   </select>
-                  <small class="text-danger" v-for="(msg, i) in form.create.errors.supplier_id">
+                  <small class="text-danger" v-for="(msg, i) in form.create.errors.kegiatan_kebersihan_id">
                     {{ msg }}
                   </small>
                 </div>
                 <div class="col-12 col-lg-6">
-                  <label>Item Goreng</label>
-                  <select class="form-control" v-model="form.create.data.item_goreng_id">
-                    <option value="null">-- Pilih Supplier --</option>
-                    <option v-for="(item_goreng, i) in data.item_goreng" :value="item_goreng.id">
-                      {{ item_goreng.item_goreng }}
-                    </option>
-                  </select>
-                  <small class="text-danger" v-for="(msg, i) in form.create.errors.item_goreng_id">
+                  <label>Skor</label>
+                  <div class="form-group">
+                    <div class="form-check form-check-inline" v-for="(skor, i) in utils.skor">
+                      <input class="form-check-input m-0" type="radio" name="skor" :value="skor" v-model="form.create.data.skor">
+                      <label class="form-check-label m-0 ml-2 mr-3">
+                        {{ skor }}
+                      </label>
+                    </div>
+                  </div>
+                  <small class="text-danger" v-for="(msg, i) in form.create.errors.skor">
                     {{ msg }}
                   </small>
                 </div>
-              </div>
-              <div class="form-group">
-                <label>Gambar</label>
-                <webcam-component v-model="form.create.data.gambar" ref="webcam"></webcam-component>
-                <small class="text-danger" v-for="(msg, i) in form.create.errors.gambar">
-                  {{ msg }}
-                </small>
               </div>
               <div class="form-group">
                 <label>Keterangan</label>
@@ -260,7 +255,7 @@
       </div>
     </div>
     <div class="modal fade"
-      data-entity="formGoreng"
+      data-entity="formC4"
       data-method="update"
       data-backdrop="static"
       data-keyboard="false"
@@ -330,63 +325,32 @@
                 </small>
               </div>
               <div class="form-group row">
-                <div class="col-12 col-lg-3">
-                  <label>Item Goreng</label>
-                  <select class="form-control" v-model="form.update.data.item_goreng_id">
-                    <option value="null">-- Pilih Supplier --</option>
-                    <option v-for="(item_goreng, i) in data.item_goreng" :value="item_goreng.id">
-                      {{ item_goreng.item_goreng }}
+                <div class="col-12 col-lg-6">
+                  <label>Kegiatan Kebersihan</label>
+                  <select class="form-control" v-model="form.update.data.kegiatan_kebersihan_id">
+                    <option value="null">-- Pilih Kegiatan Kebersihan --</option>
+                    <option v-for="(kegiatan_kebersihan, i) in data.kegiatan_kebersihan" :value="kegiatan_kebersihan.id">
+                      {{ kegiatan_kebersihan.kegiatan_kebersihan }}
                     </option>
                   </select>
-                  <small class="text-danger" v-for="(msg, i) in form.update.errors.item_goreng_id">
+                  <small class="text-danger" v-for="(msg, i) in form.update.errors.kegiatan_kebersihan_id">
                     {{ msg }}
                   </small>
                 </div>
-                <template v-if="$access('formOperasional.formC4.update', 'changeSatuan')">
-                  <div class="col-12 col-lg-3">
-                    <label>Qty</label>
-                    <input type="number" class="form-control" step="any" v-model="form.update.data.qty">
-                    <small class="text-danger" v-for="(msg, i) in form.update.errors.qty">
-                      {{ msg }}
-                    </small>
-                  </div>
-                  <div class="col-12 col-lg-3">
-                    <label>Satuan</label>
-                    <select class="form-control" v-model="form.update.data.satuan_id">
-                      <option value="null">-- Pilih Satuan --</option>
-                      <option v-for="(satuan, i) in data.satuan" :value="satuan.id">
-                        {{ satuan.satuan }}
-                      </option>
-                    </select>
-                    <small class="text-danger" v-for="(msg, i) in form.update.errors.satuan_id">
-                      {{ msg }}
-                    </small>
-                  </div>
-                </template>
-                <template v-else>
-                  <div class="col-12 col-lg-3">
-                    <label>Qty</label>
-                    <div class="input-group">
-                      <input type="number" class="form-control" step="any" v-model="form.update.data.qty">
-                      <input type="hidden" value="2" v-model="form.update.data.satuan_id">
-                      <div class="input-group-prepend">
-                        <small class="input-group-text">
-                          PCS
-                        </small>
-                      </div>  
+                <div class="col-12 col-lg-6">
+                  <label>Skor</label>
+                  <div class="form-group">
+                    <div class="form-check form-check-inline" v-for="(skor, i) in utils.skor">
+                      <input class="form-check-input m-0" type="radio" name="skor" :value="skor" v-model="form.update.data.skor">
+                      <label class="form-check-label m-0 ml-2 mr-3">
+                        {{ skor }}
+                      </label>
                     </div>
-                    <small class="text-danger" v-for="(msg, i) in form.update.errors.qty">
-                      {{ msg }}
-                    </small>
                   </div>
-                </template>
-              </div>
-              <div class="form-group" v-if="$access('formOperasional.formC4.update', 'takePhoto')">
-                <label>Gambar</label>
-                <webcam-component v-model="form.update.data.gambar" ref="webcam"></webcam-component>
-                <small class="text-danger" v-for="(msg, i) in form.update.errors.gambar">
-                  {{ msg }}
-                </small>
+                  <small class="text-danger" v-for="(msg, i) in form.update.errors.skor">
+                    {{ msg }}
+                  </small>
+                </div>
               </div>
               <div class="form-group">
                 <label>Keterangan</label>
@@ -404,7 +368,7 @@
       </div>
     </div>
     <div class="modal fade"
-      data-entity="formGoreng"
+      data-entity="formC4"
       data-method="destroy"
       data-backdrop="static"
       data-keyboard="false"
@@ -469,10 +433,8 @@ export default {
             tanggal_form: '',
             jam: '',
             tugas_karyawan_id: null,
-            supplier_id: null,
-            item_goreng_id: null,
-            qty: null,
-            satuan_id: 1,
+            kegiatan_kebersihan_id: null,
+            skor: null,
             gambar: '',
             keterangan: ''
           },
@@ -487,11 +449,9 @@ export default {
             tanggal_form: '',
             jam: '',
             tugas_karyawan_id: null,
-            supplier_id: null,
-            item_goreng_id: null,
-            qty: null,
-            satuan_id: 1,
-            gambar: null,
+            kegiatan_kebersihan_id: null,
+            skor: null,
+            gambar: '',
             keterangan: ''
           },
           errors: {},
@@ -540,7 +500,8 @@ export default {
         }
       },
       utils: {
-        date: this.$moment().format('YYYY-MM-DD')
+        date: this.$moment().format('YYYY-MM-DD'),
+        skor: [0, 1, 2, 3, 4, 5]
       }
     }
   },
@@ -639,14 +600,8 @@ export default {
     fetchTugasKaryawan(id, tanggal_penugasan) {
       return this.$axios.get('/ajax/v1/tugas_karyawan/cabang/?cabang_id=' + id + '&tanggal_penugasan=' + tanggal_penugasan)
     },
-    fetchSupplier() {
-      return this.$axios.get('/ajax/v1/master/supplier')
-    },
-    fetchSatuan() {
-      return this.$axios.get('/ajax/v1/master/satuan')
-    },
-    fetchItemGoreng() {
-      return this.$axios.get('/ajax/v1/master/item_goreng')
+    fetchKegiatanKebersihan() {
+      return this.$axios.get('/ajax/v1/master/kegiatan_kebersihan')
     },
 
     /**
@@ -655,22 +610,18 @@ export default {
     showCreateModal() {
       Promise.all([
         this.fetchTugasKaryawan(this.query.form_c4.cabang_id, this.query.form_c4.tanggal_penugasan),
-        this.fetchSupplier(),
-        this.fetchSatuan(),
-        this.fetchItemGoreng()
+        this.fetchKegiatanKebersihan()
       ])
         .then(res => {
           this.data.tugas_karyawan = res[0].data.container
-          this.data.supplier = res[1].data.container
-          this.data.satuan = res[2].data.container
-          this.data.item_goreng = res[3].data.container
+          this.data.kegiatan_kebersihan = res[1].data.container
 
           this.form.create.data.tanggal_form = this.query.form_c4.tanggal_form
           let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_c4.cabang_id)})
           this.form.create.data.kode_cabang = currentCabang.kode_cabang
           this.form.create.data.nama_cabang = currentCabang.cabang
 
-          $('[data-entity="formGoreng"][data-method="create"]').modal('show')
+          $('[data-entity="formC4"][data-method="create"]').modal('show')
         })
         .catch(err => {})
     },
@@ -686,25 +637,19 @@ export default {
             tanggal_form: this.query.form_c4.tanggal_form,
             jam: res.data.container.jam,
             tugas_karyawan_id: res.data.container.tugas_karyawan_id,
-            supplier_id: res.data.container.supplier_id,
-            item_goreng_id: res.data.container.item_goreng_id,
-            qty: res.data.container.qty,
-            satuan_id: res.data.container.satuan_id,
+            kegiatan_kebersihan_id: res.data.container.kegiatan_kebersihan_id,
+            skor: res.data.container.skor,
             keterangan: res.data.container.keterangan
           }
           Promise.all([
             this.fetchTugasKaryawan(this.query.form_c4.cabang_id, this.query.form_c4.tanggal_penugasan),
-            this.fetchSupplier(),
-            this.fetchSatuan(),
-            this.fetchItemGoreng()
+            this.fetchKegiatanKebersihan()
           ])
             .then(res => {
               this.data.tugas_karyawan = res[0].data.container
-              this.data.supplier = res[1].data.container
-              this.data.satuan = res[2].data.container
-              this.data.item_goreng = res[3].data.container
+              this.data.kegiatan_kebersihan = res[1].data.container
 
-              $('[data-entity="formGoreng"][data-method="update"]').modal('show')
+              $('[data-entity="formC4"][data-method="update"]').modal('show')
             })
             .catch(err => {})
         })
@@ -712,16 +657,16 @@ export default {
     },
     showDestroyModal(id) {
       this.form.destroy.data.id = id
-      $('[data-entity="formGoreng"][data-method="destroy"]').modal('show')
+      $('[data-entity="formC4"][data-method="destroy"]').modal('show')
     },
     hideCreateModal() {
-      $('[data-entity="formGoreng"][data-method="create"]').modal('hide')
+      $('[data-entity="formC4"][data-method="create"]').modal('hide')
     },
     hideUpdateModal() {
-      $('[data-entity="formGoreng"][data-method="update"]').modal('hide')
+      $('[data-entity="formC4"][data-method="update"]').modal('hide')
     },
     hideDestroyModal() {
-      $('[data-entity="formGoreng"][data-method="destroy"]').modal('hide')
+      $('[data-entity="formC4"][data-method="destroy"]').modal('hide')
     },
     setCreateClockInterval() {
       this.interval.form.create.data.jam = setInterval(function () {
@@ -834,15 +779,12 @@ export default {
             tanggal_form: '',
             jam: '',
             tugas_karyawan_id: null,
-            supplier_id: null,
-            item_goreng_id: null,
-            qty: null,
-            satuan_id: 1,
-            keterangan: '',
-            gambar: ''
+            kegiatan_kebersihan_id: null,
+            skor: null,
+            gambar: '',
+            keterangan: ''
           }
           this.queryData(false)
-          this.$refs.webcam.reset()
           this.hideCreateModal()
         })
         .catch(err => {
@@ -866,18 +808,15 @@ export default {
             tanggal_form: '',
             jam: '',
             tugas_karyawan_id: null,
-            supplier_id: null,
-            item_goreng_id: null,
-            qty: null,
-            satuan_id: 1,
-            gambar: null,
+            kegiatan_kebersihan_id: null,
+            skor: null,
+            gambar: '',
             keterangan: ''
           }
           this.queryData(false)
-          this.$refs.webcam.reset()
           this.hideUpdateModal()
         })
-        .catch(err => {
+        .catch(err => { console.log(err)
           if (err.response.status == 422) {
             this.form.update.errors = err.response.data.errors
           }

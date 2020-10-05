@@ -52,6 +52,7 @@ class FormC4 extends Controller
         ])
         ->where('tanggal_form', $query['tanggal_form'])
         ->byCabang($query['cabang_id'])
+        ->orderBy('jam')
         ->get()
       )->response(200);
   }
@@ -75,7 +76,7 @@ class FormC4 extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    $formKebersihanModel = new FormKebersihanModel;
+    $formKebersihanModel = new FormKebersihan;
     $formKebersihanModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     $formKebersihanModel->tanggal_form = $request->input('tanggal_form');
     $formKebersihanModel->jam = $request->input('jam');
@@ -86,7 +87,7 @@ class FormC4 extends Controller
     $formKebersihanModel->save();
   }
 
-  public function amed(Request $request)
+  public function amend(Request $request)
   {
     $v = Validator::make($request->only(
       'id',
@@ -107,7 +108,7 @@ class FormC4 extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    $formKebersihanModel = FormKebersihanModel::find($request->input('id'));
+    $formKebersihanModel = FormKebersihan::find($request->input('id'));
     $formKebersihanModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     $formKebersihanModel->tanggal_form = $request->input('tanggal_form');
     $formKebersihanModel->jam = $request->input('jam');
@@ -127,7 +128,7 @@ class FormC4 extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    $formKebersihanModel = FormKebersihanModel::find($request->input('id'));
+    $formKebersihanModel = FormKebersihan::find($request->input('id'));
     $formKebersihanModel->user_id = $request->user()->id;
     $formKebersihanModel->save();
     $formKebersihanModel->delete();

@@ -57,6 +57,7 @@ class FormLPG extends Controller
         ])
         ->where('tanggal_form', $query['tanggal_form'])
         ->byCabang($query['cabang_id'])
+        ->orderBy('jam')
         ->get()
       )->response(200);
   }

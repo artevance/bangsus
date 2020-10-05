@@ -59,6 +59,7 @@ class FormC2 extends Controller
         ->where('tanggal_form', $query['tanggal_form'])
         ->byCabang($query['cabang_id'])
         ->byQualityControl($query['quality_control_id'])
+        ->orderBy('jam')
         ->get()
       )->response(200);
   }
