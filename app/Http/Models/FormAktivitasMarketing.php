@@ -14,7 +14,10 @@ class FormAktivitasMarketing extends Model
 
   public function tugas_karyawan()
   {
-    return $this->belongsTo('App\Http\Models\TugasKaryawan');
+    return $this->belongsTo('App\Http\Models\TugasKaryawan')->with([
+      'karyawan',
+      'cabang'
+    ]);
   }
 
   public function user()
@@ -35,5 +38,12 @@ class FormAktivitasMarketing extends Model
   public function item_marketing()
   {
     return $this->belongsTo('App\Http\Models\ItemMarketing');
+  }
+
+  public function scopeByCabang($q, $id)
+  {
+    return $q->whereHas('tugas_karyawan', function ($q) use ($id) {
+      $q->where('cabang_id', $id);
+    });
   }
 }

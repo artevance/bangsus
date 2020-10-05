@@ -413,17 +413,17 @@ const routes = [
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
           {
-            path: 'form_denda_foto',
-            name: 'formOperasional.formDendaFoto',
-            component: require('../views/form_operasional/FormDendaFoto').default,
-            meta: { layout: 'default', title: 'Form Denda Foto', sidebar: 'formOperasional', item: 'formDendaFoto' },
-            beforeEnter: Multiguard([middleware.auth, middleware.access])
-          },
-          {
             path: 'form_aktivitas_marketing',
             name: 'formOperasional.formAktivitasMarketing',
             component: require('../views/form_operasional/FormAktivitasMarketing').default,
             meta: { layout: 'default', title: 'Form Aktivitas Marketing', sidebar: 'formOperasional', item: 'formAktivitasMarketing' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
+            path: 'form_denda_foto',
+            name: 'formOperasional.formDendaFoto',
+            component: require('../views/form_operasional/FormDendaFoto').default,
+            meta: { layout: 'default', title: 'Form Denda Foto', sidebar: 'formOperasional', item: 'formDendaFoto' },
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
         ]

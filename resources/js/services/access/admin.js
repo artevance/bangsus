@@ -721,7 +721,7 @@ export default {
           }
         }
       },
-      formDendaFoto: {
+      formAktivitasMarketing: {
         access: true,
         create: true,
         read: true,
@@ -755,7 +755,7 @@ export default {
           }
         }
       },
-      formAktivitasMarketing: {
+      formDendaFoto: {
         access: true,
         create: true,
         read: true,

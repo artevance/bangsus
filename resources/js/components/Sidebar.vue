@@ -107,8 +107,8 @@ export default {
                 { title: 'Form C5', index: 'formC5', to: 'formOperasional.formC5' },
                 { title: 'Form Foto', index: 'formFoto', to: 'formOperasional.formFoto' },
                 { title: 'Form Laporan Foto', index: 'formLaporanFoto', to: 'formOperasional.formLaporanFoto' },
-                { title: 'Form Denda Foto', index: 'formDendaFoto', to: 'formOperasional.formDendaFoto' },
                 { title: 'Form Aktivitas Marketing', index: 'formAktivitasMarketing', to: 'formOperasional.formAktivitasMarketing' },
+                { title: 'Form Denda Foto', index: 'formDendaFoto', to: 'formOperasional.formDendaFoto' },
               ]
             },
             { icon: 'far fa-chart-pie', title: 'Report Center', index: 'reportCenter', to: 'reportCenter' },
