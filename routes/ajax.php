@@ -367,6 +367,14 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::put('', 'FormFoto@amend');
         Route::delete('', 'FormFoto@destroy');
       });
+      Route::prefix('form_laporan_foto')->group(function () {
+        Route::get('', 'FormLaporanFoto@index');
+        Route::get('cabang_tipe_harian', 'FormLaporanFoto@dailyBranchType');
+        Route::get('{id}', 'FormLaporanFoto@get');
+        Route::post('', 'FormLaporanFoto@store');
+        Route::put('', 'FormLaporanFoto@amend');
+        Route::delete('', 'FormLaporanFoto@destroy');
+      });
     });
   });
 });
