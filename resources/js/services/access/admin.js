@@ -518,7 +518,38 @@ export default {
         }
       },
       formC2: {
-        access: true
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        destroy: true,
+        children: {
+          create: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: false,
+            changeSatuan: true
+          },
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          update: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0,
+            readonlyTime: false,
+            takePhoto: true,
+            changeSatuan: true
+          },
+          destroy: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          }
+        }
       },
       formC3: {
         access: true
@@ -538,6 +569,12 @@ export default {
       formDendaFoto: {
         access: true
       },
+      formAktivitasMarketing: {
+        access: true
+      },
     }
+  },
+  reportCenter: {
+    access: true
   }
 }

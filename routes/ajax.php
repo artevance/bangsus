@@ -326,6 +326,38 @@ Route::prefix('v1')->namespace('v1')->group(function () {
           Route::delete('', 'FormLPG@destroy');
         });
       });
+      Route::prefix('form_c2')->group(function () {
+        Route::get('', 'FormC2@index');
+        Route::get('cabang_tipe_harian', 'FormC2@dailyBranchType');
+        Route::get('{id}', 'FormC2@get');
+        Route::post('', 'FormC2@store');
+        Route::put('', 'FormC2@amend');
+        Route::delete('', 'FormC2@destroy');
+      });
+      Route::prefix('form_c3')->group(function () {
+        Route::get('', 'FormC3@index');
+        Route::get('cabang_harian', 'FormC3@dailyBranch');
+        Route::get('{id}', 'FormC3@get');
+        Route::post('', 'FormC3@store');
+        Route::put('', 'FormC3@amend');
+        Route::delete('', 'FormC3@destroy');
+      });
+      Route::prefix('form_c4')->group(function () {
+        Route::get('', 'FormC4@index');
+        Route::get('cabang_harian', 'FormC4@dailyBranch');
+        Route::get('{id}', 'FormC4@get');
+        Route::post('', 'FormC4@store');
+        Route::put('', 'FormC4@amend');
+        Route::delete('', 'FormC4@destroy');
+      });
+      Route::prefix('form_c5')->group(function () {
+        Route::get('', 'FormC5@index');
+        Route::get('cabang_harian', 'FormC5@dailyBranch');
+        Route::get('{id}', 'FormC5@get');
+        Route::post('', 'FormC5@store');
+        Route::put('', 'FormC5@amend');
+        Route::delete('', 'FormC5@destroy');
+      });
     });
   });
 });

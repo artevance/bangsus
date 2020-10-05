@@ -374,10 +374,66 @@ const routes = [
             path: 'form_c2',
             name: 'formOperasional.formC2',
             component: require('../views/form_operasional/FormC2').default,
-            meta: { layout: 'default', title: 'Form C2', sidebar: 'formC2' },
+            meta: { layout: 'default', title: 'Form C2', sidebar: 'formOperasional', item: 'formC2' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
+            path: 'form_c3',
+            name: 'formOperasional.formC3',
+            component: require('../views/form_operasional/FormC3').default,
+            meta: { layout: 'default', title: 'Form C3', sidebar: 'formOperasional', item: 'formC3' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
+            path: 'form_c4',
+            name: 'formOperasional.formC4',
+            component: require('../views/form_operasional/FormC4').default,
+            meta: { layout: 'default', title: 'Form C4', sidebar: 'formOperasional', item: 'formC4' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
+            path: 'form_c5',
+            name: 'formOperasional.formC5',
+            component: require('../views/form_operasional/FormC5').default,
+            meta: { layout: 'default', title: 'Form C5', sidebar: 'formOperasional', item: 'formC5' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
+            path: 'form_foto',
+            name: 'formOperasional.formFoto',
+            component: require('../views/form_operasional/FormFoto').default,
+            meta: { layout: 'default', title: 'Form Foto', sidebar: 'formOperasional', item: 'formFoto' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
+            path: 'form_laporan_foto',
+            name: 'formOperasional.formLaporanFoto',
+            component: require('../views/form_operasional/FormLaporanFoto').default,
+            meta: { layout: 'default', title: 'Form Laporan Foto', sidebar: 'formOperasional', item: 'formLaporanFoto' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
+            path: 'form_denda_foto',
+            name: 'formOperasional.formDendaFoto',
+            component: require('../views/form_operasional/FormDendaFoto').default,
+            meta: { layout: 'default', title: 'Form Denda Foto', sidebar: 'formOperasional', item: 'formDendaFoto' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
+            path: 'form_aktivitas_marketing',
+            name: 'formOperasional.formAktivitasMarketing',
+            component: require('../views/form_operasional/FormAktivitasMarketing').default,
+            meta: { layout: 'default', title: 'Form Aktivitas Marketing', sidebar: 'formOperasional', item: 'formAktivitasMarketing' },
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
         ]
+      },
+      {
+        path: 'report_center',
+        name: 'reportCenter',
+        component: require('../views/ReportCenter').default,
+        meta: { layout: 'default', title: 'Report Center', sidebar: 'reportCenter' },
+        beforeEnter: Multiguard([middleware.auth, middleware.access])
       }
     ]
   },

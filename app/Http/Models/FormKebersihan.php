@@ -14,7 +14,10 @@ class FormKebersihan extends Model
 
   public function tugas_karyawan()
   {
-    return $this->belongsTo('App\Http\Models\TugasKaryawan');
+    return $this->belongsTo('App\Http\Models\TugasKaryawan')->with([
+      'karyawan',
+      'cabang'
+    ]);
   }
 
   public function user()

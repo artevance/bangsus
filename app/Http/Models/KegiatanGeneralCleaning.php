@@ -17,6 +17,8 @@ class KegiatanGeneralCleaning extends Model
 
   public function form_general_cleaning()
   {
-    return $this->hasMany('App\Http\Models\FormGeneralCleaning');
+    return $this->hasMany('App\Http\Models\FormGeneralCleaning')->with([
+      'tugas_karyawan'
+    ]);
   }
 }

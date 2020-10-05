@@ -14,7 +14,10 @@ class FormAtributKaryawan extends Model
 
   public function tugas_karyawan()
   {
-    return $this->belongsTo('App\Http\Models\TugasKaryawan');
+    return $this->belongsTo('App\Http\Models\TugasKaryawan')->with([
+      'karyawan',
+      'cabang'
+    ]);
   }
 
   public function user()
@@ -29,6 +32,15 @@ class FormAtributKaryawan extends Model
 
   public function d()
   {
-    return $this->hasMany('App\Http\Models\FormAtributKaryawanD');
+    return $this->hasMany('App\Http\Models\FormAtributKaryawanD')->with([
+      'parameter_atribut_karyawan'
+    ]);
+  }
+
+  public function scopeByCabang($q, $id)
+  {
+    return $q->whereHas('tugas_karyawan', function ($q) use ($id) {
+      $q->where('cabang_id', $id);
+    });
   }
 }
