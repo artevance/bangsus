@@ -191,6 +191,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       });
       Route::prefix('kelompok_foto')->group(function () {
         Route::get('', 'KelompokFoto@index');
+        Route::get('fillable', 'KelompokFoto@fillable');
         Route::get('{id}', 'KelompokFoto@get');
         Route::post('', 'KelompokFoto@store');
         Route::put('', 'KelompokFoto@amend');
@@ -357,6 +358,14 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::post('', 'FormC5@store');
         Route::put('', 'FormC5@amend');
         Route::delete('', 'FormC5@destroy');
+      });
+      Route::prefix('form_foto')->group(function () {
+        Route::get('', 'FormFoto@index');
+        Route::get('cabang_tipe_harian', 'FormFoto@dailyBranchType');
+        Route::get('{id}', 'FormFoto@get');
+        Route::post('', 'FormFoto@store');
+        Route::put('', 'FormFoto@amend');
+        Route::delete('', 'FormFoto@destroy');
       });
     });
   });

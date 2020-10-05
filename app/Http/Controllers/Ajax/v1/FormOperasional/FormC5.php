@@ -75,6 +75,7 @@ class FormC5 extends Controller
       'skor' => 'required|numeric',
       'keterangan' => 'nullable|max:200'
     ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $formGeneralCleaningModel = new FormGeneralCleaning;
     $formGeneralCleaningModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
@@ -106,6 +107,7 @@ class FormC5 extends Controller
       'skor' => 'nullable|numeric',
       'keterangan' => 'nullable|max:200'
     ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $formGeneralCleaningModel = FormGeneralCleaning::find($request->input('id'));
     if ($request->has('tugas_karyawan_id')) $formGeneralCleaningModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
@@ -125,6 +127,7 @@ class FormC5 extends Controller
     ), [
       'id' => 'required|exists:form_goreng,id'
     ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $formGeneralCleaningModel = FormGeneralCleaning::find($request->input('id'));
     $formGeneralCleaningModel->user_id = $request->user()->id;

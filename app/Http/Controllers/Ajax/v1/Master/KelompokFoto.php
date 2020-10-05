@@ -20,7 +20,14 @@ class KelompokFoto extends Controller
   public function index(Request $request)
   {
     return $this
-      ->data(KelompokFotoModel::with(['denda_foto', 'pengaturan_kelompok_foto'])->where('kelompok_foto', 'like', '%' . $request->input('q') . '%') ->get())
+      ->data(KelompokFotoModel::with(['denda_foto', 'pengaturan_kelompok_foto'])->where('kelompok_foto', 'like', '%' . $request->input('q') . '%')->get())
+      ->response(200);
+  }
+
+  public function fillable(Request $request)
+  {
+    return $this
+      ->data(KelompokFotoModel::with(['denda_foto', 'pengaturan_kelompok_foto'])->where('kelompok_foto', 'like', '%' . $request->input('q') . '%')->where('master', false)->get())
       ->response(200);
   }
 

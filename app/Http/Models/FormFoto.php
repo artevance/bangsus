@@ -14,7 +14,10 @@ class FormFoto extends Model
 
   public function tugas_karyawan()
   {
-    return $this->belongsTo('App\Http\Models\TugasKaryawan');
+    return $this->belongsTo('App\Http\Models\TugasKaryawan')->with([
+      'karyawan',
+      'cabang'
+    ]);
   }
 
   public function user()
@@ -40,5 +43,19 @@ class FormFoto extends Model
   public function gambar()
   {
     return $this->belongsTo('App\Http\Models\Gambar');
+  }
+
+  public function scopeByCabang($q, $id)
+  {
+    return $q
+      ->where(function ($q) use ($id) {
+        $q->where('cabang_id', null)
+          ->whereHas('tugas_karyawan', function ($q) use ($id) {
+            $q->where('cabang_id', $id);
+          });
+      })
+      ->orWhere(function ($q) use ($id) {
+        $q->where('cabang_id', $id);
+      });
   }
 }
