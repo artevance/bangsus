@@ -638,9 +638,6 @@ export default {
       this.$axios.get('/ajax/v1/form_operasional/form_c3/' + id)
         .then(res => {
           let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_c3.cabang_id)})
-          let currentAtributKaryawan = this.$_.findWhere(this.data.atribut_karyawan, {id: parseInt(this.query.form_c3.atribut_karyawan_id)})
-          this.form.update.data.atribut_karyawan_id = currentAtributKaryawan.id
-          this.form.update.data.atribut_karyawan = currentAtributKaryawan.atribut_karyawan
 
           let form_atribut_karyawan_d_id = this.$_.chain(res.data.container.d).pluck('id').value()
           let opsi_parameter_atribut_karyawan_id = this.$_.chain(res.data.container.d).pluck('opsi_parameter_atribut_karyawan_id').value()
