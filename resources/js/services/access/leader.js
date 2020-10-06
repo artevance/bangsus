@@ -753,7 +753,7 @@ export default {
         }
       },
       formDendaFoto: {
-        access: true,
+        access: false,
         create: true,
         read: true,
         update: true,
