@@ -789,6 +789,9 @@ export default {
           }
         }
       },
+      formTugas: {
+        access: true
+      }
     }
   },
   reportCenter: {

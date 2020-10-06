@@ -628,9 +628,6 @@ export default {
           let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_c3.cabang_id)})
           this.form.create.data.kode_cabang = currentCabang.kode_cabang
           this.form.create.data.nama_cabang = currentCabang.cabang
-          let currentAtributKaryawan = this.$_.findWhere(this.data.atribut_karyawan, {id: parseInt(this.query.form_c3.atribut_karyawan_id)})
-          this.form.create.data.atribut_karyawan_id = currentAtributKaryawan.id
-          this.form.create.data.atribut_karyawan = currentAtributKaryawan.atribut_karyawan
 
           $('[data-entity="formAtributKaryawan"][data-method="create"]').modal('show')
         })

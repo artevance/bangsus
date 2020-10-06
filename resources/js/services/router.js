@@ -426,6 +426,13 @@ const routes = [
             meta: { layout: 'default', title: 'Form Denda Foto', sidebar: 'formOperasional', item: 'formDendaFoto' },
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
+          {
+            path: 'form_tugas',
+            name: 'formOperasional.formTugas',
+            component: require('../views/form_operasional/FormTugas').default,
+            meta: { layout: 'default', title: 'Form Tugas', sidebar: 'formOperasional', item: 'formTugas' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
         ]
       },
       {
