@@ -515,25 +515,276 @@ export default {
         }
       },
       formC2: {
-        access: true
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        destroy: true,
+        children: {
+          create: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: true,
+            changeSatuan: false
+          },
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          update: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            readonlyTime: false,
+            takePhoto: false,
+            changeSatuan: false
+          },
+          destroy: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0
+          }
+        }
       },
       formC3: {
-        access: true
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        destroy: true,
+        children: {
+          create: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: true,
+            changeSatuan: false
+          },
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          update: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            readonlyTime: false,
+            takePhoto: false,
+            changeSatuan: false
+          },
+          destroy: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0
+          }
+        }
       },
       formC4: {
-        access: true
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        destroy: true,
+        children: {
+          create: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: true,
+            changeSatuan: false
+          },
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          update: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            readonlyTime: false,
+            takePhoto: false,
+            changeSatuan: false
+          },
+          destroy: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0
+          }
+        }
       },
       formC5: {
-        access: true
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        destroy: true,
+        children: {
+          create: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: true,
+            changeSatuan: false
+          },
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          update: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            readonlyTime: false,
+            takePhoto: false,
+            changeSatuan: false
+          },
+          destroy: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0
+          }
+        }
       },
       formFoto: {
-        access: true
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        destroy: true,
+        children: {
+          create: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: true,
+            changeSatuan: false
+          },
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          update: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            readonlyTime: false,
+            takePhoto: false,
+            changeSatuan: false
+          },
+          destroy: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0
+          }
+        }
       },
       formLaporanFoto: {
-        access: true
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        destroy: true,
+        children: {
+          create: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: true,
+            changeSatuan: false
+          },
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          update: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            readonlyTime: false,
+            takePhoto: false,
+            changeSatuan: false
+          },
+          destroy: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0
+          }
+        }
+      },
+      formAktivitasMarketing: {
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        destroy: true,
+        children: {
+          create: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: true,
+            changeSatuan: false
+          },
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          update: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            readonlyTime: false,
+            takePhoto: false,
+            changeSatuan: false
+          },
+          destroy: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0
+          }
+        }
       },
       formDendaFoto: {
-        access: true
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        destroy: true,
+        children: {
+          create: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: true,
+            changeSatuan: false
+          },
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          update: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0,
+            readonlyTime: false,
+            takePhoto: false,
+            changeSatuan: false
+          },
+          destroy: {
+            timeFree: false,
+            dateMin: 0,
+            dateMax: 0
+          }
+        }
       },
     }
   }
