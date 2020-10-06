@@ -56,7 +56,7 @@ class TugasKaryawan extends Controller
 
   public function get(Request $request, $id)
   {
-    if ( ! TugasKaryawanModel::where($id)->exists()) return $this->response(404);
+    if ( ! is_null(TugasKaryawanModel::find($id))) return $this->response(404);
 
     return $this
       ->data(
