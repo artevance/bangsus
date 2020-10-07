@@ -32,4 +32,11 @@ class Absensi extends Model
   {
     return $this->belongsTo('App\Http\Models\User');
   }
+
+  public function scopeByCabang($q, $id)
+  {
+    return $q->whereHas('tugas_karyawan', function ($q) use ($id) {
+      $q->where('cabang_id', $id);
+    });
+  }
 }

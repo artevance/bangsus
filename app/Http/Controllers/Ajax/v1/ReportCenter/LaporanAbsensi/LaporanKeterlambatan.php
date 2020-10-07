@@ -25,11 +25,13 @@ class LaporanKeterlambatan extends Controller
   {
     $v = Validator::make($request->(
       'cabang_id',
+      'tipe_absensi_id',
       'tanggal_awal',
       'tanggal_akhir',
       'export'
     ), [
       'cabang_id' => 'required|exists:cabang,id',
+      'tipe_absensi_id' => 'required|exists:tipe_absensi,id',
       'tanggal_awal' => 'required|date|date_format:Y-m-d|before:tanggal_akhir',
       'tanggal_akhir' => 'required|date|date_format:Y-m-d|after:tanggal_awal',
       'export' => 'nullable'
@@ -38,18 +40,8 @@ class LaporanKeterlambatan extends Controller
 
     $cabang = Cabang::find($request->input('cabang_id'));
 
+    $data = [];
+
     
-
-    // Then the user wants to export the data to excel.
-    if ($request->has('export'))
-    {
-
-    }
-
-    // If the user only wants JSON return value.
-    else
-    {
-
-    }
   }
 }
