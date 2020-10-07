@@ -105,8 +105,7 @@
                       undefined,
                       '[]'
                     )
-                  ) &&
-                  $_.findWhere(data.kelompok_foto, { id: $route.query.kelompok_foto_id, master: 0 }) != undefined
+                  )
                 ">
                 Tambah
               </button>
@@ -142,8 +141,7 @@
                                 undefined,
                                 '[]'
                               )
-                            ) &&
-                            $_.findWhere(data.kelompok_foto, { id: $route.query.kelompok_foto_id, master: 0 }) != undefined
+                            )
                           ">
                           Ubah
                         </a>
@@ -159,8 +157,7 @@
                                 undefined,
                                 '[]'
                               )
-                            ) &&
-                            $_.findWhere(data.kelompok_foto, { id: $route.query.kelompok_foto_id, master: 0 }) != undefined
+                            )
                           ">
                           Hapus
                         </a>
