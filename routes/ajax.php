@@ -384,5 +384,18 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::delete('', 'FormAktivitasMarketing@destroy');
       });
     });
+    Route::prefix('report_center')->namespace('ReportCenter')->group(function () {
+      Route::prefix('laporan_absensi')->namespace('LaporanAbsensi')->group(function () {
+        Route::prefix('laporan_keterlambatan')->group(function () {
+          Route::get('', 'LaporanKeterlambatan@index');
+        });
+        Route::prefix('laporan_presensi')->group(function () {
+          Route::get('', 'LaporanPresensi@index');
+        });
+        Route::prefix('laporan_absensi')->group(function () {
+          Route::get('', 'LaporanAbsensi@index');
+        });
+      });
+    });
   });
 });

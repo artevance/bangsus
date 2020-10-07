@@ -440,7 +440,40 @@ const routes = [
         name: 'reportCenter',
         component: require('../views/ReportCenter').default,
         meta: { layout: 'default', title: 'Report Center', sidebar: 'reportCenter' },
-        beforeEnter: Multiguard([middleware.auth, middleware.access])
+        beforeEnter: Multiguard([middleware.auth, middleware.access]),
+        children: [
+          {
+            path: 'laporan_absensi',
+            name: 'reportCenter.laporanAbsensi',
+            component: { template: '<router-view></router-view>' },
+            meta: { layout: 'default', title: 'Laporan Absensi', sidebar: 'reportCenter' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            redirect: { name: 'reportCenter.laporanAbsensi.laporanKeterlambatan' },
+            children: [
+              {
+                path: 'laporan_keterlambatan',
+                name: 'reportCenter.laporanAbsensi.laporanKeterlambatan',
+                component: require('../views/report_center/laporan_absensi/LaporanKeterlambatan').default,
+                meta: { layout: 'default', title: 'Laporan Keterlambatan', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+              {
+                path: 'laporan_presensi',
+                name: 'reportCenter.laporanAbsensi.laporanPresensi',
+                component: require('../views/report_center/laporan_absensi/LaporanPresensi').default,
+                meta: { layout: 'default', title: 'Laporan Presensi', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+              {
+                path: 'laporan_absensi',
+                name: 'reportCenter.laporanAbsensi.laporanAbsensi',
+                component: require('../views/report_center/laporan_absensi/LaporanAbsensi').default,
+                meta: { layout: 'default', title: 'Laporan Absensi', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+            ]
+          }
+        ]
       }
     ]
   },

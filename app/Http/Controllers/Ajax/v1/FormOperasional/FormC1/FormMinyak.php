@@ -93,7 +93,7 @@ class FormMinyak extends Controller
     $formFotoModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     $formFotoModel->tanggal_form = $request->input('tanggal_form');
     $formFotoModel->jam = $request->input('jam');
-    $formFotoModel->kelompok_foto_id = 4;
+    $formFotoModel->kelompok_foto_id = 6;
     $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
     $formFotoModel->gambar_id = $gambarModel->id;
     $formFotoModel->tidak_kirim = 0;
