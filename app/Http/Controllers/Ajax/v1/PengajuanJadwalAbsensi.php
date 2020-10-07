@@ -55,15 +55,13 @@ class PengajuanJadwalAbsensi extends Controller
             ->where('tipe_absensi_id', $request->input('tipe_absensi_id'))
             ->first();
 
-          $max = is_null($target)
-            ? strtotime($v)
-            : (
-              is_null($target->jam_jadwal)
-                ? strtotime($v)
-                : strtotime($target->jam_jadwal) + 7200
-            );
+          if (is_null($target)) return;
+          if (is_null($target->jam_jadwal)) return;
 
-          if ($max > strtotime($v)) $f('Perubahan jam jadwal tidak diizinkan');
+          $min = strtotime($target->jam_jadwal) - 7200;
+          $max = strtotime($target->jam_jadwal) + 7200;
+
+          if ($min < strtotime($v) && strtotime($v) < $max) $f('Perubahan jam jadwal tidak diizinkan');
         }
       ]
     ]);
