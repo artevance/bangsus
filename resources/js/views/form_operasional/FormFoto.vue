@@ -105,7 +105,8 @@
                       undefined,
                       '[]'
                     )
-                  )
+                  ) &&
+                  $_.findWhere(data.kelompok_foto, { id: $route.query.kelompok_foto_id, master: 0 }) != undefined
                 ">
                 Tambah
               </button>
@@ -116,6 +117,7 @@
                     <th>NIP</th>
                     <th>Nama Karyawan</th>
                     <th>Jam</th>
+                    <th>Foto</th>
                     <th>Aksi</th>
                   </thead>
                   <tbody>
@@ -124,6 +126,9 @@
                       <td>{{ form_foto.tugas_karyawan == null ? '-' : form_foto.tugas_karyawan.karyawan.nip }}</td>
                       <td>{{ form_foto.tugas_karyawan == null ? '-' : form_foto.tugas_karyawan.karyawan.nama_karyawan }}</td>
                       <td>{{ form_foto.jam }}</td>
+                      <td>
+                        <a :href="'/gambar/' + form_foto.gambar_id" target="_blank">Lihat Foto</a>
+                      </td>
                       <td>
                         <a class="badge badge-warning"
                           @click="showUpdateModal(form_foto.id)"
@@ -137,7 +142,8 @@
                                 undefined,
                                 '[]'
                               )
-                            )
+                            ) &&
+                            $_.findWhere(data.kelompok_foto, { id: $route.query.kelompok_foto_id, master: 0 }) != undefined
                           ">
                           Ubah
                         </a>
@@ -153,7 +159,8 @@
                                 undefined,
                                 '[]'
                               )
-                            )
+                            ) &&
+                            $_.findWhere(data.kelompok_foto, { id: $route.query.kelompok_foto_id, master: 0 }) != undefined
                           ">
                           Hapus
                         </a>
@@ -613,7 +620,7 @@ export default {
       return this.$axios.get('/ajax/v1/tugas_karyawan/cabang/?cabang_id=' + id + '&tanggal_penugasan=' + tanggal_penugasan)
     },
     fetchKelompokFoto() {
-      return this.$axios.get('/ajax/v1/master/kelompok_foto/fillable')
+      return this.$axios.get('/ajax/v1/master/kelompok_foto')
     },
 
     /**

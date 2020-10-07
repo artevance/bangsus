@@ -38,6 +38,8 @@ class LaporanKeterlambatan extends Controller
 
     $cabang = Cabang::find($request->input('cabang_id'));
 
+    
+
     // Then the user wants to export the data to excel.
     if ($request->has('export'))
     {
