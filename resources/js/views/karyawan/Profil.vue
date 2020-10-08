@@ -74,7 +74,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label>Foto KTP</label>
-                <input type="file" class="form-control" @change="handleFile">
+                <webcam-component v-model="form.fotoKTP.create.data.foto_ktp"></webcam-component>
               </div>
             </div>
             <div class="modal-footer">
