@@ -787,5 +787,62 @@ export default {
         }
       },
     }
+  },
+  reportCenter: {
+    access: true,
+    children: {
+      laporanAbsensi: {
+        access: true,
+        children: {
+          laporanJadwal: {
+            access: true
+          },
+          laporanKeterlambatan: {
+            access: true
+          },
+          laporanPresensi: {
+            access: true
+          },
+          laporanKehadiran: {
+            access: true
+          },
+          laporanAbsensi: {
+            access: true
+          },
+        }
+      },
+      laporanFormOperasional: {
+        access: true,
+        children: {
+          laporanFormC1: {
+            access: true
+          },
+          laporanFormC2: {
+            access: true
+          },
+          laporanFormC3: {
+            access: true
+          },
+          laporanFormC4: {
+            access: true
+          },
+          laporanFormC5: {
+            access: true
+          },
+          laporanFormFoto: {
+            access: true
+          },
+          laporanFormLaporanFoto: {
+            access: true
+          },
+          laporanFormAktivitasMarketing: {
+            access: true
+          },
+          laporanFormDendaFoto: {
+            access: true
+          }
+        }
+      }
+    }
   }
 }
