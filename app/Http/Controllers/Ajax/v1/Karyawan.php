@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Models\Karyawan as KaryawanModel;
 use App\Http\Models\Cabang;
 use App\Http\Models\TugasKaryawan;
+use App\Http\Models\Gambar;
 
 class Karyawan extends Controller
 {
@@ -125,5 +126,25 @@ class Karyawan extends Controller
     $model->golongan_darah_id = $request->input('golongan_darah_id');
     $model->jenis_kelamin_id = $request->input('jenis_kelamin_id');
     $model->save();
+  }
+
+  public function amendFotoKTP(Request $request)
+  {
+    $v = Validator::make($request->only(
+      'id',
+      'foto_ktp'
+    ), [
+      'id' => 'required|exists:karyawan,id',
+      'foto_ktp' => 'required'
+    ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
+
+    $gambarModel = new Gambar;
+    $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('foto_ktp'))[1]));
+    $gambarModel->save();
+
+    $karyawan = KaryawanModel::find($request->input('id'));
+    $karyawan->foto_ktp_id = $gambarModel->id;
+    $karyawan->save();
   }
 }

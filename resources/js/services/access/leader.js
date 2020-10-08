@@ -203,11 +203,19 @@ export default {
     read: false,
     update: false,
     children: {
+      profil: {
+        access: true,
+        children: {
+          fotoKTP: {
+            create: true
+          }
+        }
+      },
       tugasKaryawan: {
-        access: false,
-        create: false,
-        read: false,
-        update: false
+        access: true,
+        create: true,
+        read: true,
+        update: true
       }
     }
   },

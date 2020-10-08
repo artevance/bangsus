@@ -204,7 +204,12 @@ export default {
     update: true,
     children: {
       profil: {
-        access: true
+        access: true,
+        children: {
+          fotoKTP: {
+            create: true
+          }
+        }
       },
       tugasKaryawan: {
         access: true,
