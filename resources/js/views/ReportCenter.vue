@@ -33,8 +33,10 @@ export default {
           title: 'Laporan Absensi',
           to: 'reportCenter.laporanAbsensi',
           children: [
-            { title: 'Laporan Keterlambatan', to: 'reportCenter.laporanAbsensi.laporanKeterlambatan', icon: 'fas fa-users-class', disabled: false },
-            { title: 'Laporan Presensi', to: 'reportCenter.laporanAbsensi.laporanPresensi', icon: 'far fa-users-class', disabled: false },
+            { title: 'Laporan Jadwal', to: 'reportCenter.laporanAbsensi.laporanJadwal', icon: 'far fa-calendar', disabled: false },
+            { title: 'Laporan Keterlambatan', to: 'reportCenter.laporanAbsensi.laporanKeterlambatan', icon: 'far fa-calendar-times', disabled: false },
+            { title: 'Laporan Presensi', to: 'reportCenter.laporanAbsensi.laporanPresensi', icon: 'far fa-calendar-check', disabled: false },
+            { title: 'Laporan Kehadiran', to: 'reportCenter.laporanAbsensi.laporanKehadiran', icon: 'far fa-check', disabled: false },
             { title: 'Laporan Absensi', to: 'reportCenter.laporanAbsensi.laporanAbsensi', icon: 'fad fa-users-class', disabled: false },
           ]
         },

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Models\TugasKaryawan;
 use App\Http\Models\Absensi;
 
-class LaporanKeterlambatan
+class LaporanKehadiran
 {
   public static function index($request)
   {
@@ -30,31 +30,26 @@ class LaporanKeterlambatan
       $absensi = [];
 
       $count = 0;
-      $sum = 0;
       foreach ($dates as $date) {
         $d = Absensi::where('tugas_karyawan_id', $tugasKaryawan['id'])
           ->where('tipe_absensi_id', $request->input('tipe_absensi_id'))
           ->where('tanggal_absensi', $date)
-          ->whereRaw('jam_absen > jam_jadwal')
-          ->whereNotNull('jam_absen')
-          ->whereNotNull('jam_jadwal')
           ->first();
 
         if ( ! is_null($d)) $d = $d->toArray();
 
         if (is_array($d)) {
-          $latetimestamp = strtotime($d['jam_absen']) - strtotime($d['jam_jadwal']);
-          $d['jam_keterlambatan'] = gmdate('H:i:s', $latetimestamp);
-
-          $sum += $latetimestamp;
-          $count++;
+          $d['kehadiran'] = ! is_null($d['jam_absen']);
+          $count += $d['kehadiran'];
+        } else {
+          $d = [];
+          $d['kehadiran'] = 0;
         }
 
         $absensi[] = $d;
       }
       $tugasKaryawan['absensi'] = $absensi;
-      $tugasKaryawan['total_hari_terlambat'] = $count;
-      $tugasKaryawan['total_keterlambatan'] = gmdate('H:i:s', $sum);
+      $tugasKaryawan['total_kehadiran'] = $count;
 
       $tugasKaryawans[$i] = $tugasKaryawan;
     }

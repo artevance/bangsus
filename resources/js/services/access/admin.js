@@ -800,10 +800,16 @@ export default {
       laporanAbsensi: {
         access: true,
         children: {
+          laporanJadwal: {
+            access: true
+          },
           laporanKeterlambatan: {
             access: true
           },
           laporanPresensi: {
+            access: true
+          },
+          laporanKehadiran: {
             access: true
           },
           laporanAbsensi: {

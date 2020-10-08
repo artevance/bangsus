@@ -19,9 +19,9 @@ use App\Http\Models\TipeAbsensi;
 use App\Http\Models\Absensi;
 use App\Http\Models\TugasKaryawan;
 
-use App\Services\Reports\LaporanKeterlambatan as LaporanKeterlambatanService;
+use App\Services\Reports\LaporanJadwal as LaporanJadwalService;
 
-class LaporanKeterlambatan extends Controller
+class LaporanJadwal extends Controller
 {
   public function index(Request $request)
   {
@@ -40,7 +40,7 @@ class LaporanKeterlambatan extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    $data = LaporanKeterlambatanService::index($request);
+    $data = LaporanJadwalService::index($request);
     if ( ! $request->has('export')) {
       return $this->data($data)->response(200);
     }
@@ -52,7 +52,7 @@ class LaporanKeterlambatan extends Controller
       $cabang = Cabang::find($request->input('cabang_id'));
 
       $container = [
-        ['Laporan Keterlambatan'],
+        ['Laporan Jadwal'],
         ['Kode Cabang', $cabang->kode_cabang],
         ['Nama Cabang', $cabang->cabang],
         ['Tanggal Awal', $request->input('tanggal_awal')],
@@ -64,8 +64,7 @@ class LaporanKeterlambatan extends Controller
       foreach ($data['meta']['dates'] as $date) {
         $heads[] = $date;
       }
-      $heads[] = 'Total Keterlambatan';
-      $heads[] = 'Total Hari Terlambat';
+      $heads[] = 'Total Jadwal';
 
       $container[] = $heads;
 
@@ -78,14 +77,11 @@ class LaporanKeterlambatan extends Controller
         ];
 
         if (is_array($d['absensi']))
-          foreach ($d['absensi'] as $absensi)
-            $row[] = ! is_null($absensi)
-              ? '\'' . $absensi['jam_keterlambatan']
-              : '';
-
-        $row[] = '\'' . $d['total_keterlambatan'];
-        $row[] = $d['total_hari_terlambat'];
-
+          foreach ($d['absensi'] as $absensi) {
+            $row[] = ! is_null($absensi) ? '\'' . $absensi['jam_jadwal'] : '';
+          }
+        $row[] = $d['total_jadwal'];
+              
         $container[] = $row;
       }
 
@@ -95,7 +91,7 @@ class LaporanKeterlambatan extends Controller
         'A1'
       );
 
-      $filename = 'Laporan Keterlambatan - ' . $cabang->kode_cabang . ' - ' . $cabang->cabang . '.xlsx';
+      $filename = 'Laporan Jadwal - ' . $cabang->kode_cabang . ' - ' . $cabang->cabang . '.xlsx';
       $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
       $writer->save($filename);
 

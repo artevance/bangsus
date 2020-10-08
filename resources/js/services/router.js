@@ -451,6 +451,13 @@ const routes = [
             redirect: { name: 'reportCenter.laporanAbsensi.laporanKeterlambatan' },
             children: [
               {
+                path: 'laporan_jadwal',
+                name: 'reportCenter.laporanAbsensi.laporanJadwal',
+                component: require('../views/report_center/laporan_absensi/LaporanJadwal').default,
+                meta: { layout: 'default', title: 'Laporan Jadwal', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+              {
                 path: 'laporan_keterlambatan',
                 name: 'reportCenter.laporanAbsensi.laporanKeterlambatan',
                 component: require('../views/report_center/laporan_absensi/LaporanKeterlambatan').default,
@@ -462,6 +469,13 @@ const routes = [
                 name: 'reportCenter.laporanAbsensi.laporanPresensi',
                 component: require('../views/report_center/laporan_absensi/LaporanPresensi').default,
                 meta: { layout: 'default', title: 'Laporan Presensi', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+              {
+                path: 'laporan_kehadiran',
+                name: 'reportCenter.laporanAbsensi.laporanKehadiran',
+                component: require('../views/report_center/laporan_absensi/LaporanKehadiran').default,
+                meta: { layout: 'default', title: 'Laporan Kehadiran', sidebar: 'reportCenter' },
                 beforeEnter: Multiguard([middleware.auth, middleware.access]),
               },
               {

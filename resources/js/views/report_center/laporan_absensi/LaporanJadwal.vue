@@ -16,7 +16,7 @@
                       Cabang
                     </span>
                   </div>
-                  <select class="form-control" v-model="query.laporan_presensi.cabang_id">
+                  <select class="form-control" v-model="query.laporan_jadwal.cabang_id">
                     <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
                       {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                     </option>
@@ -26,7 +26,7 @@
                       Tipe Absensi
                     </span>
                   </div>
-                  <select class="form-control" v-model="query.laporan_presensi.tipe_absensi_id">
+                  <select class="form-control" v-model="query.laporan_jadwal.tipe_absensi_id">
                     <option v-for="(tipe_absensi, i) in data.tipe_absensi" :key="i" :value="tipe_absensi.id">
                       {{ tipe_absensi.tipe_absensi }}
                     </option>
@@ -38,7 +38,7 @@
                   </div>
                   <input type="date"
                     class="form-control"
-                    v-model="query.laporan_presensi.tanggal_awal"
+                    v-model="query.laporan_jadwal.tanggal_awal"
                     >
                   <div class="input-group-prepend">
                     <span class="input-group-text">
@@ -47,7 +47,7 @@
                   </div>
                   <input type="date"
                     class="form-control"
-                    v-model="query.laporan_presensi.tanggal_akhir"
+                    v-model="query.laporan_jadwal.tanggal_akhir"
                     >
                   <div class="input-group-append">
                     <button class="btn btn-primary" :disabled="state.table.loading" @click="queryData">
@@ -64,7 +64,7 @@
             <div class="col-12">
               <div class="form-group">
                 <label>Cabang</label>
-                <select class="form-control" v-model="query.laporan_presensi.cabang_id">
+                <select class="form-control" v-model="query.laporan_jadwal.cabang_id">
                   <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
                     {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                   </option>
@@ -72,7 +72,7 @@
               </div>
               <div class="form-group">
                 <label>Tipe Absensi</label>
-                <select class="form-control" v-model="query.laporan_presensi.tipe_absensi_id">
+                <select class="form-control" v-model="query.laporan_jadwal.tipe_absensi_id">
                   <option v-for="(tipe_absensi, i) in data.tipe_absensi" :key="i" :value="tipe_absensi.id">
                     {{ tipe_absensi.tipe_absensi }}
                   </option>
@@ -82,14 +82,14 @@
                 <label>Tanggal Awal</label>
                 <input type="date"
                   class="form-control"
-                  v-model="query.laporan_presensi.tanggal_awal"
+                  v-model="query.laporan_jadwal.tanggal_awal"
                   >
               </div>
               <div class="form-group">
                 <label>Tanggal Akhir</label>
                 <input type="date"
                   class="form-control"
-                  v-model="query.laporan_presensi.tanggal_akhir"
+                  v-model="query.laporan_jadwal.tanggal_akhir"
                   >
               </div>
               <button class="btn btn-primary btn-block mt-3" :disabled="state.table.loading" @click="queryData">
@@ -114,11 +114,11 @@
                     <th>NIP</th>
                     <th>Nama Karyawan</th>
                     <th>No. Finger</th>
-                    <th v-for="(date, i) in data.laporan_presensi.meta.dates" scope="col">{{ date }}</th>
-                    <th>Total Presensi</th>
+                    <th v-for="(date, i) in data.laporan_jadwal.meta.dates" scope="col">{{ date }}</th>
+                    <th>Total Jadwal</th>
                   </thead>
                   <tbody>
-                    <tr v-for="(data, i) in data.laporan_presensi.data">
+                    <tr v-for="(data, i) in data.laporan_jadwal.data">
                       <td class="text-center bg-white">{{ i + 1 }}</td>
                       <td>{{ data.karyawan.nip }}</td>
                       <td>{{ data.karyawan.nama_karyawan }}</td>
@@ -128,11 +128,11 @@
                           {{ 
                             absensi == null
                               ? '' 
-                              : absensi.jam_absen
+                              : absensi.jam_jadwal
                           }}
                         </td>
                       </template>
-                      <td>{{ data.total_presensi }}</td>
+                      <td>{{ data.total_jadwal }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -166,7 +166,7 @@ export default {
         tipe_absensi: []
       },
       query: {
-        laporan_presensi: {
+        laporan_jadwal: {
           cabang_id: this.$route.query.cabang_id || null,
           tipe_absensi_id: this.$route.query.tipe_absensi_id || null,
           tanggal_awal: this.$route.query.tanggal_awal || this.$moment(this.$route.query.tanggal_awal).format('YYYY-MM-DD'),
@@ -197,11 +197,11 @@ export default {
             this.$router.go(-1)
           }
 
-          if (this.query.laporan_presensi.cabang_id == null || ! this.$_.isUndefined(this.$_.findWhere(this.data.cabang, { id: this.query.laporan_presensi.cabang_id }))) {
-            this.query.laporan_presensi.cabang_id = this.data.cabang[0].id || null
+          if (this.query.laporan_jadwal.cabang_id == null || ! this.$_.isUndefined(this.$_.findWhere(this.data.cabang, { id: this.query.laporan_jadwal.cabang_id }))) {
+            this.query.laporan_jadwal.cabang_id = this.data.cabang[0].id || null
           }
-          if (this.query.laporan_presensi.tipe_absensi_id == null || ! this.$_.isUndefined(this.$_.findWhere(this.data.tipe_absensi, { id: this.query.laporan_presensi.tipe_absensi_id }))) {
-            this.query.laporan_presensi.tipe_absensi_id = this.data.tipe_absensi[0].id || null
+          if (this.query.laporan_jadwal.tipe_absensi_id == null || ! this.$_.isUndefined(this.$_.findWhere(this.data.tipe_absensi, { id: this.query.laporan_jadwal.tipe_absensi_id }))) {
+            this.query.laporan_jadwal.tipe_absensi_id = this.data.tipe_absensi[0].id || null
           }
 
           // this.queryData()
@@ -220,13 +220,13 @@ export default {
       if (withSpinner) this.state.table.loading = true
       this.fetchMainData()
         .then(res => {
-          if ( ! this.$_.isEqual(this.$route.query, this.query.laporan_presensi) && this.$route.name === 'reportCenter.laporanAbsensi.laporanPresensi') {
+          if ( ! this.$_.isEqual(this.$route.query, this.query.laporan_jadwal) && this.$route.name === 'reportCenter.laporanAbsensi.laporanJadwal') {
             this.$router.push({
-              name: 'reportCenter.laporanAbsensi.laporanPresensi',
-              query: this.query.laporan_presensi
+              name: 'reportCenter.laporanAbsensi.laporanJadwal',
+              query: this.query.laporan_jadwal
             })
           }
-          this.data.laporan_presensi = res.data.container
+          this.data.laporan_jadwal = res.data.container
           if (withSpinner) this.state.table.loading = false
         })
         .catch(err => {})
@@ -258,12 +258,12 @@ export default {
      *  Fetch data
      */
     fetchMainData() {
-      return this.$axios.get('/ajax/v1/report_center/laporan_absensi/laporan_presensi', { params: this.query.laporan_presensi })
+      return this.$axios.get('/ajax/v1/report_center/laporan_absensi/laporan_jadwal', { params: this.query.laporan_jadwal })
     },
     fetchMainDataExport(format) {
-      let params = this.query.laporan_presensi
+      let params = this.query.laporan_jadwal
       params.export = format
-      return this.$axios.get('/ajax/v1/report_center/laporan_absensi/laporan_presensi', { params: params, responseType: 'blob' })
+      return this.$axios.get('/ajax/v1/report_center/laporan_absensi/laporan_jadwal', { params: params, responseType: 'blob' })
     },
     fetchCabang() {
       return this.$axios.get('/ajax/v1/master/cabang/terotorisasi')

@@ -7,7 +7,7 @@
             <i class="fas fa-backspace"></i> Kembali
           </router-link>
           <!-- If the user uses laptop or tablet -->
-          <div class="row d-none d-lg-block">
+          <div class="row d-none d-lg-block mt-3">
             <div class="col-12">
               <div class="form-group">
                 <div class="input-group">
@@ -60,7 +60,7 @@
             </div>
           </div>
           <!-- else -->
-          <div class="row d-lg-none">
+          <div class="row d-lg-none mt-3">
             <div class="col-12">
               <div class="form-group">
                 <label>Cabang</label>
@@ -115,6 +115,8 @@
                     <th>Nama Karyawan</th>
                     <th>No. Finger</th>
                     <th v-for="(date, i) in data.laporan_keterlambatan.meta.dates" scope="col">{{ date }}</th>
+                    <th>Total Keterlambatan</th>
+                    <th>Total Hari Terlambat</th>
                   </thead>
                   <tbody>
                     <tr v-for="(data, i) in data.laporan_keterlambatan.data">
@@ -131,6 +133,8 @@
                           }}
                         </td>
                       </template>
+                      <td>{{ data.total_keterlambatan }}</td>
+                      <td>{{ data.total_hari_terlambat }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -259,8 +263,13 @@ export default {
       return this.$axios.get('/ajax/v1/report_center/laporan_absensi/laporan_keterlambatan', { params: this.query.laporan_keterlambatan })
     },
     fetchMainDataExport(format) {
-      let params = this.query.laporan_keterlambatan
-      params.export = format
+      let params = {
+        cabang_id: this.query.laporan_keterlambatan.cabang_id,
+        tipe_absensi_id: this.query.laporan_keterlambatan.tipe_absensi_id,
+        tanggal_awal: this.query.laporan_keterlambatan.tanggal_awal,
+        tanggal_akhir: this.query.laporan_keterlambatan.tanggal_akhir,
+        export: format
+      }
       return this.$axios.get('/ajax/v1/report_center/laporan_absensi/laporan_keterlambatan', { params: params, responseType: 'blob' })
     },
     fetchCabang() {
