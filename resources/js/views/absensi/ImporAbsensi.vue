@@ -100,6 +100,7 @@ export default {
 
     preview() {
       this.form.impor_absensi.preview_loading = true
+      this.form.impor_absensi.errors = {}
       axios.post('/ajax/v1/absensi/impor_absensi/preview', this.wrapForm(), {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -121,6 +122,7 @@ export default {
     },
     impor() {
       this.form.impor_absensi.loading = true
+      this.form.impor_absensi.errors = {}
       axios.post('/ajax/v1/absensi/impor_absensi', this.wrapForm(), {
         headers: {
           'Content-Type': 'multipart/form-data'

@@ -101,6 +101,7 @@ export default {
 
     preview() {
       this.form.impor_jadwal.preview_loading = true
+      this.form.impor_jadwal.errors = {}
       axios.post('/ajax/v1/absensi/impor_jadwal/preview', this.wrapForm(), {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -122,6 +123,7 @@ export default {
     },
     impor() {
       this.form.impor_jadwal.loading = true
+      this.form.impor_jadwal.errors = {}
       axios.post('/ajax/v1/absensi/impor_jadwal', this.wrapForm(), {
         headers: {
           'Content-Type': 'multipart/form-data'
