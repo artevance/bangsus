@@ -81,6 +81,7 @@
                     <th>NIP</th>
                     <th>Nama Karyawan</th>
                     <th>No. Finger</th>
+                    <th>Status Foto KTP</th>
                     <th>Jam Jadwal Diajukan</th>
                     <th>Jam Jadwal</th>
                     <th>Jam Absen</th>
@@ -107,6 +108,12 @@
                           </span>
                         </td>
                         <td>{{ absensi.no_finger }}</td>
+                        <td>
+                          <span :class="{ 'text-success': absensi.karyawan.foto_ktp_id != null, 'text-danger': absensi.karyawan.foto_ktp_id == null }">
+                            <span v-if="absensi.karyawan.foto_ktp_id != null">SUDAH UPLOAD</span>
+                            <span v-else>BELUM UPLOAD</span>
+                          </span>
+                        </td>
                         <td>
                           {{
                             absensi.pengajuan_jadwal_absensi[0] == null
