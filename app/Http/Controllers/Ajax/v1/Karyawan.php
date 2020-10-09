@@ -14,6 +14,8 @@ use App\Http\Models\Cabang;
 use App\Http\Models\TugasKaryawan;
 use App\Http\Models\Gambar;
 
+use Intervention\Image\Facades\Image;
+
 class Karyawan extends Controller
 {
   public function index(Request $request)
@@ -68,9 +70,17 @@ class Karyawan extends Controller
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     if ($request->has('foto_ktp')) {
-      $gambarModel = new Gambar;
-      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('foto_ktp'))[1]));
-      $gambarModel->save();
+      $img = Image::make(base64_decode(str_replace(' ', '+', explode(',', $request->input('foto_ktp'))[1])));
+
+      if ($img->height() > 2000 || $img->width() > 2000)
+        if ($img->height() > $img->width())
+          $img->resize(null, 500, function ($c) {
+            $c->aspectRatio();
+          });
+        else
+          $img->resize(700, null, function ($c) {
+            $c->aspectRatio();
+          });
     }
 
     $model = new KaryawanModel;
@@ -130,9 +140,17 @@ class Karyawan extends Controller
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     if ($request->has('foto_ktp')) {
-      $gambarModel = new Gambar;
-      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('foto_ktp'))[1]));
-      $gambarModel->save();
+      $img = Image::make(base64_decode(str_replace(' ', '+', explode(',', $request->input('foto_ktp'))[1])));
+
+      if ($img->height() > 2000 || $img->width() > 2000)
+        if ($img->height() > $img->width())
+          $img->resize(null, 500, function ($c) {
+            $c->aspectRatio();
+          });
+        else
+          $img->resize(700, null, function ($c) {
+            $c->aspectRatio();
+          });
     }
 
     $model = KaryawanModel::find($request->input('id'));
@@ -157,8 +175,20 @@ class Karyawan extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
+    $img = Image::make(base64_decode(str_replace(' ', '+', explode(',', $request->input('foto_ktp'))[1])));
+
+    if ($img->height() > 2000 || $img->width() > 2000)
+      if ($img->height() > $img->width())
+        $img->resize(null, 500, function ($c) {
+          $c->aspectRatio();
+        });
+      else
+        $img->resize(700, null, function ($c) {
+          $c->aspectRatio();
+        });
+
     $gambarModel = new Gambar;
-    $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('foto_ktp'))[1]));
+    $gambarModel->konten = $img->encode('jpg', 70);
     $gambarModel->save();
 
     $karyawan = KaryawanModel::find($request->input('id'));
