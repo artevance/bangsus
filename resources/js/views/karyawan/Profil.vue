@@ -49,6 +49,7 @@
               <div class="card-title mt-5">Foto KTP</div>
               <div v-if="data.karyawan.foto_ktp_id">
                 <span class="text-success d-block">SUDAH DIUPLOAD</span>
+                <button class="btn btn-primary d-block my-2" @click="showCreateFotoKTPModal" v-if="$access('karyawan.profil.fotoKTP', 'create')">Upload Sekarang</button>
                 <img :src="'/gambar/' + data.karyawan.foto_ktp_id" style="max-height: 10%; max-width: 30%">
               </div>
               <div v-else>
