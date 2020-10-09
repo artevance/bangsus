@@ -49,7 +49,7 @@
               <div class="card-title mt-5">Foto KTP</div>
               <div v-if="data.karyawan.foto_ktp_id">
                 <span class="text-success d-block">SUDAH DIUPLOAD</span>
-                <img :src="'/gambar/' + data.karyawan.foto_ktp_id">
+                <img :src="'/gambar/' + data.karyawan.foto_ktp_id" style="max-height: 10%; max-width: 30%">
               </div>
               <div v-else>
                 <span class="text-danger d-block">BELUM DIUPLOAD</span>
