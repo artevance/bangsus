@@ -109,6 +109,7 @@ export default {
                 { title: 'Form Laporan Foto', index: 'formLaporanFoto', to: 'formOperasional.formLaporanFoto' },
                 { title: 'Form Aktivitas Marketing', index: 'formAktivitasMarketing', to: 'formOperasional.formAktivitasMarketing' },
                 { title: 'Form Denda Foto', index: 'formDendaFoto', to: 'formOperasional.formDendaFoto' },
+                { title: 'Form Tugas', index: 'formTugas', to: 'formOperasional.formTugas' },
               ]
             },
             { icon: 'far fa-chart-pie', title: 'Report Center', index: 'reportCenter', to: 'reportCenter' },

@@ -795,8 +795,73 @@ export default {
         }
       },
       formTugas: {
-        access: true
-      }
+        access: true,
+        create: true,
+        read: true,
+        submit: true,
+        destroy: true,
+        children: {
+          active: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true
+          },
+          passDeadline: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true
+          },
+          waitingChecker: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true
+          },
+          checked: {
+            access: true,
+            create: true,
+            read: true,
+            update: true,
+            delete: true
+          },
+
+
+
+          create: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: false,
+            changeSatuan: true
+          },
+          read: {
+            active: true,
+            passDeadline: true,
+            done: true,
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          submit: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0,
+            readonlyTime: false,
+            takePhoto: true,
+            changeSatuan: true
+          },
+          destroy: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          }
+        }
+      },
     }
   },
   reportCenter: {

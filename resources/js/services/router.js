@@ -406,6 +406,13 @@ const routes = [
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
           {
+            path: 'form_tugas',
+            name: 'formOperasional.formTugas',
+            component: require('../views/form_operasional/FormTugas').default,
+            meta: { layout: 'default', title: 'Form Tugas', sidebar: 'formOperasional', item: 'formTugas' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
+          {
             path: 'form_laporan_foto',
             name: 'formOperasional.formLaporanFoto',
             component: require('../views/form_operasional/FormLaporanFoto').default,

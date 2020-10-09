@@ -384,6 +384,16 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::put('', 'FormAktivitasMarketing@amend');
         Route::delete('', 'FormAktivitasMarketing@destroy');
       });
+      Route::prefix('form_tugas')->group(function () {
+        Route::get('', 'FormTugas@index');
+        Route::get('cabang', 'FormTugas@branch');
+        Route::get('{id}', 'FormTugas@get');
+        Route::post('', 'FormTugas@store');
+        Route::post('submit', 'FormTugas@storeSubmit');
+        Route::put('', 'FormTugas@amend');
+        Route::put('submit', 'FormTugas@amendSubmit');
+        Route::delete('', 'FormTugas@destroy');
+      });
     });
     Route::prefix('report_center')->namespace('ReportCenter')->group(function () {
       Route::prefix('laporan_absensi')->namespace('LaporanAbsensi')->group(function () {
