@@ -202,6 +202,10 @@
                     </div>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label>Foto KTP</label>
+                  <input type="file" class="form-control" @input="handleCreateFile">
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" :disabled="form.create.loading">
@@ -292,6 +296,10 @@
                     </div>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label>Foto KTP</label>
+                  <input type="file" class="form-control" @input="handleUpdateFile">
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" :disabled="form.update.loading">
@@ -334,7 +342,8 @@ export default {
             tanggal_lahir: '',
             golongan_darah_id: null,
             jenis_kelamin_id: null,
-            no_finger: ''
+            no_finger: '',
+            foto_ktp: '',
           },
           errors: {},
           loading: false
@@ -347,7 +356,8 @@ export default {
             tempat_lahir: '',
             tanggal_lahir: '',
             golongan_darah_id: null,
-            jenis_kelamin_id: null
+            jenis_kelamin_id: null,
+            foto_ktp: '',
           },
           errors: {},
           loading: false
@@ -464,6 +474,18 @@ export default {
             })
             .catch(err => {})
         })
+    },
+    handleCreateFile(e) {
+      let r = new FileReader()
+      r.readAsDataURL(e.target.files[0])
+      r.onload = () => this.form.create.data.foto_ktp = r.result
+      this.$emit('input', e.target.files[0])
+    },
+    handleUpdateFile(e) {
+      let r = new FileReader()
+      r.readAsDataURL(e.target.files[0])
+      r.onload = () => this.form.update.data.foto_ktp = r.result
+      this.$emit('input', e.target.files[0])
     },
 
     /**

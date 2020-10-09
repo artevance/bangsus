@@ -49,7 +49,8 @@ class Karyawan extends Controller
       'divisi_id',
       'jabatan_id',
       'tanggal_mulai',
-      'no_finger'
+      'no_finger',
+      'foto_ktp'
     ), [
       'nik' => 'nullable|integer|digits:16|unique:karyawan,nik',
       'nama_karyawan' => 'required|max:200',
@@ -61,9 +62,16 @@ class Karyawan extends Controller
       'divisi_id' => 'required|exists:divisi,id',
       'jabatan_id' => 'required|exists:jabatan,id',
       'tanggal_mulai' => 'required|date_format:Y-m-d',
-      'no_finger' => 'nullable|integer'
+      'no_finger' => 'nullable|integer',
+      'foto_ktp' => 'nullable'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
+
+    if ($request->has('foto_ktp')) {
+      $gambarModel = new Gambar;
+      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('foto_ktp'))[1]));
+      $gambarModel->save();
+    }
 
     $model = new KaryawanModel;
     $model->nik = $request->input('nik', null);
@@ -76,6 +84,7 @@ class Karyawan extends Controller
     $model->tanggal_lahir = $request->input('tanggal_lahir');
     $model->golongan_darah_id = $request->input('golongan_darah_id');
     $model->jenis_kelamin_id = $request->input('jenis_kelamin_id');
+    if ($request->has('foto_ktp')) $model->foto_ktp_id = $gambarModel->id;
     $model->save();
 
     $tugasKaryawanModel = new TugasKaryawan;
@@ -97,7 +106,8 @@ class Karyawan extends Controller
       'tempat_lahir',
       'tanggal_lahir',
       'golongan_darah_id',
-      'jenis_kelamin_id'
+      'jenis_kelamin_id',
+      'foto_ktp'
     ), [
       'id' => 'required|exists:karyawan,id',
       'nik' => [
@@ -115,8 +125,15 @@ class Karyawan extends Controller
       'tanggal_lahir' => 'nullable|date',
       'golongan_darah_id' => 'nullable|exists:golongan_darah,id',
       'jenis_kelamin_id' => 'nullable|exists:jenis_kelamin,id',
+      'foto_ktp' => 'nullable'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
+
+    if ($request->has('foto_ktp')) {
+      $gambarModel = new Gambar;
+      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('foto_ktp'))[1]));
+      $gambarModel->save();
+    }
 
     $model = KaryawanModel::find($request->input('id'));
     $model->nik = $request->input('nik');
@@ -125,6 +142,7 @@ class Karyawan extends Controller
     $model->tanggal_lahir = $request->input('tanggal_lahir');
     $model->golongan_darah_id = $request->input('golongan_darah_id');
     $model->jenis_kelamin_id = $request->input('jenis_kelamin_id');
+    if ($request->has('foto_ktp')) $model->foto_ktp_id = $gambarModel->id;
     $model->save();
   }
 
