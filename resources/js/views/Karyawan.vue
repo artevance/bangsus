@@ -343,7 +343,7 @@ export default {
             golongan_darah_id: null,
             jenis_kelamin_id: null,
             no_finger: '',
-            foto_ktp: '',
+            foto_ktp: null,
           },
           errors: {},
           loading: false
@@ -357,7 +357,7 @@ export default {
             tanggal_lahir: '',
             golongan_darah_id: null,
             jenis_kelamin_id: null,
-            foto_ktp: '',
+            foto_ktp: null,
           },
           errors: {},
           loading: false

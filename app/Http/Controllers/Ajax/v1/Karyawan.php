@@ -69,7 +69,7 @@ class Karyawan extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    if ($request->has('foto_ktp')) {
+    if ($request->filled('foto_ktp')) {
       $img = Image::make(base64_decode(str_replace(' ', '+', explode(',', $request->input('foto_ktp'))[1])));
 
       if ($img->height() > 2000 || $img->width() > 2000)
@@ -94,7 +94,7 @@ class Karyawan extends Controller
     $model->tanggal_lahir = $request->input('tanggal_lahir');
     $model->golongan_darah_id = $request->input('golongan_darah_id');
     $model->jenis_kelamin_id = $request->input('jenis_kelamin_id');
-    if ($request->has('foto_ktp')) $model->foto_ktp_id = $gambarModel->id;
+    if ($request->filled('foto_ktp')) $model->foto_ktp_id = $gambarModel->id;
     $model->save();
 
     $tugasKaryawanModel = new TugasKaryawan;
@@ -139,7 +139,7 @@ class Karyawan extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    if ($request->has('foto_ktp')) {
+    if ($request->filled('foto_ktp')) {
       $img = Image::make(base64_decode(str_replace(' ', '+', explode(',', $request->input('foto_ktp'))[1])));
 
       if ($img->height() > 2000 || $img->width() > 2000)
@@ -160,7 +160,7 @@ class Karyawan extends Controller
     $model->tanggal_lahir = $request->input('tanggal_lahir');
     $model->golongan_darah_id = $request->input('golongan_darah_id');
     $model->jenis_kelamin_id = $request->input('jenis_kelamin_id');
-    if ($request->has('foto_ktp')) $model->foto_ktp_id = $gambarModel->id;
+    if ($request->filled('foto_ktp')) $model->foto_ktp_id = $gambarModel->id;
     $model->save();
   }
 
