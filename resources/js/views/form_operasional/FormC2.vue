@@ -39,7 +39,7 @@
                       <input type="date"
                         class="form-control"
                         v-model="query.form_c2.tanggal_form"
-                        @keyup="queryData"
+                        @keyup="queryData" @change="queryData"
                         :min="
                           $access('formOperasional.formC2.read', 'timeFree')
                             ? false
@@ -79,7 +79,7 @@
                     <input type="date"
                       class="form-control"
                       v-model="query.form_c2.tanggal_form"
-                      @keyup="queryData"
+                      @keyup="queryData" @change="queryData"
                       :min="
                         $access('formOperasional.formC2.read', 'timeFree')
                           ? false

@@ -36,7 +36,7 @@
                           Tanggal Absensi
                         </span>
                       </div>
-                      <input type="date" class="form-control" v-model="query.absensi.tanggal_absensi" @keyup="queryData">
+                      <input type="date" class="form-control" v-model="query.absensi.tanggal_absensi" @keyup="queryData" @change="queryData">
                     </div>
                   </div>
                 </div>
@@ -62,7 +62,7 @@
                   </div>
                   <div class="form-group">
                     <label>Tanggal Absensi</label>
-                    <input type="date" class="form-control" v-model="query.absensi.tanggal_absensi" @keyup="queryData">
+                    <input type="date" class="form-control" v-model="query.absensi.tanggal_absensi" @keyup="queryData" @change="queryData">
                   </div>
                 </div>
               </div>

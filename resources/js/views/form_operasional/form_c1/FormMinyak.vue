@@ -26,7 +26,7 @@
                 <input type="date"
                   class="form-control"
                   v-model="query.form_minyak.tanggal_form"
-                  @keyup="queryData"
+                  @keyup="queryData" @change="queryData"
                   :min="
                     $access('formOperasional.formC1.formMinyak.read', 'timeFree')
                       ? false
@@ -58,7 +58,7 @@
               <input type="date"
                 class="form-control"
                 v-model="query.form_minyak.tanggal_form"
-                @keyup="queryData"
+                @keyup="queryData" @change="queryData"
                 :min="
                   $access('formOperasional.formC1.formMinyak.read', 'timeFree')
                     ? false

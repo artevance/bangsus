@@ -29,7 +29,7 @@
                       <input type="date"
                         class="form-control"
                         v-model="query.form_aktivitas_marketing.tanggal_form"
-                        @keyup="queryData"
+                        @keyup="queryData" @change="queryData"
                         :min="
                           $access('formOperasional.formAktivitasMarketing.read', 'timeFree')
                             ? false
@@ -61,7 +61,7 @@
                     <input type="date"
                       class="form-control"
                       v-model="query.form_aktivitas_marketing.tanggal_form"
-                      @keyup="queryData"
+                      @keyup="queryData" @change="queryData"
                       :min="
                         $access('formOperasional.formAktivitasMarketing.read', 'timeFree')
                           ? false
