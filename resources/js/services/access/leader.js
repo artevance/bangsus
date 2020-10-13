@@ -794,6 +794,32 @@ export default {
           }
         }
       },
+      formPemberianTugas: {
+        access: false,
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+        children: {
+          detail: {
+            access: false
+          }
+        }
+      },
+      formPengumpulanTugas: {
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        delete: true
+      },
+      formLaporanCabang: {
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        delete: true
+      }
     }
   },
   reportCenter: {
