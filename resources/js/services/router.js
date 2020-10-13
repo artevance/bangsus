@@ -406,13 +406,6 @@ const routes = [
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
           {
-            path: 'form_tugas',
-            name: 'formOperasional.formTugas',
-            component: require('../views/form_operasional/FormTugas').default,
-            meta: { layout: 'default', title: 'Form Tugas', sidebar: 'formOperasional', item: 'formTugas' },
-            beforeEnter: Multiguard([middleware.auth, middleware.access])
-          },
-          {
             path: 'form_laporan_foto',
             name: 'formOperasional.formLaporanFoto',
             component: require('../views/form_operasional/FormLaporanFoto').default,
@@ -434,11 +427,34 @@ const routes = [
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
           {
-            path: 'form_tugas',
-            name: 'formOperasional.formTugas',
-            component: require('../views/form_operasional/FormTugas').default,
-            meta: { layout: 'default', title: 'Form Tugas', sidebar: 'formOperasional', item: 'formTugas' },
-            beforeEnter: Multiguard([middleware.auth, middleware.access])
+            path: 'form_pemberian_tugas',
+            name: 'formOperasional.formPemberianTugas',
+            component: require('../views/form_operasional/FormPemberianTugas').default,
+            meta: { layout: 'default', title: 'Form Pemberian Tugas', sidebar: 'formOperasional', item: 'formPemberianTugas' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.formPemberianTugas.detail',
+                component: require('../views/form_operasional/form_pemberian_tugas/Detail').default,
+                meta: { layout: 'default', title: 'Form Pemberian Tugas', sidebar: 'formOperasional', item: 'formPemberianTugas' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
+          },
+          {
+            path: 'form_pengumpulan_tugas',
+            name: 'formOperasional.formPengumpulanTugas',
+            component: require('../views/form_operasional/FormPengumpulanTugas').default,
+            meta: { layout: 'default', title: 'Form Pengumpulan Tugas', sidebar: 'formOperasional', item: 'formPengumpulanTugas' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+          },
+          {
+            path: 'form_laporan_cabang',
+            name: 'formOperasional.formLaporanCabang',
+            component: require('../views/form_operasional/FormLaporanCabang').default,
+            meta: { layout: 'default', title: 'Form Laporan Cabang', sidebar: 'formOperasional', item: 'formLaporanCabang' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
           },
         ]
       },

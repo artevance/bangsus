@@ -109,7 +109,9 @@ export default {
                 { title: 'Form Laporan Foto', index: 'formLaporanFoto', to: 'formOperasional.formLaporanFoto' },
                 { title: 'Form Aktivitas Marketing', index: 'formAktivitasMarketing', to: 'formOperasional.formAktivitasMarketing' },
                 { title: 'Form Denda Foto', index: 'formDendaFoto', to: 'formOperasional.formDendaFoto' },
-                { title: 'Form Tugas', index: 'formTugas', to: 'formOperasional.formTugas' },
+                { title: 'Form Pemberian Tugas', index: 'formPemberianTugas', to: 'formOperasional.formPemberianTugas' },
+                { title: 'Form Pengumpulan Tugas', index: 'formPengumpulanTugas', to: 'formOperasional.formPengumpulanTugas' },
+                { title: 'Form Laporan Cabang', index: 'formLaporanCabang', to: 'formOperasional.formLaporanCabang' },
               ]
             },
             { icon: 'far fa-chart-pie', title: 'Report Center', index: 'reportCenter', to: 'reportCenter' },

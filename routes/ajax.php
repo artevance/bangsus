@@ -384,15 +384,20 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::put('', 'FormAktivitasMarketing@amend');
         Route::delete('', 'FormAktivitasMarketing@destroy');
       });
-      Route::prefix('form_tugas')->group(function () {
-        Route::get('', 'FormTugas@index');
-        Route::get('cabang', 'FormTugas@branch');
-        Route::get('{id}', 'FormTugas@get');
-        Route::post('', 'FormTugas@store');
-        Route::post('submit', 'FormTugas@storeSubmit');
-        Route::put('', 'FormTugas@amend');
-        Route::put('submit', 'FormTugas@amendSubmit');
-        Route::delete('', 'FormTugas@destroy');
+      Route::prefix('form_pemberian_tugas')->group(function () {
+        Route::get('', 'FormPemberianTugas@index');
+        Route::get('active_cabang', 'FormPemberianTugas@activeBranch');
+        Route::get('{id}', 'FormPemberianTugas@get');
+        Route::post('', 'FormPemberianTugas@store');
+        Route::put('', 'FormPemberianTugas@amend');
+        Route::delete('', 'FormPemberianTugas@destroy');
+      });
+      Route::prefix('form_pengumpulan_tugas')->group(function () {
+        Route::get('', 'FormPengumpulanTugas@index');
+        Route::get('{id}', 'FormPengumpulanTugas@get');
+        Route::post('', 'FormPengumpulanTugas@store');
+        Route::put('', 'FormPengumpulanTugas@amend');
+        Route::delete('', 'FormPengumpulanTugas@destroy');
       });
     });
     Route::prefix('report_center')->namespace('ReportCenter')->group(function () {
