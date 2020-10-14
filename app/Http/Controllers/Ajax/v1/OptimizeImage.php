@@ -17,7 +17,7 @@ class OptimizeImage extends Controller
     foreach ($gambars as $gambar) {
       $img = Image::make($gambar->konten);
 
-      if ($img->height() > 1000 || $img->width() > 1000)
+      if ($img->filesize() == 200000) {
         if ($img->height() > $img->width())
           $img->resize(null, 500, function ($c) {
             $c->aspectRatio();
@@ -27,8 +27,9 @@ class OptimizeImage extends Controller
             $c->aspectRatio();
           });
 
-      $gambar->konten = $img->encode('jpg', 70);
-      $gambar->save();
+        $gambar->konten = $img->encode('jpg', 70);
+        $gambar->save();
+      }
     }
   }
 }
