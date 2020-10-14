@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/laravel', function () {
   return view('welcome');
 });
-Route::get('/sandbox', 'Sandbox@index');
+Route::get('/sandbox/{page}', 'Sandbox@index')->name('sandbox');
 
 Route::get('/sanctum/csrf-cookie', 'CsrfCookie@show');
 

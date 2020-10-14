@@ -7,9 +7,12 @@ use Intervention\Image\Facades\Image;
 
 class Sandbox extends Controller
 {
-  public function index()
+  public function index(\Illuminate\Http\Request $request, $page)
   {
-    $gambars = Gambar::where('konten', '!=', '')->get();
+    $limit = $page * 1000;
+    $offset = $limit - 1000;
+
+    $gambars = Gambar::where('konten', '!=', '')->offset($offset)->limit($limit)->get();
 
     foreach ($gambars as $gambar) {
       $img = Image::make($gambar->konten);
