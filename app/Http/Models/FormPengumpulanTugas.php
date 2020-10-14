@@ -26,4 +26,9 @@ class FormPengumpulanTugas extends Model
   {
     return $this->belongsTo('App\Http\Models\FormPemberianTugas');
   }
+
+  public function file_tugas()
+  {
+    return $this->hasMany('App\Http\Models\FileTugas');
+  }
 }

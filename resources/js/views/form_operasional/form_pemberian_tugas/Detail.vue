@@ -26,7 +26,12 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{ form_pengumpulan_tugas.cabang.kode_cabang }} - {{ form_pengumpulan_tugas.cabang.cabang }}</td>
                       <td>{{ form_pengumpulan_tugas.keterangan }}</td>
-                      <td></td>
+                      <td>
+                        <a :href="'/ajax/v1/form_operasional/form_pengumpulan_tugas/file/' + form_pengumpulan_tugas.id" target="_blank"
+                        >
+                          Download
+                        </a>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -74,7 +79,7 @@ export default {
     prepare() {
       this.state.page.loading = true
       this.$axios.get('/ajax/v1/form_operasional/form_pemberian_tugas/' + this.$route.params.id)
-        .then(res => { console.log(res.data.container)
+        .then(res => {
           this.data.form_pemberian_tugas = res.data.container
         })
         .catch(err => {

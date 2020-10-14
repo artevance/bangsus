@@ -13,6 +13,8 @@ use App\Http\Models\FormPengumpulanTugas as FormPengumpulanTugasModel;
 use App\Http\Models\FileTugas;
 use App\Http\Models\Cabang;
 
+use Illuminate\Support\Facades\Storage;
+
 class FormPengumpulanTugas extends Controller
 {
   public function index(Request $request) // WIP
@@ -43,6 +45,16 @@ class FormPengumpulanTugas extends Controller
     if (is_null(FormPengumpulanTugasModel::with(['form_pemberian_tugas_cabang'])->find($id))) return $this->response(404);
 
     return $this->data(FormPengumpulanTugasModel::find($id))->response(200);
+  }
+
+  public function getFile(Request $request, $id) // WIP
+  {
+    if (is_null(FormPengumpulanTugasModel::find($id))) return $this->response(404);
+
+    $model = FormPengumpulanTugasModel::find($id);
+    $file = public_path() . '/' . $model->file_tugas[0]->dir;
+
+    return response()->download($file);
   }
 
   public function store(Request $request)

@@ -397,6 +397,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::prefix('form_pengumpulan_tugas')->group(function () {
         Route::get('', 'FormPengumpulanTugas@index');
         Route::get('{id}', 'FormPengumpulanTugas@get');
+        Route::get('file/{id}', 'FormPengumpulanTugas@getFile');
         Route::post('', 'FormPengumpulanTugas@store');
         Route::put('', 'FormPengumpulanTugas@amend');
         Route::delete('', 'FormPengumpulanTugas@destroy');
