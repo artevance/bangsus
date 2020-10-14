@@ -105,7 +105,10 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Tambah</button>
+                <button type="submit" class="btn btn-primary" :disabled="form.create.loading">
+                  <spinner-component size="sm" v-if="form.create.loading"/>
+                  Tambah
+                </button>
               </div>
             </form>
           </div>
