@@ -82,8 +82,19 @@ class FormLaporanFoto extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
+    $img = Image::make($request->input('gambar'));
+    if ($img->height() > 1000 || $img->width() > 1000)
+      if ($img->height() > $img->width())
+        $img->resize(null, 500, function ($c) {
+          $c->aspectRatio();
+        });
+      else
+        $img->resize(700, null, function ($c) {
+          $c->aspectRatio();
+        });
+
     $gambarModel = new Gambar;
-    $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
+    $gambarModel->konten = $img->encode(70);
     $gambarModel->save();
 
     $formLaporanFotoModel = new FormLaporanFotoModel;
@@ -124,8 +135,19 @@ class FormLaporanFoto extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
+    $img = Image::make($request->input('gambar'));
+    if ($img->height() > 1000 || $img->width() > 1000)
+      if ($img->height() > $img->width())
+        $img->resize(null, 500, function ($c) {
+          $c->aspectRatio();
+        });
+      else
+        $img->resize(700, null, function ($c) {
+          $c->aspectRatio();
+        });
+
     $gambarModel = new Gambar;
-    $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
+    $gambarModel->konten = $img->encode(70);
     $gambarModel->save();
 
     $formLaporanFotoModel = FormLaporanFotoModel::find($request->input('id'));
