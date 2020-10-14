@@ -19,11 +19,11 @@ class FormPemberianTugas extends Model
 
   public function form_pemberian_tugas_cabang()
   {
-    return $this->hasMany('App\Http\Models\FormPemberianTugasCabang');
+    return $this->hasMany('App\Http\Models\FormPemberianTugasCabang')->with(['cabang']);
   }
 
   public function form_pengumpulan_tugas()
   {
-    return $this->hasMany('App\Http\Models\FormPengumpulanTugas');
+    return $this->hasMany('App\Http\Models\FormPengumpulanTugas')->with(['cabang']);
   }
 }

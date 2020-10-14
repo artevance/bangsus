@@ -40,9 +40,9 @@ class FormPemberianTugas extends Controller
 
   public function get(Request $request, $id)
   {
-    if (is_null(FormPemberianTugasModel::with(['form_pemberian_tugas_cabang'])->find($id))) return $this->response(404);
+    if (is_null(FormPemberianTugasModel::find($id))) return $this->response(404);
 
-    return $this->data(FormPemberianTugasModel::find($id))->response(200);
+    return $this->data(FormPemberianTugasModel::with(['form_pemberian_tugas_cabang', 'form_pengumpulan_tugas'])->find($id))->response(200);
   }
 
   public function store(Request $request)
