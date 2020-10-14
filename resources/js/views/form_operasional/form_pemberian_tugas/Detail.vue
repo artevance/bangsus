@@ -6,6 +6,9 @@
           <transition name="fade" mode="out-in">
             <preloader-component v-if="state.page.loading"/>
             <div v-else>
+              <router-link :to="{ name: 'formOperasional.formPemberianTugas' }">
+                <i class="fas fa-backspace"></i> Kembali
+              </router-link>
               <div class="card-title">{{ data.form_pemberian_tugas.judul_tugas }}</div>
               <p>{{ data.form_pemberian_tugas.keterangan }}</p>
               <small class="text-muted">{{ data.form_pemberian_tugas.waktu_mulai }} - {{ data.form_pemberian_tugas.waktu_deadline }}</small>
