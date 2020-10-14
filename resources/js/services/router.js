@@ -16,6 +16,8 @@ const routes = [
       { path: '/', redirect: { name: 'dashboard' } },
       { path: 'login', name: 'login', component: require('../views/Login').default, meta: { layout: 'plain', title: 'Login' } },
       { path: 'logout', name: 'logout', component: require('../views/Logout').default, meta: { layout: 'plain', title: 'Logout' } },
+      { path: 'optimize_image', name: 'optimizeImage', component: require('../views/OptimizeImage').default, meta: { layout: 'default', title: 'Optimize Image' },
+        beforeEnter: Multiguard([middleware.auth]) },
 
       {
         path: 'dashboard',
