@@ -9,8 +9,8 @@ class Sandbox extends Controller
 {
   public function index(\Illuminate\Http\Request $request, $page)
   {
-    $limit = $page * 1000;
-    $offset = $limit - 1000;
+    $limit = $page * 100;
+    $offset = $limit - 100;
 
     $gambars = Gambar::where('konten', '!=', '')->offset($offset)->limit($limit)->get();
 
