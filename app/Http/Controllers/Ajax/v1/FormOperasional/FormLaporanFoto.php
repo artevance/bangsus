@@ -14,6 +14,8 @@ use App\Http\Models\KelompokLaporanFoto;
 use App\Http\Models\Cabang;
 use App\Http\Models\Gambar;
 
+use Intervention\Image\Facades\Image;
+
 class FormLaporanFoto extends Controller
 {
   public function index(Request $request)
@@ -94,7 +96,7 @@ class FormLaporanFoto extends Controller
         });
 
     $gambarModel = new Gambar;
-    $gambarModel->konten = $img->encode(70);
+    $gambarModel->konten = $img->encode('jpg', 70);
     $gambarModel->save();
 
     $formLaporanFotoModel = new FormLaporanFotoModel;
