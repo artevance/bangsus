@@ -39,7 +39,7 @@ class LaporanFormC2
         $sumCount += $count;
       }
       $data['graph'] = $d;
-      $data['frequency'] = $sumCount / (6 * $qualityControls->count()) . '%';
+      $data['frequency'] = (($sumCount / (6 * $qualityControls->count())) * 100) . '%';
 
       $container[] = $data;
     }
