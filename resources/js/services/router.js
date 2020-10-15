@@ -543,14 +543,14 @@ const routes = [
               },
               {
                 path: 'laporan_form_c4',
-                name: 'reportCenter.laporanFormOperasional.laporanformC4',
+                name: 'reportCenter.laporanFormOperasional.laporanFormC4',
                 component: require('../views/report_center/laporan_form_operasional/LaporanFormC4').default,
                 meta: { layout: 'default', title: 'Laporan Form C4', sidebar: 'reportCenter' },
                 beforeEnter: Multiguard([middleware.auth, middleware.access]),
               },
               {
                 path: 'laporan_form_c5',
-                name: 'reportCenter.laporanFormOperasional.laporanformC5',
+                name: 'reportCenter.laporanFormOperasional.laporanFormC5',
                 component: require('../views/report_center/laporan_form_operasional/LaporanFormC5').default,
                 meta: { layout: 'default', title: 'Laporan Form C5', sidebar: 'reportCenter' },
                 beforeEnter: Multiguard([middleware.auth, middleware.access]),
