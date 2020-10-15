@@ -170,7 +170,7 @@ export default {
       query: {
         laporan_form_c1: {
           cabang_id: this.$route.query.cabang_id || null,
-          report_type: this.$route.query.report_type || 'recap',
+          report_type: this.$route.query.report_type || 'frequency',
           tanggal_awal: this.$route.query.tanggal_awal || this.$moment(this.$route.query.tanggal_awal).format('YYYY-MM-DD'),
           tanggal_akhir: this.$route.query.tanggal_akhir || this.$moment(this.$route.query.tanggal_akhir).format('YYYY-MM-DD')
         }
@@ -217,9 +217,9 @@ export default {
       if (withSpinner) this.state.table.loading = true
       this.fetchMainData()
         .then(res => {
-          if ( ! this.$_.isEqual(this.$route.query, this.query.laporan_form_c1) && this.$route.name === 'reportCenter.laporanAbsensi.laporanKeterlambatan') {
+          if ( ! this.$_.isEqual(this.$route.query, this.query.laporan_form_c1) && this.$route.name === 'reportCenter.laporanFormOperasional.laporanFormC1') {
             this.$router.push({
-              name: 'reportCenter.laporanAbsensi.laporanKeterlambatan',
+              name: 'reportCenter.laporanFormOperasional.laporanFormC1',
               query: this.query.laporan_form_c1
             })
           }
