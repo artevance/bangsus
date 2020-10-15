@@ -429,6 +429,23 @@ Route::prefix('v1')->namespace('v1')->group(function () {
           Route::get('', 'LaporanAbsensi@index');
         });
       });
+      Route::prefix('laporan_form_operasional')->namespace('LaporanFormOperasional')->group(function () {
+        Route::prefix('laporan_form_c1')->group(function () {
+          Route::get('', 'LaporanFormC1@index');
+        });
+        Route::prefix('laporan_form_c2')->group(function () {
+          Route::get('', 'LaporanFormC2@index');
+        });
+        Route::prefix('laporan_form_c3')->group(function () {
+          Route::get('', 'LaporanFormC3@index');
+        });
+        Route::prefix('laporan_form_c4')->group(function () {
+          Route::get('', 'LaporanFormC4@index');
+        });
+        Route::prefix('laporan_form_c5')->group(function () {
+          Route::get('', 'LaporanFormC5@index');
+        });
+      });
     });
   });
 });

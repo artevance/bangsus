@@ -511,6 +511,51 @@ const routes = [
                 beforeEnter: Multiguard([middleware.auth, middleware.access]),
               },
             ]
+          },
+          {
+            path: 'laporan_form_operasional',
+            name: 'reportCenter.laporanFormOperasional',
+            component: { template: '<router-view></router-view>' },
+            meta: { layout: 'default', title: 'Laporan Form Operasional', sidebar: 'reportCenter' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            redirect: { name: 'reportCenter.laporanFormOperasional.laporanKeterlambatan' },
+            children: [
+              {
+                path: 'laporan_form_c1',
+                name: 'reportCenter.laporanFormOperasional.laporanFormC1',
+                component: require('../views/report_center/laporan_form_operasional/LaporanFormC1').default,
+                meta: { layout: 'default', title: 'Laporan Form C1', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+              {
+                path: 'laporan_form_c2',
+                name: 'reportCenter.laporanFormOperasional.laporanFormC2',
+                component: require('../views/report_center/laporan_form_operasional/LaporanFormC2').default,
+                meta: { layout: 'default', title: 'Laporan Form C2', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+              {
+                path: 'laporan_form_c3',
+                name: 'reportCenter.laporanFormOperasional.laporanFormC3',
+                component: require('../views/report_center/laporan_form_operasional/LaporanFormC3').default,
+                meta: { layout: 'default', title: 'Laporan Form C3', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+              {
+                path: 'laporan_form_c4',
+                name: 'reportCenter.laporanFormOperasional.laporanformC4',
+                component: require('../views/report_center/laporan_form_operasional/LaporanFormC4').default,
+                meta: { layout: 'default', title: 'Laporan Form C4', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+              {
+                path: 'laporan_form_c5',
+                name: 'reportCenter.laporanFormOperasional.laporanformC5',
+                component: require('../views/report_center/laporan_form_operasional/LaporanFormC5').default,
+                meta: { layout: 'default', title: 'Laporan Form C5', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+            ]
           }
         ]
       }
