@@ -48,7 +48,7 @@ export default {
             { title: 'Laporan Form C2', to: 'reportCenter.laporanFormOperasional.laporanFormC2', icon: 'far fa-file-invoice', disabled: false },
             { title: 'Laporan Form C3', to: 'reportCenter.laporanFormOperasional.laporanFormC3', icon: 'fad fa-file-invoice', disabled: false },
             { title: 'Laporan Form C4', to: 'reportCenter.laporanFormOperasional.laporanFormC4', icon: 'fas fa-file', disabled: false },
-            { title: 'Laporan Form C5', to: 'reportCenter.laporanFormOperasional.laporanFormC5', icon: 'far fa-file', disabled: false },
+            { title: 'Laporan Form C5', to: 'reportCenter.laporanFormOperasional.laporanFormC5', icon: 'far fa-file', disabled: true },
             { title: 'Laporan Form Foto', to: 'reportCenter.laporanFormOperasional.laporanFormFoto', icon: 'fas fa-camera', disabled: true },
             { title: 'Laporan Form Laporan Foto', to: 'reportCenter.laporanFormOperasional.laporanFormLaporanFoto', icon: 'fas fa-image', disabled: true },
             { title: 'Laporan Form Aktivitas Marketing', to: 'reportCenter.laporanFormOperasional.laporanFormAktivitasMarketing', icon: 'fas fa-megaphone', disabled: true },
