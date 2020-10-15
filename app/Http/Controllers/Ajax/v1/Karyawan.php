@@ -81,6 +81,10 @@ class Karyawan extends Controller
           $img->resize(700, null, function ($c) {
             $c->aspectRatio();
           });
+
+      $gambarModel = new Gambar;
+      $gambarModel->konten = $img->encode('jpg', 70);
+      $gambarModel->save();
     }
 
     $model = new KaryawanModel;
@@ -151,6 +155,10 @@ class Karyawan extends Controller
           $img->resize(700, null, function ($c) {
             $c->aspectRatio();
           });
+
+      $gambarModel = new Gambar;
+      $gambarModel->konten = $img->encode('jpg', 70);
+      $gambarModel->save();
     }
 
     $model = KaryawanModel::find($request->input('id'));
