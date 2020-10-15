@@ -37,7 +37,7 @@ export default {
             { title: 'Laporan Keterlambatan', to: 'reportCenter.laporanAbsensi.laporanKeterlambatan', icon: 'far fa-calendar-times', disabled: false },
             { title: 'Laporan Presensi', to: 'reportCenter.laporanAbsensi.laporanPresensi', icon: 'far fa-calendar-check', disabled: false },
             { title: 'Laporan Kehadiran', to: 'reportCenter.laporanAbsensi.laporanKehadiran', icon: 'far fa-check', disabled: false },
-            { title: 'Laporan Absensi', to: 'reportCenter.laporanAbsensi.laporanAbsensi', icon: 'fad fa-users-class', disabled: true },
+            { title: 'Laporan Absensi', to: 'reportCenter.laporanAbsensi.laporanAbsensi', icon: 'fad fa-users-class', disabled: false },
           ]
         },
         {

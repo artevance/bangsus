@@ -63,11 +63,19 @@ class LaporanKeterlambatan extends Controller
       $heads = ['No.', 'NIP', 'Nama Karyawan', 'No. Finger'];
       foreach ($data['meta']['dates'] as $date) {
         $heads[] = $date;
+        $heads[] = '';
       }
+      $heads[] = 'Total Denda';
       $heads[] = 'Total Keterlambatan';
       $heads[] = 'Total Hari Terlambat';
-
       $container[] = $heads;
+
+      $subheads = [null, null, null, null];
+      foreach ($data['meta']['dates'] as $date) {
+        $subheads[] = 'Jam Keterlambatan';
+        $subheads[] = 'Denda';
+      }
+      $container[] = $subheads;
 
       foreach ($data['data'] as $i => $d) {
         $row = [
@@ -78,11 +86,16 @@ class LaporanKeterlambatan extends Controller
         ];
 
         if (is_array($d['absensi']))
-          foreach ($d['absensi'] as $absensi)
+          foreach ($d['absensi'] as $absensi) {
             $row[] = ! is_null($absensi)
               ? '\'' . $absensi['jam_keterlambatan']
               : '';
+            $row[] = ! is_null($absensi)
+              ? $absensi['denda']
+              : '';
+          }
 
+        $row[] = $d['total_denda'];
         $row[] = '\'' . $d['total_keterlambatan'];
         $row[] = $d['total_hari_terlambat'];
 

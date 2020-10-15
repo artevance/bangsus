@@ -110,13 +110,21 @@
               <div class="table-responsive mt-2">
                 <table class="table table-bordered">
                   <thead>
-                    <th>No.</th>
-                    <th>NIP</th>
-                    <th>Nama Karyawan</th>
-                    <th>No. Finger</th>
-                    <th v-for="(date, i) in data.laporan_keterlambatan.meta.dates" scope="col">{{ date }}</th>
-                    <th>Total Keterlambatan</th>
-                    <th>Total Hari Terlambat</th>
+                    <tr>
+                      <th rowspan="2">No.</th>
+                      <th rowspan="2">NIP</th>
+                      <th rowspan="2">Nama Karyawan</th>
+                      <th rowspan="2">No. Finger</th>
+                      <th v-for="(date, i) in data.laporan_keterlambatan.meta.dates" scope="col" colspan="2">{{ date }}</th>
+                      <th rowspan="2">Total Keterlambatan</th>
+                      <th rowspan="2">Total Hari Terlambat</th>
+                    </tr>
+                    <tr>
+                      <template v-for="(date, i) in data.laporan_keterlambatan.meta.dates">
+                        <td>Keterlambatan</td>
+                        <td>Denda</td>
+                      </template>
+                    </tr>
                   </thead>
                   <tbody>
                     <tr v-for="(data, i) in data.laporan_keterlambatan.data">
@@ -132,8 +140,16 @@
                               : absensi.jam_keterlambatan
                           }}
                         </td>
+                        <td>
+                          {{ 
+                            absensi == null
+                              ? '' 
+                              : absensi.denda
+                          }}
+                        </td>
                       </template>
                       <td>{{ data.total_keterlambatan }}</td>
+                      <td>{{ data.total_denda }}</td>
                       <td>{{ data.total_hari_terlambat }}</td>
                     </tr>
                   </tbody>
