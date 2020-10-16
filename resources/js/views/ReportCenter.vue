@@ -51,8 +51,8 @@ export default {
             { title: 'Laporan Form C5', to: 'reportCenter.laporanFormOperasional.laporanFormC5', icon: 'far fa-file', disabled: true },
             { title: 'Laporan Form Foto', to: 'reportCenter.laporanFormOperasional.laporanFormFoto', icon: 'fas fa-camera', disabled: true },
             { title: 'Laporan Form Laporan Foto', to: 'reportCenter.laporanFormOperasional.laporanFormLaporanFoto', icon: 'fas fa-image', disabled: true },
-            { title: 'Laporan Form Aktivitas Marketing', to: 'reportCenter.laporanFormOperasional.laporanFormAktivitasMarketing', icon: 'fas fa-megaphone', disabled: true },
-            { title: 'Laporan Form Denda Foto', to: 'reportCenter.laporanFormOperasional.laporanFormDendaFoto', icon: 'fas fa-hammer', disabled: true },
+            { title: 'Laporan Form Aktivitas Marketing', to: 'reportCenter.laporanFormOperasional.laporanFormAktivitasMarketing', icon: 'fas fa-megaphone', disabled: false },
+            { title: 'Laporan Form Denda Foto', to: 'reportCenter.laporanFormOperasional.laporanFormDendaFoto', icon: 'fas fa-hammer', disabled: false },
           ]
         },
       ]

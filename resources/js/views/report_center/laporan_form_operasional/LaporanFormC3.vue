@@ -17,7 +17,7 @@
                     </span>
                   </div>
                   <select class="form-control" v-model="query.laporan_form_c3.cabang_id">
-                    <option value="null" v-if="$access('reportCenter.laporanFormOperasional.laporanFormC2', 'readAllBranch')">Semua Cabang</option>
+                    <option value="null" v-if="$access('reportCenter.laporanFormOperasional.laporanFormC3', 'readAllBranch')">Semua Cabang</option>
                     <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
                       {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                     </option>
@@ -66,7 +66,7 @@
               <div class="form-group">
                 <label>Cabang</label>
                 <select class="form-control" v-model="query.laporan_form_c3.cabang_id">
-                  <option value="null" v-if="$access('reportCenter.laporanFormOperasional.laporanFormC2', 'readAllBranch')">Semua Cabang</option>
+                  <option value="null" v-if="$access('reportCenter.laporanFormOperasional.laporanFormC3', 'readAllBranch')">Semua Cabang</option>
                   <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
                     {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                   </option>
@@ -209,9 +209,9 @@ export default {
       if (withSpinner) this.state.table.loading = true
       this.fetchMainData()
         .then(res => {
-          if ( ! this.$_.isEqual(this.$route.query, this.query.laporan_form_c3) && this.$route.name === 'reportCenter.laporanFormOperasional.laporanFormC2') {
+          if ( ! this.$_.isEqual(this.$route.query, this.query.laporan_form_c3) && this.$route.name === 'reportCenter.laporanFormOperasional.laporanFormC3') {
             this.$router.push({
-              name: 'reportCenter.laporanFormOperasional.laporanFormC2',
+              name: 'reportCenter.laporanFormOperasional.laporanFormC3',
               query: this.query.laporan_form_c3
             })
           }

@@ -875,7 +875,8 @@ export default {
             access: true
           },
           laporanFormAktivitasMarketing: {
-            access: true
+            access: true,
+            readAllBranch: true
           },
           laporanFormDendaFoto: {
             access: true

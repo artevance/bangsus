@@ -555,6 +555,13 @@ const routes = [
                 meta: { layout: 'default', title: 'Laporan Form C5', sidebar: 'reportCenter' },
                 beforeEnter: Multiguard([middleware.auth, middleware.access]),
               },
+              {
+                path: 'laporan_form_aktivitas_marketing',
+                name: 'reportCenter.laporanFormOperasional.laporanFormAktivitasMarketing',
+                component: require('../views/report_center/laporan_form_operasional/LaporanFormAktivitasMarketing').default,
+                meta: { layout: 'default', title: 'Laporan Form Aktivitas Marketing', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
             ]
           }
         ]
