@@ -370,6 +370,12 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::put('', 'FormFoto@amend');
         Route::delete('', 'FormFoto@destroy');
       });
+      Route::prefix('form_denda_foto')->group(function () {
+        Route::post('denda', 'FormDendaFoto@storeDenda');
+        Route::post('tidak_denda', 'FormDendaFoto@storeTidakDenda');
+        Route::put('', 'FormDendaFoto@amend');
+        Route::delete('', 'FormDendaFoto@destroy');
+      });
       Route::prefix('form_laporan_foto')->group(function () {
         Route::get('', 'FormLaporanFoto@index');
         Route::get('cabang_tipe_harian', 'FormLaporanFoto@dailyBranchType');

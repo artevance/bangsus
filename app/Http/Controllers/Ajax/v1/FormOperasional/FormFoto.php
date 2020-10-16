@@ -32,7 +32,9 @@ class FormFoto extends Controller
 
     return $this->data(FormFotoModel::with([
       'tugas_karyawan',
-      'kelompok_foto'
+      'kelompok_foto',
+      'form_denda_foto',
+      'form_denda_foto.d'
     ])->find($id))->response(200);
   }
 
@@ -48,7 +50,8 @@ class FormFoto extends Controller
       ->data(
         FormFotoModel::with([
           'tugas_karyawan',
-          'kelompok_foto'
+          'kelompok_foto',
+          'form_denda_foto'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
         ->byCabang($query['cabang_id'])

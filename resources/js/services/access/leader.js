@@ -849,19 +849,24 @@ export default {
         access: true,
         children: {
           laporanFormC1: {
-            access: true
+            access: true,
+            readAllBranch: true
           },
           laporanFormC2: {
-            access: true
+            access: true,
+            readAllBranch: true
           },
           laporanFormC3: {
-            access: true
+            access: true,
+            readAllBranch: true
           },
           laporanFormC4: {
-            access: true
+            access: true,
+            readAllBranch: true
           },
           laporanFormC5: {
-            access: true
+            access: true,
+            readAllBranch: true
           },
           laporanFormFoto: {
             access: true
@@ -870,7 +875,8 @@ export default {
             access: true
           },
           laporanFormAktivitasMarketing: {
-            access: true
+            access: true,
+            readAllBranch: true
           },
           laporanFormDendaFoto: {
             access: true

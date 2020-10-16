@@ -762,16 +762,24 @@ export default {
       },
       formDendaFoto: {
         access: true,
-        create: true,
+        denda: true,
+        tidakDenda: true,
         read: true,
         update: true,
         destroy: true,
         children: {
-          create: {
+          denda: {
             timeFree: true,
             dateMin: 0,
             dateMax: 0,
-            automatedTime: false,
+            automatedTime: true,
+            changeSatuan: true
+          },
+          tidakDenda: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: true,
             changeSatuan: true
           },
           read: {

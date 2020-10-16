@@ -97,28 +97,13 @@
               <div class="alert alert-danger">
                 Fitur ini masih dalam pengembangan. Jangan dipakai dulu.
               </div>
-              <button class="btn btn-primary"
-                @click="showCreateModal"
-                v-if="
-                  $access('formOperasional.formDendaFoto', 'create') && (
-                    $access('formOperasional.formDendaFoto.create', 'timeFree') ||
-                    $moment($moment(query.form_foto.tanggal_form)).isBetween(
-                      $moment(utils.date).subtract($access('formOperasional.formDendaFoto.create', 'dateMin')).format('YYYY-MM-DD'),
-                      $moment(utils.date).add($access('formOperasional.formDendaFoto.create', 'dateMax')).format('YYYY-MM-DD'),
-                      undefined,
-                      '[]'
-                    )
-                  )
-                ">
-                Tambah
-              </button>
               <div class="mt-5">
                 <div class="card" v-for="(form_foto, i) in data.form_foto">
-                  <div class="card-header" id="headingOne" data-toggle="collapse" :data-target="'#' + form_foto.id" aria-expanded="true" aria-controls="collapseOne">
+                  <div class="card-header" data-toggle="collapse" :data-target="'#form_foto_' + form_foto.id" aria-expanded="true" aria-controls="collapseOne">
                     <div class="row">
                       <h5 class="d-flex align-items-center mx-3 text-muted"><i class="far fa-chevron-down"></i></h5>
                       <div class="col-6">
-                        <h5><a href="#">#${{ i + 1 }} - {{ form_foto.kelompok_foto.kelompok_foto }} - {{ form_foto.tidak_kirim == 0 ? form_foto.jam : '' }}</a></h5>
+                        <h5><a href="#">#{{ i + 1 }} - {{ form_foto.kelompok_foto.kelompok_foto }} - {{ form_foto.tidak_kirim == 0 ? form_foto.jam : '' }}</a></h5>
                         <p v-if="form_foto.tidak_kirim == 0">
                           {{ form_foto.tugas_karyawan.karyawan.nip }} - <b>{{ form_foto.tugas_karyawan.karyawan.nama_karyawan }}</b>
                         </p>
@@ -132,7 +117,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="collapse" aria-labelledby="headingOne" :id="form_foto.id">
+                  <div class="collapse" aria-labelledby="headingOne" :id="'form_foto_' + form_foto.id">
                     <div class="card-body">
                       <div class="row">
                         <div class="col-xl-4">
@@ -172,7 +157,7 @@
                                 <tr>
                                   <th>Link Foto</th>
                                   <td>
-                                    <a :href="'/gambar' + form_foto.gambar_id" target="_blank">
+                                    <a :href="'/gambar/' + form_foto.gambar_id" target="_blank">
                                       Link
                                     </a>
                                   </td>
@@ -180,7 +165,7 @@
                                 <tr>
                                   <th>Sudah Diperiksa</th>
                                   <td>
-                                    <span v-if="form_foto.denda_foto == null">BELUM</span>
+                                    <span v-if="form_foto.form_denda_foto == null">BELUM</span>
                                     <span v-else>SUDAH</span>
                                   </td>
                                 </tr>
@@ -189,7 +174,7 @@
                                   <td>
                                     <span v-if="form_foto.form_denda_foto == null">-</span>
                                     <span v-else>
-                                      <span v-if="form_foto.denda_foto.denda == 1">YA</span>
+                                      <span v-if="form_foto.form_denda_foto.denda == 1">YA</span>
                                       <span v-else>TIDAK</span>
                                     </span>
                                   </td>
@@ -199,7 +184,7 @@
                                   <td>
                                     <span v-if="form_foto.form_denda_foto == null">-</span>
                                     <span v-else>
-                                      <span v-if="form_foto.denda_foto.denda == 1">{{ form_foto.form_denda_foto.total }}</span>
+                                      <span v-if="form_foto.form_denda_foto.denda == 1">{{ form_foto.form_denda_foto.total }}</span>
                                       <span v-else>TIDAK</span>
                                     </span>
                                   </td>
@@ -207,7 +192,43 @@
                                 <tr>
                                   <th>Aksi</th>
                                   <td>
-                                    
+                                    <template v-if="form_foto.form_denda_foto != null">
+                                      <span v-if="form_foto.form_denda_foto.denda == 1">
+                                        <a
+                                          href="#"
+                                          class="badge
+                                          badge-info"
+                                          data-toggle="modal"
+                                          v-if="false"
+                                          >
+                                          Lihat Detail
+                                        </a>
+                                        <a
+                                          href="#"
+                                          class="badge
+                                          badge-warning"
+                                          data-toggle="modal"
+                                          @click="showUpdateModal(form_foto.form_denda_foto.id)"
+                                          v-if="
+                                            $access('formOperasional.formDendaFoto', 'update') && (
+                                              $access('formOperasional.formDendaFoto.update', 'timeFree') ||
+                                              $moment($moment(query.form_c5.tanggal_form)).isBetween(
+                                                $moment(utils.date).subtract($access('formOperasional.formDendaFoto.update', 'dateMin')).format('YYYY-MM-DD'),
+                                                $moment(utils.date).add($access('formOperasional.formDendaFoto.update', 'dateMax')).format('YYYY-MM-DD'),
+                                                undefined,
+                                                '[]'
+                                              )
+                                            )
+                                          ">
+                                          Ubah
+                                        </a>
+                                      </span>
+                                      <a href="#" class="badge badge-danger" data-toggle="modal" @click="showDestroyModal(form_foto.form_denda_foto.id)">Hapus</a>
+                                    </template>
+                                    <template v-else>
+                                      <a href="#" class="badge badge-dark" data-toggle="modal" @click="showDendaModal(form_foto.id)">Denda</a>
+                                      <a href="#" class="badge badge-light" data-toggle="modal" @click="showTidakDendaModal(form_foto.id)">Tidak Denda</a>
+                                    </template>
                                   </td>
                                 </tr>
                               </tbody>
@@ -227,100 +248,67 @@
 
     <!-- Modal -->
     <div class="modal fade"
-      data-entity="formFoto"
-      data-method="create"
+      data-entity="formDendaFoto"
+      data-method="denda"
       data-backdrop="static"
       data-keyboard="false"
       tabindex="-1"
       v-if="
-        $access('formOperasional.formDendaFoto', 'create') && (
-          $access('formOperasional.formDendaFoto.create', 'timeFree') ||
-          $moment($moment(query.form_foto.tanggal_form)).isBetween(
-            $moment().subtract($access('formOperasional.formDendaFoto.create', 'dateMin')).format('YYYY-MM-DD'),
-            $moment().add($access('formOperasional.formDendaFoto.create', 'dateMax')).format('YYYY-MM-DD'),
-            undefined,
-            '[]'
-          )
-        )
+        $access('formOperasional.formDendaFoto', 'denda')
       ">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form @submit.prevent="create">
+          <form @submit.prevent="denda">
             <div class="modal-header">
-              <h5 class="modal-title">Tambah Form Goreng</h5>
+              <h5 class="modal-title">Tambah Form Denda Foto</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <div class="form-group row">
-                <div class="col-12 col-lg-4">
-                  <label>Kode Cabang</label>
-                  <input type="text" class="form-control" v-model="form.create.data.kode_cabang" readonly>
-                </div>
-                <div class="col-12 col-lg-8">
-                  <label>Nama Cabang</label>
-                  <input type="text" class="form-control" v-model="form.create.data.nama_cabang" readonly>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-12 col-lg-6">
-                  <label>Tanggal Form</label>
-                  <input type="date" class="form-control" readonly v-model="form.create.data.tanggal_form">
-                  <small class="text-danger" v-for="(msg, i) in form.create.errors.tanggal_form">
-                    {{ msg }}
-                  </small>
-                </div>
-                <div class="col-12 col-lg-6">
-                  <label>Jam</label>
-                  <input
-                    type="time"
-                    class="form-control"
-                    v-model="form.create.data.jam"
-                    :readonly="$access('formOperasional.formDendaFoto.create', 'automatedTime')"
-                    >
-                  <small class="text-danger" v-for="(msg, i) in form.create.errors.jam">
-                    {{ msg }}
-                  </small>
+              <div class="form-group">
+                <label>Foto</label>
+                <div>
+                  <img :src="'/gambar/' + form.denda.data.gambar_id">
                 </div>
               </div>
               <div class="form-group">
-                <label>Karyawan</label>
-                <select class="form-control" v-model="form.create.data.tugas_karyawan_id">
-                  <option value="null">-- Pilih Karyawan --</option>
-                  <option v-for="(tugas_karyawan, i) in data.tugas_karyawan" :value="tugas_karyawan.id">
-                    {{ tugas_karyawan.karyawan.nip }} - {{ tugas_karyawan.karyawan.nama_karyawan }}
-                  </option>
-                </select>
-                <small class="text-danger" v-for="(msg, i) in form.create.errors.tugas_karyawan_id">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group">
-                <label>Kelompok Foto</label>
-                <select class="form-control" v-model="form.create.data.kelompok_foto_id">
-                  <option value="null">-- Pilih Kelompok Foto --</option>
-                  <option v-for="(kelompok_foto, i) in data.kelompok_foto" :value="kelompok_foto.id">
-                    {{ kelompok_foto.kelompok_foto }}
-                  </option>
-                </select>
-                <small class="text-danger" v-for="(msg, i) in form.create.errors.kelompok_foto_id">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group">
-                <label>Gambar</label>
-                <webcam-component v-model="form.create.data.gambar" ref="webcam"></webcam-component>
-                <small class="text-danger" v-for="(msg, i) in form.create.errors.gambar">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group">
-                <label>Keterangan</label>
-                <textarea class="form-control form-control-sm" v-model="form.create.data.keterangan"></textarea>
-                <small class="text-danger" v-for="(msg, i) in form.create.errors.keterangan">
-                  {{ msg }}
-                </small>
+                <label>Denda</label>
+                <div class="table-responsive">
+                  <table class="table" data-entity="denda">
+                    <thead>
+                      <th>Denda</th>
+                      <th>Nominal</th>
+                      <th>Keterangan</th>
+                      <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(detail, i) in form.denda.data.d">
+                        <td>
+                          <select v-model="detail.denda_foto_id" class="form-control" @change="assignDendaNominalDenda(i)">
+                            <option v-for="denda_foto in data.denda_foto" :value="denda_foto.id">
+                              {{ denda_foto.denda_foto }}
+                            </option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" v-model="detail.nominal">
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" v-model="detail.keterangan">
+                        </td>
+                        <td>
+                          <button class="btn" type="button" @click="removeDendaRowDenda(i)">
+                            <i class="fas fa-trash text-danger"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <button class="btn btn-sm btn-secondary mt-5" type="button" @click="addDendaRowDenda">
+                  + Tambah Denda
+                </button>
               </div>
             </div>
             <div class="modal-footer">
@@ -331,111 +319,117 @@
       </div>
     </div>
     <div class="modal fade"
-      data-entity="formFoto"
-      data-method="update"
+      data-entity="formDendaFoto"
+      data-method="tidakDenda"
       data-backdrop="static"
       data-keyboard="false"
       tabindex="-1"
       v-if="
-        $access('formOperasional.formDendaFoto', 'update') && (
-          $access('formOperasional.formDendaFoto.update', 'timeFree') ||
+        $access('formOperasional.formDendaFoto', 'tidakDenda') && (
+          $access('formOperasional.formDendaFoto.tidakDenda', 'timeFree') ||
           $moment($moment(query.form_foto.tanggal_form)).isBetween(
-            $moment().subtract($access('formOperasional.formDendaFoto.update', 'dateMin')).format('YYYY-MM-DD'),
-            $moment().add($access('formOperasional.formDendaFoto.update', 'dateMax')).format('YYYY-MM-DD'),
+            $moment().subtract($access('formOperasional.formDendaFoto.tidakDenda', 'dateMin')).format('YYYY-MM-DD'),
+            $moment().add($access('formOperasional.formDendaFoto.tidakDenda', 'dateMax')).format('YYYY-MM-DD'),
             undefined,
             '[]'
           )
         )
       ">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog">
         <div class="modal-content">
-          <form @submit.prevent="update">
+          <form @submit.prevent="tidakDenda">
             <div class="modal-header">
-              <h5 class="modal-title">Ubah Form Goreng</h5>
+              <h5 class="modal-title">Tambah Form Denda Foto (Tidak Denda)</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <div class="form-group row">
-                <div class="col-12 col-lg-4">
-                  <label>Kode Cabang</label>
-                  <input type="text" class="form-control" v-model="form.update.data.kode_cabang" readonly>
-                </div>
-                <div class="col-12 col-lg-8">
-                  <label>Nama Cabang</label>
-                  <input type="text" class="form-control" v-model="form.update.data.nama_cabang" readonly>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-12 col-lg-6">
-                  <label>Tanggal Form</label>
-                  <input type="date" class="form-control" readonly v-model="form.update.data.tanggal_form">
-                  <small class="text-danger" v-for="(msg, i) in form.update.errors.tanggal_form">
-                    {{ msg }}
-                  </small>
-                </div>
-                <div class="col-12 col-lg-6">
-                  <label>Jam</label>
-                  <input
-                    type="time"
-                    class="form-control"
-                    v-model="form.update.data.jam"
-                    :readonly="$access('formOperasional.formDendaFoto.update', 'readonlyTime')"
-                    >
-                  <small class="text-danger" v-for="(msg, i) in form.update.errors.jam">
-                    {{ msg }}
-                  </small>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Karyawan</label>
-                <select class="form-control" v-model="form.update.data.tugas_karyawan_id">
-                  <option value="null">-- Pilih Karyawan --</option>
-                  <option v-for="(tugas_karyawan, i) in data.tugas_karyawan" :value="tugas_karyawan.id">
-                    {{ tugas_karyawan.karyawan.nip }} - {{ tugas_karyawan.karyawan.nama_karyawan }}
-                  </option>
-                </select>
-                <small class="text-danger" v-for="(msg, i) in form.update.errors.tugas_karyawan_id">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group">
-                <label>Kelompok Foto</label>
-                <select class="form-control" v-model="form.update.data.kelompok_foto_id">
-                  <option value="null">-- Pilih Kelompok Foto --</option>
-                  <option v-for="(kelompok_foto, i) in data.kelompok_foto" :value="kelompok_foto.id">
-                    {{ kelompok_foto.kelompok_foto }}
-                  </option>
-                </select>
-                <small class="text-danger" v-for="(msg, i) in form.update.errors.kelompok_foto_id">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group" v-if="$access('formOperasional.formDendaFoto.update', 'takePhoto')">
-                <label>Gambar</label>
-                <webcam-component v-model="form.update.data.gambar" ref="webcam"></webcam-component>
-                <small class="text-danger" v-for="(msg, i) in form.update.errors.gambar">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group">
-                <label>Keterangan</label>
-                <textarea class="form-control form-control-sm" v-model="form.update.data.keterangan"></textarea>
-                <small class="text-danger" v-for="(msg, i) in form.update.errors.keterangan">
-                  {{ msg }}
-                </small>
-              </div>
+              <p>Apakah anda yakin bahwa form ini tidak kena denda?</p>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Ubah</button>
+              <button type="submit" class="btn btn-primary" :disabled="form.tidakDenda.loading">
+                <spinner-component size="sm" color="light" v-if="form.tidakDenda.loading"/>
+                Ya
+              </button>
             </div>
           </form>
         </div>
       </div>
     </div>
     <div class="modal fade"
-      data-entity="formFoto"
+      data-entity="formDendaFoto"
+      data-method="update"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      v-if="
+        $access('formOperasional.formDendaFoto', 'update')
+      ">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form @submit.prevent="update">
+            <div class="modal-header">
+              <h5 class="modal-title">Ubah Form Denda Foto</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Foto</label>
+                <div>
+                  <img :src="'/gambar/' + form.update.data.gambar_id">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Denda</label>
+                <div class="table-responsive">
+                  <table class="table" data-entity="update">
+                    <thead>
+                      <th>Denda</th>
+                      <th>Nominal</th>
+                      <th>Keterangan</th>
+                      <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(detail, i) in form.update.data.d">
+                        <td>
+                          <select v-model="detail.denda_foto_id" class="form-control" @change="assignUpdateNominalDenda(i)">
+                            <option v-for="denda_foto in data.denda_foto" :value="denda_foto.id">
+                              {{ denda_foto.denda_foto }}
+                            </option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" v-model="detail.nominal">
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" v-model="detail.keterangan">
+                        </td>
+                        <td>
+                          <button class="btn" type="button" @click="removeUpdateRowDenda(i)">
+                            <i class="fas fa-trash text-danger"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <button class="btn btn-sm btn-secondary mt-5" type="button" @click="addUpdateRowDenda">
+                  + Tambah Denda
+                </button>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Tambah</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade"
+      data-entity="formDendaFoto"
       data-method="destroy"
       data-backdrop="static"
       data-keyboard="false"
@@ -451,28 +445,28 @@
           )
         )
       ">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <form @submit.prevent="destroy">
-              <div class="modal-header">
-                <h5 class="modal-title">Hapus Form Goreng</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Apakah anda yakin?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
-                  <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
-                  Hapus
-                </button>
-              </div>
-            </form>
-          </div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form @submit.prevent="destroy">
+            <div class="modal-header">
+              <h5 class="modal-title">Hapus Form Goreng</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Apakah anda yakin?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
+                <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
+                Hapus
+              </button>
+            </div>
+          </form>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -488,20 +482,25 @@ export default {
         cabang: [],
         form_foto: [],
         tugas_karyawan: [],
-        kelompok_foto: []
+        kelompok_foto: [],
+        denda_foto: []
       },
       form: {
-        create: {
+        denda: {
           data: {
-            kode_cabang: '',
-            nama_cabang: '',
-            tanggal_form: '',
-            jam: '',
-            tugas_karyawan_id: null,
+            form_foto_id: null,
             kelompok_foto_id: null,
             kelompok_foto: '',
             keterangan: '',
-            gambar: ''
+            gambar_id: null,
+            d: []
+          },
+          errors: {},
+          loading: false,
+        },
+        tidakDenda: {
+          data: {
+            form_foto_id: null
           },
           errors: {},
           loading: false
@@ -509,18 +508,15 @@ export default {
         update: {
           data: {
             id: null,
-            kode_cabang: '',
-            nama_cabang: '',
-            tanggal_form: '',
-            jam: '',
-            tugas_karyawan_id: null,
+            form_foto_id: null,
             kelompok_foto_id: null,
             kelompok_foto: '',
             keterangan: '',
-            gambar: ''
+            gambar_id: null,
+            d: []
           },
           errors: {},
-          loading: false
+          loading: false,
         },
         destroy: {
           data: {
@@ -550,7 +546,12 @@ export default {
       },
       interval: {
         form: {
-          create: {
+          denda: {
+            data: {
+              jam: null
+            }
+          },
+          tidakDenda: {
             data: {
               jam: null
             }
@@ -576,13 +577,17 @@ export default {
   mounted() {
     this.setDateWatcher()
 
-    if (this.$access('formOperasional.formDendaFoto', 'create') && this.$access('formOperasional.formDendaFoto.create', 'automatedTime')) {
-      this.setCreateClockInterval()
+    if (this.$access('formOperasional.formDendaFoto', 'denda') && this.$access('formOperasional.formDendaFoto.denda', 'automatedTime')) {
+      this.setDendaClockInterval()
+    }
+    if (this.$access('formOperasional.formDendaFoto', 'tidakDenda') && this.$access('formOperasional.formDendaFoto.tidakDenda', 'automatedTime')) {
+      this.setDendaClockInterval()
     }
   },
   beforeDestroy() {
     clearInterval(this.interval.utils.date)
-    clearInterval(this.interval.form.create.data.jam)
+    clearInterval(this.interval.form.denda.data.jam)
+    clearInterval(this.interval.form.tidakDenda.data.jam)
   },
 
   watch: {
@@ -672,73 +677,88 @@ export default {
     fetchKelompokFoto() {
       return this.$axios.get('/ajax/v1/master/kelompok_foto')
     },
+    fetchDendaFoto(id) {
+      return this.$axios.get('/ajax/v1/master/denda_foto/parent/' + id)
+    },
 
     /**
      *  Modal functionality & utils
      */
-    showCreateModal() {
-      Promise.all([
-        this.fetchTugasKaryawan(this.query.form_foto.cabang_id, this.query.form_foto.tanggal_penugasan),
-        this.fetchKelompokFoto()
-      ])
-        .then(res => {
-          this.data.tugas_karyawan = res[0].data.container
-          this.data.kelompok_foto = res[1].data.container
-
-          this.form.create.data.tanggal_form = this.query.form_foto.tanggal_form
-          let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_foto.cabang_id)})
-          this.form.create.data.kode_cabang = currentCabang.kode_cabang
-          this.form.create.data.nama_cabang = currentCabang.cabang
-
-          $('[data-entity="formFoto"][data-method="create"]').modal('show')
-        })
-        .catch(err => {})
-    },
-    showUpdateModal(id) {
-      this.form.update.data = {}
+    showDendaModal(id) {
       this.$axios.get('/ajax/v1/form_operasional/form_foto/' + id)
         .then(res => {
-          let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_foto.cabang_id)})
-          this.form.update.data = {
-            id: id,
-            kode_cabang: currentCabang.kode_cabang,
-            nama_cabang: currentCabang.cabang,
-            tanggal_form: this.query.form_foto.tanggal_form,
-            jam: res.data.container.jam,
-            tugas_karyawan_id: res.data.container.tugas_karyawan_id,
-            kelompok_foto_id: res.data.container.kelompok_foto_id,
-            keterangan: res.data.container.keterangan
+          let data = res.data.container
+          this.form.denda.data = {
+            form_foto_id: data.id,
+            kelompok_foto: data.kelompok_foto.kelompok_foto,
+            kelompok_foto_id: data.kelompok_foto_id,
+            gambar_id: data.gambar_id,
+            d: []
           }
           Promise.all([
-            this.fetchTugasKaryawan(this.query.form_foto.cabang_id, this.query.form_foto.tanggal_penugasan),
-            this.fetchKelompokFoto()
+            this.fetchDendaFoto(this.form.denda.data.kelompok_foto_id)
           ])
             .then(res => {
-              this.data.tugas_karyawan = res[0].data.container
-              this.data.kelompok_foto = res[1].data.container
+              this.data.denda_foto = res[0].data.container
 
-              $('[data-entity="formFoto"][data-method="update"]').modal('show')
+              $('[data-entity="formDendaFoto"][data-method="denda"]').modal('show')
             })
-            .catch(err => {})
         })
-        .catch(err => {})
+    },
+    showTidakDendaModal(id) {
+      this.$axios.get('/ajax/v1/form_operasional/form_foto/' + id)
+        .then(res => {
+          let data = res.data.container
+          this.form.tidakDenda.data = {
+            form_foto_id: data.id
+          }
+          $('[data-entity="formDendaFoto"][data-method="tidakDenda"]').modal('show')
+        })
+    },
+    showUpdateModal(id) {
+      this.$axios.get('/ajax/v1/form_operasional/form_foto/' + id)
+        .then(res => {
+          let data = res.data.container
+          this.form.update.data = {
+            id: data.form_denda_foto.id,
+            form_foto_id: data.id,
+            kelompok_foto: data.kelompok_foto.kelompok_foto,
+            kelompok_foto_id: data.kelompok_foto_id,
+            gambar_id: data.gambar_id,
+            d: data.form_denda_foto.d
+          }
+          console.log(data.form_denda_foto.d)
+          Promise.all([
+            this.fetchDendaFoto(this.form.update.data.kelompok_foto_id)
+          ])
+            .then(res => {
+              this.data.denda_foto = res[0].data.container
+
+              $('[data-entity="formDendaFoto"][data-method="update"]').modal('show')
+            })
+        })
     },
     showDestroyModal(id) {
       this.form.destroy.data.id = id
-      $('[data-entity="formFoto"][data-method="destroy"]').modal('show')
+      $('[data-entity="formDendaFoto"][data-method="destroy"]').modal('show')
     },
-    hideCreateModal() {
-      $('[data-entity="formFoto"][data-method="create"]').modal('hide')
+    hideDendaModal() {
+      $('[data-entity="formDendaFoto"][data-method="denda"]').modal('hide')
     },
-    hideUpdateModal() {
-      $('[data-entity="formFoto"][data-method="update"]').modal('hide')
+    hideTidakDendaModal() {
+      $('[data-entity="formDendaFoto"][data-method="tidakDenda"]').modal('hide')
     },
     hideDestroyModal() {
-      $('[data-entity="formFoto"][data-method="destroy"]').modal('hide')
+      $('[data-entity="formDendaFoto"][data-method="destroy"]').modal('hide')
     },
-    setCreateClockInterval() {
-      this.interval.form.create.data.jam = setInterval(function () {
-        this.form.create.data.jam = this.$moment().format('HH:mm:ss')
+    setDendaClockInterval() {
+      this.interval.form.denda.data.jam = setInterval(function () {
+        this.form.denda.data.jam = this.$moment().format('HH:mm:ss')
+      }.bind(this), 1000)
+    },
+    setTidakDendaClockInterval() {
+      this.interval.form.tidakDenda.data.jam = setInterval(function () {
+        this.form.denda.data.jam = this.$moment().format('HH:mm:ss')
       }.bind(this), 1000)
     },
     setDateWatcher() {
@@ -774,15 +794,15 @@ export default {
           }
         }
       }
-      // Handle date change on create action
-      if (this.$access('formOperasional.formDendaFoto', 'create')) {
-        if (this.$access('formOperasional.formDendaFoto.create', 'timeFree')) {
+      // Handle date change on denda action
+      if (this.$access('formOperasional.formDendaFoto', 'denda')) {
+        if (this.$access('formOperasional.formDendaFoto.denda', 'timeFree')) {
 
         } else {
           if (
             this.$moment(this.utils.date).isBetween(
-              this.$moment().subtract(this.$access('formOperasional.formDendaFoto.create', 'dateMin')).format('YYYY-MM-DD'),
-              this.$moment().add(this.$access('formOperasional.formDendaFoto.create', 'dateMax')).format('YYYY-MM-DD'),
+              this.$moment().subtract(this.$access('formOperasional.formDendaFoto.denda', 'dateMin')).format('YYYY-MM-DD'),
+              this.$moment().add(this.$access('formOperasional.formDendaFoto.denda', 'dateMax')).format('YYYY-MM-DD'),
               undefined,
               '[]'
             )
@@ -832,58 +852,82 @@ export default {
         }
       } 
     },
+    addDendaRowDenda() {
+      this.form.denda.data.d.push({
+        denda_id: null,
+        nominal: 0,
+        keterangan: ''
+      })
+    },
+    removeDendaRowDenda(i) {
+      this.form.denda.data.d.splice(i, 1)
+    },
+    assignDendaNominalDenda(i) {
+      let denda_foto_id = this.form.denda.data.d[i].denda_foto_id
+      let selected = this.$_.findWhere(this.data.denda_foto, {id: denda_foto_id})
+
+      this.form.denda.data.d[i].nominal = selected.nominal
+    },
+    addUpdateRowDenda() {
+      this.form.update.data.d.push({
+        denda_id: null,
+        nominal: 0,
+        keterangan: ''
+      })
+    },
+    removeUpdateRowDenda(i) {
+      this.form.update.data.d.splice(i, 1)
+    },
+    assignUpdateNominalDenda(i) {
+      let denda_foto_id = this.form.update.data.d[i].denda_foto_id
+      let selected = this.$_.findWhere(this.data.denda_foto, {id: denda_foto_id})
+
+      this.form.update.data.d[i].nominal = selected.nominal
+    },
 
     /**
      *  Form request handler
      */
-    create() {
-      this.form.create.loading = true
-      this.form.create.errors = {}
-      this.$axios.post('/ajax/v1/form_operasional/form_foto', this.form.create.data)
+    denda() {
+      this.form.denda.loading = true
+      this.form.denda.errors = {}
+      this.$axios.post('/ajax/v1/form_operasional/form_denda_foto/denda', this.form.denda.data)
         .then(res => {
-          this.form.create.data = {
-            kode_cabang: '',
-            nama_cabang: '',
-            tanggal_form: '',
-            jam: '',
-            tugas_karyawan_id: null,
-            kelompok_foto_id: null,
-            kelompok_foto: '',
-            keterangan: '',
-            gambar: ''
-          }
           this.queryData(false)
-          this.$refs.webcam.reset()
-          this.hideCreateModal()
+          this.hideDendaModal()
         })
         .catch(err => {
           if (err.response.status == 422) {
-            this.form.create.errors = err.response.data.errors
+            this.form.denda.errors = err.response.data.errors
           }
         })
         .finally(() => {
-          this.form.create.loading = false
+          this.form.denda.loading = false
+        })
+    },
+    tidakDenda() {
+      this.form.tidakDenda.loading = true
+      this.form.tidakDenda.errors = {}
+      this.$axios.post('/ajax/v1/form_operasional/form_denda_foto/tidak_denda', this.form.tidakDenda.data)
+        .then(res => {
+          this.queryData(false)
+          this.hideTidakDendaModal()
+        })
+        .catch(err => {
+          if (err.response.status == 422) {
+            this.form.tidakDenda.errors = err.response.data.errors
+          }
+        })
+        .finally(() => {
+          this.form.tidakDenda.loading = false
         })
     },
     update() {
       this.form.update.loading = true
       this.form.update.errors = {}
-      this.$axios.put('/ajax/v1/form_operasional/form_foto', this.form.update.data)
+      this.$axios.put('/ajax/v1/form_operasional/form_denda_foto', this.form.update.data)
         .then(res => {
-          this.form.update.data = {
-            id: null,
-            kode_cabang: '',
-            nama_cabang: '',
-            tanggal_form: '',
-            jam: '',
-            tugas_karyawan_id: null,
-            kelompok_foto_id: null,
-            kelompok_foto: '',
-            keterangan: '',
-            gambar: ''
-          }
           this.queryData(false)
-          this.$refs.webcam.reset()
           this.hideUpdateModal()
         })
         .catch(err => {
@@ -898,9 +942,8 @@ export default {
     destroy() {
       this.form.destroy.loading = true
       this.form.destroy.errors = {}
-      this.$axios.delete('/ajax/v1/form_operasional/form_foto', { data: this.form.destroy.data })
+      this.$axios.delete('/ajax/v1/form_operasional/form_denda_foto', { data: this.form.destroy.data })
         .then(res => {
-          this.form.destroy.data.id = null
           this.queryData(false)
           this.hideDestroyModal()
         })
