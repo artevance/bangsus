@@ -313,7 +313,7 @@ class ImporJadwal extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    if ($request->input('reset')) {
+    if ($request->boolean('reset')) {
       foreach ($dates as $date) {
         AbsensiModel::whereHas('tugas_karyawan', function ($q) use ($cabangID) {
           $q->where('cabang_id', $cabangID);
