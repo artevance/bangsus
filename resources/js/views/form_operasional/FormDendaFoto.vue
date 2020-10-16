@@ -97,6 +97,9 @@
               <div class="alert alert-danger">
                 Fitur ini masih dalam pengembangan. Jangan dipakai dulu.
               </div>
+              <button class="btn btn-primary" @click="showGenerateModal">
+                Generate Denda
+              </button>
               <div class="mt-5">
                 <div class="card" v-for="(form_foto, i) in data.form_foto">
                   <div class="card-header" data-toggle="collapse" :data-target="'#form_foto_' + form_foto.id" aria-expanded="true" aria-controls="collapseOne">
@@ -449,7 +452,7 @@
         <div class="modal-content">
           <form @submit.prevent="destroy">
             <div class="modal-header">
-              <h5 class="modal-title">Hapus Form Goreng</h5>
+              <h5 class="modal-title">Hapus Form Denda Foto</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -461,6 +464,51 @@
               <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
                 <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
                 Hapus
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade"
+      data-entity="formDendaFoto"
+      data-method="generate"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form @submit.prevent="generate">
+            <div class="modal-header">
+              <h5 class="modal-title">Generate Form Denda Foto</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-hover">
+                <thead>
+                  <th>Kelompok Foto</th>
+                  <th>Qty Min</th>
+                  <th>Qty Toleransi</th>
+                </thead>
+                <tbody>
+                  <template v-for="(detail, i) in form.generate.data.detail">
+                    <tr v-if="detail.denda_tidak_kirim">
+                      <td>{{ detail.kelompok_foto }}</td>
+                      <td>{{ detail.pengaturan_kelompok_foto.qty_minimum_form }}</td>
+                      <td>
+                        <input type="number" class="form-control" v-model="detail.qty_toleransi">
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" :disabled="form.generate.loading">
+                <spinner-component size="sm" color="light" v-if="form.generate.loading"/>
+                Generate
               </button>
             </div>
           </form>
@@ -521,6 +569,14 @@ export default {
         destroy: {
           data: {
             id: null
+          },
+          errors: {},
+          loading: false
+        },
+        generate: {
+          data: {
+            tanggal_form: '',
+            detail: []
           },
           errors: {},
           loading: false
@@ -742,6 +798,26 @@ export default {
       this.form.destroy.data.id = id
       $('[data-entity="formDendaFoto"][data-method="destroy"]').modal('show')
     },
+    showGenerateModal() {
+      Promise.all([
+        this.fetchKelompokFoto()
+      ])
+        .then(res => {
+          this.data.kelompok_foto = res[0].data.container
+
+          this.form.generate.data = {
+            cabang_id: this.$route.query.cabang_id,
+            tanggal_form: this.$route.query.tanggal_form,
+            detail: this.data.kelompok_foto
+          }
+
+          this.form.generate.data.detail.forEach((item, i) => {
+            this.form.generate.data.detail[i].qty_toleransi = 0
+          })
+
+          $('[data-entity="formDendaFoto"][data-method="generate"]').modal('show')
+        })
+    },
     hideDendaModal() {
       $('[data-entity="formDendaFoto"][data-method="denda"]').modal('hide')
     },
@@ -753,6 +829,9 @@ export default {
     },
     hideDestroyModal() {
       $('[data-entity="formDendaFoto"][data-method="destroy"]').modal('hide')
+    },
+    hideGenerateModal() {
+      $('[data-entity="formDendaFoto"][data-method="generate"]').modal('hide')
     },
     setDendaClockInterval() {
       this.interval.form.denda.data.jam = setInterval(function () {
@@ -955,6 +1034,19 @@ export default {
           this.form.destroy.loading = false
         })
     },
+    generate() {
+      this.form.generate.loading = true
+      this.form.generate.errors = {}
+      this.$axios.put('/ajax/v1/form_operasional/form_denda_foto/generate', this.form.generate.data)
+        .then(res => {
+          this.queryData(false)
+          this.hideGenerateModal()
+        })
+        .catch(err => {})
+        .finally(() => {
+          this.form.generate.loading = false
+        })
+    }
   }
 }
 </script>
