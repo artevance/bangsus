@@ -32,7 +32,7 @@ class FormFoto extends Model
 
   public function form_denda_foto()
   {
-    return $this->hasOne('App\Http\Models\FormDendaFoto');
+    return $this->hasOne('App\Http\Models\FormDendaFoto')->with('d');
   }
 
   public function cabang()

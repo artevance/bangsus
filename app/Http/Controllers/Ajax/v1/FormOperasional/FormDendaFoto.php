@@ -54,6 +54,8 @@ class FormDendaFoto extends Controller
       $formDendaFotoDModel->user_id = $request->user()->id;
       $formDendaFotoDModel->save();
     }
+
+    return [$request->user()->id];
   }
 
   public function storeTidakDenda(Request $request)
@@ -71,6 +73,8 @@ class FormDendaFoto extends Controller
     $formDendaFotoModel->keterangan = '';
     $formDendaFotoModel->user_id = $request->user()->id;
     $formDendaFotoModel->save();
+
+    return [$request->user()->id];
   }
 
   public function amend(Request $request)
@@ -78,22 +82,17 @@ class FormDendaFoto extends Controller
     $request->validate([
       'id' => 'required|exists:form_denda_foto,id',
       'd.*.denda_foto_id' => [
-        'nullable',
-        Rule::exists('denda_foto', 'id')->where(function ($query) use ($request) {
-          $model = FormFotoModel::find($request->input('form_foto_id'));
-          $kelompokFotoID = is_null($model)
-            ? 0
-            : $model->kelompok_foto_id;
-          $query->where('kelompok_foto_id', 1);
-        })
+        'required',
+        'exists:denda_foto,id'
       ],
-      'd.*.nominal' => 'nullable|numeric',
-      'd.*.keterangan.*' => 'nullable|max:200'
+      'd.*.nominal' => 'required|numeric',
+      'd.*.keterangan' => 'required|max:200'
     ]);
 
     $formDendaFotoModel = FormDendaFotoModel::find($request->input('id'));
     $formDendaFotoModel->tanggal_form = date('Y-m-d');
     $formDendaFotoModel->jam = date('H:i:s');
+    $formDendaFotoModel->keterangan = '';
     $formDendaFotoModel->user_id = $request->user()->id;
     $formDendaFotoModel->save();
 
@@ -108,6 +107,8 @@ class FormDendaFoto extends Controller
       $formDendaFotoDModel->user_id = $request->user()->id;
       $formDendaFotoDModel->save();
     }
+
+    return [$request->user()->id];
   }
 
   public function destroy(Request $request)

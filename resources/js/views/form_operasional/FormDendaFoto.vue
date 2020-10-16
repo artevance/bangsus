@@ -208,7 +208,7 @@
                                           class="badge
                                           badge-warning"
                                           data-toggle="modal"
-                                          @click="showUpdateModal(form_foto.form_denda_foto.id)"
+                                          @click="showUpdateModal(form_foto.id)"
                                           v-if="
                                             $access('formOperasional.formDendaFoto', 'update') && (
                                               $access('formOperasional.formDendaFoto.update', 'timeFree') ||
@@ -393,19 +393,19 @@
                       <th>Aksi</th>
                     </thead>
                     <tbody>
-                      <tr v-for="(detail, i) in form.update.data.d">
+                      <tr v-for="(updateDetail, i) in form.update.data.d">
                         <td>
-                          <select v-model="detail.denda_foto_id" class="form-control" @change="assignUpdateNominalDenda(i)">
+                          <select v-model="updateDetail.denda_foto_id" class="form-control" @change="assignUpdateNominalDenda(i)">
                             <option v-for="denda_foto in data.denda_foto" :value="denda_foto.id">
                               {{ denda_foto.denda_foto }}
                             </option>
                           </select>
                         </td>
                         <td>
-                          <input type="number" class="form-control" v-model="detail.nominal">
+                          <input type="number" class="form-control" v-model="updateDetail.nominal">
                         </td>
                         <td>
-                          <input type="text" class="form-control" v-model="detail.keterangan">
+                          <input type="text" class="form-control" v-model="updateDetail.keterangan">
                         </td>
                         <td>
                           <button class="btn" type="button" @click="removeUpdateRowDenda(i)">
@@ -422,7 +422,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Tambah</button>
+              <button type="submit" class="btn btn-primary">Ubah</button>
             </div>
           </form>
         </div>
@@ -747,6 +747,9 @@ export default {
     },
     hideTidakDendaModal() {
       $('[data-entity="formDendaFoto"][data-method="tidakDenda"]').modal('hide')
+    },
+    hideUpdateModal() {
+      $('[data-entity="formDendaFoto"][data-method="update"]').modal('hide')
     },
     hideDestroyModal() {
       $('[data-entity="formDendaFoto"][data-method="destroy"]').modal('hide')
