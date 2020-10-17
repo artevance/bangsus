@@ -43,7 +43,7 @@ class LaporanAbsensi
         if ( ! is_null($d)) $d = $d->toArray();
 
         if (is_array($d)) {
-          $latetimestamp = strtotime($d['jam_absen']) >= strtotime($d['jam_jadwal'])
+          $latetimestamp = strtotime($d['jam_absen']) > strtotime($d['jam_jadwal']) && ! is_null($d['jam_jadwal'])
             ? strtotime($d['jam_absen']) - strtotime($d['jam_jadwal'])
             : 0;
           $d['jam_keterlambatan'] = $latetimestamp > 0
