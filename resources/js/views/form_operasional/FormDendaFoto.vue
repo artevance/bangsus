@@ -94,9 +94,6 @@
                   </div>
                 </div>
               </div>
-              <div class="alert alert-danger">
-                Fitur ini masih dalam pengembangan. Jangan dipakai dulu.
-              </div>
               <button class="btn btn-primary" @click="showGenerateModal">
                 Generate Denda
               </button>
@@ -110,7 +107,7 @@
                         <p v-if="form_foto.tidak_kirim == 0">
                           {{ form_foto.tugas_karyawan.karyawan.nip }} - <b>{{ form_foto.tugas_karyawan.karyawan.nama_karyawan }}</b>
                         </p>
-                        <span v-else>TIDAK KIRIM</span>
+                        <p v-else>TIDAK KIRIM</p>
                         <span class="text-danger" v-if="form_foto.form_denda_foto == null">
                           BELUM DIPERIKSA
                         </span>
