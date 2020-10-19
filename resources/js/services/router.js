@@ -562,6 +562,13 @@ const routes = [
                 meta: { layout: 'default', title: 'Laporan Form Aktivitas Marketing', sidebar: 'reportCenter' },
                 beforeEnter: Multiguard([middleware.auth, middleware.access]),
               },
+              {
+                path: 'laporan_form_denda_foto',
+                name: 'reportCenter.laporanFormOperasional.laporanFormDendaFoto',
+                component: require('../views/report_center/laporan_form_operasional/LaporanFormDendaFoto').default,
+                meta: { layout: 'default', title: 'Laporan Form Denda Foto', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
             ]
           }
         ]

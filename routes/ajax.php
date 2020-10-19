@@ -455,6 +455,9 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::prefix('laporan_form_aktivitas_marketing')->group(function () {
           Route::get('', 'LaporanFormAktivitasMarketing@index');
         });
+        Route::prefix('laporan_form_denda_foto')->group(function () {
+          Route::get('', 'LaporanFormDendaFoto@index');
+        });
       });
     });
   });
