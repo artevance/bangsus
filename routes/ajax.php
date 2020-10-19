@@ -413,6 +413,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::get('', 'FormLaporanCabang@index');
         Route::get('cabang', 'FormLaporanCabang@branch');
         Route::get('{id}', 'FormLaporanCabang@get');
+        Route::get('file/{id}', 'FormLaporanCabang@getFile');
         Route::post('', 'FormLaporanCabang@store');
         Route::put('', 'FormLaporanCabang@amend');
         Route::delete('', 'FormLaporanCabang@destroy');

@@ -21,4 +21,9 @@ class FormLaporanCabang extends Model
   {
     return $this->belongsTo('App\Http\Models\Cabang');
   }
+
+  public function file_laporan_cabang()
+  {
+    return $this->hasMany('App\Http\Models\FileLaporanCabang');
+  }
 }

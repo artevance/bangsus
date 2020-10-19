@@ -49,11 +49,18 @@
                     <thead>
                       <th>#</th>
                       <th>Keterangan</th>
+                      <th>File</th>
                     </thead>
                     <tbody>
                       <tr v-for="(form_laporan_cabang, i) in data.form_laporan_cabang">
                         <td>{{ i + 1 }}</td>
                         <td>{{ form_laporan_cabang.keterangan }}</td>
+                      <td>
+                        <a :href="'/ajax/v1/form_operasional/form_laporan_cabang/file/' + form_laporan_cabang.id" target="_blank"
+                        >
+                          Download
+                        </a>
+                      </td>
                       </tr>
                     </tbody>
                   </table>

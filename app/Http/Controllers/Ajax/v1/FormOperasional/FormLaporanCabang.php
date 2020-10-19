@@ -39,6 +39,16 @@ class FormLaporanCabang extends Controller
     return $this->data(FormLaporanCabangModel::find($id))->response(200);
   }
 
+  public function getFile(Request $request, $id) // WIP
+  {
+    if (is_null(FormLaporanCabangModel::find($id))) return $this->response(404);
+
+    $model = FormLaporanCabangModel::find($id);
+    $file = public_path() . '/' . $model->file_laporan_cabang[0]->dir;
+
+    return response()->download($file);
+  }
+
   public function store(Request $request)
   {
     $v = Validator::make($request->only(
