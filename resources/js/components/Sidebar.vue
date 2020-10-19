@@ -89,6 +89,7 @@ export default {
                 { title: 'Kelompok Laporan Foto', index: 'kelompokLaporanFoto', to: 'master.kelompokLaporanFoto' },
                 { title: 'Aktivitas Marketing', index: 'aktivitasMarketing', to: 'master.aktivitasMarketing' },
                 { title: 'Item Marketing', index: 'itemMarketing', to: 'master.itemMarketing' },
+                { title: 'Barang', index: 'barang', to: 'master.barang' },
               ]
             },
             { icon: 'far fa-users', title: 'Karyawan', index: 'karyawan', to: 'karyawan' },

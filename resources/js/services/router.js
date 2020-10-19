@@ -251,6 +251,13 @@ const routes = [
             meta: { layout: 'default', title: 'Item Marketing', sidebar: 'master', item: 'itemMarketing' },
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
+          { 
+            path: 'barang',
+            name: 'master.barang',
+            component: require('../views/master/Barang').default,
+            meta: { layout: 'default', title: 'Barang', sidebar: 'master', item: 'barang' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
         ]
       },
       {

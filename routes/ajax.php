@@ -223,6 +223,12 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::post('', 'ItemMarketing@store');
         Route::put('', 'ItemMarketing@amend');
       });
+      Route::prefix('barang')->group(function () {
+        Route::get('', 'Barang@index');
+        Route::get('{id}', 'Barang@get');
+        Route::post('', 'Barang@store');
+        Route::put('', 'Barang@amend');
+      });
     });
     Route::prefix('karyawan')->group(function () {
       Route::get('', 'Karyawan@index');

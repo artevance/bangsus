@@ -195,6 +195,12 @@ export default {
         read: false,
         update: false
       },
+      barang: {
+        access: true,
+        create: true,
+        read: true,
+        update: true
+      },
     }
   },
   karyawan: {
