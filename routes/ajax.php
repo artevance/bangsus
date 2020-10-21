@@ -424,6 +424,14 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::put('', 'FormLaporanCabang@amend');
         Route::delete('', 'FormLaporanCabang@destroy');
       });
+      Route::prefix('purchase_order')->group(function () {
+        Route::get('', 'PurchaseOrder@index');
+        Route::get('cabang_harian', 'PurchaseOrder@dailyBranch');
+        Route::get('{id}', 'PurchaseOrder@get');
+        Route::post('', 'PurchaseOrder@store');
+        Route::put('', 'PurchaseOrder@amend');
+        Route::delete('', 'PurchaseOrder@destroy');
+      });
     });
     Route::prefix('report_center')->namespace('ReportCenter')->group(function () {
       Route::prefix('laporan_absensi')->namespace('LaporanAbsensi')->group(function () {

@@ -833,6 +833,12 @@ export default {
         read: true,
         update: true,
         delete: true
+      },
+      purchaseOrder: {
+        access: true
+      },
+      stokOpname: {
+        access: true
       }
     }
   },

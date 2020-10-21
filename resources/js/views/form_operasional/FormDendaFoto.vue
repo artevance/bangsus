@@ -491,7 +491,7 @@
                 </thead>
                 <tbody>
                   <template v-for="(detail, i) in form.generate.data.detail">
-                    <tr v-if="detail.denda_tidak_kirim">
+                    <tr v-if="detail.denda_tidak_kirim && detail.pengaturan_kelompok_foto != null">
                       <td>{{ detail.kelompok_foto }}</td>
                       <td>{{ detail.pengaturan_kelompok_foto.qty_minimum_form }}</td>
                       <td>

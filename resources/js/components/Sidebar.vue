@@ -26,7 +26,7 @@
               <div class="collapse" v-bind:id="item.href" :class="{'show': $route.meta.sidebar === item.index}">
                 <ul class="nav sub-menu">
                   <li class="nav-item" v-for="link in item.children">
-                    <router-link class="nav-link" :class="{'active': $route.meta.item === link.index}" :to="{ name: link.to }" @click.native="clickSidebar" v-if="$access(link.to, 'access')">
+                    <router-link class="nav-link" :class="{'active': $route.meta.item === link.index, 'disabled': link.disabled}" :to="{ name: link.to }" @click.native="clickSidebar" v-if="$access(link.to, 'access')">
                       {{ link.title }}
                     </router-link>
                   </li>
@@ -113,6 +113,8 @@ export default {
                 { title: 'Form Pemberian Tugas', index: 'formPemberianTugas', to: 'formOperasional.formPemberianTugas' },
                 { title: 'Form Pengumpulan Tugas', index: 'formPengumpulanTugas', to: 'formOperasional.formPengumpulanTugas' },
                 { title: 'Form Laporan Cabang', index: 'formLaporanCabang', to: 'formOperasional.formLaporanCabang' },
+                { title: 'Purchase Order', index: 'purchaseOrder', to: 'formOperasional.purchaseOrder' },
+                { title: 'Stok Opname', index: 'stokOpname', to: 'formOperasional.stokOpname', disabled: true },
               ]
             },
             { icon: 'far fa-chart-pie', title: 'Report Center', index: 'reportCenter', to: 'reportCenter' },
