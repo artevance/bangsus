@@ -92,10 +92,10 @@ class LaporanAbsensi extends Controller
 
         if (is_array($d['absensi'])) {
           foreach ($d['absensi'] as $absensi) {
-            $row[] = ! is_null($absensi) ? '\'' . $absensi['jam_jadwal'] : '';
-            $row[] = ! is_null($absensi) ? '\'' . $absensi['jam_absen'] : '';
-            $row[] = ! is_null($absensi) ? '\'' . $absensi['jam_keterlambatan'] : '';
-            $row[] = ! is_null($absensi) ? '\'' . $absensi['denda'] : '';
+            $row[] = ! is_null($absensi) ? $absensi['jam_jadwal'] : '';
+            $row[] = ! is_null($absensi) ? $absensi['jam_absen'] : '';
+            $row[] = ! is_null($absensi) ? $absensi['jam_keterlambatan'] : '';
+            $row[] = ! is_null($absensi) ? $absensi['denda'] : '';
           }
         }
         $row[] = $d['total_presensi'];
