@@ -5,7 +5,7 @@
     </a>
     <div class="navbar-content">
       <ul class="navbar-nav">
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="flag-icon flag-icon-us mt-1" title="us"></i> <span class="font-weight-medium ml-1 mr-1">English</span>
           </a>
@@ -178,7 +178,7 @@
               <a href="javascript:;">View all</a>
             </div>
           </div>
-        </li>
+        </li> -->
         <li class="nav-item dropdown nav-profile">
           <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="https://via.placeholder.com/30x30" alt="profile">
