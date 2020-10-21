@@ -120,49 +120,51 @@
                     <th>Aksi</th>
                   </thead>
                   <tbody>
-                    <tr v-for="(form_foto, i) in data.form_foto">
-                      <td>{{ i + 1 }}</td>
-                      <td>{{ form_foto.tugas_karyawan == null ? '-' : form_foto.tugas_karyawan.karyawan.nip }}</td>
-                      <td>{{ form_foto.tugas_karyawan == null ? '-' : form_foto.tugas_karyawan.karyawan.nama_karyawan }}</td>
-                      <td>{{ form_foto.jam }}</td>
-                      <td>
-                        <a :href="'/gambar/' + form_foto.gambar_id" target="_blank">Lihat Foto</a>
-                      </td>
-                      <td>
-                        <a class="badge badge-warning"
-                          @click="showUpdateModal(form_foto.id)"
-                          href="#"
-                          v-if="
-                            $access('formOperasional.formFoto', 'update') && (
-                              $access('formOperasional.formFoto.update', 'timeFree') ||
-                              $moment($moment(query.form_foto.tanggal_form)).isBetween(
-                                $moment(utils.date).subtract($access('formOperasional.formFoto.update', 'dateMin')).format('YYYY-MM-DD'),
-                                $moment(utils.date).add($access('formOperasional.formFoto.update', 'dateMax')).format('YYYY-MM-DD'),
-                                undefined,
-                                '[]'
+                    <template v-for="(form_foto, i) in data.form_foto">
+                      <tr v-if="!form_foto.tidak_kirim">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ form_foto.tugas_karyawan == null ? '-' : form_foto.tugas_karyawan.karyawan.nip }}</td>
+                        <td>{{ form_foto.tugas_karyawan == null ? '-' : form_foto.tugas_karyawan.karyawan.nama_karyawan }}</td>
+                        <td>{{ form_foto.jam }}</td>
+                        <td>
+                          <a :href="'/gambar/' + form_foto.gambar_id" target="_blank">Lihat Foto</a>
+                        </td>
+                        <td>
+                          <a class="badge badge-warning"
+                            @click="showUpdateModal(form_foto.id)"
+                            href="#"
+                            v-if="
+                              $access('formOperasional.formFoto', 'update') && (
+                                $access('formOperasional.formFoto.update', 'timeFree') ||
+                                $moment($moment(query.form_foto.tanggal_form)).isBetween(
+                                  $moment(utils.date).subtract($access('formOperasional.formFoto.update', 'dateMin')).format('YYYY-MM-DD'),
+                                  $moment(utils.date).add($access('formOperasional.formFoto.update', 'dateMax')).format('YYYY-MM-DD'),
+                                  undefined,
+                                  '[]'
+                                )
                               )
-                            )
-                          ">
-                          Ubah
-                        </a>
-                        <a class="badge badge-danger"
-                          @click="showDestroyModal(form_foto.id)"
-                          href="#"
-                          v-if="
-                            $access('formOperasional.formFoto', 'destroy') && (
-                              $access('formOperasional.formFoto.destroy', 'timeFree') ||
-                              $moment($moment(query.form_foto.tanggal_form)).isBetween(
-                                $moment(utils.date).subtract($access('formOperasional.formFoto.destroy', 'dateMin')).format('YYYY-MM-DD'),
-                                $moment(utils.date).add($access('formOperasional.formFoto.destroy', 'dateMax')).format('YYYY-MM-DD'),
-                                undefined,
-                                '[]'
+                            ">
+                            Ubah
+                          </a>
+                          <a class="badge badge-danger"
+                            @click="showDestroyModal(form_foto.id)"
+                            href="#"
+                            v-if="
+                              $access('formOperasional.formFoto', 'destroy') && (
+                                $access('formOperasional.formFoto.destroy', 'timeFree') ||
+                                $moment($moment(query.form_foto.tanggal_form)).isBetween(
+                                  $moment(utils.date).subtract($access('formOperasional.formFoto.destroy', 'dateMin')).format('YYYY-MM-DD'),
+                                  $moment(utils.date).add($access('formOperasional.formFoto.destroy', 'dateMax')).format('YYYY-MM-DD'),
+                                  undefined,
+                                  '[]'
+                                )
                               )
-                            )
-                          ">
-                          Hapus
-                        </a>
-                      </td>
-                    </tr>
+                            ">
+                            Hapus
+                          </a>
+                        </td>
+                      </tr>
+                    </template>
                   </tbody>
                 </table>
               </div>
