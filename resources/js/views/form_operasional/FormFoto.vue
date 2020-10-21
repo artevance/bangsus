@@ -121,7 +121,7 @@
                   </thead>
                   <tbody>
                     <template v-for="(form_foto, i) in data.form_foto">
-                      <tr v-if="!form_foto.tidak_kirim">
+                      <tr v-if="form_foto.tidak_kirim == 0">
                         <td>{{ i + 1 }}</td>
                         <td>{{ form_foto.tugas_karyawan == null ? '-' : form_foto.tugas_karyawan.karyawan.nip }}</td>
                         <td>{{ form_foto.tugas_karyawan == null ? '-' : form_foto.tugas_karyawan.karyawan.nama_karyawan }}</td>
