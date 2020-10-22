@@ -1,31 +1,64 @@
 <template>
-  <div class="row mt-5">
-    <div class="col-12 col-xl-12 stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <transition name="fade" mode="out-in">
-            <preloader-component v-if="state.page.loading"/>
-            <div v-else>
-              <!-- If the user uses laptop or tablet -->
-              <div class="row d-none d-md-block">
-                <div class="col-12">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          Cabang
-                        </span>
+  <transition name="fade" mode="out-in">
+    <div class="row mt-5" v-if="$route.name === 'formOperasional.purchaseOrder'">
+      <div class="col-12 col-xl-12 stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <transition name="fade" mode="out-in">
+              <preloader-component v-if="state.page.loading"/>
+              <div v-else>
+                <!-- If the user uses laptop or tablet -->
+                <div class="row d-none d-md-block">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            Cabang
+                          </span>
+                        </div>
+                        <select class="form-control" v-model="query.purchase_order.cabang_id" @change="queryData">
+                          <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
+                            {{ cabang.kode_cabang }} - {{ cabang.cabang }}
+                          </option>
+                        </select>
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            Tanggal Form
+                          </span>
+                        </div>
+                        <input type="date"
+                          class="form-control"
+                          v-model="query.purchase_order.tanggal_form"
+                          @keyup="queryData" @change="queryData"
+                          :min="
+                            $access('formOperasional.purchaseOrder.read', 'timeFree')
+                              ? false
+                              : $moment().subtract($access('formOperasional.purchaseOrder.read', 'minDate')).format('YYYY-MM-DD')
+                          "
+                          :max="
+                            $access('formOperasional.purchaseOrder.read', 'timeFree')
+                              ? false
+                              : $moment().subtract($access('formOperasional.purchaseOrder.read', 'maxDate')).format('YYYY-MM-DD')
+                          "
+                          >
                       </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- else -->
+                <div class="row d-md-none">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label>Cabang</label>
                       <select class="form-control" v-model="query.purchase_order.cabang_id" @change="queryData">
                         <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
                           {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                         </option>
                       </select>
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          Tanggal Form
-                        </span>
-                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Tanggal Form</label>
                       <input type="date"
                         class="form-control"
                         v-model="query.purchase_order.tanggal_form"
@@ -44,211 +77,181 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- else -->
-              <div class="row d-md-none">
-                <div class="col-12">
-                  <div class="form-group">
-                    <label>Cabang</label>
-                    <select class="form-control" v-model="query.purchase_order.cabang_id" @change="queryData">
-                      <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
-                        {{ cabang.kode_cabang }} - {{ cabang.cabang }}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Tanggal Form</label>
-                    <input type="date"
-                      class="form-control"
-                      v-model="query.purchase_order.tanggal_form"
-                      @keyup="queryData" @change="queryData"
-                      :min="
-                        $access('formOperasional.purchaseOrder.read', 'timeFree')
-                          ? false
-                          : $moment().subtract($access('formOperasional.purchaseOrder.read', 'minDate')).format('YYYY-MM-DD')
-                      "
-                      :max="
-                        $access('formOperasional.purchaseOrder.read', 'timeFree')
-                          ? false
-                          : $moment().subtract($access('formOperasional.purchaseOrder.read', 'maxDate')).format('YYYY-MM-DD')
-                      "
-                      >
-                  </div>
+                <router-link class="btn btn-primary"
+                  :to="{ name: 'formOperasional.purchaseOrder.create' }"
+                  v-if="
+                    $access('formOperasional.purchaseOrder', 'create') && (
+                      $access('formOperasional.purchaseOrder.create', 'timeFree') ||
+                      $moment($moment(query.purchase_order.tanggal_form)).isBetween(
+                        $moment(utils.date).subtract($access('formOperasional.purchaseOrder.create', 'dateMin')).format('YYYY-MM-DD'),
+                        $moment(utils.date).add($access('formOperasional.purchaseOrder.create', 'dateMax')).format('YYYY-MM-DD'),
+                        undefined,
+                        '[]'
+                      )
+                    )
+                  ">
+                  Tambah
+                </router-link>
+                <div class="table-responsive mt-2">
+                  <table class="table table-hover" v-if="$access('formOperasional.purchaseOrder', 'read')">
+                    <thead>
+                      <th>#</th>
+                      <th>Jam</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(purchase_order, i) in data.purchase_order">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ purchase_order.jam }}</td>
+                        <td>{{ purchase_order.status || '' }}</td>
+                        <td>
+                          <router-link class="badge badge-primary"
+                            :to="{ name: 'formOperasional.purchaseOrder.detail', params: { id: purchase_order.id } }"
+                            v-if="
+                              $access('formOperasional.purchaseOrder', 'detail')
+                            ">
+                            Detail
+                          </router-link>
+                          <router-link class="badge badge-warning"
+                            :to="{ name: 'formOperasional.purchaseOrder.update', params: { id: purchase_order.id } }"
+                            v-if="
+                              $access('formOperasional.purchaseOrder', 'update') && (
+                                $access('formOperasional.purchaseOrder.update', 'timeFree') ||
+                                $moment($moment(query.purchase_order.tanggal_form)).isBetween(
+                                  $moment(utils.date).subtract($access('formOperasional.purchaseOrder.update', 'dateMin')).format('YYYY-MM-DD'),
+                                  $moment(utils.date).add($access('formOperasional.purchaseOrder.update', 'dateMax')).format('YYYY-MM-DD'),
+                                  undefined,
+                                  '[]'
+                                )
+                              ) && !purchase_order.approve
+                            ">
+                            Ubah
+                          </router-link>
+                          <a class="badge badge-success"
+                            @click="showApproveModal(purchase_order.id)"
+                            href="#"
+                            v-if="
+                              $access('formOperasional.purchaseOrder', 'update') && (
+                                $access('formOperasional.purchaseOrder.update', 'timeFree') ||
+                                $moment($moment(query.purchase_order.tanggal_form)).isBetween(
+                                  $moment(utils.date).subtract($access('formOperasional.purchaseOrder.update', 'dateMin')).format('YYYY-MM-DD'),
+                                  $moment(utils.date).add($access('formOperasional.purchaseOrder.update', 'dateMax')).format('YYYY-MM-DD'),
+                                  undefined,
+                                  '[]'
+                                )
+                              ) && !purchase_order.approve
+                            ">
+                            Approve
+                          </a>
+                          <a class="badge badge-danger"
+                            @click="showDestroyModal(purchase_order.id)"
+                            href="#"
+                            v-if="
+                              $access('formOperasional.purchaseOrder', 'destroy') && (
+                                $access('formOperasional.purchaseOrder.destroy', 'timeFree') ||
+                                $moment($moment(query.purchase_order.tanggal_form)).isBetween(
+                                  $moment(utils.date).subtract($access('formOperasional.purchaseOrder.destroy', 'dateMin')).format('YYYY-MM-DD'),
+                                  $moment(utils.date).add($access('formOperasional.purchaseOrder.destroy', 'dateMax')).format('YYYY-MM-DD'),
+                                  undefined,
+                                  '[]'
+                                )
+                              ) && !purchase_order.approve
+                            ">
+                            Hapus
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <router-link class="btn btn-primary"
-                :to="{ name: 'formOperasional.purchaseOrder.create' }"
-                v-if="
-                  $access('formOperasional.purchaseOrder', 'create') && (
-                    $access('formOperasional.purchaseOrder.create', 'timeFree') ||
-                    $moment($moment(query.purchase_order.tanggal_form)).isBetween(
-                      $moment(utils.date).subtract($access('formOperasional.purchaseOrder.create', 'dateMin')).format('YYYY-MM-DD'),
-                      $moment(utils.date).add($access('formOperasional.purchaseOrder.create', 'dateMax')).format('YYYY-MM-DD'),
-                      undefined,
-                      '[]'
-                    )
-                  )
-                ">
-                Tambah
-              </router-link>
-              <div class="table-responsive mt-2">
-                <table class="table table-hover" v-if="$access('formOperasional.purchaseOrder', 'read')">
-                  <thead>
-                    <th>#</th>
-                    <th>Jam</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(purchase_order, i) in data.purchase_order">
-                      <td>{{ i + 1 }}</td>
-                      <td>{{ purchase_order.jam }}</td>
-                      <td>{{ purchase_order.status || '' }}</td>
-                      <td>
-                        <router-link class="badge badge-primary"
-                          :to="{ name: 'formOperasional.purchaseOrder.detail', params: { id: purchase_order.id } }"
-                          v-if="
-                            $access('formOperasional.purchaseOrder', 'detail')
-                          ">
-                          Detail
-                        </router-link>
-                        <router-link class="badge badge-warning"
-                          :to="{ name: 'formOperasional.purchaseOrder.update', params: { id: purchase_order.id } }"
-                          v-if="
-                            $access('formOperasional.purchaseOrder', 'update') && (
-                              $access('formOperasional.purchaseOrder.update', 'timeFree') ||
-                              $moment($moment(query.purchase_order.tanggal_form)).isBetween(
-                                $moment(utils.date).subtract($access('formOperasional.purchaseOrder.update', 'dateMin')).format('YYYY-MM-DD'),
-                                $moment(utils.date).add($access('formOperasional.purchaseOrder.update', 'dateMax')).format('YYYY-MM-DD'),
-                                undefined,
-                                '[]'
-                              )
-                            ) && !purchase_order.approve
-                          ">
-                          Ubah
-                        </router-link>
-                        <a class="badge badge-success"
-                          @click="showApproveModal(purchase_order.id)"
-                          href="#"
-                          v-if="
-                            $access('formOperasional.purchaseOrder', 'update') && (
-                              $access('formOperasional.purchaseOrder.update', 'timeFree') ||
-                              $moment($moment(query.purchase_order.tanggal_form)).isBetween(
-                                $moment(utils.date).subtract($access('formOperasional.purchaseOrder.update', 'dateMin')).format('YYYY-MM-DD'),
-                                $moment(utils.date).add($access('formOperasional.purchaseOrder.update', 'dateMax')).format('YYYY-MM-DD'),
-                                undefined,
-                                '[]'
-                              )
-                            ) && !purchase_order.approve
-                          ">
-                          Approve
-                        </a>
-                        <a class="badge badge-danger"
-                          @click="showDestroyModal(purchase_order.id)"
-                          href="#"
-                          v-if="
-                            $access('formOperasional.purchaseOrder', 'destroy') && (
-                              $access('formOperasional.purchaseOrder.destroy', 'timeFree') ||
-                              $moment($moment(query.purchase_order.tanggal_form)).isBetween(
-                                $moment(utils.date).subtract($access('formOperasional.purchaseOrder.destroy', 'dateMin')).format('YYYY-MM-DD'),
-                                $moment(utils.date).add($access('formOperasional.purchaseOrder.destroy', 'dateMax')).format('YYYY-MM-DD'),
-                                undefined,
-                                '[]'
-                              )
-                            ) && !purchase_order.approve
-                          ">
-                          Hapus
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </transition>
+            </transition>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="modal fade"
-      data-entity="purchaseOrder"
-      data-method="approve"
-      data-backdrop="static"
-      data-keyboard="false"
-      tabindex="-1"
-      v-if="
-        $access('formOperasional.purchaseOrder', 'approve') && (
-          $access('formOperasional.purchaseOrder.approve', 'timeFree') ||
-          $moment($moment(query.purchase_order.tanggal_form)).isBetween(
-            $moment().subtract($access('formOperasional.purchaseOrder.approve', 'dateMin')).format('YYYY-MM-DD'),
-            $moment().add($access('formOperasional.purchaseOrder.approve', 'dateMax')).format('YYYY-MM-DD'),
-            undefined,
-            '[]'
+      <div class="modal fade"
+        data-entity="purchaseOrder"
+        data-method="approve"
+        data-backdrop="static"
+        data-keyboard="false"
+        tabindex="-1"
+        v-if="
+          $access('formOperasional.purchaseOrder', 'approve') && (
+            $access('formOperasional.purchaseOrder.approve', 'timeFree') ||
+            $moment($moment(query.purchase_order.tanggal_form)).isBetween(
+              $moment().subtract($access('formOperasional.purchaseOrder.approve', 'dateMin')).format('YYYY-MM-DD'),
+              $moment().add($access('formOperasional.purchaseOrder.approve', 'dateMax')).format('YYYY-MM-DD'),
+              undefined,
+              '[]'
+            )
           )
-        )
-      ">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form @submit.prevent="approve">
-            <div class="modal-header">
-              <h5 class="modal-title">Approve Purchase Order</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Apakah anda yakin?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" :disabled="form.approve.loading">
-                <spinner-component size="sm" color="light" v-if="form.approve.loading"/>
-                Approve
-              </button>
-            </div>
-          </form>
+        ">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form @submit.prevent="approve">
+              <div class="modal-header">
+                <h5 class="modal-title">Approve Purchase Order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" :disabled="form.approve.loading">
+                  <spinner-component size="sm" color="light" v-if="form.approve.loading"/>
+                  Approve
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade"
+        data-entity="purchaseOrder"
+        data-method="destroy"
+        data-backdrop="static"
+        data-keyboard="false"
+        tabindex="-1"
+        v-if="
+          $access('formOperasional.purchaseOrder', 'destroy') && (
+            $access('formOperasional.purchaseOrder.destroy', 'timeFree') ||
+            $moment($moment(query.purchase_order.tanggal_form)).isBetween(
+              $moment().subtract($access('formOperasional.purchaseOrder.destroy', 'dateMin')).format('YYYY-MM-DD'),
+              $moment().add($access('formOperasional.purchaseOrder.destroy', 'dateMax')).format('YYYY-MM-DD'),
+              undefined,
+              '[]'
+            )
+          )
+        ">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form @submit.prevent="destroy">
+              <div class="modal-header">
+                <h5 class="modal-title">Hapus Purchase Order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
+                  <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
+                  Hapus
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-    <div class="modal fade"
-      data-entity="purchaseOrder"
-      data-method="destroy"
-      data-backdrop="static"
-      data-keyboard="false"
-      tabindex="-1"
-      v-if="
-        $access('formOperasional.purchaseOrder', 'destroy') && (
-          $access('formOperasional.purchaseOrder.destroy', 'timeFree') ||
-          $moment($moment(query.purchase_order.tanggal_form)).isBetween(
-            $moment().subtract($access('formOperasional.purchaseOrder.destroy', 'dateMin')).format('YYYY-MM-DD'),
-            $moment().add($access('formOperasional.purchaseOrder.destroy', 'dateMax')).format('YYYY-MM-DD'),
-            undefined,
-            '[]'
-          )
-        )
-      ">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form @submit.prevent="destroy">
-            <div class="modal-header">
-              <h5 class="modal-title">Hapus Purchase Order</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Apakah anda yakin?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
-                <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
-                Hapus
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+    <router-view v-else></router-view>
+  </transition>
 </template>
 
 <script>

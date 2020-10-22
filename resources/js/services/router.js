@@ -471,6 +471,29 @@ const routes = [
             component: require('../views/form_operasional/PurchaseOrder').default,
             meta: { layout: 'default', title: 'Purchase Order', sidebar: 'formOperasional', item: 'purchaseOrder' },
             beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+            {
+                path: 'create',
+                name: 'formOperasional.purchaseOrder.create',
+                component: require('../views/form_operasional/purchase_order/Create').default,
+                meta: { layout: 'default', title: 'Purchase Order', sidebar: 'formOperasional', item: 'purchaseOrder' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.purchaseOrder.detail',
+                component: require('../views/form_operasional/purchase_order/Detail').default,
+                meta: { layout: 'default', title: 'Purchase Order', sidebar: 'formOperasional', item: 'purchaseOrder' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'update/:id',
+                name: 'formOperasional.purchaseOrder.update',
+                component: require('../views/form_operasional/purchase_order/Update').default,
+                meta: { layout: 'default', title: 'Purchase Order', sidebar: 'formOperasional', item: 'purchaseOrder' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
           },
         ]
       },

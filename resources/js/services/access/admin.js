@@ -844,6 +844,7 @@ export default {
         destroy: true,
         children: {
           create: {
+            access: true,
             timeFree: true,
             dateMin: 0,
             dateMax: 0,
@@ -855,7 +856,11 @@ export default {
             dateMin: 0,
             dateMax: 0
           },
+          detail: {
+            access: true
+          },
           update: {
+            access: true,
             timeFree: true,
             dateMin: 0,
             dateMax: 0,
@@ -864,6 +869,7 @@ export default {
             changeSatuan: true
           },
           approve: {
+            access: true,
             timeFree: true,
             dateMin: 0,
             dateMax: 0
