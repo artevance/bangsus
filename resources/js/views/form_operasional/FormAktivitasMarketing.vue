@@ -504,28 +504,28 @@
           )
         )
       ">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <form @submit.prevent="destroy">
-              <div class="modal-header">
-                <h5 class="modal-title">Hapus Form Akivitas Marketing</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Apakah anda yakin?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
-                  <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
-                  Hapus
-                </button>
-              </div>
-            </form>
-          </div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form @submit.prevent="destroy">
+            <div class="modal-header">
+              <h5 class="modal-title">Hapus Form Akivitas Marketing</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Apakah anda yakin?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
+                <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
+                Hapus
+              </button>
+            </div>
+          </form>
         </div>
       </div>
+    </div>
   </div>
 </template>
 

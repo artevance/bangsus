@@ -12,26 +12,26 @@ class Barang extends Model
 
   public function satuan()
   {
-    return $this->belongsTo('App\Models\Satuan');
+    return $this->belongsTo('App\Http\Models\Satuan');
   }
 
   public function satuan_dua()
   {
-    return $this->belongsTo('App\Models\Satuan');
+    return $this->belongsTo('App\Http\Models\Satuan');
   }
 
   public function satuan_tiga()
   {
-    return $this->belongsTo('App\Models\Satuan');
+    return $this->belongsTo('App\Http\Models\Satuan');
   }
 
   public function satuan_empat()
   {
-    return $this->belongsTo('App\Models\Satuan');
+    return $this->belongsTo('App\Http\Models\Satuan');
   }
 
   public function satuan_lima()
   {
-    return $this->belongsTo('App\Models\Satuan');
+    return $this->belongsTo('App\Http\Models\Satuan');
   }
 }

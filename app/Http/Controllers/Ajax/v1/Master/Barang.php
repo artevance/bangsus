@@ -18,7 +18,11 @@ class Barang extends Controller
   public function index(Request $request)
   {
     return $this
-      ->data(BarangModel::where('kode_barang', 'like', '%' . $request->input('q') . '%')->where('nama_barang', 'like', '%' . $request->input('q') . '%')->get())
+      ->data(BarangModel::with(['satuan', 'satuan_dua', 'satuan_tiga', 'satuan_empat', 'satuan_lima'])
+          ->where('kode_barang', 'like', '%' . $request->input('q') . '%')
+          ->orWhere('nama_barang', 'like', '%' . $request->input('q') . '%')
+          ->get()
+        )
       ->response(200);
   }
 
@@ -26,7 +30,7 @@ class Barang extends Controller
   {
     if ( ! BarangModel::find($id)->exists()) return $this->response(404);
 
-    return $this->data(BarangModel::find($id))->response(200);
+    return $this->data(BarangModel::with(['satuan', 'satuan_dua', 'satuan_tiga', 'satuan_empat', 'satuan_lima'])->find($id))->response(200);
   }
 
   public function store(Request $request)
