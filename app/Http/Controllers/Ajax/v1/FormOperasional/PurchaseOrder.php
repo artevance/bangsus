@@ -10,8 +10,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 use App\Http\Models\PurchaseOrder as PurchaseOrderModel;
-use App\Http\Models\FormFoto;
-use App\Http\Models\Gambar;
+use App\Http\Models\PurchaseOrderD;
+use App\Http\Models\Barang;
 use App\Http\Models\Cabang;
 
 class PurchaseOrder extends Controller
@@ -62,31 +62,26 @@ class PurchaseOrder extends Controller
   public function store(Request $request)
   {
     $v = Validator::make($request->only(
-      'tanggal_form',
-      'jam',
       'cabang_id',
       'supplier_id',
-      'keterangan',
       'd'
     ), [
-      'tanggal_form' => 'required|date_format:Y-m-d',
-      'jam' => 'required',
       'cabang_id' => 'required|exists:cabang,id',
       'supplier_id' => 'required|exists:supplier,id',
-      'keterangan' => 'nullable|max:200',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
+      'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $purchaseOrderModel = new PurchaseOrderModel;
-    $purchaseOrderModel->tanggal_form = $request->input('tanggal_form');
-    $purchaseOrderModel->jam = $request->input('jam');
+    $purchaseOrderModel->tanggal_form = date('Y-m-d');
+    $purchaseOrderModel->jam = date('H:i:s');
     $purchaseOrderModel->cabang_id = $request->input('cabang_id');
     $purchaseOrderModel->supplier_id = $request->input('supplier_id');
-    $purchaseOrderModel->keterangan = $request->input('keterangan', '');
+    $purchaseOrderModel->approve = false;
     $purchaseOrderModel->user_id = $request->user()->id;
     $purchaseOrderModel->save();
 
@@ -133,12 +128,14 @@ class PurchaseOrder extends Controller
           break;
       }
 
-      $detailModel = new PurchaseOrderDModel;
+      $detailModel = new PurchaseOrderD;
+      $detailModel->purchase_order_id = $purchaseOrderModel->id;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->qty = $d['qty'];
-      $detailModel->satuan = $satuanId;
+      $detailModel->satuan_id = $satuanId;
       $detailModel->qty_konversi = $d['qty'] * $constant;
-      $detailModel->keterangan = $d['keterangan'];
+      $detailModel->harga_barang = $d['harga_barang'];
+      $detailModel->keterangan = $d['keterangan'] ?? '';
       $detailModel->save();
     }
   }
@@ -151,7 +148,6 @@ class PurchaseOrder extends Controller
       'jam',
       'cabang_id',
       'supplier_id',
-      'keterangan',
       'd'
     ), [
       'id' => 'required|exists:purchase_order,id',
@@ -159,10 +155,10 @@ class PurchaseOrder extends Controller
       'jam' => 'required',
       'cabang_id' => 'required|exists:cabang,id',
       'supplier_id' => 'required|exists:supplier,id',
-      'keterangan' => 'nullable|max:200',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
+      'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
@@ -172,7 +168,7 @@ class PurchaseOrder extends Controller
     $purchaseOrderModel->jam = $request->input('jam');
     $purchaseOrderModel->cabang_id = $request->input('cabang_id');
     $purchaseOrderModel->supplier_id = $request->input('supplier_id');
-    $purchaseOrderModel->keterangan = $request->input('keterangan', '');
+    $purchaseOrderModel->approve = false;
     $purchaseOrderModel->user_id = $request->user()->id;
     $purchaseOrderModel->save();
 
@@ -221,12 +217,14 @@ class PurchaseOrder extends Controller
           break;
       }
 
-      $detailModel = new PurchaseOrderDModel;
+      $detailModel = new PurchaseOrderD;
+      $detailModel->purchase_order_id = $purchaseOrderModel->id;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->qty = $d['qty'];
-      $detailModel->satuan = $satuanId;
+      $detailModel->satuan_id = $satuanId;
       $detailModel->qty_konversi = $d['qty'] * $constant;
-      $detailModel->keterangan = $d['keterangan'];
+      $detailModel->harga_barang = $d['harga_barang'];
+      $detailModel->keterangan = $d['keterangan'] ?? '';
       $detailModel->save();
     }
   }
