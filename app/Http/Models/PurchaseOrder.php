@@ -34,8 +34,6 @@ class PurchaseOrder extends Model
 
   public function scopeByCabang($q, $id)
   {
-    return $q->whereHas('tugas_karyawan', function ($q) use ($id) {
-      $q->where('cabang_id', $id);
-    });
+    return $q->where('cabang_id', $id);
   }
 }

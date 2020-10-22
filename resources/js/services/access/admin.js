@@ -838,7 +838,9 @@ export default {
         access: true,
         create: true,
         read: true,
+        detail: true,
         update: true,
+        approve: true,
         destroy: true,
         children: {
           create: {
@@ -860,6 +862,11 @@ export default {
             readonlyTime: false,
             takePhoto: true,
             changeSatuan: true
+          },
+          approve: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
           },
           destroy: {
             timeFree: true,

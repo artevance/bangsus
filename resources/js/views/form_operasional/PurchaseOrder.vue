@@ -16,7 +16,7 @@
                           Cabang
                         </span>
                       </div>
-                      <select class="form-control" v-model="query.form_aktivitas_marketing.cabang_id" @change="queryData">
+                      <select class="form-control" v-model="query.purchase_order.cabang_id" @change="queryData">
                         <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
                           {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                         </option>
@@ -28,7 +28,7 @@
                       </div>
                       <input type="date"
                         class="form-control"
-                        v-model="query.form_aktivitas_marketing.tanggal_form"
+                        v-model="query.purchase_order.tanggal_form"
                         @keyup="queryData" @change="queryData"
                         :min="
                           $access('formOperasional.purchaseOrder.read', 'timeFree')
@@ -50,7 +50,7 @@
                 <div class="col-12">
                   <div class="form-group">
                     <label>Cabang</label>
-                    <select class="form-control" v-model="query.form_aktivitas_marketing.cabang_id" @change="queryData">
+                    <select class="form-control" v-model="query.purchase_order.cabang_id" @change="queryData">
                       <option v-for="(cabang, i) in data.cabang" :key="i" :value="cabang.id">
                         {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                       </option>
@@ -60,7 +60,7 @@
                     <label>Tanggal Form</label>
                     <input type="date"
                       class="form-control"
-                      v-model="query.form_aktivitas_marketing.tanggal_form"
+                      v-model="query.purchase_order.tanggal_form"
                       @keyup="queryData" @change="queryData"
                       :min="
                         $access('formOperasional.purchaseOrder.read', 'timeFree')
@@ -76,12 +76,12 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-primary"
-                @click="showCreateModal"
+              <router-link class="btn btn-primary"
+                :to="{ name: 'formOperasional.purchaseOrder.create' }"
                 v-if="
                   $access('formOperasional.purchaseOrder', 'create') && (
                     $access('formOperasional.purchaseOrder.create', 'timeFree') ||
-                    $moment($moment(query.form_aktivitas_marketing.tanggal_form)).isBetween(
+                    $moment($moment(query.purchase_order.tanggal_form)).isBetween(
                       $moment(utils.date).subtract($access('formOperasional.purchaseOrder.create', 'dateMin')).format('YYYY-MM-DD'),
                       $moment(utils.date).add($access('formOperasional.purchaseOrder.create', 'dateMax')).format('YYYY-MM-DD'),
                       undefined,
@@ -90,62 +90,72 @@
                   )
                 ">
                 Tambah
-              </button>
+              </router-link>
               <div class="table-responsive mt-2">
                 <table class="table table-hover" v-if="$access('formOperasional.purchaseOrder', 'read')">
                   <thead>
                     <th>#</th>
-                    <th>NIP</th>
-                    <th>Nama Karyawan</th>
                     <th>Jam</th>
-                    <th>Lokasi</th>
-                    <th>Aktivitas Marketing</th>
-                    <th>Item Marketing</th>
-                    <th>Qty</th>
-                    <th>Satuan</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                   </thead>
                   <tbody>
-                    <tr v-for="(form_aktivitas_marketing, i) in data.form_aktivitas_marketing">
+                    <tr v-for="(purchase_order, i) in data.purchase_order">
                       <td>{{ i + 1 }}</td>
-                      <td>{{ form_aktivitas_marketing.tugas_karyawan.karyawan.nip }}</td>
-                      <td>{{ form_aktivitas_marketing.tugas_karyawan.karyawan.nama_karyawan }}</td>
-                      <td>{{ form_aktivitas_marketing.jam }}</td>
-                      <td>{{ form_aktivitas_marketing.lokasi }}</td>
-                      <td>{{ form_aktivitas_marketing.aktivitas_marketing.aktivitas_marketing }}</td>
-                      <td>{{ form_aktivitas_marketing.item_marketing.item_marketing }}</td>
-                      <td>{{ form_aktivitas_marketing.qty }}</td>
-                      <td>{{ form_aktivitas_marketing.satuan.satuan }}</td>
+                      <td>{{ purchase_order.jam }}</td>
+                      <td>{{ purchase_order.status || '' }}</td>
                       <td>
-                        <a class="badge badge-warning"
-                          @click="showUpdateModal(form_aktivitas_marketing.id)"
-                          href="#"
+                        <router-link class="badge badge-primary"
+                          :to="{ name: 'formOperasional.purchaseOrder.detail', params: { id: purchase_order.id } }"
+                          v-if="
+                            $access('formOperasional.purchaseOrder', 'detail')
+                          ">
+                          Detail
+                        </router-link>
+                        <router-link class="badge badge-warning"
+                          :to="{ name: 'formOperasional.purchaseOrder.update', params: { id: purchase_order.id } }"
                           v-if="
                             $access('formOperasional.purchaseOrder', 'update') && (
                               $access('formOperasional.purchaseOrder.update', 'timeFree') ||
-                              $moment($moment(query.form_aktivitas_marketing.tanggal_form)).isBetween(
+                              $moment($moment(query.purchase_order.tanggal_form)).isBetween(
                                 $moment(utils.date).subtract($access('formOperasional.purchaseOrder.update', 'dateMin')).format('YYYY-MM-DD'),
                                 $moment(utils.date).add($access('formOperasional.purchaseOrder.update', 'dateMax')).format('YYYY-MM-DD'),
                                 undefined,
                                 '[]'
                               )
-                            )
+                            ) && !purchase_order.approve
                           ">
                           Ubah
+                        </router-link>
+                        <a class="badge badge-success"
+                          @click="showApproveModal(purchase_order.id)"
+                          href="#"
+                          v-if="
+                            $access('formOperasional.purchaseOrder', 'update') && (
+                              $access('formOperasional.purchaseOrder.update', 'timeFree') ||
+                              $moment($moment(query.purchase_order.tanggal_form)).isBetween(
+                                $moment(utils.date).subtract($access('formOperasional.purchaseOrder.update', 'dateMin')).format('YYYY-MM-DD'),
+                                $moment(utils.date).add($access('formOperasional.purchaseOrder.update', 'dateMax')).format('YYYY-MM-DD'),
+                                undefined,
+                                '[]'
+                              )
+                            ) && !purchase_order.approve
+                          ">
+                          Approve
                         </a>
                         <a class="badge badge-danger"
-                          @click="showDestroyModal(form_aktivitas_marketing.id)"
+                          @click="showDestroyModal(purchase_order.id)"
                           href="#"
                           v-if="
                             $access('formOperasional.purchaseOrder', 'destroy') && (
                               $access('formOperasional.purchaseOrder.destroy', 'timeFree') ||
-                              $moment($moment(query.form_aktivitas_marketing.tanggal_form)).isBetween(
+                              $moment($moment(query.purchase_order.tanggal_form)).isBetween(
                                 $moment(utils.date).subtract($access('formOperasional.purchaseOrder.destroy', 'dateMin')).format('YYYY-MM-DD'),
                                 $moment(utils.date).add($access('formOperasional.purchaseOrder.destroy', 'dateMax')).format('YYYY-MM-DD'),
                                 undefined,
                                 '[]'
                               )
-                            )
+                            ) && !purchase_order.approve
                           ">
                           Hapus
                         </a>
@@ -160,335 +170,47 @@
       </div>
     </div>
 
-    <!-- Modal -->
     <div class="modal fade"
-      data-entity="formGoreng"
-      data-method="create"
+      data-entity="purchaseOrder"
+      data-method="approve"
       data-backdrop="static"
       data-keyboard="false"
       tabindex="-1"
       v-if="
-        $access('formOperasional.purchaseOrder', 'create') && (
-          $access('formOperasional.purchaseOrder.create', 'timeFree') ||
-          $moment($moment(query.form_aktivitas_marketing.tanggal_form)).isBetween(
-            $moment().subtract($access('formOperasional.purchaseOrder.create', 'dateMin')).format('YYYY-MM-DD'),
-            $moment().add($access('formOperasional.purchaseOrder.create', 'dateMax')).format('YYYY-MM-DD'),
+        $access('formOperasional.purchaseOrder', 'approve') && (
+          $access('formOperasional.purchaseOrder.approve', 'timeFree') ||
+          $moment($moment(query.purchase_order.tanggal_form)).isBetween(
+            $moment().subtract($access('formOperasional.purchaseOrder.approve', 'dateMin')).format('YYYY-MM-DD'),
+            $moment().add($access('formOperasional.purchaseOrder.approve', 'dateMax')).format('YYYY-MM-DD'),
             undefined,
             '[]'
           )
         )
       ">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog">
         <div class="modal-content">
-          <form @submit.prevent="create">
+          <form @submit.prevent="approve">
             <div class="modal-header">
-              <h5 class="modal-title">Tambah Form Goreng</h5>
+              <h5 class="modal-title">Approve Purchase Order</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <div class="form-group row">
-                <div class="col-12 col-lg-4">
-                  <label>Kode Cabang</label>
-                  <input type="text" class="form-control" v-model="form.create.data.kode_cabang" readonly>
-                </div>
-                <div class="col-12 col-lg-8">
-                  <label>Nama Cabang</label>
-                  <input type="text" class="form-control" v-model="form.create.data.nama_cabang" readonly>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-12 col-lg-6">
-                  <label>Tanggal Form</label>
-                  <input type="date" class="form-control" readonly v-model="form.create.data.tanggal_form">
-                  <small class="text-danger" v-for="(msg, i) in form.create.errors.tanggal_form">
-                    {{ msg }}
-                  </small>
-                </div>
-                <div class="col-12 col-lg-6">
-                  <label>Jam</label>
-                  <input
-                    type="time"
-                    class="form-control"
-                    v-model="form.create.data.jam"
-                    :readonly="$access('formOperasional.purchaseOrder.create', 'automatedTime')"
-                    >
-                  <small class="text-danger" v-for="(msg, i) in form.create.errors.jam">
-                    {{ msg }}
-                  </small>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Karyawan</label>
-                <select class="form-control" v-model="form.create.data.tugas_karyawan_id">
-                  <option value="null">-- Pilih Karyawan --</option>
-                  <option v-for="(tugas_karyawan, i) in data.tugas_karyawan" :value="tugas_karyawan.id">
-                    {{ tugas_karyawan.karyawan.nip }} - {{ tugas_karyawan.karyawan.nama_karyawan }}
-                  </option>
-                </select>
-                <small class="text-danger" v-for="(msg, i) in form.create.errors.tugas_karyawan_id">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group row">
-                <div class="col-12 col-lg-3">
-                  <label>Aktivitas Marketing</label>
-                  <select class="form-control" v-model="form.create.data.aktivitas_marketing_id">
-                    <option value="null">-- Pilih Aktivitas Marketing --</option>
-                    <option v-for="(aktivitas_marketing, i) in data.aktivitas_marketing" :value="aktivitas_marketing.id">
-                      {{ aktivitas_marketing.aktivitas_marketing }}
-                    </option>
-                  </select>
-                  <small class="text-danger" v-for="(msg, i) in form.create.errors.aktivitas_marketing_id">
-                    {{ msg }}
-                  </small>
-                </div>
-                <div class="col-12 col-lg-3">
-                  <label>Item Marketing</label>
-                  <select class="form-control" v-model="form.create.data.item_marketing_id">
-                    <option value="null">-- Pilih Item Marketing --</option>
-                    <option v-for="(item_marketing, i) in data.item_marketing" :value="item_marketing.id">
-                      {{ item_marketing.item_marketing }}
-                    </option>
-                  </select>
-                  <small class="text-danger" v-for="(msg, i) in form.create.errors.item_marketing_id">
-                    {{ msg }}
-                  </small>
-                </div>
-                <template v-if="$access('formOperasional.purchaseOrder.create', 'changeSatuan')">
-                  <div class="col-12 col-lg-3">
-                    <label>Qty</label>
-                    <input type="number" class="form-control" step="any" v-model="form.create.data.qty">
-                    <small class="text-danger" v-for="(msg, i) in form.create.errors.qty">
-                      {{ msg }}
-                    </small>
-                  </div>
-                  <div class="col-12 col-lg-3">
-                    <label>Satuan</label>
-                    <select class="form-control" v-model="form.create.data.satuan_id">
-                      <option value="null">-- Pilih Satuan --</option>
-                      <option v-for="(satuan, i) in data.satuan" :value="satuan.id">
-                        {{ satuan.satuan }}
-                      </option>
-                    </select>
-                    <small class="text-danger" v-for="(msg, i) in form.create.errors.satuan_id">
-                      {{ msg }}
-                    </small>
-                  </div>
-                </template>
-                <template v-else>
-                  <div class="col-12 col-lg-3">
-                    <label>Qty</label>
-                    <div class="input-group">
-                      <input type="number" class="form-control" step="any" v-model="form.create.data.qty">
-                      <input type="hidden" value="2" v-model="form.create.data.satuan_id">
-                      <div class="input-group-prepend">
-                        <small class="input-group-text">
-                          PCS
-                        </small>
-                      </div>  
-                    </div>
-                    <small class="text-danger" v-for="(msg, i) in form.create.errors.qty">
-                      {{ msg }}
-                    </small>
-                  </div>
-                </template>
-              </div>
-              <div class="form-group">
-                <label>Gambar</label>
-                <webcam-component v-model="form.create.data.gambar" ref="webcam"></webcam-component>
-                <small class="text-danger" v-for="(msg, i) in form.create.errors.gambar">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group">
-                <label>Lokasi</label>
-                <textarea class="form-control form-control-sm" v-model="form.create.data.lokasi"></textarea>
-                <small class="text-danger" v-for="(msg, i) in form.create.errors.lokasi">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group">
-                <label>Keterangan</label>
-                <textarea class="form-control form-control-sm" v-model="form.create.data.keterangan"></textarea>
-                <small class="text-danger" v-for="(msg, i) in form.create.errors.keterangan">
-                  {{ msg }}
-                </small>
-              </div>
+              <p>Apakah anda yakin?</p>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Tambah</button>
+              <button type="submit" class="btn btn-primary" :disabled="form.approve.loading">
+                <spinner-component size="sm" color="light" v-if="form.approve.loading"/>
+                Approve
+              </button>
             </div>
           </form>
         </div>
       </div>
     </div>
     <div class="modal fade"
-      data-entity="formGoreng"
-      data-method="update"
-      data-backdrop="static"
-      data-keyboard="false"
-      tabindex="-1"
-      v-if="
-        $access('formOperasional.purchaseOrder', 'update') && (
-          $access('formOperasional.purchaseOrder.update', 'timeFree') ||
-          $moment($moment(query.form_aktivitas_marketing.tanggal_form)).isBetween(
-            $moment().subtract($access('formOperasional.purchaseOrder.update', 'dateMin')).format('YYYY-MM-DD'),
-            $moment().add($access('formOperasional.purchaseOrder.update', 'dateMax')).format('YYYY-MM-DD'),
-            undefined,
-            '[]'
-          )
-        )
-      ">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <form @submit.prevent="update">
-            <div class="modal-header">
-              <h5 class="modal-title">Ubah Form Goreng</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group row">
-                <div class="col-12 col-lg-4">
-                  <label>Kode Cabang</label>
-                  <input type="text" class="form-control" v-model="form.update.data.kode_cabang" readonly>
-                </div>
-                <div class="col-12 col-lg-8">
-                  <label>Nama Cabang</label>
-                  <input type="text" class="form-control" v-model="form.update.data.nama_cabang" readonly>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-12 col-lg-6">
-                  <label>Tanggal Form</label>
-                  <input type="date" class="form-control" readonly v-model="form.update.data.tanggal_form">
-                  <small class="text-danger" v-for="(msg, i) in form.update.errors.tanggal_form">
-                    {{ msg }}
-                  </small>
-                </div>
-                <div class="col-12 col-lg-6">
-                  <label>Jam</label>
-                  <input
-                    type="time"
-                    class="form-control"
-                    v-model="form.update.data.jam"
-                    :readonly="$access('formOperasional.purchaseOrder.update', 'readonlyTime')"
-                    >
-                  <small class="text-danger" v-for="(msg, i) in form.update.errors.jam">
-                    {{ msg }}
-                  </small>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Karyawan</label>
-                <select class="form-control" v-model="form.update.data.tugas_karyawan_id">
-                  <option value="null">-- Pilih Karyawan --</option>
-                  <option v-for="(tugas_karyawan, i) in data.tugas_karyawan" :value="tugas_karyawan.id">
-                    {{ tugas_karyawan.karyawan.nip }} - {{ tugas_karyawan.karyawan.nama_karyawan }}
-                  </option>
-                </select>
-                <small class="text-danger" v-for="(msg, i) in form.update.errors.tugas_karyawan_id">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group row">
-                <div class="col-12 col-lg-3">
-                  <label>Aktivitas Marketing</label>
-                  <select class="form-control" v-model="form.update.data.aktivitas_marketing_id">
-                    <option value="null">-- Pilih Aktivitas Marketing --</option>
-                    <option v-for="(aktivitas_marketing, i) in data.aktivitas_marketing" :value="aktivitas_marketing.id">
-                      {{ aktivitas_marketing.aktivitas_marketing }}
-                    </option>
-                  </select>
-                  <small class="text-danger" v-for="(msg, i) in form.update.errors.aktivitas_marketing_id">
-                    {{ msg }}
-                  </small>
-                </div>
-                <div class="col-12 col-lg-3">
-                  <label>Item Marketing</label>
-                  <select class="form-control" v-model="form.update.data.item_marketing_id">
-                    <option value="null">-- Pilih Item Marketing --</option>
-                    <option v-for="(item_marketing, i) in data.item_marketing" :value="item_marketing.id">
-                      {{ item_marketing.item_marketing }}
-                    </option>
-                  </select>
-                  <small class="text-danger" v-for="(msg, i) in form.update.errors.item_marketing_id">
-                    {{ msg }}
-                  </small>
-                </div>
-                <template v-if="$access('formOperasional.purchaseOrder.update', 'changeSatuan')">
-                  <div class="col-12 col-lg-3">
-                    <label>Qty</label>
-                    <input type="number" class="form-control" step="any" v-model="form.update.data.qty">
-                    <small class="text-danger" v-for="(msg, i) in form.update.errors.qty">
-                      {{ msg }}
-                    </small>
-                  </div>
-                  <div class="col-12 col-lg-3">
-                    <label>Satuan</label>
-                    <select class="form-control" v-model="form.update.data.satuan_id">
-                      <option value="null">-- Pilih Satuan --</option>
-                      <option v-for="(satuan, i) in data.satuan" :value="satuan.id">
-                        {{ satuan.satuan }}
-                      </option>
-                    </select>
-                    <small class="text-danger" v-for="(msg, i) in form.update.errors.satuan_id">
-                      {{ msg }}
-                    </small>
-                  </div>
-                </template>
-                <template v-else>
-                  <div class="col-12 col-lg-3">
-                    <label>Qty</label>
-                    <div class="input-group">
-                      <input type="number" class="form-control" step="any" v-model="form.update.data.qty">
-                      <input type="hidden" value="2" v-model="form.update.data.satuan_id">
-                      <div class="input-group-prepend">
-                        <small class="input-group-text">
-                          PCS
-                        </small>
-                      </div>  
-                    </div>
-                    <small class="text-danger" v-for="(msg, i) in form.update.errors.qty">
-                      {{ msg }}
-                    </small>
-                  </div>
-                </template>
-              </div>
-              <div class="form-group" v-if="$access('formOperasional.purchaseOrder.update', 'takePhoto')">
-                <label>Gambar</label>
-                <webcam-component v-model="form.update.data.gambar" ref="webcam"></webcam-component>
-                <small class="text-danger" v-for="(msg, i) in form.update.errors.gambar">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group">
-                <label>Lokasi</label>
-                <textarea class="form-control form-control-sm" v-model="form.update.data.lokasi"></textarea>
-                <small class="text-danger" v-for="(msg, i) in form.update.errors.lokasi">
-                  {{ msg }}
-                </small>
-              </div>
-              <div class="form-group">
-                <label>Keterangan</label>
-                <textarea class="form-control form-control-sm" v-model="form.update.data.keterangan"></textarea>
-                <small class="text-danger" v-for="(msg, i) in form.update.errors.keterangan">
-                  {{ msg }}
-                </small>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Ubah</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade"
-      data-entity="formGoreng"
+      data-entity="purchaseOrder"
       data-method="destroy"
       data-backdrop="static"
       data-keyboard="false"
@@ -496,7 +218,7 @@
       v-if="
         $access('formOperasional.purchaseOrder', 'destroy') && (
           $access('formOperasional.purchaseOrder.destroy', 'timeFree') ||
-          $moment($moment(query.form_aktivitas_marketing.tanggal_form)).isBetween(
+          $moment($moment(query.purchase_order.tanggal_form)).isBetween(
             $moment().subtract($access('formOperasional.purchaseOrder.destroy', 'dateMin')).format('YYYY-MM-DD'),
             $moment().add($access('formOperasional.purchaseOrder.destroy', 'dateMax')).format('YYYY-MM-DD'),
             undefined,
@@ -504,28 +226,28 @@
           )
         )
       ">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <form @submit.prevent="destroy">
-              <div class="modal-header">
-                <h5 class="modal-title">Hapus Form Goreng</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Apakah anda yakin?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
-                  <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
-                  Hapus
-                </button>
-              </div>
-            </form>
-          </div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form @submit.prevent="destroy">
+            <div class="modal-header">
+              <h5 class="modal-title">Hapus Purchase Order</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Apakah anda yakin?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" :disabled="form.destroy.loading">
+                <spinner-component size="sm" color="light" v-if="form.destroy.loading"/>
+                Hapus
+              </button>
+            </div>
+          </form>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -539,46 +261,16 @@ export default {
       },
       data: {
         cabang: [],
-        form_aktivitas_marketing: [],
+        purchase_order: [],
         tugas_karyawan: [],
         aktivitas_marketing: [],
         satuan: [],
         item_marketing: []
       },
       form: {
-        create: {
+        approve: {
           data: {
-            kode_cabang: '',
-            nama_cabang: '',
-            tanggal_form: '',
-            jam: '',
-            tugas_karyawan_id: null,
-            aktivitas_marketing_id: null,
-            item_marketing_id: null,
-            qty: null,
-            satuan_id: 1,
-            gambar: '',
-            lokasi: '',
-            keterangan: ''
-          },
-          errors: {},
-          loading: false
-        },
-        update: {
-          data: {
-            id: null,
-            kode_cabang: '',
-            nama_cabang: '',
-            tanggal_form: '',
-            jam: '',
-            tugas_karyawan_id: null,
-            aktivitas_marketing_id: null,
-            item_marketing_id: null,
-            qty: null,
-            satuan_id: 1,
-            gambar: null,
-            lokasi: '',
-            keterangan: ''
+            id: null
           },
           errors: {},
           loading: false
@@ -592,7 +284,7 @@ export default {
         }
       },
       query: {
-        form_aktivitas_marketing: {
+        purchase_order: {
           cabang_id: this.$route.query.cabang_id || null,
           tanggal_form: this.$access('formOperasional.purchaseOrder.read', 'timeFree')
             ? this.$moment(this.$route.query.tanggal_form).format('YYYY-MM-DD')
@@ -646,9 +338,9 @@ export default {
   },
 
   watch: {
-    'query.form_aktivitas_marketing.tanggal_form'(n, o) {
+    'query.purchase_order.tanggal_form'(n, o) {
       if (this.$access('formOperasional.purchaseOrder.read', 'timeFree')) {
-        this.query.form_aktivitas_marketing.tanggal_form = n
+        this.query.purchase_order.tanggal_form = n
       } else {
         if (
           this.$moment(this.$moment(n)).isBetween(
@@ -658,9 +350,9 @@ export default {
             '[]'
           )
         ) {
-          this.query.form_aktivitas_marketing.tanggal_form = n
+          this.query.purchase_order.tanggal_form = n
         } else {
-          this.query.form_aktivitas_marketing.tanggal_form = o
+          this.query.purchase_order.tanggal_form = o
         }
       }
     }
@@ -681,8 +373,8 @@ export default {
             this.$router.go(-1)
           }
 
-          if (this.query.form_aktivitas_marketing.cabang_id == null || ! this.$_.isUndefined(this.$_.findWhere(this.data.cabang, { id: this.query.form_aktivitas_marketing.cabang_id }))) {
-            this.query.form_aktivitas_marketing.cabang_id = this.data.cabang[0].id || null
+          if (this.query.purchase_order.cabang_id == null || ! this.$_.isUndefined(this.$_.findWhere(this.data.cabang, { id: this.query.purchase_order.cabang_id }))) {
+            this.query.purchase_order.cabang_id = this.data.cabang[0].id || null
           }
 
           this.queryData()
@@ -700,13 +392,13 @@ export default {
       if (withSpinner) this.state.table.loading = true
       this.fetchMainData()
         .then(res => {
-          if ( ! this.$_.isEqual(this.$route.query, this.query.form_aktivitas_marketing) && this.$route.name === 'formOperasional.purchaseOrder') {
+          if ( ! this.$_.isEqual(this.$route.query, this.query.purchase_order) && this.$route.name === 'formOperasional.purchaseOrder') {
             this.$router.push({
               name: 'formOperasional.purchaseOrder',
-              query: this.query.form_aktivitas_marketing
+              query: this.query.purchase_order
             })
           }
-          this.data.form_aktivitas_marketing = res.data.container
+          this.data.purchase_order = res.data.container
           if (withSpinner) this.state.table.loading = false
         })
         .catch(err => {})
@@ -716,7 +408,7 @@ export default {
      *  Fetch data
      */
     fetchMainData() {
-      return this.$axios.get('/ajax/v1/form_operasional/form_aktivitas_marketing/cabang_harian', { params: this.query.form_aktivitas_marketing })
+      return this.$axios.get('/ajax/v1/form_operasional/purchase_order/cabang_harian', { params: this.query.purchase_order })
     },
     fetchCabang() {
       return this.$axios.get('/ajax/v1/master/cabang/terotorisasi')
@@ -737,77 +429,19 @@ export default {
     /**
      *  Modal functionality & utils
      */
-    showCreateModal() {
-      Promise.all([
-        this.fetchTugasKaryawan(this.query.form_aktivitas_marketing.cabang_id, this.query.form_aktivitas_marketing.tanggal_penugasan),
-        this.fetchAktivitasMarketing(),
-        this.fetchSatuan(),
-        this.fetchItemMarketing()
-      ])
-        .then(res => {
-          this.data.tugas_karyawan = res[0].data.container
-          this.data.aktivitas_marketing = res[1].data.container
-          this.data.satuan = res[2].data.container
-          this.data.item_marketing = res[3].data.container
-
-          this.form.create.data.tanggal_form = this.query.form_aktivitas_marketing.tanggal_form
-          let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_aktivitas_marketing.cabang_id)})
-          this.form.create.data.kode_cabang = currentCabang.kode_cabang
-          this.form.create.data.nama_cabang = currentCabang.cabang
-
-          $('[data-entity="formGoreng"][data-method="create"]').modal('show')
-        })
-        .catch(err => {})
-    },
-    showUpdateModal(id) {
-      this.form.update.data = {}
-      this.$axios.get('/ajax/v1/form_operasional/form_aktivitas_marketing/' + id)
-        .then(res => {
-          let currentCabang = this.$_.findWhere(this.data.cabang, {id: parseInt(this.query.form_aktivitas_marketing.cabang_id)})
-          this.form.update.data = {
-            id: id,
-            kode_cabang: currentCabang.kode_cabang,
-            nama_cabang: currentCabang.nama_cabang,
-            tanggal_form: this.query.form_aktivitas_marketing.tanggal_form,
-            jam: res.data.container.jam,
-            tugas_karyawan_id: res.data.container.tugas_karyawan_id,
-            aktivitas_marketing_id: res.data.container.aktivitas_marketing_id,
-            item_marketing_id: res.data.container.item_marketing_id,
-            qty: res.data.container.qty,
-            satuan_id: res.data.container.satuan_id,
-            lokasi: res.data.container.lokasi,
-            keterangan: res.data.container.keterangan
-          }
-          Promise.all([
-            this.fetchTugasKaryawan(this.query.form_aktivitas_marketing.cabang_id, this.query.form_aktivitas_marketing.tanggal_penugasan),
-            this.fetchAktivitasMarketing(),
-            this.fetchSatuan(),
-            this.fetchItemMarketing()
-          ])
-            .then(res => {
-              this.data.tugas_karyawan = res[0].data.container
-              this.data.aktivitas_marketing = res[1].data.container
-              this.data.satuan = res[2].data.container
-              this.data.item_marketing = res[3].data.container
-
-              $('[data-entity="formGoreng"][data-method="update"]').modal('show')
-            })
-            .catch(err => {})
-        })
-        .catch(err => {})
+    showApproveModal(id) {
+      this.form.approve.data.id = id
+      $('[data-entity="purchaseOrder"][data-method="approve"]').modal('show')
     },
     showDestroyModal(id) {
       this.form.destroy.data.id = id
-      $('[data-entity="formGoreng"][data-method="destroy"]').modal('show')
+      $('[data-entity="purchaseOrder"][data-method="destroy"]').modal('show')
     },
-    hideCreateModal() {
-      $('[data-entity="formGoreng"][data-method="create"]').modal('hide')
-    },
-    hideUpdateModal() {
-      $('[data-entity="formGoreng"][data-method="update"]').modal('hide')
+    hideApproveModal() {
+      $('[data-entity="purchaseOrder"][data-method="approve"]').modal('hide')
     },
     hideDestroyModal() {
-      $('[data-entity="formGoreng"][data-method="destroy"]').modal('hide')
+      $('[data-entity="purchaseOrder"][data-method="destroy"]').modal('hide')
     },
     setCreateClockInterval() {
       this.interval.form.create.data.jam = setInterval(function () {
@@ -842,7 +476,7 @@ export default {
           ) {
 
           } else {
-            this.query.form_aktivitas_marketing.tanggal_form = this.$moment().format('YYYY-MM-DD')
+            this.query.purchase_order.tanggal_form = this.$moment().format('YYYY-MM-DD')
             this.queryData()
           }
         }
@@ -909,73 +543,30 @@ export default {
     /**
      *  Form request handler
      */
-    create() {
-      this.form.create.loading = true
-      this.form.create.errors = {}
-      this.$axios.post('/ajax/v1/form_operasional/form_aktivitas_marketing', this.form.create.data)
+    approve() {
+      this.form.approve.loading = true
+      this.form.approve.errors = {}
+      this.$axios.put('/ajax/v1/form_operasional/purchase_order/approve', this.form.approve.data)
         .then(res => {
-          this.form.create.data = {
-            kode_cabang: '',
-            nama_cabang: '',
-            tanggal_form: '',
-            jam: '',
-            tugas_karyawan_id: null,
-            aktivitas_marketing_id: null,
-            item_marketing_id: null,
-            qty: null,
-            satuan_id: 1,
-            keterangan: '',
-            gambar: ''
+          this.form.approve.data = {
+            id: null
           }
           this.queryData(false)
-          this.$refs.webcam.reset()
-          this.hideCreateModal()
+          this.hideApproveModal()
         })
         .catch(err => {
           if (err.response.status == 422) {
-            this.form.create.errors = err.response.data.errors
+            this.form.approve.errors = err.response.data.errors
           }
         })
         .finally(() => {
-          this.form.create.loading = false
-        })
-    },
-    update() {
-      this.form.update.loading = true
-      this.form.update.errors = {}
-      this.$axios.put('/ajax/v1/form_operasional/form_aktivitas_marketing', this.form.update.data)
-        .then(res => {
-          this.form.update.data = {
-            id: null,
-            kode_cabang: '',
-            nama_cabang: '',
-            tanggal_form: '',
-            jam: '',
-            tugas_karyawan_id: null,
-            aktivitas_marketing_id: null,
-            item_marketing_id: null,
-            qty: null,
-            satuan_id: 1,
-            gambar: null,
-            keterangan: ''
-          }
-          this.queryData(false)
-          this.$refs.webcam.reset()
-          this.hideUpdateModal()
-        })
-        .catch(err => {
-          if (err.response.status == 422) {
-            this.form.update.errors = err.response.data.errors
-          }
-        })
-        .finally(() => {
-          this.form.update.loading = false
+          this.form.approve.loading = false
         })
     },
     destroy() {
       this.form.destroy.loading = true
       this.form.destroy.errors = {}
-      this.$axios.delete('/ajax/v1/form_operasional/form_aktivitas_marketing', { data: this.form.destroy.data })
+      this.$axios.delete('/ajax/v1/form_operasional/purchase_order', { data: this.form.destroy.data })
         .then(res => {
           this.form.destroy.data.id = null
           this.queryData(false)
