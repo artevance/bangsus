@@ -196,7 +196,7 @@
         <div class="modal-content">
           <form @submit.prevent="create">
             <div class="modal-header">
-              <h5 class="modal-title">Tambah Form Goreng</h5>
+              <h5 class="modal-title">Tambah Form Foto</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -300,7 +300,7 @@
         <div class="modal-content">
           <form @submit.prevent="update">
             <div class="modal-header">
-              <h5 class="modal-title">Ubah Form Goreng</h5>
+              <h5 class="modal-title">Ubah Form Foto</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -404,7 +404,7 @@
           <div class="modal-content">
             <form @submit.prevent="destroy">
               <div class="modal-header">
-                <h5 class="modal-title">Hapus Form Goreng</h5>
+                <h5 class="modal-title">Hapus Form Foto</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>

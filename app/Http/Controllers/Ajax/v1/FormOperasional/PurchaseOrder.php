@@ -65,129 +65,185 @@ class PurchaseOrder extends Controller
       'tanggal_form',
       'jam',
       'cabang_id',
-      'supplier_id'
+      'supplier_id',
+      'keterangan',
       'd'
     ), [
       'tanggal_form' => 'required|date_format:Y-m-d',
       'jam' => 'required',
       'cabang_id' => 'required|exists:cabang,id',
       'supplier_id' => 'required|exists:supplier,id',
+      'keterangan' => 'nullable|max:200',
       'd.*.barang_id' => 'required|exists:barang,id',
-      'd.*.qty_asli' => 'required|numeric|max:10000000000',
-      'd.*.satuan_id' => 'required|exists:satuan,id'
+      'd.*.qty' => 'required|numeric|max:10000000000',
+      'd.*.level_satuan' => 'required',
+      'd.*.keterangan' => 'nullable|max:200'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    $gambarModel = new Gambar;
-    $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
-    $gambarModel->save();
+    $purchaseOrderModel = new PurchaseOrderModel;
+    $purchaseOrderModel->tanggal_form = $request->input('tanggal_form');
+    $purchaseOrderModel->jam = $request->input('jam');
+    $purchaseOrderModel->cabang_id = $request->input('cabang_id');
+    $purchaseOrderModel->supplier_id = $request->input('supplier_id');
+    $purchaseOrderModel->keterangan = $request->input('keterangan', '');
+    $purchaseOrderModel->user_id = $request->user()->id;
+    $purchaseOrderModel->save();
 
-    $formFotoModel = new FormFoto;
-    $formFotoModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
-    $formFotoModel->tanggal_form = $request->input('tanggal_form');
-    $formFotoModel->jam = $request->input('jam');
-    $formFotoModel->kelompok_foto_id = 9;
-    $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
-    $formFotoModel->gambar_id = $gambarModel->id;
-    $formFotoModel->tidak_kirim = 0;
-    $formFotoModel->user_id = $request->user()->id;
-    $formFotoModel->save();
+    foreach ($request->input('d') as $d) {
+      $barang = Barang::find($d['barang_id']);
+      $constant = 1;
 
-    $formAktivitasMarketingModel = new PurchaseOrderModel;
-    $formAktivitasMarketingModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
-    $formAktivitasMarketingModel->tanggal_form = $request->input('tanggal_form');
-    $formAktivitasMarketingModel->jam = $request->input('jam');
-    $formAktivitasMarketingModel->form_foto_id = $formFotoModel->id;
-    $formAktivitasMarketingModel->cabang_id = $request->input('cabang_id');
-    $formAktivitasMarketingModel->qty = $request->input('qty');
-    $formAktivitasMarketingModel->supplier_id = $request->input('supplier_id');
-    $formAktivitasMarketingModel->item_marketing_id = $request->input('item_marketing_id');
-    $formAktivitasMarketingModel->lokasi = $request->input('lokasi');
-    $formAktivitasMarketingModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
-    $formAktivitasMarketingModel->gambar_id = $gambarModel->id;
-    $formAktivitasMarketingModel->user_id = $request->user()->id;
-    $formAktivitasMarketingModel->save();
+      for ($i = 1; $i <= $d['level_satuan']; $i++) {
+        switch ($i) {
+          case 1 :
+            $constant = $constant;
+            break;
+          case 2 :
+            $constant *= $barang->rasio_dua;
+            break;
+          case 3 :
+            $constant *= $barang->rasio_tiga;
+            break;
+          case 4 :
+            $constant *= $barang->rasio_empat;
+            break;
+          case 5 :
+            $constant *= $barang->rasio_lima;
+            break;
+        }
+      }
+
+      $satuanId = null;
+      switch ($d['level_satuan']) {
+        case 1 :
+          $satuanId = $barang->satuan_id;
+          break;
+        case 2 :
+          $satuanId = $barang->satuan_dua_id;
+          break;
+        case 3 :
+          $satuanId = $barang->satuan_tiga_id;
+          break;
+        case 4 :
+          $satuanId = $barang->satuan_empat_id;
+          break;
+        case 5 :
+          $satuanId = $barang->satuan_lima_id;
+          break;
+      }
+
+      $detailModel = new PurchaseOrderDModel;
+      $detailModel->barang_id = $d['barang_id'];
+      $detailModel->qty = $d['qty'];
+      $detailModel->satuan = $satuanId;
+      $detailModel->qty_konversi = $d['qty'] * $constant;
+      $detailModel->keterangan = $d['keterangan'];
+      $detailModel->save();
+    }
   }
 
   public function amend(Request $request)
   {
     $v = Validator::make($request->only(
       'id',
-      'tugas_karyawan_id',
       'tanggal_form',
       'jam',
       'cabang_id',
-      'qty',
       'supplier_id',
-      'item_marketing_id',
-      'lokasi',
       'keterangan',
-      'gambar'
+      'd'
     ), [
-      'id' => 'required|exists:form_cabang,id',
-      'tugas_karyawan_id' => 'nullable|exists:tugas_karyawan,id',
-      'tanggal_form' => 'nullable|date_format:Y-m-d',
-      'jam' => 'nullable',
-      'cabang_id' => 'nullable|exists:cabang,id',
-      'qty' => 'nullable|numeric',
-      'supplier_id' => 'nullable|exists:supplier,id',
-      'item_marketing_id' => 'nullable|exists:item_marketing,id',
-      'lokasi' => 'nullable|max:200',
+      'id' => 'required|exists:purchase_order,id',
+      'tanggal_form' => 'required|date_format:Y-m-d',
+      'jam' => 'required',
+      'cabang_id' => 'required|exists:cabang,id',
+      'supplier_id' => 'required|exists:supplier,id',
       'keterangan' => 'nullable|max:200',
-      'gambar' => 'nullable'
+      'd.*.barang_id' => 'required|exists:barang,id',
+      'd.*.qty' => 'required|numeric|max:10000000000',
+      'd.*.level_satuan' => 'required',
+      'd.*.keterangan' => 'nullable|max:200'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    if ($request->filled('gambar')) {
-      $gambarModel = new GambarModel;
-      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
-      $gambarModel->save();
-    }
+    $purchaseOrderModel = PurchaseOrderModel::find($request->input('id'));
+    $purchaseOrderModel->tanggal_form = $request->input('tanggal_form');
+    $purchaseOrderModel->jam = $request->input('jam');
+    $purchaseOrderModel->cabang_id = $request->input('cabang_id');
+    $purchaseOrderModel->supplier_id = $request->input('supplier_id');
+    $purchaseOrderModel->keterangan = $request->input('keterangan', '');
+    $purchaseOrderModel->user_id = $request->user()->id;
+    $purchaseOrderModel->save();
 
-    $formAktivitasMarketingModel = PurchaseOrderModel::find($request->input('id'));
-    $formAktivitasMarketingModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
-    $formAktivitasMarketingModel->tanggal_form = $request->input('tanggal_form');
-    $formAktivitasMarketingModel->jam = $request->input('jam');
-    $formAktivitasMarketingModel->cabang_id = $request->input('cabang_id');
-    $formAktivitasMarketingModel->qty = $request->input('qty');
-    $formAktivitasMarketingModel->supplier_id = $request->input('supplier_id');
-    $formAktivitasMarketingModel->item_marketing_id = $request->input('item_marketing_id');
-    $formAktivitasMarketingModel->lokasi = $request->input('lokasi');
-    $formAktivitasMarketingModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
-    if ($request->filled('gambar')) $formAktivitasMarketingModel->gambar_id = $gambarModel->id;
-    $formAktivitasMarketingModel->user_id = $request->user()->id;
-    $formAktivitasMarketingModel->save();
+    $purchaseOrderModel->d->each(fn ($d) => $d->delete());
 
-    $formFotoModel = FormFoto::find($formAktivitasMarketingModel->form_foto_id);
-    if ( ! is_null($formFotoModel)) {
-      if ($request->has('tugas_karyawan_id')) $formFotoModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
-      if ($request->has('tanggal_form')) $formFotoModel->tanggal_form = $request->input('tanggal_form');
-      if ($request->has('jam')) $formFotoModel->jam = $request->input('jam');
-      if ($request->has('keterangan')) $formFotoModel->keterangan = $request->filled('keterangan') ? $request->input('keterangan') : '';
-      if ($request->filled('gambar')) $formFotoModel->gambar_id = $gambarModel->id;
-      $formFotoModel->user_id = $request->user()->id;
-      $formFotoModel->save();
+    foreach ($request->input('d') as $d) {
+      $barang = Barang::find($d['barang_id']);
+      $constant = 1;
+
+      for ($i = 1; $i <= $d['level_satuan']; $i++) {
+        switch ($i) {
+          case 1 :
+            $constant = $constant;
+            break;
+          case 2 :
+            $constant *= $barang->rasio_dua;
+            break;
+          case 3 :
+            $constant *= $barang->rasio_tiga;
+            break;
+          case 4 :
+            $constant *= $barang->rasio_empat;
+            break;
+          case 5 :
+            $constant *= $barang->rasio_lima;
+            break;
+        }
+      }
+
+      $satuanId = null;
+      switch ($d['level_satuan']) {
+        case 1 :
+          $satuanId = $barang->satuan_id;
+          break;
+        case 2 :
+          $satuanId = $barang->satuan_dua_id;
+          break;
+        case 3 :
+          $satuanId = $barang->satuan_tiga_id;
+          break;
+        case 4 :
+          $satuanId = $barang->satuan_empat_id;
+          break;
+        case 5 :
+          $satuanId = $barang->satuan_lima_id;
+          break;
+      }
+
+      $detailModel = new PurchaseOrderDModel;
+      $detailModel->barang_id = $d['barang_id'];
+      $detailModel->qty = $d['qty'];
+      $detailModel->satuan = $satuanId;
+      $detailModel->qty_konversi = $d['qty'] * $constant;
+      $detailModel->keterangan = $d['keterangan'];
+      $detailModel->save();
     }
   }
 
   public function destroy(Request $request)
   {
     $v = Validator::make($request->only('id'), [
-      'id' => 'required|exists:form_goreng,id'
+      'id' => 'required|exists:purchase_order,id'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    $formAktivitasMarketingModel = PurchaseOrderModel::find($request->input('id'));
-    $formAktivitasMarketingModel->user_id = $request->user()->id;
-    $formAktivitasMarketingModel->save();
+    $purchaseOrderModel = PurchaseOrderModel::find($request->input('id'));
 
-    $formFotoModel = FormFoto::find($formAktivitasMarketingModel->form_foto_id);
-    if ( ! is_null($formFotoModel)) {
-      $formFotoModel->user_id = $request->user()->id;
-      $formFotoModel->save();
-      $formFotoModel->delete();
-    }
+    $purchaseOrderModel->d->each(fn ($d) => $d->delete());
 
-    $formAktivitasMarketingModel->delete();
+    $purchaseOrderModel->user_id = $request->user()->id;
+    $purchaseOrderModel->save();
+    $purchaseOrderModel->delete();
   }
 }
