@@ -13,6 +13,14 @@
               <div class="row">
                 <div class="col col-md-6">
                   <div class="form-group">
+                    <label>Tanggal Form</label>
+                    <input class="form-control" v-model="form.update.data.tanggal_form" type="date" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label>Jam</label>
+                    <input class="form-control" v-model="form.update.data.jam" type="time" disabled>
+                  </div>
+                  <div class="form-group">
                     <label>Cabang</label>
                     <select class="form-control" v-model="form.update.data.cabang_id" disabled>
                       <option v-for="cabang in data.cabang" :value="cabang.id">
@@ -108,6 +116,8 @@ export default {
             cabang_id: null,
             supplier_id: null,
             keterangan: '',
+            tanggal_form: '',
+            jam: '',
             d: []
           },
           errors: [],
@@ -139,6 +149,8 @@ export default {
             cabang_id: mainData.cabang_id,
             supplier_id: mainData.supplier_id,
             keterangan: mainData.keterangan,
+            tanggal_form: mainData.tanggal_form,
+            jam: mainData.jam,
             d: []
           }
           mainData.d.forEach((item, i) => {
@@ -216,6 +228,8 @@ export default {
             cabang_id: null,
             supplier_id: null,
             keterangan: '',
+            tanggal_form: '',
+            jam: '',
             d: [
               {
                 barang_id: null,
