@@ -101,7 +101,7 @@ export default {
     },
     selectBarang(id, emit = true) {
       console.log([this.data.barang,{ id: id}])
-      let selectedBarang = this.$_.findWhere(this.data.barang, { id: id })
+      let selectedBarang = this.$_.findWhere(this.data.barang, { id: parseInt(id) })
       console.log(selectedBarang)
       if (selectedBarang == undefined || selectedBarang == null) {
         this.state.selected = false
