@@ -201,6 +201,19 @@ class PurchaseOrder extends Controller
     }
   }
 
+  public function amendApprove(Request $request)
+  {
+    $v = Validator::make($request->only('id'), [
+      'id' => 'required|exists:purchase_order,id'
+    ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
+
+    $purchaseOrderModel = PurchaseOrderModel::find($request->input('id'));
+    $purchaseOrderModel->approve = true;
+    $purchaseOrderModel->user_id = $request->user()->id;
+    $purchaseOrderModel->save();
+  }
+
   public function destroy(Request $request)
   {
     $v = Validator::make($request->only('id'), [

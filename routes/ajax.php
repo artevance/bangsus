@@ -430,6 +430,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::get('{id}', 'PurchaseOrder@get');
         Route::post('', 'PurchaseOrder@store');
         Route::put('', 'PurchaseOrder@amend');
+        Route::put('approve', 'PurchaseOrder@amendApprove');
         Route::delete('', 'PurchaseOrder@destroy');
       });
     });
