@@ -46,49 +46,51 @@
               </div>
               <div class="row mt-3">
                 <div class="col">
-                  <table class="table table-hover">
-                    <thead>
-                      <th>#</th>
-                      <th>Barang</th>
-                      <th>Satuan</th>
-                      <th>Qty</th>
-                      <th>Harga Barang</th>
-                      <th>Keterangan</th>
-                      <th>Aksi</th>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(detail, i) in form.update.data.d">
-                        <td>{{ i + 1 }}</td>
-                        <td>
-                          <barang-component v-model="detail.barang_id" :component-id="i" @input="reloadSatuan(i)"/>
-                        </td>
-                        <td>
-                          <select class="form-control" v-model="detail.level_satuan">
-                            <option value="null">-- Pilih Satuan --</option>
-                            <option value="1" v-if="detail.satuan != null">{{ detail.satuan.satuan }}</option>
-                            <option value="2" v-if="detail.satuan_dua != null">{{ detail.satuan_dua.satuan }}</option>
-                            <option value="3" v-if="detail.satuan_tiga != null">{{ detail.satuan_tiga.satuan }}</option>
-                            <option value="4" v-if="detail.satuan_empat != null">{{ detail.satuan_empat.satuan }}</option>
-                            <option value="5" v-if="detail.satuan_lima != null">{{ detail.satuan_lima.satuan }}</option>
-                          </select>
-                        </td>
-                        <td>
-                          <input type="number" class="form-control" v-model="detail.qty">
-                        </td>
-                        <td>
-                          <input type="number" class="form-control" v-model="detail.harga_barang">
-                        </td>
-                        <td>
-                          <input type="text" class="form-control" v-model="detail.keterangan">
-                        </td>
-                        <td>
-                          <button class="btn btn-sm" type="button" @click.prevent="removeDetail(i)">
-                            <i class="fas fa-trash text-danger"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <th>#</th>
+                        <th>Barang</th>
+                        <th>Satuan</th>
+                        <th>Qty</th>
+                        <th>Harga Barang</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(detail, i) in form.update.data.d">
+                          <td>{{ i + 1 }}</td>
+                          <td>
+                            <barang-component v-model="detail.barang_id" :component-id="i" @input="reloadSatuan(i)"/>
+                          </td>
+                          <td>
+                            <select class="form-control" v-model="detail.level_satuan">
+                              <option value="null">-- Pilih Satuan --</option>
+                              <option value="1" v-if="detail.satuan != null">{{ detail.satuan.satuan }}</option>
+                              <option value="2" v-if="detail.satuan_dua != null">{{ detail.satuan_dua.satuan }}</option>
+                              <option value="3" v-if="detail.satuan_tiga != null">{{ detail.satuan_tiga.satuan }}</option>
+                              <option value="4" v-if="detail.satuan_empat != null">{{ detail.satuan_empat.satuan }}</option>
+                              <option value="5" v-if="detail.satuan_lima != null">{{ detail.satuan_lima.satuan }}</option>
+                            </select>
+                          </td>
+                          <td>
+                            <input type="number" class="form-control" v-model="detail.qty">
+                          </td>
+                          <td>
+                            <input type="number" class="form-control" v-model="detail.harga_barang">
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" v-model="detail.keterangan">
+                          </td>
+                          <td>
+                            <button class="btn btn-sm" type="button" @click.prevent="removeDetail(i)">
+                              <i class="fas fa-trash text-danger"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                   <button class="btn btn-secondary btn-sm mt-3" type="button" @click.prevent="addDetail">+ Tambah</button>
                 </div>
               </div>
