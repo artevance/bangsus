@@ -8,7 +8,7 @@
         <i class="text-danger">Barang belum dipilih</i>
       </span>
     </span>
-    <button class="btn btn-sm btn-primary" type="button" @click="showModal" v-if="noEdit == false">
+    <button class="btn btn-sm btn-primary" type="button" @click="showModal" v-if="!noEdit">
       <span v-if="state.selected">
         Ganti Barang
       </span>
