@@ -100,6 +100,7 @@ export default {
       return this.$axios.get('/ajax/v1/master/barang', { params: this.search })
     },
     selectBarang(id, emit = true) {
+      console.log([this.data.barang,{ id: id}])
       let selectedBarang = this.$_.findWhere(this.data.barang, { id: id })
       console.log(selectedBarang)
       if (selectedBarang == undefined || selectedBarang == null) {
