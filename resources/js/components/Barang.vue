@@ -33,7 +33,7 @@
             </div>
             <div class="list-group">
               <template v-for="barang in data.barang">
-                <a href="#" class="list-group-item list-group-item-action" @click.prevent="selectBarang(barang.id)">
+                <a href="#" class="list-group-item list-group-item-action" @click.prevent="selectBarang(barang.id, true)">
                   <h5>{{ barang.kode_barang }} - {{ barang.nama_barang }}</h5>
                   <p>
                     Satuan: {{ barang.satuan.satuan }}{{ barang.satuan_dua != null ? ', ' + barang.satuan_dua.satuan : '' }}{{ barang.satuan_tiga != null ? ', ' + barang.satuan_tiga.satuan : '' }}{{ barang.satuan_empat != null ? ', ' + barang.satuan_empat.satuan : '' }}{{ barang.satuan_lima != null ? ', ' + barang.satuan_lima.satuan : '' }}
@@ -68,14 +68,21 @@ export default {
     }
   },
   created() {
-    this.queryData()
-    this.result = this.value
+    this.prepare()
   },
   props: [
     'componentId',
     'value'
   ],
   methods: {
+    prepare() {
+      this.result = this.value
+      this.fetchBarang()
+        .then(res => {
+          this.data.barang = res.data.container
+          this.selectBarang(this.result, false)
+        })
+    },
     showModal() {
       $('[data-entity="barang"][data-method="select"][data-key="'+this.componentId+'"]').modal('show')
     },
@@ -84,19 +91,31 @@ export default {
     },
     queryData() {
       this.fetchBarang()
-    },
-    fetchBarang() {
-      this.$axios.get('/ajax/v1/master/barang', { params: this.search })
         .then(res => {
           this.data.barang = res.data.container
         })
     },
-    selectBarang(id) {
+    fetchBarang() {
+      return this.$axios.get('/ajax/v1/master/barang', { params: this.search })
+    },
+    selectBarang(id, emit = true) {
+      let selectedBarang = this.$_.findWhere(this.data.barang, { id: id })
+      console.log(selectedBarang)
+      if (selectedBarang == undefined || selectedBarang == null) {
+        this.state.selected = false
+        return
+      }
+      this.selected.barang = selectedBarang
       this.state.selected = true
-      this.selected.barang = this.$_.findWhere(this.data.barang, { id: id })
+
       this.hideModal()
       this.result = id
-      this.$emit('input', this.result)
+      if (emit) {
+        this.$emit('input', this.result)
+      }
+    },
+    setBootedSelected() {
+      this.selectBarang(this.result)
     }
   }
 }

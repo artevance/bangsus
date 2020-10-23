@@ -4296,11 +4296,6 @@ select:focus {
   opacity: 1;
 }
 
-.form-control::-ms-input-placeholder, .typeahead::-ms-input-placeholder, .tt-query::-ms-input-placeholder, .tt-hint::-ms-input-placeholder, .select2-container--default .select2-selection--single .select2-search__field::-ms-input-placeholder, .select2-container--default .select2-selection--single::-ms-input-placeholder, .email-compose-fields .select2-container--default .select2-selection--multiple::-ms-input-placeholder, select::-ms-input-placeholder {
-  color: #c9c8c8;
-  opacity: 1;
-}
-
 .form-control::placeholder,
 .typeahead::placeholder,
 .tt-query::placeholder,
@@ -23530,10 +23525,6 @@ address p {
 }
 
 .navbar .search-form .input-group .form-control:-ms-input-placeholder, .navbar .search-form .input-group .typeahead:-ms-input-placeholder, .navbar .search-form .input-group .tt-query:-ms-input-placeholder, .navbar .search-form .input-group .tt-hint:-ms-input-placeholder, .navbar .search-form .input-group .select2-container--default .select2-selection--single .select2-search__field:-ms-input-placeholder, .select2-container--default .select2-selection--single .navbar .search-form .input-group .select2-search__field:-ms-input-placeholder, .navbar .search-form .input-group .select2-container--default .select2-selection--single:-ms-input-placeholder, .select2-container--default .navbar .search-form .input-group .select2-selection--single:-ms-input-placeholder, .navbar .search-form .input-group .email-compose-fields .select2-container--default .select2-selection--multiple:-ms-input-placeholder, .email-compose-fields .select2-container--default .navbar .search-form .input-group .select2-selection--multiple:-ms-input-placeholder, .navbar .search-form .input-group select:-ms-input-placeholder {
-  color: #c0ccda;
-}
-
-.navbar .search-form .input-group .form-control::-ms-input-placeholder, .navbar .search-form .input-group .typeahead::-ms-input-placeholder, .navbar .search-form .input-group .tt-query::-ms-input-placeholder, .navbar .search-form .input-group .tt-hint::-ms-input-placeholder, .navbar .search-form .input-group .select2-container--default .select2-selection--single .select2-search__field::-ms-input-placeholder, .select2-container--default .select2-selection--single .navbar .search-form .input-group .select2-search__field::-ms-input-placeholder, .navbar .search-form .input-group .select2-container--default .select2-selection--single::-ms-input-placeholder, .select2-container--default .navbar .search-form .input-group .select2-selection--single::-ms-input-placeholder, .navbar .search-form .input-group .email-compose-fields .select2-container--default .select2-selection--multiple::-ms-input-placeholder, .email-compose-fields .select2-container--default .navbar .search-form .input-group .select2-selection--multiple::-ms-input-placeholder, .navbar .search-form .input-group select::-ms-input-placeholder {
   color: #c0ccda;
 }
 

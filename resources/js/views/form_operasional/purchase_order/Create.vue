@@ -205,7 +205,8 @@ export default {
               }
             ]
           }
-          this.$router.push({ name: 'formOperasional.purchaseOrder' })
+          this.$router.go(-1)
+          this.$parent.queryData()
         })
         .catch(err => {
           this.form.create.data.errors = err.response.data.errors

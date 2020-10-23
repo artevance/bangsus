@@ -29,7 +29,7 @@ class PurchaseOrder extends Controller
 
   public function get(Request $request, $id)
   {
-    if ( ! is_null(PurchaseOrderModel::find($id))) return $this->response(404);
+    if (is_null(PurchaseOrderModel::find($id))) return $this->response(404);
 
     return $this->data(PurchaseOrderModel::with([
       'cabang',
@@ -109,30 +109,11 @@ class PurchaseOrder extends Controller
         }
       }
 
-      $satuanId = null;
-      switch ($d['level_satuan']) {
-        case 1 :
-          $satuanId = $barang->satuan_id;
-          break;
-        case 2 :
-          $satuanId = $barang->satuan_dua_id;
-          break;
-        case 3 :
-          $satuanId = $barang->satuan_tiga_id;
-          break;
-        case 4 :
-          $satuanId = $barang->satuan_empat_id;
-          break;
-        case 5 :
-          $satuanId = $barang->satuan_lima_id;
-          break;
-      }
-
       $detailModel = new PurchaseOrderD;
       $detailModel->purchase_order_id = $purchaseOrderModel->id;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->qty = $d['qty'];
-      $detailModel->satuan_id = $satuanId;
+      $detailModel->level_satuan = $d['level_satuan'];
       $detailModel->qty_konversi = $d['qty'] * $constant;
       $detailModel->harga_barang = $d['harga_barang'];
       $detailModel->keterangan = $d['keterangan'] ?? '';
@@ -144,16 +125,10 @@ class PurchaseOrder extends Controller
   {
     $v = Validator::make($request->only(
       'id',
-      'tanggal_form',
-      'jam',
-      'cabang_id',
       'supplier_id',
       'd'
     ), [
       'id' => 'required|exists:purchase_order,id',
-      'tanggal_form' => 'required|date_format:Y-m-d',
-      'jam' => 'required',
-      'cabang_id' => 'required|exists:cabang,id',
       'supplier_id' => 'required|exists:supplier,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
@@ -164,9 +139,6 @@ class PurchaseOrder extends Controller
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $purchaseOrderModel = PurchaseOrderModel::find($request->input('id'));
-    $purchaseOrderModel->tanggal_form = $request->input('tanggal_form');
-    $purchaseOrderModel->jam = $request->input('jam');
-    $purchaseOrderModel->cabang_id = $request->input('cabang_id');
     $purchaseOrderModel->supplier_id = $request->input('supplier_id');
     $purchaseOrderModel->approve = false;
     $purchaseOrderModel->user_id = $request->user()->id;
@@ -221,7 +193,7 @@ class PurchaseOrder extends Controller
       $detailModel->purchase_order_id = $purchaseOrderModel->id;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->qty = $d['qty'];
-      $detailModel->satuan_id = $satuanId;
+      $detailModel->level_satuan = $d['level_satuan'];
       $detailModel->qty_konversi = $d['qty'] * $constant;
       $detailModel->harga_barang = $d['harga_barang'];
       $detailModel->keterangan = $d['keterangan'] ?? '';
