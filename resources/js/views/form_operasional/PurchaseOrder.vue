@@ -124,7 +124,7 @@
                                   undefined,
                                   '[]'
                                 )
-                              ) && !purchase_order.approve
+                              ) && purchase_order.approve == 0
                             ">
                             Ubah
                           </router-link>
@@ -140,7 +140,7 @@
                                   undefined,
                                   '[]'
                                 )
-                              ) && !purchase_order.approve
+                              ) && purchase_order.approve == 0
                             ">
                             Approve
                           </a>
@@ -156,7 +156,7 @@
                                   undefined,
                                   '[]'
                                 )
-                              ) && !purchase_order.approve
+                              ) && purchase_order.approve == 0
                             ">
                             Hapus
                           </a>
