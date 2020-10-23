@@ -8,7 +8,7 @@
         <i class="text-danger">Barang belum dipilih</i>
       </span>
     </span>
-    <button class="btn btn-sm btn-primary" type="button" @click="showModal" v-if="!noEdit">
+    <button class="btn btn-sm btn-primary" type="button" @click="showModal" v-if="noEdit == false">
       <span v-if="state.selected">
         Ganti Barang
       </span>
@@ -108,6 +108,7 @@ export default {
       }
       this.selected.barang = selectedBarang
       this.state.selected = true
+      console.log(this.state.selected)
 
       this.hideModal()
       this.result = id
