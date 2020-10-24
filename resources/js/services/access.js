@@ -26,5 +26,6 @@ export default function getAccessFor(menu, action) {
 
 const access = {
   admin: require('./access/admin.js').default,
-  leader: require('./access/leader.js').default
+  leader: require('./access/leader.js').default,
+  supervisor: require('./access/supervisor.js').default
 }
