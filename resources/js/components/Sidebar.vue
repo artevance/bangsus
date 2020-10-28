@@ -114,7 +114,7 @@ export default {
                 { title: 'Form Pengumpulan Tugas', index: 'formPengumpulanTugas', to: 'formOperasional.formPengumpulanTugas' },
                 { title: 'Form Laporan Cabang', index: 'formLaporanCabang', to: 'formOperasional.formLaporanCabang' },
                 { title: 'Purchase Order', index: 'purchaseOrder', to: 'formOperasional.purchaseOrder' },
-                { title: 'Stok Opname', index: 'stokOpname', to: 'formOperasional.stokOpname', disabled: true },
+                { title: 'Stok Opname', index: 'stokOpname', to: 'formOperasional.stokOpname' },
               ]
             },
             { icon: 'far fa-chart-pie', title: 'Report Center', index: 'reportCenter', to: 'reportCenter' },

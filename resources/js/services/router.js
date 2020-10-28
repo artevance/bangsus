@@ -495,6 +495,36 @@ const routes = [
               }
             ]
           },
+          {
+            path: 'stok_opname',
+            name: 'formOperasional.stokOpname',
+            component: require('../views/form_operasional/StokOpname').default,
+            meta: { layout: 'default', title: 'Stok Opname', sidebar: 'formOperasional', item: 'stokOpname' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+            {
+                path: 'create',
+                name: 'formOperasional.stokOpname.create',
+                component: require('../views/form_operasional/stok_opname/Create').default,
+                meta: { layout: 'default', title: 'Stok Opname', sidebar: 'formOperasional', item: 'stokOpname' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.stokOpname.detail',
+                component: require('../views/form_operasional/stok_opname/Detail').default,
+                meta: { layout: 'default', title: 'Stok Opname', sidebar: 'formOperasional', item: 'stokOpname' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'update/:id',
+                name: 'formOperasional.stokOpname.update',
+                component: require('../views/form_operasional/stok_opname/Update').default,
+                meta: { layout: 'default', title: 'Stok Opname', sidebar: 'formOperasional', item: 'stokOpname' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
+          },
         ]
       },
       {

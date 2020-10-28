@@ -64,7 +64,6 @@ class StokOpname extends Controller
       'd'
     ), [
       'cabang_id' => 'required|exists:cabang,id',
-      'supplier_id' => 'required|exists:supplier,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -125,7 +124,6 @@ class StokOpname extends Controller
       'd'
     ), [
       'id' => 'required|exists:stok_opname,id',
-      'supplier_id' => 'required|exists:supplier,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
