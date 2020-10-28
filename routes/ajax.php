@@ -433,6 +433,15 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::put('approve', 'PurchaseOrder@amendApprove');
         Route::delete('', 'PurchaseOrder@destroy');
       });
+      Route::prefix('stok_opname')->group(function () {
+        Route::get('', 'StokOpname@index');
+        Route::get('cabang_harian', 'StokOpname@dailyBranch');
+        Route::get('{id}', 'StokOpname@get');
+        Route::post('', 'StokOpname@store');
+        Route::put('', 'StokOpname@amend');
+        Route::put('approve', 'StokOpname@amendApprove');
+        Route::delete('', 'StokOpname@destroy');
+      });
     });
     Route::prefix('report_center')->namespace('ReportCenter')->group(function () {
       Route::prefix('laporan_absensi')->namespace('LaporanAbsensi')->group(function () {
