@@ -47,6 +47,7 @@
                         <th>Qty</th>
                         <th>Harga Barang</th>
                         <th>Keterangan</th>
+                        <th>Gambar</th>
                         <th>Aksi</th>
                       </thead>
                       <tbody>
@@ -73,6 +74,9 @@
                           </td>
                           <td>
                             <input type="text" class="form-control" v-model="detail.keterangan">
+                          </td>
+                          <td>
+                            <webcam-component v-model="detail.gambar" ref="webcam"></webcam-component>
                           </td>
                           <td>
                             <button class="btn btn-sm" type="button" @click.prevent="removeDetail(i)">
@@ -145,25 +149,51 @@ export default {
             jam: mainData.jam,
             d: []
           }
-          mainData.d.forEach((item, i) => {
-            this.form.update.data.d.push({
-              barang_id: item.barang_id,
-              level_satuan: item.level_satuan,
-              qty: item.qty,
-              keterangan: item.keterangan,
-              harga_barang: item.harga_barang,
-              satuan: item.satuan,
-              satuan_dua: item.satuan_dua,
-              satuan_tiga: item.satuan_tiga,  
-              satuan_empat: item.satuan_empat,
-              satuan_lima: item.satuan_lima,
-            })
-            this.reloadSatuan(i, false)
-          })
-          this.data.cabang = res[1].data.container
 
-          this.state.page.loading = false
+          let imageRequest = []
+          mainData.d.forEach((item, i) => {
+            let request = this.$axios.get('/ajax/v1/form_operasional/stok_opname/gambar/' + item.id, { responseType: 'blob' })
+            imageRequest.push(request)
+          })
+
+          Promise.all(imageRequest)
+            .then(res => {
+              res.forEach((item, i) => {
+
+                (new Promise((resolve, reject) => {
+                  let reader = new window.FileReader()
+                  reader.onload = () => resolve(reader.result)
+                  reader.readAsDataURL(item.data)
+                }))
+                  .then(img => {
+                    this.pushDetail(mainData.d[i], img)
+                    this.reloadSatuan(i, false)
+                  })
+
+                // let reader = new window.FileReader()
+                // console.log(item.data)
+                // reader.onload = this.pushDetail(mainData.d[i], reader.result)
+                // reader.readAsDataURL(item.data)
+              })
+              this.state.page.loading = false
+            })
+          this.data.cabang = res[1].data.container
         })
+    },
+    pushDetail(item, gambar) {
+      this.form.update.data.d.push({
+        barang_id: item.barang_id,
+        level_satuan: item.level_satuan,
+        qty: item.qty,
+        keterangan: item.keterangan,
+        harga_barang: item.harga_barang,
+        satuan: item.satuan,
+        satuan_dua: item.satuan_dua,
+        satuan_tiga: item.satuan_tiga,  
+        satuan_empat: item.satuan_empat,
+        satuan_lima: item.satuan_lima,
+        gambar: gambar
+      })
     },
     addDetail() {
       this.form.update.data.d.push({

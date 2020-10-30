@@ -57,6 +57,18 @@ export default {
   },
   created() {
     this.result = this.value
+
+    if (this.result != '' && this.result != null) {
+      this.state.captured = true
+      this.state.canvas = true
+
+      let image = new Image()
+      image.onload = () => {
+        this.config.width = image.width
+        this.config.height = image.height
+      }
+      image.src = this.result
+    }
   },
 
   props: [

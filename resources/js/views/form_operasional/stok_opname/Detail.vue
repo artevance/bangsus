@@ -76,7 +76,7 @@
                             <input type="text" class="form-control" v-model="detail.keterangan" disabled>
                           </td>
                           <th>
-                            <a :href="'/gambar/' + detail.gambar_id" target="_blank">Link Foto</a>
+                            <a :href="'/ajax/v1/form_operasional/stok_opname/gambar/' + detail.id" target="_blank">Link Foto</a>
                           </th>
                           <td>
                             

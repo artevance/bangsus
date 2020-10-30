@@ -59,6 +59,11 @@ class StokOpname extends Controller
       )->response(200);
   }
 
+  public function image(Request $request, $id)
+  {
+    return Image::make(StokOpnameD::find($id)->dir_gambar)->response('jpeg');
+  }
+
   public function store(Request $request)
   {
     $v = Validator::make($request->only(

@@ -194,6 +194,7 @@ export default {
                 satuan_tiga: null,
                 satuan_empat: null,
                 satuan_lima: null,
+                gambar: ''
               }
             ]
           }
