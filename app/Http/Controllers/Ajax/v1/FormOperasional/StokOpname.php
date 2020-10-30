@@ -15,6 +15,8 @@ use App\Http\Models\Barang;
 use App\Http\Models\Cabang;
 use App\Http\Models\Gambar;
 
+use Intervention\Image\Facades\Image;
+
 class StokOpname extends Controller
 {
   public function index(Request $request)
@@ -83,9 +85,8 @@ class StokOpname extends Controller
     $stokOpnameModel->save();
 
     foreach ($request->input('d') as $d) {
-      $gambarModel = new Gambar;
-      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $d['gambar'])[1]));
-      $gambarModel->save();
+      $dir = public_path('opname/' . uniqid() . uniqid() . uniqid() . '.jpg');
+      Image::make(file_get_contents($d['gambar']))->save($dir);
 
       $barang = Barang::find($d['barang_id']);
       $constant = 1;
@@ -112,7 +113,7 @@ class StokOpname extends Controller
 
       $detailModel = new StokOpnameD;
       $detailModel->stok_opname_id = $stokOpnameModel->id;
-      $detailModel->gambar_id = $gambarModel->id;
+      $detailModel->dir_gambar = $dir;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
@@ -147,17 +148,13 @@ class StokOpname extends Controller
 
     $stokOpnameModel->d->each(
       function ($d) {
-        $gambarModel = $d->gambar;
-        $gambarModel->konten = '';
-        $gambarModel->save();
         $d->delete();
       }
     );
 
     foreach ($request->input('d') as $d) {
-      $gambarModel = new Gambar;
-      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $d['gambar'])[1]));
-      $gambarModel->save();
+      $dir = public_path('opname/' . uniqid() . uniqid() . uniqid() . '.jpg');
+      Image::make(file_get_contents($d['gambar']))->save($dir);
 
       $barang = Barang::find($d['barang_id']);
       $constant = 1;
@@ -203,7 +200,7 @@ class StokOpname extends Controller
 
       $detailModel = new StokOpnameD;
       $detailModel->stok_opname_id = $stokOpnameModel->id;
-      $detailModel->gambar_id = $gambarModel->id;
+      $detailModel->dir_gambar = $dir;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
@@ -238,9 +235,6 @@ class StokOpname extends Controller
 
     $stokOpnameModel->d->each(
       function ($d) {
-        $gambarModel = $d->gambar;
-        $gambarModel->konten = '';
-        $gambarModel->save();
         $d->delete();
       }
     );

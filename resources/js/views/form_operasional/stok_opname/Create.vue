@@ -197,7 +197,7 @@ export default {
               }
             ]
           }
-          this.$router.go(-1)
+          this.$router.push({ name: 'formOperasional.stokOpname' })
           this.$parent.queryData()
         })
         .catch(err => {
