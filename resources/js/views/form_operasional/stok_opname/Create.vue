@@ -38,6 +38,7 @@
                       <th>Qty</th>
                       <th>Harga Barang</th>
                       <th>Keterangan</th>
+                      <th>Gambar</th>
                       <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -64,6 +65,9 @@
                         </td>
                         <td>
                           <input type="text" class="form-control" v-model="detail.keterangan">
+                        </td>
+                        <td>
+                          <webcam-component v-model="detail.gambar" ref="webcam"></webcam-component>
                         </td>
                         <td>
                           <button class="btn btn-sm" type="button" @click.prevent="removeDetail(i)">
@@ -109,6 +113,7 @@ export default {
                 satuan_tiga: null,
                 satuan_empat: null,
                 satuan_lima: null,
+                gambar: '',
               }
             ]
           },

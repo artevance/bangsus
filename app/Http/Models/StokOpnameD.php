@@ -21,4 +21,9 @@ class StokOpnameD extends Model
   {
     return $this->belongsTo('App\Http\Models\Barang');
   }
+
+  public function gambar()
+  {
+    return $this->belongsTo('App\Http\Models\Gambar');
+  }
 }

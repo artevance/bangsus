@@ -13,6 +13,7 @@ use App\Http\Models\StokOpname as StokOpnameModel;
 use App\Http\Models\StokOpnameD;
 use App\Http\Models\Barang;
 use App\Http\Models\Cabang;
+use App\Http\Models\Gambar;
 
 class StokOpname extends Controller
 {
@@ -68,7 +69,8 @@ class StokOpname extends Controller
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
       'd.*.harga_barang' => 'required|max:10000000000',
-      'd.*.keterangan' => 'nullable|max:200'
+      'd.*.keterangan' => 'nullable|max:200',
+      'd.*.gambar' => 'required'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -81,6 +83,10 @@ class StokOpname extends Controller
     $stokOpnameModel->save();
 
     foreach ($request->input('d') as $d) {
+      $gambarModel = new Gambar;
+      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $d['gambar'])[1]));
+      $gambarModel->save();
+
       $barang = Barang::find($d['barang_id']);
       $constant = 1;
 
@@ -106,6 +112,7 @@ class StokOpname extends Controller
 
       $detailModel = new StokOpnameD;
       $detailModel->stok_opname_id = $stokOpnameModel->id;
+      $detailModel->gambar_id = $gambarModel->id;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
@@ -128,7 +135,8 @@ class StokOpname extends Controller
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
       'd.*.harga_barang' => 'required|max:10000000000',
-      'd.*.keterangan' => 'nullable|max:200'
+      'd.*.keterangan' => 'nullable|max:200',
+      'd.*.gambar' => 'required'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -137,9 +145,20 @@ class StokOpname extends Controller
     $stokOpnameModel->user_id = $request->user()->id;
     $stokOpnameModel->save();
 
-    $stokOpnameModel->d->each(fn ($d) => $d->delete());
+    $stokOpnameModel->d->each(
+      function ($d) {
+        $gambarModel = $d->gambar;
+        $gambarModel->konten = '';
+        $gambarModel->save();
+        $d->delete();
+      }
+    );
 
     foreach ($request->input('d') as $d) {
+      $gambarModel = new Gambar;
+      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $d['gambar'])[1]));
+      $gambarModel->save();
+
       $barang = Barang::find($d['barang_id']);
       $constant = 1;
 
@@ -184,6 +203,7 @@ class StokOpname extends Controller
 
       $detailModel = new StokOpnameD;
       $detailModel->stok_opname_id = $stokOpnameModel->id;
+      $detailModel->gambar_id = $gambarModel->id;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
@@ -216,7 +236,14 @@ class StokOpname extends Controller
 
     $stokOpnameModel = StokOpnameModel::find($request->input('id'));
 
-    $stokOpnameModel->d->each(fn ($d) => $d->delete());
+    $stokOpnameModel->d->each(
+      function ($d) {
+        $gambarModel = $d->gambar;
+        $gambarModel->konten = '';
+        $gambarModel->save();
+        $d->delete();
+      }
+    );
 
     $stokOpnameModel->user_id = $request->user()->id;
     $stokOpnameModel->save();

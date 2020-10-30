@@ -1,24 +1,26 @@
 <template>
   <div class="d-block">
     <transition name="fade" mode="out-in">
-      <div class="camera row justify-content-center align-items-center" v-show="state.open">
-        <div class="">
-          <video ref="video" :width="config.width" :height="config.height" playsinline autoplay v-show="state.video"></video>
-          <canvas ref="canvas" :width="config.width" :height="config.height" v-show="state.canvas"></canvas>
-        </div>
-        <a href="#" class="close" @click="close">
-          <i class="far fa-arrow-left text-white"></i>
-        </a>
-        <a href="#" class="flip" @click="flip" v-if="!state.captured">
-          <i class="far fa-repeat-alt text-white fa-2x"></i>
-        </a>
-        <div class="capture text-center">
-          <a href="#" class="mx-2" v-if="!state.captured" @click="capture">
-            <i class="fas fa-camera text-white fa-3x"></i>
+      <div class="webcam-wrapper" v-show="state.open">
+        <div class="camera row justify-content-center align-items-center">
+          <div class="">
+            <video ref="video" :width="config.width" :height="config.height" playsinline autoplay v-show="state.video"></video>
+            <canvas ref="canvas" :width="config.width" :height="config.height" v-show="state.canvas"></canvas>
+          </div>
+          <a href="#" class="close" @click="close">
+            <i class="far fa-arrow-left text-white"></i>
           </a>
-          <a href="#" class="mx-2" v-if="state.captured" @click="init">
-            <i class="fas fa-redo text-white fa-3x"></i>
+          <a href="#" class="flip" @click="flip" v-if="!state.captured">
+            <i class="far fa-repeat-alt text-white fa-2x"></i>
           </a>
+          <div class="capture text-center">
+            <a href="#" class="mx-2" v-if="!state.captured" @click="capture">
+              <i class="fas fa-camera text-white fa-3x"></i>
+            </a>
+            <a href="#" class="mx-2" v-if="state.captured" @click="init">
+              <i class="fas fa-redo text-white fa-3x"></i>
+            </a>
+          </div>
         </div>
       </div>
     </transition>
@@ -171,6 +173,10 @@ export default {
 
 <style lang="scss" scoped>
 
+.webcam-wrapper {
+  position: absolute;
+  z-index: 100000000000000000000000000000;
+}
 .camera {
   position: fixed;
   top: 0;

@@ -47,6 +47,7 @@
                         <th>Qty</th>
                         <th>Harga Barang</th>
                         <th>Keterangan</th>
+                        <th>Foto</th>
                         <th>Aksi</th>
                       </thead>
                       <tbody>
@@ -74,6 +75,9 @@
                           <td>
                             <input type="text" class="form-control" v-model="detail.keterangan" disabled>
                           </td>
+                          <th>
+                            <a :href="'/gambar/' + detail.gambar_id" target="_blank">Link Foto</a>
+                          </th>
                           <td>
                             
                           </td>
@@ -150,6 +154,7 @@ export default {
               satuan_tiga: item.satuan_tiga,  
               satuan_empat: item.satuan_empat,
               satuan_lima: item.satuan_lima,
+              gambar_id: item.gambar_id
             })
             this.reloadSatuan(i, false)
           })
