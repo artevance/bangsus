@@ -109,10 +109,31 @@
             <div class="modal-body">
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" class="form-control" v-model="form.update.data.username">
+                <input type="text" class="form-control" v-model="form.update.data.username" autocomplete="nope" readonly>
                 <small class="text-danger" v-for="(msg, index) in form.update.errors.username" :key="index">
                   {{ msg }}
                 </small>
+              </div>
+              <div class="form-group">
+                <label>Role</label>
+                <select class="form-control" v-model="form.update.data.role_id">
+                  <option value="null">-- Pilih Role --</option>
+                  <option v-for="role in data.role" :value="role.id">
+                    {{ role.role_name }}
+                  </option>
+                </select>
+                <small class="text-danger" v-for="(msg, index) in form.update.errors.role_id" :key="index">
+                  {{ msg }}
+                </small>
+              </div>
+              <div class="form-group" v-if="$_.findWhere(data.role, { id: form.update.data.role_id, akses_semua_cabang: 0 }) != null">
+                <label>Akses Cabang</label>
+                <div class="form-check" v-for="(cabang, i) in data.cabang">
+                  <input class="form-check-input m-0" type="checkbox" :value="cabang.id" v-model="form.update.data.cabang_id">
+                  <label class="form-check-label">
+                    {{ cabang.kode_cabang }} - {{ cabang.cabang }}
+                  </label>
+                </div>
               </div>
             </div>
             <div class="modal-footer">
@@ -231,9 +252,20 @@ export default {
             id: id,
             username: res.data.container.username,
             role_id: res.data.container.role_id,
-            cabang_id: res.data.container.cabang_id
+            cabang_id: []
           }
-          $('[data-entity="user"][data-method="update"]').modal('show')
+          res.data.container.user_cabang.forEach((item, i) => {
+            this.form.update.data.cabang_id.push(item.cabang_id)
+          })
+          Promise.all([
+            this.fetchRole(),
+            this.fetchCabang()
+          ])
+            .then(res => {
+              this.data.role = res[0].data.container
+              this.data.cabang = res[1].data.container
+              $('[data-entity="user"][data-method="update"]').modal('show')
+            })
         })
     },
 

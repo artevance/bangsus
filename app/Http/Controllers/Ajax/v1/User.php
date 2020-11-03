@@ -19,7 +19,7 @@ class User extends Controller
   public function index(Request $request)
   {
     return $this
-      ->data(UserModel::with('role')->where('username', 'like', '%' . $request->input('q') . '%') ->get())
+      ->data(UserModel::with('role', 'user_cabang')->where('username', 'like', '%' . $request->input('q') . '%') ->get())
       ->response(200);
   }
 
@@ -27,7 +27,7 @@ class User extends Controller
   {
     if ( ! UserModel::find($id)->exists()) return $this->response(404);
 
-    return $this->data(UserModel::find($id))->response(200);
+    return $this->data(UserModel::with('role', 'user_cabang')->find($id))->response(200);
   }
 
   public function store(Request $request)
@@ -73,21 +73,23 @@ class User extends Controller
       'cabang_id'
     ), [
       'id' => 'required|exists:user,id',
-      'username' => 'required|max:200|unique:user,username',
-      'password' => 'required|max:200',
+      'username' => [
+        'required',
+        'max:200',
+        Rule::unique('user', 'username')->ignore($request->input('id'))
+      ],
       'role_id' => 'required|exists:role,id',
       'cabang_id' => 'nullable',
       'cabang_id.*' => 'exists:cabang,id'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    $model = UserModel::find($id);
+    $model = UserModel::find($request->input('id'));
     $model->username = $request->input('username');
-    $model->password = password_hash($request->input('password'), PASSWORD_DEFAULT);
     $model->role_id = $request->input('role_id');
     $model->save();
 
-    $model->each('user_cabang',
+    $model->user_cabang()->each(
       function ($userCabang) {
         $userCabang->delete();
       }
