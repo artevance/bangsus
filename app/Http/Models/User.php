@@ -52,6 +52,11 @@ class User extends Authenticatable
     return $this->belongsTo('App\Http\Models\TugasKaryawan');
   }
 
+  public function user_cabang()
+  {
+    return $this->hasMany('App\Http\Models\UserCabang');
+  }
+
   public function hasRole($role)
   {
     return $this->role->role_code == $role;

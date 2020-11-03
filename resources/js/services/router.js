@@ -528,6 +528,16 @@ const routes = [
         ]
       },
       {
+        path: 'user',
+        name: 'user',
+        component: require('../views/User').default,
+        meta: { layout: 'default', title: 'User', sidebar: 'user' },
+        beforeEnter: Multiguard([middleware.auth, middleware.access]),
+        children: [
+
+        ]
+      },
+      {
         path: 'report_center',
         name: 'reportCenter',
         component: require('../views/ReportCenter').default,

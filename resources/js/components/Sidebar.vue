@@ -117,6 +117,7 @@ export default {
                 { title: 'Stok Opname', index: 'stokOpname', to: 'formOperasional.stokOpname' },
               ]
             },
+            { icon: 'far fa-user', title: 'User', index: 'user', to: 'user' },
             { icon: 'far fa-chart-pie', title: 'Report Center', index: 'reportCenter', to: 'reportCenter' },
           ]
         }

@@ -930,6 +930,12 @@ export default {
       },
     }
   },
+  user: {
+    access: true,
+    create: true,
+    read: true,
+    update: true
+  },
   reportCenter: {
     access: true,
     children: {

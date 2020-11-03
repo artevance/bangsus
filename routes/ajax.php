@@ -229,6 +229,12 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::post('', 'Barang@store');
         Route::put('', 'Barang@amend');
       });
+      Route::prefix('role')->group(function () {
+        Route::get('', 'Role@index');
+        Route::get('{id}', 'Role@get');
+        Route::post('', 'Role@store');
+        Route::put('', 'Role@amend');
+      });
     });
     Route::prefix('karyawan')->group(function () {
       Route::get('', 'Karyawan@index');
@@ -443,6 +449,12 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::put('approve', 'StokOpname@amendApprove');
         Route::delete('', 'StokOpname@destroy');
       });
+    });
+    Route::prefix('user')->group(function () {
+      Route::get('', 'User@index');
+      Route::get('{id}', 'User@get');
+      Route::post('', 'User@store');
+      Route::put('', 'User@amend');
     });
     Route::prefix('report_center')->namespace('ReportCenter')->group(function () {
       Route::prefix('laporan_absensi')->namespace('LaporanAbsensi')->group(function () {
