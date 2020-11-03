@@ -55,7 +55,7 @@ export default {
           category: '',
           children: [
             { icon: 'far fa-tachometer', title: 'Dashboard', index: 'dashboard', to: 'dashboard' },
-            { icon: 'far fa-comments-alt', title: 'Messenger', index:'messenger', to: 'dashboard', disabled: true },
+            // { icon: 'far fa-comments-alt', title: 'Messenger', index:'messenger', to: 'dashboard', disabled: true },
             { icon: 'far fa-check', title: 'Todo List', index:'todoList', to: 'dashboard', disabled: true },
             {
               icon: 'far fa-ruler',
