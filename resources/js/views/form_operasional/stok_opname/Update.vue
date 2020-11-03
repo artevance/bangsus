@@ -159,7 +159,6 @@ export default {
           Promise.all(imageRequest)
             .then(res => {
               res.forEach((item, i) => {
-
                 (new Promise((resolve, reject) => {
                   let reader = new window.FileReader()
                   reader.onload = () => resolve(reader.result)
@@ -169,11 +168,6 @@ export default {
                     this.pushDetail(mainData.d[i], img)
                     this.reloadSatuan(i, false)
                   })
-
-                // let reader = new window.FileReader()
-                // console.log(item.data)
-                // reader.onload = this.pushDetail(mainData.d[i], reader.result)
-                // reader.readAsDataURL(item.data)
               })
               this.state.page.loading = false
             })
@@ -237,7 +231,6 @@ export default {
       return this.$axios.get('/ajax/v1/master/cabang/terotorisasi')
     },
     update() {
-      console.log(this.form.update.data)
       this.form.update.loading = true
       this.$axios.put('/ajax/v1/form_operasional/stok_opname', this.form.update.data)
         .then(res => {
