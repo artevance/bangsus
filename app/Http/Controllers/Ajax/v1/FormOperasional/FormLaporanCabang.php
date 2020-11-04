@@ -32,6 +32,22 @@ class FormLaporanCabang extends Controller
       ->response(200);
   }
 
+  public function date(Request $request)
+  {
+    return $this
+      ->data(FormLaporanCabangModel::with('cabang')
+        ->whereDate('waktu_form', $request->query('tanggal_form'))
+        ->whereIn('cabang_id',
+          $request->user()->role->akses_semua_cabang
+            ? Cabang::all()->modelKeys()
+            : $request->user()->user_cabang()->pluck('cabang_id')->toArray()
+        )
+        ->orderBy('waktu_form', 'DESC')
+        ->get()
+      )
+      ->response(200);
+  }
+
   public function get(Request $request, $id)
   {
     if (is_null(FormLaporanCabangModel::with(['form_pemberian_tugas_cabang'])->find($id))) return $this->response(404);

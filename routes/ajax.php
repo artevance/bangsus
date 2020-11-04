@@ -424,6 +424,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::prefix('form_laporan_cabang')->group(function () {
         Route::get('', 'FormLaporanCabang@index');
         Route::get('cabang', 'FormLaporanCabang@branch');
+        Route::get('tanggal_form', 'FormLaporanCabang@date');
         Route::get('{id}', 'FormLaporanCabang@get');
         Route::get('file/{id}', 'FormLaporanCabang@getFile');
         Route::post('', 'FormLaporanCabang@store');
