@@ -834,6 +834,13 @@ export default {
         update: true,
         delete: true
       },
+      laporanCabang: {
+        access: true,
+        create: true,
+        read: true,
+        update: true,
+        delete: true
+      },
       purchaseOrder: {
         access: true,
         create: true,

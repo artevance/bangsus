@@ -14,10 +14,15 @@
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">
-                            Tanggal Laporan
+                            Cabang
                           </span>
                         </div>
-                        <input class="form-control" type="date" v-model="query.form_laporan_cabang.tanggal_form" @input="queryData"/>
+                        <select class="form-control" v-model="query.form_laporan_cabang.cabang_id" @change="queryData">
+                          <option>-- Pilih Cabang --</option>
+                          <option v-for="(cabang, i) in data.cabang" :value="cabang.id">
+                            {{ cabang.kode_cabang }} - {{ cabang.cabang }}
+                          </option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -27,7 +32,12 @@
                   <div class="col-12">
                     <div class="form-group">
                       <label>Tanggal Laporan</label>
-                      <input class="form-control" type="date" v-model="query.form_laporan_cabang.tanggal_form" @input="queryData"/>
+                      <select class="form-control" v-model="query.form_laporan_cabang.cabang_id" @change="queryData">
+                        <option>-- Pilih Cabang --</option>
+                        <option v-for="(cabang, i) in data.cabang" :value="cabang.id">
+                          {{ cabang.kode_cabang }} - {{ cabang.cabang }}
+                        </option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -40,14 +50,12 @@
                   <table class="table table-hover" v-if="$access('formOperasional.formLaporanCabang', 'read')">
                     <thead>
                       <th>#</th>
-                      <th>Cabang</th>
                       <th>Keterangan</th>
                       <th>File</th>
                     </thead>
                     <tbody>
                       <tr v-for="(form_laporan_cabang, i) in data.form_laporan_cabang">
                         <td>{{ i + 1 }}</td>
-                        <td>{{ form_laporan_cabang.cabang.kode_cabang }} - {{ form_laporan_cabang.cabang.cabang }}</td>
                         <td>{{ form_laporan_cabang.keterangan }}</td>
                       <td>
                         <a :href="'/ajax/v1/form_operasional/form_laporan_cabang/file/' + form_laporan_cabang.id" target="_blank"
@@ -83,15 +91,6 @@
                 </button>
               </div>
               <div class="modal-body">
-                <div class="form-group">
-                  <label>Cabang</label>
-                  <select class="form-control" v-model="form.create.data.cabang_id">
-                    <option>-- Pilih Cabang --</option>
-                    <option v-for="(cabang, i) in data.cabang" :value="cabang.id">
-                      {{ cabang.kode_cabang }} - {{ cabang.cabang }}
-                    </option>
-                  </select>
-                </div>
                 <div class="form-group">
                   <label>Keterangan</label>
                   <textarea class="form-control form-control-sm" v-model="form.create.data.keterangan"></textarea>
@@ -141,7 +140,7 @@ export default {
       },
       query: {
         form_laporan_cabang: {
-          tanggal_form: this.$moment(this.$route.query.tanggal_form).format('YYYY-MM-DD') || this.$moment().format('YYYY-MM-DD')
+          cabang_id: this.$route.query.cabang_id || null
         }
       }
     }
@@ -164,6 +163,10 @@ export default {
 
           if (this.data.cabang.length <= 0) {
             this.$router.go(-1)
+          }
+
+          if (this.query.form_laporan_cabang.cabang_id == null) {
+            this.query.form_laporan_cabang.cabang_id = this.data.cabang[0].id || null
           }
 
           this.queryData()
@@ -197,7 +200,7 @@ export default {
      *  Fetch data
      */
     fetchMainData() {
-      return this.$axios.get('/ajax/v1/form_operasional/form_laporan_cabang/tanggal_form', { params: this.query.form_laporan_cabang })
+      return this.$axios.get('/ajax/v1/form_operasional/form_laporan_cabang/cabang', { params: this.query.form_laporan_cabang })
     },
     fetchCabang() {
       return this.$axios.get('/ajax/v1/master/cabang/terotorisasi')
@@ -207,13 +210,8 @@ export default {
      *  Modal functionality & utils
      */
     showCreateModal(id) {
-      Promise.all([
-        this.fetchCabang()
-      ])
-        .then(res => {
-          this.data.cabang = res[0].data.container
-          $('[data-entity="formLaporanCabang"][data-method="create"]').modal('show')
-        })
+      this.form.create.data.cabang_id = this.query.form_laporan_cabang.cabang_id
+      $('[data-entity="formLaporanCabang"][data-method="create"]').modal('show')
     },
     hideCreateModal() {
       $('[data-entity="formLaporanCabang"][data-method="create"]').modal('hide')

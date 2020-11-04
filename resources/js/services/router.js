@@ -466,6 +466,13 @@ const routes = [
             beforeEnter: Multiguard([middleware.auth, middleware.access]),
           },
           {
+            path: 'laporan_cabang',
+            name: 'formOperasional.laporanCabang',
+            component: require('../views/form_operasional/LaporanCabang').default,
+            meta: { layout: 'default', title: 'Laporan Cabang', sidebar: 'formOperasional', item: 'laporanCabang' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+          },
+          {
             path: 'purchase_order',
             name: 'formOperasional.purchaseOrder',
             component: require('../views/form_operasional/PurchaseOrder').default,

@@ -113,6 +113,7 @@ export default {
                 { title: 'Form Pemberian Tugas', index: 'formPemberianTugas', to: 'formOperasional.formPemberianTugas' },
                 { title: 'Form Pengumpulan Tugas', index: 'formPengumpulanTugas', to: 'formOperasional.formPengumpulanTugas' },
                 { title: 'Form Laporan Cabang', index: 'formLaporanCabang', to: 'formOperasional.formLaporanCabang' },
+                { title: 'Laporan Cabang', index: 'laporanCabang', to: 'formOperasional.laporanCabang' },
                 { title: 'Purchase Order', index: 'purchaseOrder', to: 'formOperasional.purchaseOrder' },
                 { title: 'Stok Opname', index: 'stokOpname', to: 'formOperasional.stokOpname' },
               ]
