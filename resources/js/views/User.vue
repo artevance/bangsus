@@ -76,7 +76,7 @@
                   {{ msg }}
                 </small>
               </div>
-              {{ $_.findWhere(data.role, { id: form.create.data.role_id, akses_semua_cabang: 0 }) }}
+              {{ (typeof $_.findWhere(data.role, { id: form.create.data.role_id, akses_semua_cabang: 0 })) }}
               <div class="form-group" v-if="$_.findWhere(data.role, { id: form.create.data.role_id, akses_semua_cabang: 0 }) !== undefined">
                 <label>Akses Cabang</label>
                 <div class="form-check" v-for="(cabang, i) in data.cabang">
