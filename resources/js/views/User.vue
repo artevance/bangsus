@@ -76,8 +76,8 @@
                   {{ msg }}
                 </small>
               </div>
-              {{ (typeof $_.findWhere(data.role, { id: form.create.data.role_id, akses_semua_cabang: 0 })) }}
-              <div class="form-group" v-if="(typeof $_.findWhere(data.role, { id: form.create.data.role_id, akses_semua_cabang: 0 })) !== 'undefined'">
+              {{ (typeof data.role.find((role) => role.id == form.create.data.role_id && role.akses_semua_cabang == 0)) }}
+              <div class="form-group" v-if="data.role.find((role) => role.id == form.create.data.role_id && role.akses_semua_cabang == 0)">
                 <label>Akses Cabang</label>
                 <div class="form-check" v-for="(cabang, i) in data.cabang">
                   <input class="form-check-input m-0" type="checkbox" :value="cabang.id" v-model="form.create.data.cabang_id">
