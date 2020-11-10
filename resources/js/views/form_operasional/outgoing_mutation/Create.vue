@@ -19,8 +19,6 @@
                     </option>
                   </select>
                 </div>
-              </div>
-              <div class="col col-md-6">
                 <div class="form-group">
                   <label>Cabang Tujuan</label>
                   <select class="form-control" v-model="form.create.data.cabang_tujuan_id">

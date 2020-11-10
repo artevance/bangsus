@@ -49,6 +49,7 @@ class OutgoingMutation extends Controller
       ->data(
         OutgoingMutationModel::with([
           'cabang',
+          'cabang_tujuan',
           'd'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
@@ -68,6 +69,7 @@ class OutgoingMutation extends Controller
       ->data(
         OutgoingMutationModel::with([
           'cabang',
+          'cabang_tujuan',
           'd'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
@@ -86,6 +88,7 @@ class OutgoingMutation extends Controller
   {
     $v = Validator::make($request->only(
       'cabang_id',
+      'cabang_tujuan_id',
       'd'
     ), [
       'cabang_id' => 'required|exists:cabang,id',
@@ -103,7 +106,7 @@ class OutgoingMutation extends Controller
     $outgoingMutationModel->tanggal_form = date('Y-m-d');
     $outgoingMutationModel->jam = date('H:i:s');
     $outgoingMutationModel->cabang_id = $request->input('cabang_id');
-    $incomingMutationModel->cabang_tujuan_id = $request->input('cabang_tujuan_id');
+    $outgoingMutationModel->cabang_tujuan_id = $request->input('cabang_tujuan_id');
     $outgoingMutationModel->approve = false;
     $outgoingMutationModel->user_id = $request->user()->id;
     $outgoingMutationModel->save();

@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group">
                   <label>Cabang Asal</label>
-                  <select class="form-control" v-model="form.create.data.cabang_id">
+                  <select class="form-control" v-model="form.create.data.cabang_asal_id">
                     <option v-for="cabang in data.cabang" :value="cabang.id">
                       {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                     </option>

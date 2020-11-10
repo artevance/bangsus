@@ -22,6 +22,11 @@ class IncomingMutation extends Model
     return $this->belongsTo('App\Http\Models\Cabang');
   }
 
+  public function cabang_asal()
+  {
+    return $this->belongsTo('App\Http\Models\Cabang');
+  }
+
   public function d()
   {
     return $this->hasMany('App\Http\Models\IncomingMutationD');

@@ -49,6 +49,7 @@ class IncomingMutation extends Controller
       ->data(
         IncomingMutationModel::with([
           'cabang',
+          'cabang_asal',
           'd'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
@@ -68,6 +69,7 @@ class IncomingMutation extends Controller
       ->data(
         IncomingMutationModel::with([
           'cabang',
+          'cabang_asal',
           'd'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
@@ -86,6 +88,7 @@ class IncomingMutation extends Controller
   {
     $v = Validator::make($request->only(
       'cabang_id',
+      'cabang_asal_id',
       'd'
     ), [
       'cabang_id' => 'required|exists:cabang,id',

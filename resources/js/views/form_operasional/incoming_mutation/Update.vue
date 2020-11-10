@@ -29,8 +29,8 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Cabang Tujuan</label>
-                    <select class="form-control" v-model="form.update.data.cabang_tujuan_id" disabled>
+                    <label>Cabang Asal</label>
+                    <select class="form-control" v-model="form.update.data.cabang_asal_id" disabled>
                       <option v-for="cabang in data.cabang" :value="cabang.id">
                         {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                       </option>
@@ -151,7 +151,7 @@ export default {
           this.form.update.data = {
             id: mainData.id,
             cabang_id: mainData.cabang_id,
-            cabang_tujuan_id: mainData.cabang_tujuan_id,
+            cabang_asal_id: mainData.cabang_asal_id,
             supplier_id: mainData.supplier_id,
             keterangan: mainData.keterangan,
             tanggal_form: mainData.tanggal_form,
@@ -246,7 +246,7 @@ export default {
           this.form.update.data = {
             id: null,
             cabang_id: null,
-            cabang_tujuan_id: null,
+            cabang_asal_id: null,
             keterangan: '',
             tanggal_form: '',
             jam: '',
