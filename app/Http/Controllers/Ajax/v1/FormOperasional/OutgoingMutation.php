@@ -89,6 +89,7 @@ class OutgoingMutation extends Controller
       'd'
     ), [
       'cabang_id' => 'required|exists:cabang,id',
+      'cabang_tujuan_id' => 'required|exists:cabang,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -102,6 +103,7 @@ class OutgoingMutation extends Controller
     $outgoingMutationModel->tanggal_form = date('Y-m-d');
     $outgoingMutationModel->jam = date('H:i:s');
     $outgoingMutationModel->cabang_id = $request->input('cabang_id');
+    $incomingMutationModel->cabang_tujuan_id = $request->input('cabang_tujuan_id');
     $outgoingMutationModel->approve = false;
     $outgoingMutationModel->user_id = $request->user()->id;
     $outgoingMutationModel->save();

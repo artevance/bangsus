@@ -97,6 +97,7 @@
                     <thead>
                       <th>#</th>
                       <th>Jam</th>
+                      <th>Cabang Tujuan</th>
                       <th>Status</th>
                       <th>Aksi</th>
                     </thead>
@@ -104,6 +105,7 @@
                       <tr v-for="(outgoing_mutation, i) in data.outgoing_mutation">
                         <td>{{ i + 1 }}</td>
                         <td>{{ outgoing_mutation.jam }}</td>
+                        <td>{{ outgoing_mutation.cabang_tujuan.kode_cabang }} - {{ outgoing_mutation.cabang_tujuan.kode_cabang }}</td>
                         <td>{{ outgoing_mutation.status || '' }}</td>
                         <td>
                           <router-link class="badge badge-primary"

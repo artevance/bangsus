@@ -28,6 +28,14 @@
                       </option>
                     </select>
                   </div>
+                  <div class="form-group">
+                    <label>Cabang Tujuan</label>
+                    <select class="form-control" v-model="form.update.data.cabang_tujuan_id" disabled>
+                      <option v-for="cabang in data.cabang" :value="cabang.id">
+                        {{ cabang.kode_cabang }} - {{ cabang.cabang }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
                 <div class="col col-md-6">
                   <div class="form-group">
@@ -237,6 +245,7 @@ export default {
           this.form.update.data = {
             id: null,
             cabang_id: null,
+            cabang_tujuan_id: null,
             keterangan: '',
             tanggal_form: '',
             jam: '',

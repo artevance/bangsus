@@ -22,6 +22,16 @@
               </div>
               <div class="col col-md-6">
                 <div class="form-group">
+                  <label>Cabang Tujuan</label>
+                  <select class="form-control" v-model="form.create.data.cabang_tujuan_id">
+                    <option v-for="cabang in data.cabang" :value="cabang.id">
+                      {{ cabang.kode_cabang }} - {{ cabang.cabang }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col col-md-6">
+                <div class="form-group">
                   <label>Keterangan</label>
                   <textarea class="form-control" v-model="form.create.data.keterangan"></textarea>
                 </div>
@@ -100,6 +110,7 @@ export default {
         create: {
           data: {
             cabang_id: null,
+            cabang_tujuan_id: null,
             keterangan: '',
             d: [
               {
@@ -181,6 +192,7 @@ export default {
         .then(res => {
           this.form.create.data = {
             cabang_id: null,
+            cabang_tujuan_id: null,
             keterangan: '',
             d: [
               {

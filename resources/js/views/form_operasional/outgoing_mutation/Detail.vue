@@ -28,6 +28,14 @@
                       </option>
                     </select>
                   </div>
+                  <div class="form-group">
+                    <label>Cabang Tujuan</label>
+                    <select class="form-control" v-model="form.detail.data.cabang_tujuan_id" disabled>
+                      <option v-for="cabang in data.cabang" :value="cabang.id">
+                        {{ cabang.kode_cabang }} - {{ cabang.cabang }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
                 <div class="col col-md-6">
                   <div class="form-group">
@@ -105,6 +113,7 @@ export default {
         detail: {
           data: {
             cabang_id: null,
+            cabang_tujuan_id: null,
             keterangan: '',
             tanggal_form: '',
             jam: '',
@@ -136,6 +145,7 @@ export default {
           this.form.detail.data = {
             id: mainData.id,
             cabang_id: mainData.cabang_id,
+            cabang_tujuan_id: mainData.cabang_tujuan_id,
             supplier_id: mainData.supplier_id,
             keterangan: mainData.keterangan,
             tanggal_form: mainData.tanggal_form,

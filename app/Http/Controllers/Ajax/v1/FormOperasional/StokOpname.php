@@ -158,7 +158,7 @@ class StokOpname extends Controller
     );
 
     foreach ($request->input('d') as $d) {
-      $dir = public_path('opname/' . uniqid() . uniqid() . uniqid() . '.jpg');
+      $dir = public_path('img/opname/' . uniqid() . uniqid() . uniqid() . '.jpg');
       Image::make(file_get_contents($d['gambar']))->save($dir);
 
       $barang = Barang::find($d['barang_id']);

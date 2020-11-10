@@ -89,6 +89,7 @@ class IncomingMutation extends Controller
       'd'
     ), [
       'cabang_id' => 'required|exists:cabang,id',
+      'cabang_asal_id' => 'required|exists:cabang,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -102,12 +103,13 @@ class IncomingMutation extends Controller
     $incomingMutationModel->tanggal_form = date('Y-m-d');
     $incomingMutationModel->jam = date('H:i:s');
     $incomingMutationModel->cabang_id = $request->input('cabang_id');
+    $incomingMutationModel->cabang_asal_id = $request->input('cabang_asal_id');
     $incomingMutationModel->approve = false;
     $incomingMutationModel->user_id = $request->user()->id;
     $incomingMutationModel->save();
 
     foreach ($request->input('d') as $d) {
-      $dir = public_path('opname/' . uniqid() . uniqid() . uniqid() . '.jpg');
+      $dir = public_path('img/incoming_mutation/' . uniqid() . uniqid() . uniqid() . '.jpg');
       Image::make(file_get_contents($d['gambar']))->save($dir);
 
       $barang = Barang::find($d['barang_id']);
@@ -174,7 +176,7 @@ class IncomingMutation extends Controller
     );
 
     foreach ($request->input('d') as $d) {
-      $dir = public_path('opname/' . uniqid() . uniqid() . uniqid() . '.jpg');
+      $dir = public_path('img/incoming_mutation/' . uniqid() . uniqid() . uniqid() . '.jpg');
       Image::make(file_get_contents($d['gambar']))->save($dir);
 
       $barang = Barang::find($d['barang_id']);
