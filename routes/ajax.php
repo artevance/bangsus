@@ -450,6 +450,28 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::put('approve', 'StokOpname@amendApprove');
         Route::delete('', 'StokOpname@destroy');
       });
+      Route::prefix('outgoing_mutation')->group(function () {
+        Route::get('', 'OutgoingMutation@index');
+        Route::get('harian', 'OutgoingMutation@daily');
+        Route::get('cabang_harian', 'OutgoingMutation@dailyBranch');
+        Route::get('gambar/{id}', 'OutgoingMutation@image');
+        Route::get('{id}', 'OutgoingMutation@get');
+        Route::post('', 'OutgoingMutation@store');
+        Route::put('', 'OutgoingMutation@amend');
+        Route::put('approve', 'OutgoingMutation@amendApprove');
+        Route::delete('', 'OutgoingMutation@destroy');
+      });
+      Route::prefix('incoming_mutation')->group(function () {
+        Route::get('', 'IncomingMutation@index');
+        Route::get('harian', 'IncomingMutation@daily');
+        Route::get('cabang_harian', 'IncomingMutation@dailyBranch');
+        Route::get('gambar/{id}', 'IncomingMutation@image');
+        Route::get('{id}', 'IncomingMutation@get');
+        Route::post('', 'IncomingMutation@store');
+        Route::put('', 'IncomingMutation@amend');
+        Route::put('approve', 'IncomingMutation@amendApprove');
+        Route::delete('', 'IncomingMutation@destroy');
+      });
     });
     Route::prefix('user')->group(function () {
       Route::get('', 'User@index');

@@ -532,6 +532,66 @@ const routes = [
               }
             ]
           },
+          {
+            path: 'outgoing_mutation',
+            name: 'formOperasional.outgoingMutation',
+            component: require('../views/form_operasional/OutgoingMutation').default,
+            meta: { layout: 'default', title: 'Mutasi Keluar', sidebar: 'formOperasional', item: 'outgoingMutation' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+            {
+                path: 'create',
+                name: 'formOperasional.outgoingMutation.create',
+                component: require('../views/form_operasional/outgoing_mutation/Create').default,
+                meta: { layout: 'default', title: 'Mutasi Keluar', sidebar: 'formOperasional', item: 'outgoingMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.outgoingMutation.detail',
+                component: require('../views/form_operasional/outgoing_mutation/Detail').default,
+                meta: { layout: 'default', title: 'Mutasi Keluar', sidebar: 'formOperasional', item: 'outgoingMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'update/:id',
+                name: 'formOperasional.outgoingMutation.update',
+                component: require('../views/form_operasional/outgoing_mutation/Update').default,
+                meta: { layout: 'default', title: 'Mutasi Keluar', sidebar: 'formOperasional', item: 'outgoingMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
+          },
+          {
+            path: 'incoming_mutation',
+            name: 'formOperasional.incomingMutation',
+            component: require('../views/form_operasional/IncomingMutation').default,
+            meta: { layout: 'default', title: 'Mutasi Masuk', sidebar: 'formOperasional', item: 'incomingMutation' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+            {
+                path: 'create',
+                name: 'formOperasional.incomingMutation.create',
+                component: require('../views/form_operasional/incoming_mutation/Create').default,
+                meta: { layout: 'default', title: 'Mutasi Masuk', sidebar: 'formOperasional', item: 'incomingMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.incomingMutation.detail',
+                component: require('../views/form_operasional/incoming_mutation/Detail').default,
+                meta: { layout: 'default', title: 'Mutasi Masuk', sidebar: 'formOperasional', item: 'incomingMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'update/:id',
+                name: 'formOperasional.incomingMutation.update',
+                component: require('../views/form_operasional/incoming_mutation/Update').default,
+                meta: { layout: 'default', title: 'Mutasi Masuk', sidebar: 'formOperasional', item: 'incomingMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
+          },
         ]
       },
       {
