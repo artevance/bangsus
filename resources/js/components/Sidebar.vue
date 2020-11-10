@@ -116,8 +116,8 @@ export default {
                 { title: 'Laporan Cabang', index: 'laporanCabang', to: 'formOperasional.laporanCabang' },
                 { title: 'Purchase Order', index: 'purchaseOrder', to: 'formOperasional.purchaseOrder' },
                 { title: 'Stok Opname', index: 'stokOpname', to: 'formOperasional.stokOpname' },
-                { title: 'Mutasi Keluar', index: 'outgoingMutation', to: 'formOperasional.outgoingMutation' },
-                { title: 'Mutasi Masuk', index: 'incomingMutation', to: 'formOperasional.incomingMutation' },
+                // { title: 'Mutasi Keluar', index: 'outgoingMutation', to: 'formOperasional.outgoingMutation' },
+                // { title: 'Mutasi Masuk', index: 'incomingMutation', to: 'formOperasional.incomingMutation' },
               ]
             },
             { icon: 'far fa-user', title: 'User', index: 'user', to: 'user' },
