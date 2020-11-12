@@ -31,7 +31,7 @@
                   <div class="form-group">
                     <label>Cabang Asal</label>
                     <select class="form-control" v-model="form.update.data.cabang_asal_id" disabled>
-                      <option v-for="cabang in data.cabang" :value="cabang.id">
+                      <option v-for="cabang in data.allCabang" :value="cabang.id">
                         {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                       </option>
                     </select>
@@ -132,6 +132,7 @@ export default {
       data: {
         supplier: [],
         cabang: [],
+        allCabang: [],
       }
     }
   },
@@ -144,7 +145,8 @@ export default {
       this.state.page.loading = true
       Promise.all([
         this.fetchMainData(),
-        this.fetchCabang()
+        this.fetchCabang(),
+        this.fetchAllCabang()
       ])
         .then(res => {
           let mainData = res[0].data.container
@@ -181,6 +183,7 @@ export default {
               this.state.page.loading = false
             })
           this.data.cabang = res[1].data.container
+          this.data.allCabang = res[2].data.container
         })
     },
     pushDetail(item, gambar) {
@@ -238,6 +241,9 @@ export default {
     },
     fetchCabang() {
       return this.$axios.get('/ajax/v1/master/cabang/terotorisasi')
+    },
+    fetchAllCabang() {
+      return this.$axios.get('/ajax/v1/master/cabang')
     },
     update() {
       this.form.update.loading = true

@@ -31,7 +31,7 @@
                   <div class="form-group">
                     <label>Cabang Tujuan</label>
                     <select class="form-control" v-model="form.update.data.cabang_tujuan_id" disabled>
-                      <option v-for="cabang in data.cabang" :value="cabang.id">
+                      <option v-for="cabang in data.allCabang" :value="cabang.id">
                         {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                       </option>
                     </select>
@@ -132,6 +132,7 @@ export default {
       data: {
         supplier: [],
         cabang: [],
+        allCabang: [],
       }
     }
   },
@@ -237,6 +238,9 @@ export default {
     },
     fetchCabang() {
       return this.$axios.get('/ajax/v1/master/cabang/terotorisasi')
+    },
+    fetchAllCabang() {
+      return this.$axios.get('/ajax/v1/master/cabang')
     },
     update() {
       this.form.update.loading = true
