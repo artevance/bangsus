@@ -51,9 +51,9 @@
                       <thead>
                         <th>#</th>
                         <th>Barang</th>
-                        <th>Satuan</th>
-                        <th>Qty</th>
-                        <th>Harga Barang</th>
+                        <th style="min-width: 200px;">Satuan</th>
+                        <th style="min-width: 200px;">Qty</th>
+                        <th style="min-width: 200px;">Harga Barang</th>
                         <th>Keterangan</th>
                         <th>Gambar</th>
                         <th>Aksi</th>

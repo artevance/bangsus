@@ -40,14 +40,16 @@
                 <div class="table-responsive">
                   <table class="table table-hover">
                     <thead>
-                      <th>#</th>
-                      <th>Barang</th>
-                      <th>Satuan</th>
-                      <th>Qty</th>
-                      <th>Harga Barang</th>
-                      <th>Keterangan</th>
-                      <th>Gambar</th>
-                      <th>Aksi</th>
+                      <tr>
+                        <th>#</th>
+                        <th>Barang</th>
+                        <th style="min-width: 200px;">Satuan</th>
+                        <th style="min-width: 200px;">Qty</th>
+                        <th style="min-width: 200px;">Harga Barang</th>
+                        <th>Keterangan</th>
+                        <th>Gambar</th>
+                        <th>Aksi</th>
+                      </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(detail, i) in form.create.data.d">
