@@ -27,7 +27,7 @@ class Cabang extends Controller
             ->orWhere('cabang', 'like', '%' . $request->input('q') . '%')
             ->orWhereHas('tipe_cabang', function ($q) use ($request) {
               $q->where('tipe_cabang', '%' . $request->input('q') . '%');
-            })
+            });
         })
         ->get()
       )
