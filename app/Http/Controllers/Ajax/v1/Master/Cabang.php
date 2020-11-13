@@ -45,6 +45,7 @@ class Cabang extends Controller
               $q->where('tipe_cabang', '%' . $request->input('q') . '%');
             });
         })
+        ->where('active', 1)
         ->find(
           Role::find($request->user()->role_id)->akses_semua_cabang
             ? CabangModel::all()->pluck('id')->all()
