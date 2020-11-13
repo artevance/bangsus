@@ -21,10 +21,13 @@ class Cabang extends Controller
   {
     return $this
       ->data(CabangModel::with(['tipe_cabang'])
-        ->where('kode_cabang', 'like', '%' . $request->input('q') . '%')
-        ->orWhere('cabang', 'like', '%' . $request->input('q') . '%')
-        ->orWhereHas('tipe_cabang', function ($q) use ($request) {
-          $q->where('tipe_cabang', '%' . $request->input('q') . '%');
+        ->where('active', true)
+        ->where(function ($q) use ($request) {
+          ->where('kode_cabang', 'like', '%' . $request->input('q') . '%')
+          ->orWhere('cabang', 'like', '%' . $request->input('q') . '%')
+          ->orWhereHas('tipe_cabang', function ($q) use ($request) {
+            $q->where('tipe_cabang', '%' . $request->input('q') . '%');
+          })
         })
         ->get()
       )
