@@ -21,7 +21,7 @@ class Cabang extends Controller
   {
     return $this
       ->data(CabangModel::with(['tipe_cabang'])
-        ->where('active', true)
+        ->where('active', 0)
         ->where(function ($q) use ($request) {
           $q->where('kode_cabang', 'like', '%' . $request->input('q') . '%')
             ->orWhere('cabang', 'like', '%' . $request->input('q') . '%')
@@ -45,7 +45,7 @@ class Cabang extends Controller
               $q->where('tipe_cabang', '%' . $request->input('q') . '%');
             });
         })
-        ->where('active', 1)
+        ->where('active', 0)
         ->find(
           Role::find($request->user()->role_id)->akses_semua_cabang
             ? CabangModel::all()->pluck('id')->all()
