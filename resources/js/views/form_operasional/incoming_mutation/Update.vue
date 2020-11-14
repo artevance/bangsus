@@ -36,6 +36,14 @@
                       </option>
                     </select>
                   </div>
+                  <div class="form-group">
+                    <label>Supplier Mutasi</label>
+                    <select class="form-control" v-model="form.update.data.supplier_mutasi_id">
+                      <option v-for="supplierMutasi in data.supplierMutasi" :value="supplierMutasi.id">
+                        {{ supplierMutasi.supplier_mutasi }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
                 <div class="col col-md-6">
                   <div class="form-group">
@@ -120,6 +128,8 @@ export default {
         update: {
           data: {
             cabang_id: null,
+            cabang_asal_id: null,
+            supplier_mutasi_id: null,
             keterangan: '',
             tanggal_form: '',
             jam: '',
@@ -133,6 +143,7 @@ export default {
         supplier: [],
         cabang: [],
         allCabang: [],
+        supplierMutasi: [],
       }
     }
   },
@@ -146,7 +157,8 @@ export default {
       Promise.all([
         this.fetchMainData(),
         this.fetchCabang(),
-        this.fetchAllCabang()
+        this.fetchAllCabang(),
+        this.fetchSupplierMutasi()
       ])
         .then(res => {
           let mainData = res[0].data.container
@@ -154,6 +166,7 @@ export default {
             id: mainData.id,
             cabang_id: mainData.cabang_id,
             cabang_asal_id: mainData.cabang_asal_id,
+            supplier_mutasi_id: mainData.supplier_mutasi_id,
             supplier_id: mainData.supplier_id,
             keterangan: mainData.keterangan,
             tanggal_form: mainData.tanggal_form,
@@ -184,6 +197,7 @@ export default {
             })
           this.data.cabang = res[1].data.container
           this.data.allCabang = res[2].data.container
+          this.data.supplierMutasi = res[3].data.container
         })
     },
     pushDetail(item, gambar) {
@@ -245,6 +259,9 @@ export default {
     fetchAllCabang() {
       return this.$axios.get('/ajax/v1/master/cabang')
     },
+    fetchSupplierMutasi() {
+      return this.$axios.get('/ajax/v1/master/supplier_mutasi')
+    },
     update() {
       this.form.update.loading = true
       this.$axios.put('/ajax/v1/form_operasional/incoming_mutation', this.form.update.data)
@@ -253,6 +270,7 @@ export default {
             id: null,
             cabang_id: null,
             cabang_asal_id: null,
+            supplier_mutasi_id: null,
             keterangan: '',
             tanggal_form: '',
             jam: '',
