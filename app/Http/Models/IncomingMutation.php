@@ -17,6 +17,11 @@ class IncomingMutation extends Model
     return $this->belongsTo('App\Http\Models\User');
   }
 
+  public function supplier_mutasi()
+  {
+    return $this->belongsTo('App\Http\Models\SupplierMutasi');
+  }
+
   public function cabang()
   {
     return $this->belongsTo('App\Http\Models\Cabang');

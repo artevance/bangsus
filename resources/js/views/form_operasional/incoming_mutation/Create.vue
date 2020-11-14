@@ -27,6 +27,14 @@
                     </option>
                   </select>
                 </div>
+                <div class="form-group">
+                  <label>Supplier Mutasi</label>
+                  <select class="form-control" v-model="form.create.data.supplier_mutasi_id">
+                    <option v-for="supplierMutasi in data.supplierMutasi" :value="supplierMutasi.id">
+                      {{ supplierMutasi.supplier_mutasi }}
+                    </option>
+                  </select>
+                </div>
               </div>
               <div class="col col-md-6">
                 <div class="form-group">
@@ -133,6 +141,7 @@ export default {
         supplier: [],
         cabang: [],
         allCabang: [],
+        supplierMutasi: [],
       }
     }
   },
@@ -144,11 +153,13 @@ export default {
     prepare() {
       Promise.all([
         this.fetchCabang(),
-        this.fetchAllCabang()
+        this.fetchAllCabang(),
+        this.fetchSupplierMutasi()
       ])
         .then(res => {
           this.data.cabang = res[0].data.container
           this.data.allCabang = res[1].data.container
+          this.data.supplierMutasi = res[2].data.container
         })
     },
     addDetail() {
@@ -188,6 +199,9 @@ export default {
     fetchAllCabang() {
       return this.$axios.get('/ajax/v1/master/cabang')
     },
+    fetchSupplierMutasi() {
+      return this.$axios.get('/ajax/v1/master/supplier_mutasi')
+    },
     create() {
       console.log(this.form.create.data)
       this.form.create.loading = true
@@ -196,6 +210,7 @@ export default {
           this.form.create.data = {
             cabang_id: null,
             cabang_asal_id: null,
+            supplier_mutasi_id: null,
             keterangan: '',
             d: [
               {

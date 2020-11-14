@@ -235,6 +235,12 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::post('', 'Role@store');
         Route::put('', 'Role@amend');
       });
+      Route::prefix('supplier_mutasi')->group(function () {
+        Route::get('', 'SupplierMutasi@index');
+        Route::get('{id}', 'SupplierMutasi@get');
+        Route::post('', 'SupplierMutasi@store');
+        Route::put('', 'SupplierMutasi@amend');
+      });
     });
     Route::prefix('karyawan')->group(function () {
       Route::get('', 'Karyawan@index');
