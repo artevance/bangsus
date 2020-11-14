@@ -861,7 +861,7 @@ export default {
             changeSatuan: true
           },
           approve: {
-            access: true,
+            access: false,
             timeFree: true,
             dateMin: 0,
             dateMax: 0
@@ -908,7 +908,7 @@ export default {
             changeSatuan: true
           },
           approve: {
-            access: true,
+            access: false,
             timeFree: true,
             dateMin: 0,
             dateMax: 0
