@@ -45,7 +45,7 @@
                       <th>#</th>
                       <th>Jam</th>
                       <th>Cabang</th>
-                      <th>Cabang Asal</th>
+                      <th>Supplier Mutasi</th>
                       <th>Status</th>
                     </thead>
                     <tbody>
