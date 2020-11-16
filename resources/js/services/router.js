@@ -539,7 +539,7 @@ const routes = [
             meta: { layout: 'default', title: 'Mutasi Keluar', sidebar: 'formOperasional', item: 'outgoingMutation' },
             beforeEnter: Multiguard([middleware.auth, middleware.access]),
             children: [
-            {
+              {
                 path: 'create',
                 name: 'formOperasional.outgoingMutation.create',
                 component: require('../views/form_operasional/outgoing_mutation/Create').default,
@@ -569,7 +569,7 @@ const routes = [
             meta: { layout: 'default', title: 'Mutasi Masuk', sidebar: 'formOperasional', item: 'incomingMutation' },
             beforeEnter: Multiguard([middleware.auth, middleware.access]),
             children: [
-            {
+              {
                 path: 'create',
                 name: 'formOperasional.incomingMutation.create',
                 component: require('../views/form_operasional/incoming_mutation/Create').default,
@@ -592,6 +592,20 @@ const routes = [
               }
             ]
           },
+          {
+            path: 'daily_outgoing_mutation',
+            name: 'formOperasional.dailyOutgoingMutation',
+            component: require('../views/form_operasional/DailyOutgoingMutation').default,
+            meta: { layout: 'default', title: 'Mutasi Keluar Harian', sidebar: 'formOperasional', item: 'dailyOutgoingMutation' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+          },
+          {
+            path: 'daily_incoming_mutation',
+            name: 'formOperasional.dailyIncomingMutation',
+            component: require('../views/form_operasional/DailyIncomingMutation').default,
+            meta: { layout: 'default', title: 'Mutasi Masuk Harian', sidebar: 'formOperasional', item: 'dailyIncomingMutation' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+          }
         ]
       },
       {

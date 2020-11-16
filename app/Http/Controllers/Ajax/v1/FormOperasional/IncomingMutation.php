@@ -49,7 +49,7 @@ class IncomingMutation extends Controller
       ->data(
         IncomingMutationModel::with([
           'cabang',
-          'cabang_asal',
+          'supplier_mutasi',
           'd'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
@@ -69,7 +69,7 @@ class IncomingMutation extends Controller
       ->data(
         IncomingMutationModel::with([
           'cabang',
-          'cabang_asal',
+          'supplier_mutasi',
           'd'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
@@ -94,7 +94,6 @@ class IncomingMutation extends Controller
     ), [
       'supplier_mutasi_id' => 'required|exists:supplier_mutasi,id',
       'cabang_id' => 'required|exists:cabang,id',
-      'cabang_asal_id' => 'required|exists:cabang,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -109,7 +108,6 @@ class IncomingMutation extends Controller
     $incomingMutationModel->jam = date('H:i:s');
     $incomingMutationModel->supplier_mutasi_id = $request->input('supplier_mutasi_id');
     $incomingMutationModel->cabang_id = $request->input('cabang_id');
-    $incomingMutationModel->cabang_asal_id = $request->input('cabang_asal_id');
     $incomingMutationModel->approve = false;
     $incomingMutationModel->user_id = $request->user()->id;
     $incomingMutationModel->save();
