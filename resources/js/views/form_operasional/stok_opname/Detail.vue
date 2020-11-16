@@ -144,6 +144,7 @@ export default {
           }
           mainData.d.forEach((item, i) => {
             this.form.detail.data.d.push({
+              id: item.id,
               barang_id: item.barang_id,
               level_satuan: item.level_satuan,
               qty: item.qty,
