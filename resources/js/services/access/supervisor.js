@@ -204,7 +204,7 @@ export default {
     }
   },
   karyawan: {
-    access: true,
+    access: false,
     create: true,
     read: true,
     update: true,
