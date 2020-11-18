@@ -128,7 +128,7 @@
                             ">
                             Ubah
                           </router-link>
-                          <a class="badge badge-success"
+                          <!-- <a class="badge badge-success"
                             @click="showApproveModal(stok_opname.id)"
                             href="#"
                             v-if="
@@ -143,7 +143,7 @@
                               ) && stok_opname.approve == 0
                             ">
                             Approve
-                          </a>
+                          </a> -->
                           <a class="badge badge-danger"
                             @click="showDestroyModal(stok_opname.id)"
                             href="#"

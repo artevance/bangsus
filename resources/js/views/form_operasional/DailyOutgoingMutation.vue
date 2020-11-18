@@ -21,16 +21,6 @@
                           class="form-control"
                           v-model="query.outgoing_mutation.tanggal_form"
                           @keyup="queryData" @change="queryData"
-                          :min="
-                            $access('formOperasional.outgoingMutation.read', 'timeFree')
-                              ? false
-                              : $moment().subtract($access('formOperasional.outgoingMutation.read', 'minDate')).format('YYYY-MM-DD')
-                          "
-                          :max="
-                            $access('formOperasional.outgoingMutation.read', 'timeFree')
-                              ? false
-                              : $moment().subtract($access('formOperasional.outgoingMutation.read', 'maxDate')).format('YYYY-MM-DD')
-                          "
                           >
                       </div>
                     </div>
@@ -45,35 +35,10 @@
                         class="form-control"
                         v-model="query.outgoing_mutation.tanggal_form"
                         @keyup="queryData" @change="queryData"
-                        :min="
-                          $access('formOperasional.outgoingMutation.read', 'timeFree')
-                            ? false
-                            : $moment().subtract($access('formOperasional.outgoingMutation.read', 'minDate')).format('YYYY-MM-DD')
-                        "
-                        :max="
-                          $access('formOperasional.outgoingMutation.read', 'timeFree')
-                            ? false
-                            : $moment().subtract($access('formOperasional.outgoingMutation.read', 'maxDate')).format('YYYY-MM-DD')
-                        "
                         >
                     </div>
                   </div>
                 </div>
-                <router-link class="btn btn-primary"
-                  :to="{ name: 'formOperasional.outgoingMutation.create' }"
-                  v-if="
-                    $access('formOperasional.outgoingMutation', 'create') && (
-                      $access('formOperasional.outgoingMutation.create', 'timeFree') ||
-                      $moment($moment(query.outgoing_mutation.tanggal_form)).isBetween(
-                        $moment(utils.date).subtract($access('formOperasional.outgoingMutation.create', 'dateMin')).format('YYYY-MM-DD'),
-                        $moment(utils.date).add($access('formOperasional.outgoingMutation.create', 'dateMax')).format('YYYY-MM-DD'),
-                        undefined,
-                        '[]'
-                      )
-                    )
-                  ">
-                  Tambah
-                </router-link>
                 <div class="table-responsive mt-2">
                   <table class="table table-hover" v-if="$access('formOperasional.outgoingMutation', 'read')">
                     <thead>
@@ -82,6 +47,7 @@
                       <th>Cabang</th>
                       <th>Cabang Tujuan</th>
                       <th>Status</th>
+                      <th>Aksi</th>
                     </thead>
                     <tbody>
                       <tr v-for="(outgoing_mutation, i) in data.outgoing_mutation">
@@ -90,6 +56,15 @@
                         <td>{{ outgoing_mutation.cabang.kode_cabang }} - {{ outgoing_mutation.cabang.cabang }}</td>
                         <td>{{ outgoing_mutation.cabang_tujuan.kode_cabang }} - {{ outgoing_mutation.cabang_tujuan.cabang }}</td>
                         <td>{{ outgoing_mutation.status || '' }}</td>
+                        <td>
+                          <router-link class="badge badge-primary"
+                            :to="{ name: 'formOperasional.dailyOutgoingMutation.detail', params: { id: outgoing_mutation.id } }"
+                            v-if="
+                              $access('formOperasional.dailyOutgoingMutation', 'detail')
+                            ">
+                            Detail
+                          </router-link>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -225,10 +200,6 @@ export default {
             this.$router.go(-1)
           }
 
-          if (this.query.outgoing_mutation.cabang_id == null || ! this.$_.isUndefined(this.$_.findWhere(this.data.cabang, { id: this.query.outgoing_mutation.cabang_id }))) {
-            this.query.outgoing_mutation.cabang_id = this.data.cabang[0].id || null
-          }
-
           this.queryData()
           this.state.page.loading = false
         })
@@ -244,9 +215,9 @@ export default {
       if (withSpinner) this.state.table.loading = true
       this.fetchMainData()
         .then(res => {
-          if ( ! this.$_.isEqual(this.$route.query, this.query.outgoing_mutation) && this.$route.name === 'formOperasional.outgoingMutation') {
+          if ( ! this.$_.isEqual(this.$route.query, this.query.outgoing_mutation) && this.$route.name === 'formOperasional.dailyOutgoingMutation') {
             this.$router.push({
-              name: 'formOperasional.outgoingMutation',
+              name: 'formOperasional.dailyOutgoingMutation',
               query: this.query.outgoing_mutation
             })
           }

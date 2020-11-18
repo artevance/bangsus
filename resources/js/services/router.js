@@ -593,11 +593,36 @@ const routes = [
             ]
           },
           {
+            path: 'daily_stok_opname',
+            name: 'formOperasional.dailyStokOpname',
+            component: require('../views/form_operasional/DailyStokOpname').default,
+            meta: { layout: 'default', title: 'Stok Opname Harian', sidebar: 'formOperasional', item: 'dailyStokOpname' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.dailyStokOpname.detail',
+                component: require('../views/form_operasional/daily_stok_opname/Detail').default,
+                meta: { layout: 'default', title: 'Stok Opname Harian', sidebar: 'formOperasional', item: 'dailyStokOpname' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
+          },
+          {
             path: 'daily_outgoing_mutation',
             name: 'formOperasional.dailyOutgoingMutation',
             component: require('../views/form_operasional/DailyOutgoingMutation').default,
             meta: { layout: 'default', title: 'Mutasi Keluar Harian', sidebar: 'formOperasional', item: 'dailyOutgoingMutation' },
             beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.dailyOutgoingMutation.detail',
+                component: require('../views/form_operasional/daily_outgoing_mutation/Detail').default,
+                meta: { layout: 'default', title: 'Mutasi Keluar Harian', sidebar: 'formOperasional', item: 'dailyOutgoingMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+            ]
           },
           {
             path: 'daily_incoming_mutation',
@@ -605,6 +630,15 @@ const routes = [
             component: require('../views/form_operasional/DailyIncomingMutation').default,
             meta: { layout: 'default', title: 'Mutasi Masuk Harian', sidebar: 'formOperasional', item: 'dailyIncomingMutation' },
             beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.dailyIncomingMutation.detail',
+                component: require('../views/form_operasional/daily_incoming_mutation/Detail').default,
+                meta: { layout: 'default', title: 'Mutasi Masuk Harian', sidebar: 'formOperasional', item: 'dailyIncomingMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+            ]
           }
         ]
       },

@@ -448,6 +448,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       });
       Route::prefix('stok_opname')->group(function () {
         Route::get('', 'StokOpname@index');
+        Route::get('harian', 'StokOpname@daily');
         Route::get('cabang_harian', 'StokOpname@dailyBranch');
         Route::get('gambar/{id}', 'StokOpname@image');
         Route::get('{id}', 'StokOpname@get');

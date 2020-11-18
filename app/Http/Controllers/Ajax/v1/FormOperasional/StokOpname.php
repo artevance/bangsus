@@ -39,6 +39,24 @@ class StokOpname extends Controller
     ])->find($id))->response(200);
   }
 
+  public function daily(Request $request)
+  {
+    $query = [
+      'tanggal_form' => $request->input('tanggal_form', date('Y-m-d'))
+    ];
+
+    return $this
+      ->data(
+        StokOpnameModel::with([
+          'cabang',
+          'd'
+        ])
+        ->where('tanggal_form', $query['tanggal_form'])
+        ->orderBy('jam')
+        ->get()
+      )->response(200);
+  }
+
   public function dailyBranch(Request $request)
   {
     $query = [

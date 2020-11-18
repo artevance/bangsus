@@ -47,6 +47,7 @@
                       <th>Cabang</th>
                       <th>Supplier Mutasi</th>
                       <th>Status</th>
+                      <th>Aksi</th>
                     </thead>
                     <tbody>
                       <tr v-for="(incoming_mutation, i) in data.incoming_mutation">
@@ -55,6 +56,15 @@
                         <td>{{ incoming_mutation.cabang.kode_cabang }} - {{ incoming_mutation.cabang.cabang }}</td>
                         <td>{{ incoming_mutation.supplier_mutasi.supplier_mutasi }}</td>
                         <td>{{ incoming_mutation.status || '' }}</td>
+                        <td>
+                          <router-link class="badge badge-primary"
+                            :to="{ name: 'formOperasional.dailyIncomingMutation.detail', params: { id: incoming_mutation.id } }"
+                            v-if="
+                              $access('formOperasional.dailyIncomingMutation', 'detail')
+                            ">
+                            Detail
+                          </router-link>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -190,10 +200,6 @@ export default {
             this.$router.go(-1)
           }
 
-          if (this.query.incoming_mutation.cabang_id == null || ! this.$_.isUndefined(this.$_.findWhere(this.data.cabang, { id: this.query.incoming_mutation.cabang_id }))) {
-            this.query.incoming_mutation.cabang_id = this.data.cabang[0].id || null
-          }
-
           this.queryData()
           this.state.page.loading = false
         })
@@ -209,9 +215,9 @@ export default {
       if (withSpinner) this.state.table.loading = true
       this.fetchMainData()
         .then(res => {
-          if ( ! this.$_.isEqual(this.$route.query, this.query.incoming_mutation) && this.$route.name === 'formOperasional.incomingMutation') {
+          if ( ! this.$_.isEqual(this.$route.query, this.query.incoming_mutation) && this.$route.name === 'formOperasional.dailyIncomingMutation') {
             this.$router.push({
-              name: 'formOperasional.incomingMutation',
+              name: 'formOperasional.dailyIncomingMutation',
               query: this.query.incoming_mutation
             })
           }

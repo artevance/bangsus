@@ -118,6 +118,7 @@ export default {
                 { title: 'Stok Opname', index: 'stokOpname', to: 'formOperasional.stokOpname' },
                 { title: 'Mutasi Keluar', index: 'outgoingMutation', to: 'formOperasional.outgoingMutation' },
                 { title: 'Mutasi Masuk', index: 'incomingMutation', to: 'formOperasional.incomingMutation' },
+                { title: 'Stok Opname Harian', index: 'dailyStokOpname', to: 'formOperasional.dailyStokOpname' },
                 { title: 'Mutasi Keluar Harian', index: 'dailyOutgoingMutation', to: 'formOperasional.dailyOutgoingMutation' },
                 { title: 'Mutasi Masuk Harian', index: 'dailyIncomingMutation', to: 'formOperasional.dailyIncomingMutation' },
               ]

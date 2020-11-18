@@ -1029,6 +1029,25 @@ export default {
           }
         }
       },
+      dailyStokOpname: {
+        access: true,
+        create: true,
+        read: true,
+        detail: true,
+        update: true,
+        approve: true,
+        destroy: true,
+        children: {
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          detail: {
+            access: true
+          }
+        }
+      },
       dailyOutgoingMutation: {
         access: true,
         create: true,

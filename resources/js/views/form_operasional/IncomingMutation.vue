@@ -130,7 +130,7 @@
                             ">
                             Ubah
                           </router-link>
-                          <a class="badge badge-success"
+                          <!-- <a class="badge badge-success"
                             @click="showApproveModal(incoming_mutation.id)"
                             href="#"
                             v-if="
@@ -145,7 +145,7 @@
                               ) && incoming_mutation.approve == 0
                             ">
                             Approve
-                          </a>
+                          </a> -->
                           <a class="badge badge-danger"
                             @click="showDestroyModal(incoming_mutation.id)"
                             href="#"
