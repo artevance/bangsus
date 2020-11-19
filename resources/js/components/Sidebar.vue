@@ -90,6 +90,7 @@ export default {
                 { title: 'Aktivitas Marketing', index: 'aktivitasMarketing', to: 'master.aktivitasMarketing' },
                 { title: 'Item Marketing', index: 'itemMarketing', to: 'master.itemMarketing' },
                 { title: 'Barang', index: 'barang', to: 'master.barang' },
+                { title: 'Supplier Mutasi', index: 'supplierMutasi', to: 'master.supplierMutasi' },
               ]
             },
             { icon: 'far fa-users', title: 'Karyawan', index: 'karyawan', to: 'karyawan' },

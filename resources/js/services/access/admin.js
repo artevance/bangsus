@@ -201,6 +201,12 @@ export default {
         read: true,
         update: true
       },
+      supplierMutasi: {
+        access: true,
+        create: true,
+        read: true,
+        update: true
+      },
     }
   },
   karyawan: {

@@ -258,6 +258,13 @@ const routes = [
             meta: { layout: 'default', title: 'Barang', sidebar: 'master', item: 'barang' },
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
+          { 
+            path: 'supplierMutasi',
+            name: 'master.supplierMutasi',
+            component: require('../views/master/SupplierMutasi').default,
+            meta: { layout: 'default', title: 'Supplier Mutasi', sidebar: 'master', item: 'supplierMutasi' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
         ]
       },
       {
