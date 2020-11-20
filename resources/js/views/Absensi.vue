@@ -74,6 +74,10 @@
                 <i class="far fa-file-import mr-1 fa-xs"></i>
                 Impor Absensi
               </router-link>
+              <router-link class="btn btn-secondary mt-2" v-if="$access('absensi.absensiFoto', 'access')" :to="{ name: 'absensi.absensiFoto', query: { cabang_id: $route.query.cabang_id } }">
+                <i class="far fa-camera mr-1 fa-xs"></i>
+                Absensi Foto
+              </router-link>
               <div class="table-responsive mt-2">
                 <table class="table table-hover" v-if="$access('absensi', 'read')">
                   <thead>

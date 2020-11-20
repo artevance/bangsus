@@ -14,6 +14,8 @@ use App\Http\Models\Cabang;
 use App\Http\Models\TipeAbsensi;
 use App\Http\Models\TugasKaryawan;
 
+use Intervention\Image\Facades\Image;
+
 class Absensi extends Controller
 {
   public function index(Request $request)
@@ -95,6 +97,33 @@ class Absensi extends Controller
     $model->jam_absen = $request->input('jam_absen');
     $model->user_id = $request->user()->id;
     $model->save();
+  }
+
+  public function storePhoto(Request $request)
+  {
+    $v = Validator::make($request->only(
+      'tugas_karyawan_id',
+      'tipe_absensi_id',
+      'gambar'
+    ), [
+      'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
+      'tipe_absensi_id' => 'required|exists:tipe_absensi,id',
+      'gambar' => 'required',
+    ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
+
+    $dir = public_path('img/absen/' . uniqid() . uniqid() . uniqid() . '.jpg');
+    Image::make(file_get_contents($request->input('gambar')))->save($dir);
+
+    $model = AbsensiModel::firstOrCreate([
+      'tugas_karyawan_id' => $request->input('tugas_karyawan_id'),
+      'tanggal_absensi' => date('Y-m-d'),
+      'tipe_absensi_id' => $request->input('tipe_absensi_id'),
+    ], [
+      'jam_absen' => date('H:i:s'),
+      'user_id' => $request->user()->id,
+      'dir' => $dir,
+    ]);
   }
 
   public function amend(Request $request)

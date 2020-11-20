@@ -252,6 +252,10 @@ export default {
         access: true,
         create: true
       },
+      absensiFoto: {
+        access: true,
+        create: true
+      },
     }
   },
   formOperasional: {

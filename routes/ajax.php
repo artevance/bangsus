@@ -262,6 +262,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::get('manual', 'Absensi@manual');
       Route::get('{id}', 'Absensi@get');
       Route::post('', 'Absensi@store');
+      Route::post('foto', 'Absensi@storePhoto');
       Route::put('', 'Absensi@amend');
       Route::delete('', 'Absensi@destroy');
       Route::prefix('impor_jadwal')->group(function () {

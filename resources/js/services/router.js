@@ -311,6 +311,13 @@ const routes = [
             meta: { layout: 'default', title: 'Impor Absensi', sidebar: 'absensi' },
             beforeEnter: Multiguard([middleware.auth, middleware.access])
           },
+          {
+            path: 'absensi_foto',
+            name: 'absensi.absensiFoto',
+            component: require('../views/absensi/AbsensiFoto').default,
+            meta: { layout: 'default', title: 'Absensi Foto', sidebar: 'absensi' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access])
+          },
         ]
       },
       {
