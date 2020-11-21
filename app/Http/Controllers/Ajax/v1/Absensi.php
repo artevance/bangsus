@@ -124,6 +124,7 @@ class Absensi extends Controller
       'user_id' => $request->user()->id,
       'dir' => $dir,
     ]);
+    $model->save();
   }
 
   public function amend(Request $request)
