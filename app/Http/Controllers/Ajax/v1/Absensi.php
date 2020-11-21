@@ -115,15 +115,17 @@ class Absensi extends Controller
     $dir = public_path('img/absen/' . uniqid() . uniqid() . uniqid() . '.jpg');
     Image::make(file_get_contents($request->input('gambar')))->save($dir);
 
-    $model = AbsensiModel::firstOrCreate([
-      'tugas_karyawan_id' => $request->input('tugas_karyawan_id'),
-      'tanggal_absensi' => date('Y-m-d'),
-      'tipe_absensi_id' => $request->input('tipe_absensi_id'),
-    ], [
-      'jam_absen' => date('H:i:s'),
-      'user_id' => $request->user()->id,
-      'dir' => $dir,
-    ]);
+    $model = AbsensiModel::where('tugas_karyawan_id', $request->input('tugas_karyawan_id'))
+      ->where('tanggal_absensi', date('Y-m-d'))
+      ->where('tipe_absensi_id', $request->input('tipe_absensi_id'))
+      ->first();
+    $model = $model ?? new AbsensiModel;
+    $model->tugas_karyawan_id = $request->input('tugas_karyawan_id');
+    $model->tanggal_absensi = date('Y-m-d');
+    $model->tipe_absensi_id = $request->input('tipe_absensi_id');
+    $model->jam_absen = date('H:i:s');
+    $model->dir = $dir;
+    $model->user_id = $request->user()->id;
     $model->save();
   }
 
