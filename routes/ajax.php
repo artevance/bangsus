@@ -261,6 +261,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::get('', 'Absensi@index');
       Route::get('manual', 'Absensi@manual');
       Route::get('{id}', 'Absensi@get');
+      Route::get('gambar/{id}', 'Absensi@image');
       Route::post('', 'Absensi@store');
       Route::post('foto', 'Absensi@storePhoto');
       Route::put('', 'Absensi@amend');

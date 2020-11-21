@@ -156,4 +156,9 @@ class Absensi extends Controller
     $model = AbsensiModel::find($request->input('id'));
     $model->delete();
   }
+
+  public function image(Request $request, $id)
+  {
+    return Image::make(AbsensiModel::find($id)->dir)->response('jpeg');
+  }
 }

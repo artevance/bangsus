@@ -89,6 +89,7 @@
                     <th>Jam Jadwal Diajukan</th>
                     <th>Jam Jadwal</th>
                     <th>Jam Absen</th>
+                    <th>Link Foto</th>
                     <th>Aksi</th>
                   </thead>
                   <tbody>
@@ -150,6 +151,11 @@
                                   : absensi.absensi[0].jam_absen
                               )
                           }}
+                        </td>
+                        <td>
+                          <span v-if="absensi.absensi[0]">
+                            <a v-if="absensi.absensi[0].dir" :href="'/ajax/v1/absensi/gambar/' + absensi.absensi[0].id" target="_blank">Link Foto</a>
+                          </span>
                         </td>
                         <td>
                           <span v-if="absensi.absensi.length == 0">
