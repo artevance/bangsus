@@ -189,7 +189,7 @@ export default {
             if (this.resetOtherField) {
               this.form.detail.data.d[i].level_satuan = null
               this.form.detail.data.d[i].qty = null
-              this.form.detail.data.d[i].harga_barang = null
+              this.form.detail.data.d[i].harga_barang = 0
             }
             this.form.detail.data.d[i].satuan = barang.satuan
             this.form.detail.data.d[i].satuan_dua = barang.satuan_dua
