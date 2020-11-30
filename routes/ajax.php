@@ -461,6 +461,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       });
       Route::prefix('outgoing_mutation')->group(function () {
         Route::get('', 'OutgoingMutation@index');
+        Route::get('for_incoming_mutation', 'OutgoingMutation@forIncomingMutation');
         Route::get('harian', 'OutgoingMutation@daily');
         Route::get('cabang_harian', 'OutgoingMutation@dailyBranch');
         Route::get('gambar/{id}', 'OutgoingMutation@image');

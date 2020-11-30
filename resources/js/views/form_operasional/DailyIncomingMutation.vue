@@ -45,7 +45,7 @@
                       <th>#</th>
                       <th>Jam</th>
                       <th>Cabang</th>
-                      <th>Supplier Mutasi</th>
+                      <th>Cabang Asal</th>
                       <th>Status</th>
                       <th>Aksi</th>
                     </thead>
@@ -54,7 +54,7 @@
                         <td>{{ i + 1 }}</td>
                         <td>{{ incoming_mutation.jam }}</td>
                         <td>{{ incoming_mutation.cabang.kode_cabang }} - {{ incoming_mutation.cabang.cabang }}</td>
-                        <td>{{ incoming_mutation.supplier_mutasi.supplier_mutasi }}</td>
+                        <td>{{ incoming_mutation.cabang_asal.kode_cabang }} - {{ incoming_mutation.cabang_asal.cabang }}</td>
                         <td>{{ incoming_mutation.status || '' }}</td>
                         <td>
                           <router-link class="badge badge-primary"

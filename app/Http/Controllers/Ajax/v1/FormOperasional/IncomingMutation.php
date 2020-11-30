@@ -49,7 +49,7 @@ class IncomingMutation extends Controller
       ->data(
         IncomingMutationModel::with([
           'cabang',
-          'supplier_mutasi',
+          'cabang_asal',
           'd'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
@@ -69,7 +69,7 @@ class IncomingMutation extends Controller
       ->data(
         IncomingMutationModel::with([
           'cabang',
-          'supplier_mutasi',
+          'cabang_asal',
           'd'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
@@ -87,13 +87,14 @@ class IncomingMutation extends Controller
   public function store(Request $request)
   {
     $v = Validator::make($request->only(
-      'supplier_mutasi_id',
       'cabang_id',
       'cabang_asal_id',
+      'outgoing_mutation_id',
       'd'
     ), [
-      'supplier_mutasi_id' => 'required|exists:supplier_mutasi,id',
+      'cabang_asal_id' => 'required|exists:cabang,id',
       'cabang_id' => 'required|exists:cabang,id',
+      'outgoing_mutation_id' => 'required|exists:outgoing_mutation,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -106,8 +107,9 @@ class IncomingMutation extends Controller
     $incomingMutationModel = new IncomingMutationModel;
     $incomingMutationModel->tanggal_form = date('Y-m-d');
     $incomingMutationModel->jam = date('H:i:s');
-    $incomingMutationModel->supplier_mutasi_id = $request->input('supplier_mutasi_id');
+    $incomingMutationModel->cabang_asal_id = $request->input('cabang_asal_id');
     $incomingMutationModel->cabang_id = $request->input('cabang_id');
+    $incomingMutationModel->outgoing_mutation_id = $request->input('outgoing_mutation_id');
     $incomingMutationModel->approve = false;
     $incomingMutationModel->user_id = $request->user()->id;
     $incomingMutationModel->save();
@@ -156,11 +158,10 @@ class IncomingMutation extends Controller
   {
     $v = Validator::make($request->only(
       'id',
-      'supplier_mutasi_id',
       'd'
     ), [
       'id' => 'required|exists:incoming_mutation,id',
-      'supplier_mutasi_id' => 'required|exists:supplier_mutasi,id',
+      'cabang_asal_id' => 'required|exists:cabang,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -171,7 +172,6 @@ class IncomingMutation extends Controller
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $incomingMutationModel = IncomingMutationModel::find($request->input('id'));
-    $incomingMutationModel->supplier_mutasi_id = $request->input('supplier_mutasi_id');
     $incomingMutationModel->approve = false;
     $incomingMutationModel->user_id = $request->user()->id;
     $incomingMutationModel->save();

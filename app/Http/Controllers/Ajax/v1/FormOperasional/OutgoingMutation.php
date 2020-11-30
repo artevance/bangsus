@@ -29,6 +29,23 @@ class OutgoingMutation extends Controller
       ->response(200);
   }
 
+  public function forIncomingMutation(Request $request)
+  {
+    return $this
+      ->data(
+        OutgoingMutationModel::with([
+          'cabang'
+        ])
+          ->where([
+            'cabang_id' => $request->query('cabang_id'),
+            'cabang_tujuan_id' => $request->query('cabang_tujuan_id'),
+          ])
+          ->whereDoesntHave('incoming_mutation')
+          ->get()
+      )
+      ->response(200);
+  }
+
   public function get(Request $request, $id)
   {
     if (is_null(OutgoingMutationModel::find($id))) return $this->response(404);

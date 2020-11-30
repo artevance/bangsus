@@ -32,6 +32,11 @@ class OutgoingMutation extends Model
     return $this->hasMany('App\Http\Models\OutgoingMutationD');
   }
 
+  public function incoming_mutation()
+  {
+    return $this->hasMany('App\Http\Models\IncomingMutation');
+  }
+
   public function scopeByCabang($q, $id)
   {
     return $q->where('cabang_id', $id);
