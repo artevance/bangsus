@@ -607,6 +607,36 @@ const routes = [
             ]
           },
           {
+            path: 'supplier_mutation',
+            name: 'formOperasional.supplierMutation',
+            component: require('../views/form_operasional/SupplierMutation').default,
+            meta: { layout: 'default', title: 'Mutasi Supplier', sidebar: 'formOperasional', item: 'supplierMutation' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: 'create',
+                name: 'formOperasional.supplierMutation.create',
+                component: require('../views/form_operasional/supplier_mutation/Create').default,
+                meta: { layout: 'default', title: 'Mutasi Supplier', sidebar: 'formOperasional', item: 'supplierMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.supplierMutation.detail',
+                component: require('../views/form_operasional/supplier_mutation/Detail').default,
+                meta: { layout: 'default', title: 'Mutasi Supplier', sidebar: 'formOperasional', item: 'supplierMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'update/:id',
+                name: 'formOperasional.supplierMutation.update',
+                component: require('../views/form_operasional/supplier_mutation/Update').default,
+                meta: { layout: 'default', title: 'Mutasi Supplier', sidebar: 'formOperasional', item: 'supplierMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
+          },
+          {
             path: 'daily_stok_opname',
             name: 'formOperasional.dailyStokOpname',
             component: require('../views/form_operasional/DailyStokOpname').default,
@@ -650,6 +680,22 @@ const routes = [
                 name: 'formOperasional.dailyIncomingMutation.detail',
                 component: require('../views/form_operasional/daily_incoming_mutation/Detail').default,
                 meta: { layout: 'default', title: 'Mutasi Masuk Harian', sidebar: 'formOperasional', item: 'dailyIncomingMutation' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+            ]
+          },
+          {
+            path: 'daily_supplier_mutation',
+            name: 'formOperasional.dailySupplierMutation',
+            component: require('../views/form_operasional/DailySupplierMutation').default,
+            meta: { layout: 'default', title: 'Mutasi Masuk Harian', sidebar: 'formOperasional', item: 'dailySupplierMutation' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.dailySupplierMutation.detail',
+                component: require('../views/form_operasional/daily_supplier_mutation/Detail').default,
+                meta: { layout: 'default', title: 'Mutasi Supplier Harian', sidebar: 'formOperasional', item: 'dailySupplierMutation' },
                 beforeEnter: Multiguard([middleware.auth, middleware.access])
               },
             ]

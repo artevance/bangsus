@@ -481,6 +481,17 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::put('approve', 'IncomingMutation@amendApprove');
         Route::delete('', 'IncomingMutation@destroy');
       });
+      Route::prefix('supplier_mutation')->group(function () {
+        Route::get('', 'SupplierMutation@index');
+        Route::get('harian', 'SupplierMutation@daily');
+        Route::get('cabang_harian', 'SupplierMutation@dailyBranch');
+        Route::get('gambar/{id}', 'SupplierMutation@image');
+        Route::get('{id}', 'SupplierMutation@get');
+        Route::post('', 'SupplierMutation@store');
+        Route::put('', 'SupplierMutation@amend');
+        Route::put('approve', 'SupplierMutation@amendApprove');
+        Route::delete('', 'SupplierMutation@destroy');
+      });
     });
     Route::prefix('user')->group(function () {
       Route::get('', 'User@index');
