@@ -874,7 +874,7 @@ export default {
         }
       },
       incomingMutation: {
-        access: true,
+        access: false,
         create: true,
         read: true,
         detail: true,
