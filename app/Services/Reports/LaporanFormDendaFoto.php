@@ -36,7 +36,9 @@ class LaporanFormDendaFoto
                 $q->whereDate('tanggal_form', '>=', $request->input('tanggal_awal'))
                   ->WhereDate('tanggal_form', '<=', $request->input('tanggal_akhir'));
               });
-          })->get();
+          })
+          ->orWhereNull('tugas_karyawan')
+          ->get();
         $penaltySubtotal = $formData->sum('total');
       }
       $data['kelompok_foto'] = $kelompokFoto->toArray();
