@@ -198,7 +198,11 @@ export default {
       },
       data: {
         cabang: [],
-        tipe_absensi: []
+        tipe_absensi: [],
+        laporan_absensi: {
+          data: [],
+          meta: {},
+        },
       },
       query: {
         laporan_absensi: {
@@ -253,6 +257,7 @@ export default {
     queryData(withSpinner = true) {
       this.state.table.show = true
       if (withSpinner) this.state.table.loading = true
+      this.query.laporan_absensi.export = undefined
       this.fetchMainData()
         .then(res => {
           if ( ! this.$_.isEqual(this.$route.query, this.query.laporan_absensi) && this.$route.name === 'reportCenter.laporanAbsensi.laporanAbsensi') {
