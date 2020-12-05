@@ -34,7 +34,8 @@ class OutgoingMutation extends Controller
     return $this
       ->data(
         OutgoingMutationModel::with([
-          'cabang'
+          'cabang',
+          'd'
         ])
           ->where([
             'cabang_id' => $request->query('cabang_id'),
@@ -46,13 +47,37 @@ class OutgoingMutation extends Controller
       ->response(200);
   }
 
+  public function forIncomingMutationUpdate(Request $request)
+  {
+    return $this
+      ->data(
+        OutgoingMutationModel::with([
+          'cabang',
+          'd'
+        ])
+          ->where([
+            'cabang_id' => $request->query('cabang_id'),
+            'cabang_tujuan_id' => $request->query('cabang_tujuan_id'),
+          ])
+          ->whereHas('incoming_mutation')
+          ->get()
+      )
+      ->response(200);
+  }
+
   public function get(Request $request, $id)
   {
     if (is_null(OutgoingMutationModel::find($id))) return $this->response(404);
 
     return $this->data(OutgoingMutationModel::with([
       'cabang',
-      'd'
+      'd',
+      'd.barang',
+      'd.barang.satuan',
+      'd.barang.satuan_dua',
+      'd.barang.satuan_tiga',
+      'd.barang.satuan_empat',
+      'd.barang.satuan_lima',
     ])->find($id))->response(200);
   }
 

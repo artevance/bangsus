@@ -78,7 +78,7 @@
                             <input type="number" class="form-control" v-model="detail.qty">
                           </td>
                           <td>
-                            <input type="number" class="form-control" v-model="detail.harga_barang">
+                            <input type="number" class="form-control" v-model="detail.harga_barang" readonly>
                           </td>
                           <td>
                             <input type="text" class="form-control" v-model="detail.keterangan">
@@ -223,7 +223,7 @@ export default {
             if (this.resetOtherField) {
               this.form.update.data.d[i].level_satuan = null
               this.form.update.data.d[i].qty = null
-              this.form.update.data.d[i].harga_barang = null
+              this.form.update.data.d[i].harga_barang = 0
             }
             this.form.update.data.d[i].satuan = barang.satuan
             this.form.update.data.d[i].satuan_dua = barang.satuan_dua

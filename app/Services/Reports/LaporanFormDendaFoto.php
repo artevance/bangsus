@@ -32,7 +32,8 @@ class LaporanFormDendaFoto
         $formData = FormFoto::with('form_denda_foto')
           ->whereHas('tugas_karyawan', function ($q) use ($cabang, $kelompokFoto, $request) {
             $q->where('kelompok_foto_id', $kelompokFoto->id)
-              ->where('cabang_id', $cabang->id)->where(function ($q) use ($request) {
+              ->where('cabang_id', $cabang->id)
+              ->where(function ($q) use ($request) {
                 $q->whereDate('tanggal_form', '>=', $request->input('tanggal_awal'))
                   ->WhereDate('tanggal_form', '<=', $request->input('tanggal_akhir'));
               });

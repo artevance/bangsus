@@ -161,7 +161,6 @@ class IncomingMutation extends Controller
       'd'
     ), [
       'id' => 'required|exists:incoming_mutation,id',
-      'cabang_asal_id' => 'required|exists:cabang,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',

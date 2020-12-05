@@ -29,7 +29,7 @@
                 </div>
                 <div class="form-group">
                   <label>Mutasi Keluar</label>
-                  <select class="form-control" v-model="form.create.data.outgoing_mutation_id">
+                  <select class="form-control" v-model="form.create.data.outgoing_mutation_id" @change="fetchOutgoingMutationDetail()">
                     <option v-for="outgoingMutation in data.outgoingMutation" :value="outgoingMutation.id">
                       {{ outgoingMutation.tanggal_form }} - {{ outgoingMutation.jam }}
                     </option>
@@ -43,7 +43,51 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-2">
+              <div class="col">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <th>#</th>
+                      <th>Barang</th>
+                      <th style="min-width: 200px;">Satuan</th>
+                      <th style="min-width: 200px;">Qty</th>
+                      <th style="min-width: 200px;">Harga Barang</th>
+                      <th>Keterangan</th>
+                      <th>Gambar</th>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(detail, i) in data.outgoingMutationDetail.d">
+                        <td>{{ i + 1 }}</td>
+                        <td>
+                          {{ detail.barang.kode_barang }} - {{ detail.barang.nama_barang }}
+                        </td>
+                        <td>
+                          <span v-if="detail.level_satuan == 1">{{ detail.barang.satuan != null ? detail.barang.satuan.satuan : '' }}</span>
+                          <span v-if="detail.level_satuan == 2">{{ detail.barang.satuan_dua != null ? detail.barang.satuan_dua.satuan : '' }}</span>
+                          <span v-if="detail.level_satuan == 3">{{ detail.barang.satuan_tiga != null ? detail.barang.satuan_tiga.satuan : '' }}</span>
+                          <span v-if="detail.level_satuan == 4">{{ detail.barang.satuan_empat != null ? detail.barang.satuan_empat.satuan : '' }}</span>
+                          <span v-if="detail.level_satuan == 5">{{ detail.barang.satuan_lima != null ? detail.barang.satuan_lima.satuan : '' }}</span>
+                        </td>
+                        <td>
+                          {{ detail.qty }}
+                        </td>
+                        <td>
+                          {{ detail.harga_barang }}
+                        </td>
+                        <td>
+                          {{ detail.keterangan }}
+                        </td>
+                        <td>
+                          <a :href="'/ajax/v1/form_operasional/outgoing_mutation/gambar/' + detail.id" target="_blank">Link Foto</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
               <div class="col">
                 <div class="table-responsive">
                   <table class="table table-hover">
@@ -77,7 +121,7 @@
                           <input type="number" class="form-control" v-model="detail.qty">
                         </td>
                         <td>
-                          <input type="number" class="form-control" v-model="detail.harga_barang">
+                          <input type="number" class="form-control" v-model="detail.harga_barang" readonly>
                         </td>
                         <td>
                           <input type="text" class="form-control" v-model="detail.keterangan">
@@ -143,6 +187,7 @@ export default {
         cabang: [],
         allCabang: [],
         outgoingMutation: [],
+        outgoingMutationDetail: [],
       }
     }
   },
@@ -184,7 +229,7 @@ export default {
           let barang = res.data.container
           this.form.create.data.d[i].level_satuan = null
           this.form.create.data.d[i].qty = null
-          this.form.create.data.d[i].harga_barang = null
+          this.form.create.data.d[i].harga_barang = 0
           this.form.create.data.d[i].satuan = barang.satuan
           this.form.create.data.d[i].satuan_dua = barang.satuan_dua
           this.form.create.data.d[i].satuan_tiga = barang.satuan_tiga
@@ -207,6 +252,12 @@ export default {
       })
         .then(res => {
           this.data.outgoingMutation = res.data.container
+        })
+    },
+    fetchOutgoingMutationDetail() {
+      this.$axios.get('/ajax/v1/form_operasional/outgoing_mutation/' + this.form.create.data.outgoing_mutation_id)
+        .then(res => {
+          this.data.outgoingMutationDetail = res.data.container
         })
     },
     create() {

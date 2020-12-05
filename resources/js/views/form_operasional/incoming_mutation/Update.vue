@@ -29,10 +29,18 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Supplier Mutasi</label>
-                    <select class="form-control" v-model="form.update.data.supplier_mutasi_id">
-                      <option v-for="supplierMutasi in data.supplierMutasi" :value="supplierMutasi.id">
-                        {{ supplierMutasi.supplier_mutasi }}
+                    <label>Cabang Asal</label>
+                    <select class="form-control" v-model="form.update.data.cabang_asal_id" disabled>
+                      <option v-for="allCabang in data.allCabang" :value="allCabang.id">
+                        {{ allCabang.kode_cabang }} - {{ allCabang.cabang }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Mutasi Keluar</label>
+                    <select class="form-control" v-model="form.update.data.outgoing_mutation_id" disabled>
+                      <option v-for="outgoingMutation in data.outgoingMutation" :value="outgoingMutation.id">
+                        {{ outgoingMutation.tanggal_form }} - {{ outgoingMutation.jam }}
                       </option>
                     </select>
                   </div>
@@ -44,7 +52,51 @@
                   </div>
                 </div>
               </div>
-              <div class="row mt-3">
+              <div class="row mt-2">
+                <div class="col">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <th>#</th>
+                        <th>Barang</th>
+                        <th style="min-width: 200px;">Satuan</th>
+                        <th style="min-width: 200px;">Qty</th>
+                        <th style="min-width: 200px;">Harga Barang</th>
+                        <th>Keterangan</th>
+                        <th>Gambar</th>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(detail, i) in data.outgoingMutationDetail.d">
+                          <td>{{ i + 1 }}</td>
+                          <td>
+                            {{ detail.barang.kode_barang }} - {{ detail.barang.nama_barang }}
+                          </td>
+                          <td>
+                            <span v-if="detail.level_satuan == 1">{{ detail.barang.satuan != null ? detail.barang.satuan.satuan : '' }}</span>
+                            <span v-if="detail.level_satuan == 2">{{ detail.barang.satuan_dua != null ? detail.barang.satuan_dua.satuan : '' }}</span>
+                            <span v-if="detail.level_satuan == 3">{{ detail.barang.satuan_tiga != null ? detail.barang.satuan_tiga.satuan : '' }}</span>
+                            <span v-if="detail.level_satuan == 4">{{ detail.barang.satuan_empat != null ? detail.barang.satuan_empat.satuan : '' }}</span>
+                            <span v-if="detail.level_satuan == 5">{{ detail.barang.satuan_lima != null ? detail.barang.satuan_lima.satuan : '' }}</span>
+                          </td>
+                          <td>
+                            {{ detail.qty }}
+                          </td>
+                          <td>
+                            {{ detail.harga_barang }}
+                          </td>
+                          <td>
+                            {{ detail.keterangan }}
+                          </td>
+                          <td>
+                            <a :href="'/ajax/v1/form_operasional/outgoing_mutation/gambar/' + detail.id" target="_blank">Link Foto</a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-5">
                 <div class="col">
                   <div class="table-responsive">
                     <table class="table table-hover">
@@ -135,6 +187,8 @@ export default {
         cabang: [],
         allCabang: [],
         supplierMutasi: [],
+        outgoingMutation: [],
+        outgoingMutationDetail: [],
       }
     }
   },
@@ -149,15 +203,14 @@ export default {
         this.fetchMainData(),
         this.fetchCabang(),
         this.fetchAllCabang(),
-        this.fetchSupplierMutasi()
       ])
         .then(res => {
           let mainData = res[0].data.container
           this.form.update.data = {
             id: mainData.id,
             cabang_id: mainData.cabang_id,
-            supplier_mutasi_id: mainData.supplier_mutasi_id,
-            supplier_id: mainData.supplier_id,
+            cabang_asal_id: mainData.cabang_asal_id,
+            outgoing_mutation_id: mainData.outgoing_mutation_id,
             keterangan: mainData.keterangan,
             tanggal_form: mainData.tanggal_form,
             jam: mainData.jam,
@@ -187,7 +240,9 @@ export default {
             })
           this.data.cabang = res[1].data.container
           this.data.allCabang = res[2].data.container
-          this.data.supplierMutasi = res[3].data.container
+
+          this.fetchOutgoingMutation()
+          this.fetchOutgoingMutationDetail()
         })
     },
     pushDetail(item, gambar) {
@@ -249,8 +304,22 @@ export default {
     fetchAllCabang() {
       return this.$axios.get('/ajax/v1/master/cabang')
     },
-    fetchSupplierMutasi() {
-      return this.$axios.get('/ajax/v1/master/supplier_mutasi')
+    fetchOutgoingMutation() {
+      this.$axios.get('/ajax/v1/form_operasional/outgoing_mutation/for_incoming_mutation_update', {
+        params: {
+          cabang_id: this.form.update.data.cabang_asal_id,
+          cabang_tujuan_id: this.form.update.data.cabang_id,
+        }
+      })
+        .then(res => {
+          this.data.outgoingMutation = res.data.container
+        })
+    },
+    fetchOutgoingMutationDetail() {
+      this.$axios.get('/ajax/v1/form_operasional/outgoing_mutation/' + this.form.update.data.outgoing_mutation_id)
+        .then(res => {
+          this.data.outgoingMutationDetail = res.data.container
+        })
     },
     update() {
       this.form.update.loading = true
