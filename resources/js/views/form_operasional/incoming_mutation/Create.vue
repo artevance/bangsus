@@ -179,7 +179,8 @@ export default {
             ]
           },
           errors: [],
-          loading: false
+          loading: false,
+          error: false,
         }
       },
       data: {
@@ -261,7 +262,7 @@ export default {
         })
     },
     create() {
-      console.log(this.form.create.data)
+      this.form.create.error = false
       this.form.create.loading = true
       this.$axios.post('/ajax/v1/form_operasional/incoming_mutation', this.form.create.data)
         .then(res => {
@@ -290,6 +291,7 @@ export default {
         })
         .catch(err => {
           this.form.create.data.errors = err.response.data.errors
+          this.form.create.error = true
         })
         .finally(() => {
           this.form.create.loading = false
