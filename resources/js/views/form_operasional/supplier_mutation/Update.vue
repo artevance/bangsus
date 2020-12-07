@@ -102,6 +102,9 @@
                 <spinner-component size="sm" v-if="form.update.loading"></spinner-component>
                 Ubah
               </button>
+              <div class="alert alert-danger mt-3" v-if="form.update.error">
+                Gagal memasukkan data.
+              </div>
             </form>
           </div>
         </div>
@@ -127,7 +130,8 @@ export default {
             d: []
           },
           errors: [],
-          loading: false
+          loading: false,
+          error: false,
         }
       },
       data: {
@@ -253,6 +257,7 @@ export default {
       return this.$axios.get('/ajax/v1/master/supplier_mutasi')
     },
     update() {
+      this.form.update.error = false
       this.form.update.loading = true
       this.$axios.put('/ajax/v1/form_operasional/supplier_mutation', this.form.update.data)
         .then(res => {
@@ -282,6 +287,7 @@ export default {
           this.$router.push({ name: 'formOperasional.supplierMutation' })
         })
         .catch(err => {
+          this.form.update.error = true
           this.form.update.data.errors = err.response.data.errors
         })
         .finally(() => {

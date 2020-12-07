@@ -105,6 +105,21 @@
               <div class="alert alert-danger mt-3" v-if="form.update.error">
                 Gagal memasukkan data.
               </div>
+              <div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Berhasil</h5>
+                    </div>
+                    <div class="modal-body">
+                      Berhasil memasukkan data.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" @click="closeModal">Tutup</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -273,8 +288,8 @@ export default {
               }
             ]
           }
-          this.$parent.queryData()
-          this.$router.push({ name: 'formOperasional.outgoingMutation' })
+          $('#successModal').modal('show')
+          
         })
         .catch(err => {
           this.form.update.error = true
@@ -283,7 +298,12 @@ export default {
         .finally(() => {
           this.form.update.loading = false
         })
-    }
+    },
+    closeModal() {
+      $('#successModal').modal('hide')
+      this.$parent.queryData()
+      this.$router.push({ name: 'formOperasional.outgoingMutation' })
+    },
   }
 }
 </script>

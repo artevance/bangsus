@@ -93,6 +93,9 @@
               <spinner-component size="sm" v-if="form.create.loading"></spinner-component>
               Submit
             </button>
+            <div class="alert alert-danger mt-3" v-if="form.create.error">
+              Gagal memasukkan data.
+            </div>
           </form>
         </div>
       </div>
@@ -126,7 +129,8 @@ export default {
             ]
           },
           errors: [],
-          loading: false
+          loading: false,
+          error: false,
         }
       },
       data: {
@@ -195,7 +199,7 @@ export default {
       return this.$axios.get('/ajax/v1/master/supplier_mutasi')
     },
     create() {
-      console.log(this.form.create.data)
+      this.form.create.error = false
       this.form.create.loading = true
       this.$axios.post('/ajax/v1/form_operasional/supplier_mutation', this.form.create.data)
         .then(res => {
@@ -225,6 +229,7 @@ export default {
         })
         .catch(err => {
           this.form.create.data.errors = err.response.data.errors
+          this.form.create.error = true
         })
         .finally(() => {
           this.form.create.loading = false

@@ -88,6 +88,21 @@
             <div class="alert alert-danger mt-3" v-if="form.create.error">
               Gagal memasukkan data.
             </div>
+            <div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Berhasil</h5>
+                  </div>
+                  <div class="modal-body">
+                    Berhasil memasukkan data.
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @click="closeModal">Tutup</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </form>
         </div>
       </div>
@@ -202,8 +217,7 @@ export default {
               }
             ]
           }
-          this.$router.push({ name: 'formOperasional.stokOpname' })
-          this.$parent.queryData()
+          $('#successModal').modal('show')
         })
         .catch(err => {
           this.form.create.data.errors = err.response.data.errors
@@ -212,7 +226,12 @@ export default {
         .finally(() => {
           this.form.create.loading = false
         })
-    }
+    },
+    closeModal() {
+      $('#successModal').modal('hide')
+      this.$router.push({ name: 'formOperasional.stokOpname' })
+      this.$parent.queryData()
+    },
   }
 }
 </script>
