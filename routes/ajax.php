@@ -495,6 +495,18 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::delete('', 'SupplierMutation@destroy');
       });
     });
+    Route::prefix('belanja')->group(function () {
+      Route::get('', 'Belanja@index');
+      Route::get('harian', 'Belanja@daily');
+      Route::get('cabang_harian', 'Belanja@dailyBranch');
+      Route::get('gambar/{id}', 'Belanja@image');
+      Route::get('{id}', 'Belanja@get');
+      Route::post('', 'Belanja@store');
+      Route::put('', 'Belanja@amend');
+      Route::put('accept', 'Belanja@amendAccept');
+      Route::put('lock', 'Belanja@amendLock');
+      Route::delete('', 'Belanja@destroy');
+    });
     Route::prefix('user')->group(function () {
       Route::get('', 'User@index');
       Route::get('{id}', 'User@get');

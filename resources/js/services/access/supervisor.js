@@ -3,7 +3,7 @@ export default {
     access: true
   },
   master: {
-    access: true,
+    access: false,
     children: {
       tipeKontak: {
         access: true,

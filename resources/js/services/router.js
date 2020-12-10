@@ -703,6 +703,68 @@ const routes = [
         ]
       },
       {
+        path: 'belanja',
+        name: 'belanja',
+        component: { template: `<transition name="fade" mode="out-in"><router-view></router-view></transition>` },
+        meta: { layout: 'default', title: 'Belanja', sidebar: 'formOperasional' },
+        beforeEnter: Multiguard([middleware.auth, middleware.access]),
+        children: [
+          {
+            path: 'form_belanja',
+            name: 'belanja.formBelanja',
+            component: require('../views/belanja/FormBelanja').default,
+            meta: { layout: 'default', title: 'Form Belanja', sidebar: 'belanja', item: 'formBelanja' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+            {
+                path: 'create',
+                name: 'belanja.formBelanja.create',
+                component: require('../views/belanja/form_belanja/Create').default,
+                meta: { layout: 'default', title: 'Form Belanja', sidebar: 'belanja', item: 'formBelanja' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'detail/:id',
+                name: 'belanja.formBelanja.detail',
+                component: require('../views/belanja/form_belanja/Detail').default,
+                meta: { layout: 'default', title: 'Form Belanja', sidebar: 'belanja', item: 'formBelanja' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'update/:id',
+                name: 'belanja.formBelanja.update',
+                component: require('../views/belanja/form_belanja/Update').default,
+                meta: { layout: 'default', title: 'Form Belanja', sidebar: 'belanja', item: 'formBelanja' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
+          },
+          {
+            path: 'form_persetujuan_belanja',
+            name: 'belanja.formPersetujuanBelanja',
+            component: require('../views/belanja/FormPersetujuanBelanja').default,
+            meta: { layout: 'default', title: 'Form Persetujuan Belanja', sidebar: 'belanja', item: 'formPersetujuanBelanja' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: 'detail/:id',
+                name: 'belanja.formPersetujuanBelanja.detail',
+                component: require('../views/belanja/form_persetujuan_belanja/Detail').default,
+                meta: { layout: 'default', title: 'Form Persetujuan Belanja', sidebar: 'belanja', item: 'formPersetujuanBelanja' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'update/:id',
+                name: 'belanja.formPersetujuanBelanja.update',
+                component: require('../views/belanja/form_persetujuan_belanja/Update').default,
+                meta: { layout: 'default', title: 'Form Persetujuan Belanja', sidebar: 'belanja', item: 'formPersetujuanBelanja' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
+          },
+        ]
+      },
+      {
         path: 'user',
         name: 'user',
         component: require('../views/User').default,

@@ -126,6 +126,17 @@ export default {
                 { title: 'Mutasi Supplier Harian', index: 'dailySupplierMutation', to: 'formOperasional.dailySupplierMutation' },
               ]
             },
+            {
+              icon: 'far fa-shopping-cart',
+              title: 'Belanja',
+              index: 'belanja',
+              href: 'belanja',
+              to: 'belanja',
+              children: [
+                { title: 'Form Belanja', index: 'formBelanja', to: 'belanja.formBelanja' },
+                { title: 'Form Persetujuan Belanja', index: 'formPersetujuanBelanja', to: 'belanja.formPersetujuanBelanja' },
+              ]
+            },
             { icon: 'far fa-user', title: 'User', index: 'user', to: 'user' },
             { icon: 'far fa-chart-pie', title: 'Report Center', index: 'reportCenter', to: 'reportCenter' },
           ]
