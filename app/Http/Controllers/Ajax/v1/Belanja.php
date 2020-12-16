@@ -95,7 +95,8 @@ class Belanja extends Controller
       'd.*.level_satuan' => 'required',
       'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200',
-      'd.*.gambar' => 'required'
+      'd.*.gambar' => 'required',
+      'd.*.jam' => 'required',
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -142,6 +143,7 @@ class Belanja extends Controller
       $detailModel->level_satuan = $d['level_satuan'];
       $detailModel->qty_konversi = $d['qty'] * $constant;
       $detailModel->harga_barang = $d['harga_barang'];
+      $detailModel->jam = $d['jam'];
       $detailModel->keterangan = $d['keterangan'] ?? '';
       $detailModel->accepted = false;
       $detailModel->save();
@@ -161,7 +163,8 @@ class Belanja extends Controller
       'd.*.level_satuan' => 'required',
       'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200',
-      'd.*.gambar' => 'required'
+      'd.*.gambar' => 'required',
+      'd.*.jam' => 'required',
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -229,6 +232,7 @@ class Belanja extends Controller
       $detailModel->level_satuan = $d['level_satuan'];
       $detailModel->qty_konversi = $d['qty'] * $constant;
       $detailModel->harga_barang = $d['harga_barang'];
+      $detailModel->jam = $d['jam'];
       $detailModel->keterangan = $d['keterangan'] ?? '';
       $detailModel->accepted = false;
       $detailModel->save();

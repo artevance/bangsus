@@ -205,7 +205,8 @@ export default {
         satuan_tiga: item.satuan_tiga,  
         satuan_empat: item.satuan_empat,
         satuan_lima: item.satuan_lima,
-        gambar: gambar
+        gambar: gambar,
+        jam: item.jam,
       })
     },
     addDetail() {
@@ -220,6 +221,7 @@ export default {
         satuan_tiga: null,
         satuan_empat: null,
         satuan_lima: null,
+        jam: this.$moment().format('HH:mm:ss')
       })
     },
     removeDetail(i) {

@@ -132,6 +132,7 @@ export default {
                 satuan_empat: null,
                 satuan_lima: null,
                 gambar: '',
+                jam: this.$moment().format('HH:mm:ss'),
               }
             ]
           },
@@ -171,6 +172,7 @@ export default {
         satuan_tiga: null,
         satuan_empat: null,
         satuan_lima: null,
+        jam: this.$moment().format('HH:mm:ss')
       })
     },
     removeDetail(i) {

@@ -54,7 +54,7 @@
                         <tr v-for="(detail, i) in form.update.data.d">
                           <td>{{ i + 1 }}</td>
                           <td>
-                            <barang-component v-model="detail.barang_id" :component-id="i" @input="reloadSatuan(i)"/>
+                            {{ detail.nama_barang }}
                           </td>
                           <td>
                             <select class="form-control" v-model="detail.level_satuan">
@@ -87,7 +87,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <button class="btn btn-secondary btn-sm mt-3" type="button" @click.prevent="addDetail">+ Tambah</button>
+                  <!-- <button class="btn btn-secondary btn-sm mt-3" type="button" @click.prevent="addDetail">+ Tambah</button> -->
                 </div>
               </div>
               <button class="btn btn-primary mt-5" @click.prevent="update" :disabled="form.update.loading">
@@ -196,6 +196,7 @@ export default {
     pushDetail(item, gambar) {
       this.form.update.data.d.push({
         barang_id: item.barang_id,
+        nama_barang: item.barang.nama_barang,
         level_satuan: item.level_satuan,
         qty: item.qty,
         keterangan: item.keterangan,

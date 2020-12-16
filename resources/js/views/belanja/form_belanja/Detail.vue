@@ -17,10 +17,6 @@
                     <input class="form-control" v-model="form.detail.data.tanggal_form" type="date" disabled>
                   </div>
                   <div class="form-group">
-                    <label>Jam</label>
-                    <input class="form-control" v-model="form.detail.data.jam" type="time" disabled>
-                  </div>
-                  <div class="form-group">
                     <label>Cabang</label>
                     <select class="form-control" v-model="form.detail.data.cabang_id" disabled>
                       <option v-for="cabang in data.cabang" :value="cabang.id">

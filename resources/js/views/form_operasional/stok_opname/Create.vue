@@ -13,7 +13,7 @@
               <div class="col col-md-6">
                 <div class="form-group">
                   <label>Cabang</label>
-                  <select class="form-control" v-model="form.create.data.cabang_id">
+                  <select class="form-control" v-model="form.create.data.cabang_id" @change="selectCabang(form.create.data.cabang_id)" :disabled="form.create.state.cabangReadonly">
                     <option v-for="cabang in data.cabang" :value="cabang.id">
                       {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                     </option>
@@ -45,7 +45,7 @@
                       <tr v-for="(detail, i) in form.create.data.d">
                         <td>{{ i + 1 }}</td>
                         <td>
-                          <barang-component v-model="detail.barang_id" :component-id="i" @input="reloadSatuan(i)"/>
+                          {{ detail.nama_barang }}
                         </td>
                         <td>
                           <select class="form-control" v-model="detail.level_satuan">
@@ -78,7 +78,7 @@
                     </tbody>
                   </table>
                 </div>
-                <button class="btn btn-secondary btn-sm mt-3" type="button" @click.prevent="addDetail">+ Tambah</button>
+                <!-- <button class="btn btn-secondary btn-sm mt-3" type="button" @click.prevent="addDetail">+ Tambah</button> -->
               </div>
             </div>
             <button class="btn btn-primary mt-5" @click.prevent="create" :disabled="form.create.loading">
@@ -120,24 +120,15 @@ export default {
             cabang_id: null,
             keterangan: '',
             d: [
-              {
-                barang_id: null,
-                level_satuan: null,
-                qty: null,
-                keterangan: '',
-                harga_barang: 0,
-                satuan: null,
-                satuan_dua: null,
-                satuan_tiga: null,
-                satuan_empat: null,
-                satuan_lima: null,
-                gambar: '',
-              }
+              
             ]
           },
           errors: [],
           loading: false,
-          error: false
+          error: false,
+          state: {
+            cabangReadonly: false
+          }
         }
       },
       data: {
@@ -159,18 +150,30 @@ export default {
           this.data.cabang = res[0].data.container
         })
     },
-    addDetail() {
+    selectCabang(tipeCabangId) {
+      this.form.create.state.cabangReadonly = true
+      this.$axios.get('/ajax/v1/master/barang/opname/' + tipeCabangId)
+        .then(res => {
+          let barang = res.data.container
+
+          barang.forEach(brg => {
+            this.addDetail(brg)
+          })
+        })
+    },
+    addDetail(brg) {
       this.form.create.data.d.push({
-        barang_id: null,
+        barang_id: brg.id,
+        nama_barang: brg.nama_barang,
         level_satuan: null,
         qty: null,
         keterangan: '',
         harga_barang: 0,
-        satuan: null,
-        satuan_dua: null,
-        satuan_tiga: null,
-        satuan_empat: null,
-        satuan_lima: null,
+        satuan: brg.satuan,
+        satuan_dua: brg.satuan_dua,
+        satuan_tiga: brg.satuan_tiga,
+        satuan_empat: brg.satuan_empat,
+        satuan_lima: brg.satuan_lima,
       })
     },
     removeDetail(i) {

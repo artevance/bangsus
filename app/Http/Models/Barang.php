@@ -34,4 +34,9 @@ class Barang extends Model
   {
     return $this->belongsTo('App\Http\Models\Satuan');
   }
+
+  public function opname_barang_tipe_cabang()
+  {
+    return $this->hasMany('App\Http\Models\OpnameBarangTipeCabang');
+  }
 }

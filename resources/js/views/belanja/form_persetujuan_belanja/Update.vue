@@ -46,6 +46,7 @@
                         <th style="min-width: 200px;">Satuan</th>
                         <th style="min-width: 200px;">Qty</th>
                         <th style="min-width: 200px;">Harga Barang</th>
+                        <th style="min-width: 200px;">Jam</th>
                         <th style="min-width: 200px;">Keterangan</th>
                         <th>Gambar</th>
                         <th colspan="2">Persetujuan</th>
@@ -71,6 +72,9 @@
                           </td>
                           <td>
                             <input type="number" class="form-control" v-model="detail.harga_barang" readonly>
+                          </td>
+                          <td>
+                            {{ detail.jam }}
                           </td>
                           <td>
                             <input type="text" class="form-control" v-model="detail.keterangan" readonly>
@@ -208,6 +212,7 @@ export default {
         satuan_lima: item.satuan_lima,
         gambar: gambar,
         accepted: null,
+        jam: item.jam,
       })
     },
     addDetail() {

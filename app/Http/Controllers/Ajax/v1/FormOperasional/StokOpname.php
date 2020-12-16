@@ -35,7 +35,8 @@ class StokOpname extends Controller
 
     return $this->data(StokOpnameModel::with([
       'cabang',
-      'd'
+      'd',
+      'd.barang'
     ])->find($id))->response(200);
   }
 
@@ -79,7 +80,14 @@ class StokOpname extends Controller
 
   public function image(Request $request, $id)
   {
-    return Image::make(StokOpnameD::find($id)->dir_gambar)->response('jpeg');
+    $return = response()->noContent();
+    try {
+      $return = Image::make(StokOpnameD::find($id)->dir_gambar)->response('jpeg');
+    } catch (\Exception $e) {
+
+    }
+
+    return $return;
   }
 
   public function store(Request $request)
@@ -95,7 +103,6 @@ class StokOpname extends Controller
       'd.*.level_satuan' => 'required',
       'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200',
-      'd.*.gambar' => 'required'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -108,8 +115,10 @@ class StokOpname extends Controller
     $stokOpnameModel->save();
 
     foreach ($request->input('d') as $d) {
-      $dir = public_path('img/opname/' . uniqid() . uniqid() . uniqid() . '.jpg');
-      Image::make(file_get_contents($d['gambar']))->save($dir);
+      if (isset($d['gambar'])) {
+        $dir = public_path('img/opname/' . uniqid() . uniqid() . uniqid() . '.jpg');
+        Image::make(file_get_contents($d['gambar']))->save($dir);
+      }
 
       $barang = Barang::find($d['barang_id']);
       $constant = 1;
@@ -136,7 +145,7 @@ class StokOpname extends Controller
 
       $detailModel = new StokOpnameD;
       $detailModel->stok_opname_id = $stokOpnameModel->id;
-      $detailModel->dir_gambar = $dir;
+      $detailModel->dir_gambar = $dir ?? '';
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
@@ -176,8 +185,10 @@ class StokOpname extends Controller
     );
 
     foreach ($request->input('d') as $d) {
-      $dir = public_path('img/opname/' . uniqid() . uniqid() . uniqid() . '.jpg');
-      Image::make(file_get_contents($d['gambar']))->save($dir);
+      if (isset($d['gambar'])) {
+        $dir = public_path('img/opname/' . uniqid() . uniqid() . uniqid() . '.jpg');
+        Image::make(file_get_contents($d['gambar']))->save($dir);
+      }
 
       $barang = Barang::find($d['barang_id']);
       $constant = 1;
@@ -223,7 +234,7 @@ class StokOpname extends Controller
 
       $detailModel = new StokOpnameD;
       $detailModel->stok_opname_id = $stokOpnameModel->id;
-      $detailModel->dir_gambar = $dir;
+      $detailModel->dir_gambar = $dir ?? '';
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];

@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Models\Barang as BarangModel;
+use App\Http\Models\OpnameBarangTipeCabang as OpnameBarangTipeCabangModel;
 
 class Barang extends Controller
 {
@@ -30,7 +31,25 @@ class Barang extends Controller
   {
     if ( ! BarangModel::find($id)->exists()) return $this->response(404);
 
-    return $this->data(BarangModel::with(['satuan', 'satuan_dua', 'satuan_tiga', 'satuan_empat', 'satuan_lima'])->find($id))->response(200);
+    return $this->data(BarangModel::with(['satuan', 'satuan_dua', 'satuan_tiga', 'satuan_empat', 'satuan_lima', 'opname_barang_tipe_cabang'])->find($id))->response(200);
+  }
+
+  public function getOpname(Request $request, $id)
+  {
+    return $this
+      ->data(BarangModel::with(['satuan', 'satuan_dua', 'satuan_tiga', 'satuan_empat', 'satuan_lima'])
+          ->where(function ($query) use ($request) {
+            $query->where('kode_barang', 'like', '%' . $request->input('q') . '%')
+              ->orWhere('nama_barang', 'like', '%' . $request->input('q') . '%');
+          })
+          ->where(function ($query) use ($id) {
+            $query->whereHas('opname_barang_tipe_cabang', function ($query) use ($id) {
+              $query->where('tipe_cabang_id', $id);
+            })->orWhere('semua_tipe_cabang', true);
+          })
+          ->get()
+        )
+      ->response(200);
   }
 
   public function store(Request $request)
@@ -46,7 +65,9 @@ class Barang extends Controller
       'satuan_empat_id',
       'rasio_empat',
       'satuan_lima_id',
-      'rasio_lima'
+      'rasio_lima',
+      'semua_tipe_cabang',
+      'tipe_cabang_id'
     ), [
       'kode_barang' => 'required|max:200',
       'nama_barang' => 'required|max:200',
@@ -59,6 +80,9 @@ class Barang extends Controller
       'rasio_empat' => 'required_with:satuan_empat_id|numeric',
       'satuan_lima_id' => 'nullable|exists:satuan,id',
       'rasio_lima' => 'required_with:satuan_lima_id|numeric',
+      'semua_tipe_cabang' => 'required|boolean',
+      'tipe_cabang_id' => 'required|array',
+      'tipe_cabang_id.*' => 'required|exists:tipe_cabang,id',
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -74,7 +98,17 @@ class Barang extends Controller
     $model->rasio_empat = $request->has('satuan_empat_id') ? $request->input('rasio_empat') : null;
     $model->satuan_lima_id = $request->has('satuan_lima_id') ? $request->input('satuan_lima_id') : null;
     $model->rasio_lima = $request->has('satuan_lima_id') ? $request->input('rasio_lima') : null;
+    $model->semua_tipe_cabang = $request->boolean('semua_tipe_cabang');
     $model->save();
+
+    if ( ! $model->semua_tipe_cabang) {
+      foreach ($request->input('tipe_cabang_id') as $tipeCabangId) {
+        $opnameBarangTipeCabangModel = new OpnameBarangTipeCabangModel;
+        $opnameBarangTipeCabangModel->barang_id = $model->id;
+        $opnameBarangTipeCabangModel->tipe_cabang_id = $tipeCabangId;
+        $opnameBarangTipeCabangModel->save();
+      }
+    }
 
     return $this->data(['insert_id' => $model->id])->response(200);
   }
@@ -93,7 +127,9 @@ class Barang extends Controller
       'satuan_empat_id',
       'rasio_empat',
       'satuan_lima_id',
-      'rasio_lima'
+      'semua_tipe_cabang',
+      'rasio_lima',
+      'tipe_cabang_id.*',
     ), [
       'id' => 'required|exists:barang,id',
       'kode_barang' => 'required|max:200',
@@ -107,6 +143,9 @@ class Barang extends Controller
       'rasio_empat' => 'required_with:satuan_empat_id|numeric',
       'satuan_lima_id' => 'nullable|exists:satuan,id',
       'rasio_lima' => 'required_with:satuan_lima_id|numeric',
+      'semua_tipe_cabang' => 'required|boolean',
+      'tipe_cabang_id' => 'required|array',
+      'tipe_cabang_id.*' => 'required|exists:tipe_cabang,id'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -122,7 +161,32 @@ class Barang extends Controller
     $model->rasio_empat = $request->has('satuan_empat_id') ? $request->input('rasio_empat') : null;
     $model->satuan_lima_id = $request->has('satuan_lima_id') ? $request->input('satuan_lima_id') : null;
     $model->rasio_lima = $request->has('satuan_lima_id') ? $request->input('rasio_lima') : null;
+    $model->semua_tipe_cabang = $request->boolean('semua_tipe_cabang');
     $model->save();
+
+    if ($model->semua_tipe_cabang) {
+      $model->opname_barang_tipe_cabang()
+        ->each(function ($opnameBarangTipeCabangModel) {
+          $opnameBarangTipeCabangModel->delete();
+        });
+    } else {
+      $model->opname_barang_tipe_cabang()
+        ->whereNotIn('tipe_cabang_id', $request->input('tipe_cabang_id'))
+        ->each(function ($opnameBarangTipeCabangModel) {
+          $opnameBarangTipeCabangModel->delete();
+        });
+
+      foreach ($request->input('tipe_cabang_id') as $tipeCabangId) {
+        if ($model->opname_barang_tipe_cabang()->where('tipe_cabang_id', $tipeCabangId)->exists()) {
+          continue;
+        }
+
+        $opnameBarangTipeCabangModel = new OpnameBarangTipeCabangModel;
+        $opnameBarangTipeCabangModel->barang_id = $model->id;
+        $opnameBarangTipeCabangModel->tipe_cabang_id = $tipeCabangId;
+        $opnameBarangTipeCabangModel->save();
+      }
+    }
 
     return $this->data(['update_id' => $model->id])->response(200);
   }
