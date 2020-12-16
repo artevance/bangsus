@@ -70,9 +70,7 @@
                           <webcam-component v-model="detail.gambar" ref="webcam"></webcam-component>
                         </td>
                         <td>
-                          <button class="btn btn-sm" type="button" @click.prevent="removeDetail(i)">
-                            <i class="fas fa-trash text-danger"></i>
-                          </button>
+                          
                         </td>
                       </tr>
                     </tbody>
