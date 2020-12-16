@@ -149,7 +149,7 @@ export default {
         })
     },
     selectCabang(cabangId) {
-      let tipeCabangId = _(this.data.cabang).find(cabang => cabang.id == cabangId).tipe_cabang_id
+      let tipeCabangId = _.find(this.data.cabang, cabang => cabang.id == cabangId).tipe_cabang_id
 
       this.$axios.get('/ajax/v1/master/barang/opname/' + tipeCabangId)
         .then(res => {
