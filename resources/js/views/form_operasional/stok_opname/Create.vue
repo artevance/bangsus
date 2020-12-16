@@ -13,7 +13,7 @@
               <div class="col col-md-6">
                 <div class="form-group">
                   <label>Cabang</label>
-                  <select class="form-control" v-model="form.create.data.cabang_id" @change="selectCabang(form.create.data.cabang.tipe_cabang_id)" :disabled="form.create.state.cabangReadonly">
+                  <select class="form-control" v-model="form.create.data.cabang_id" @change="selectCabang(form.create.data.cabang_id)" :disabled="form.create.state.cabangReadonly">
                     <option v-for="cabang in data.cabang" :value="cabang.id">
                       {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                     </option>
@@ -148,10 +148,12 @@ export default {
           this.data.cabang = res[0].data.container
         })
     },
-    selectCabang(tipeCabangId) {
-      this.form.create.state.cabangReadonly = true
+    selectCabang(cabangId) {
+      let tipeCabangId = _(this.data.cabang).find(cabang => cabang.id == cabangId).tipe_cabang_id
+
       this.$axios.get('/ajax/v1/master/barang/opname/' + tipeCabangId)
         .then(res => {
+          this.form.create.state.cabangReadonly = true
           let barang = res.data.container
 
           barang.forEach(brg => {
