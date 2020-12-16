@@ -5,6 +5,7 @@ namespace App\Services\Reports;
 use Illuminate\Support\Facades\DB;
 use App\Http\Models\KelompokFoto;
 use App\Http\Models\FormFoto;
+use App\Http\Models\FormDendaFoto;
 use App\Http\Models\Cabang;
 
 class LaporanFormDendaFoto
@@ -32,8 +33,13 @@ class LaporanFormDendaFoto
         ->whereBetween('tanggal_form', [$request->input('tanggal_awal'), $request->input('tanggal_akhir')])
         ->get();
 
+      $formData = FormDendaFoto::whereIn('form_foto_id', $formData->pluck('id'))->get();
+
+      // return $formData->toArray();
+
       $d = $kelompokFoto->toArray();
       $d['subtotal'] = $formData->sum('total');
+
       $penaltyTotal += $d['subtotal'];
 
       $container[] = $d;
