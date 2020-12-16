@@ -117,8 +117,8 @@
                   <tbody>
                     <template v-for="(data, i) in data.laporan_form_denda_foto.data">
                       <tr>
-                        <td class="text-center">{{ i + 1 }}</td>
-                        <td>{{ data.kelompok_foto.kelompok_foto }}</td>
+                        <td class="text-center">{{ parseInt(i) + 1 }}</td>
+                        <td>{{ data.kelompok_foto }}</td>
                         <td>{{ data.subtotal }}</td>
                       </tr>
                     </template>

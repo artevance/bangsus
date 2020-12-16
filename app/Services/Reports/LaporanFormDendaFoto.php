@@ -13,40 +13,30 @@ class LaporanFormDendaFoto
   {
     $container = [];
 
-    $cabangs = ! is_null(Cabang::find($request->input('cabang_id')))
-      ? Cabang::where('id', $request->input('cabang_id'))->get()
-      : Cabang::all();
-
+    $cabang = Cabang::find($request->input('cabang_id'));
     $kelompokFotos = KelompokFoto::all();
-
     $penaltyTotal = 0;
-    foreach ($cabangs as $cabang) {
-      $data = [];
-      $data['cabang']['kode_cabang'] = $cabang->kode_cabang;
-      $data['cabang']['cabang'] = $cabang->cabang;
 
-      $d = [];
-      $sumCount = 0;
-      $scoreSum = 0;
-      foreach ($kelompokFotos as $kelompokFoto) {
-        $formData = FormFoto::with('form_denda_foto')
-          ->whereHas('tugas_karyawan', function ($q) use ($cabang, $kelompokFoto, $request) {
-            $q->where('kelompok_foto_id', $kelompokFoto->id)
-              ->where('cabang_id', $cabang->id)
-              ->where(function ($q) use ($request) {
-                $q->whereDate('tanggal_form', '>=', $request->input('tanggal_awal'))
-                  ->WhereDate('tanggal_form', '<=', $request->input('tanggal_akhir'));
-              });
-          })
-          ->orWhereNull('tugas_karyawan_id')
-          ->get();
-        $penaltySubtotal = $formData->sum('total');
-      }
-      $data['kelompok_foto'] = $kelompokFoto->toArray();
-      $data['subtotal'] = $penaltySubtotal;
-      $penaltyTotal += $penaltySubtotal;
+    foreach ($kelompokFotos as $kelompokFoto) {
+      $formData = FormFoto::with('form_denda_foto')
+        ->where(function ($q) use ($cabang, $request) {
+          $q->whereHas('tugas_karyawan', function ($q) use ($cabang, $request) {
+              $q->where('cabang_id', $cabang->id);
+            })    
+            ->orWhere(function ($q) use ($cabang) {
+              $q->whereNull('tugas_karyawan_id')
+                ->where('cabang_id', $cabang->id);
+            });
+        })
+        ->where('kelompok_foto_id', $kelompokFoto->id)
+        ->whereBetween('tanggal_form', [$request->input('tanggal_awal'), $request->input('tanggal_akhir')])
+        ->get();
 
-      $container[] = $data;
+      $d = $kelompokFoto->toArray();
+      $d['subtotal'] = $formData->sum('total');
+      $penaltyTotal += $d['subtotal'];
+
+      $container[] = $d;
     }
 
     return [
