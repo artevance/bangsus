@@ -66,6 +66,7 @@ class LaporanFormDendaFoto extends Controller
           ['Kode Cabang', ! is_null($cabang) ? $cabang->kode_cabang : 'Semua'],
           ['Nama Cabang', ! is_null($cabang) ? $cabang->cabang : 'Semua']
         ];
+        $container[] = [];
 
         $heads = ['No.', 'Kelompok Foto', 'Total'];
         $container[] = $heads;
@@ -73,8 +74,8 @@ class LaporanFormDendaFoto extends Controller
         foreach ($data['data'] as $i => $d) {
           $row = [
             $i + 1,
-            $d['kelompok_foto']['kelompok_foto'],
-            $d['subtotal']
+            $d['kelompok_foto'],
+            $d['subtotal'],
           ];
 
           $container[] = $row;
