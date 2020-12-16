@@ -149,7 +149,8 @@ export default {
         })
     },
     selectCabang() {
-      let tipeCabangId = _.find(this.data.cabang, { 'id': this.form.create.data.cabang_id }).tipe_cabang_id
+      let cabang = _.find(this.data.cabang, { 'id': this.form.create.data.cabang_id })
+      let tipeCabangId = cabang.tipe_cabang_id
 
       this.$axios.get('/ajax/v1/master/barang/opname/' + tipeCabangId)
         .then(res => {
