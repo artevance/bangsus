@@ -177,7 +177,12 @@ class StokOpname extends Controller
       'd.*.keterangan' => 'nullable|max:200',
       'd.*.gambar' => 'required'
     ]);
-    if ($v->fails()) return $this->errors($v->errors())->response(422);
+    if ($v->fails()) {
+      $failedJob = new FailedJob;
+      $failedJob->payload = $v->errors();
+      $failedJob->save();
+      return $this->errors($v->errors())->response(422);
+    };
 
     $stokOpnameModel = StokOpnameModel::find($request->input('id'));
     $stokOpnameModel->approve = false;
