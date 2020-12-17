@@ -14,6 +14,7 @@ use App\Http\Models\StokOpnameD;
 use App\Http\Models\Barang;
 use App\Http\Models\Cabang;
 use App\Http\Models\Gambar;
+use App\Http\Models\FailedJob;
 
 use Intervention\Image\Facades\Image;
 
@@ -104,7 +105,12 @@ class StokOpname extends Controller
       'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200',
     ]);
-    if ($v->fails()) return $this->errors($v->errors())->response(422);
+    if ($v->fails()) {
+      $failedJob = new FailedJob;
+      $failedJob->payload = $v->errors();
+      $failedJob->save();
+      return $this->errors($v->errors())->response(422)
+    };
 
     $stokOpnameModel = new StokOpnameModel;
     $stokOpnameModel->tanggal_form = date('Y-m-d');
