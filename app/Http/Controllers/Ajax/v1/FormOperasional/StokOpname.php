@@ -109,7 +109,7 @@ class StokOpname extends Controller
       $failedJob = new FailedJob;
       $failedJob->payload = $v->errors();
       $failedJob->save();
-      return $this->errors($v->errors())->response(422)
+      return $this->errors($v->errors())->response(422);
     };
 
     $stokOpnameModel = new StokOpnameModel;
