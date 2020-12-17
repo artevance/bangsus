@@ -230,8 +230,8 @@ export default {
           .then(res => {
             let barang = res.data.container
             if (this.resetOtherField) {
-              this.form.update.data.d[i].level_satuan = null
-              this.form.update.data.d[i].qty = null
+              this.form.update.data.d[i].level_satuan = 1
+              this.form.update.data.d[i].qty = 0
               this.form.update.data.d[i].harga_barang = 0
             }
             this.form.update.data.d[i].satuan = barang.satuan

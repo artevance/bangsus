@@ -166,8 +166,8 @@ export default {
       this.form.create.data.d.push({
         barang_id: brg.id,
         nama_barang: brg.nama_barang,
-        level_satuan: null,
-        qty: null,
+        level_satuan: 1,
+        qty: 0,
         keterangan: '',
         harga_barang: 0,
         satuan: brg.satuan,
@@ -184,8 +184,8 @@ export default {
       this.$axios.get('/ajax/v1/master/barang/' + this.form.create.data.d[i].barang_id)
         .then(res => {
           let barang = res.data.container
-          this.form.create.data.d[i].level_satuan = null
-          this.form.create.data.d[i].qty = null
+          this.form.create.data.d[i].level_satuan = 1
+          this.form.create.data.d[i].qty = 0
           this.form.create.data.d[i].harga_barang = 0
           this.form.create.data.d[i].satuan = barang.satuan
           this.form.create.data.d[i].satuan_dua = barang.satuan_dua
