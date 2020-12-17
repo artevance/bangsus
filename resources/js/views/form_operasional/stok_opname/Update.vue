@@ -147,6 +147,11 @@ export default {
   created() {
     this.prepare()
   },
+  mounted() {
+    window.onbeforeunload = function (e) {
+      return 'Apakah anda yakin?'
+    }
+  },
 
   methods: {
     prepare() {
