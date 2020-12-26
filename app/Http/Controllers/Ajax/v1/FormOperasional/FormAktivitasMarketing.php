@@ -14,6 +14,8 @@ use App\Http\Models\FormFoto;
 use App\Http\Models\Gambar;
 use App\Http\Models\Cabang;
 
+use Intervention\Image\Facades\Image;
+
 class FormAktivitasMarketing extends Controller
 {
   public function index(Request $request)
@@ -89,8 +91,11 @@ class FormAktivitasMarketing extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
+    $dir = public_path('img/form_aktivitas_marketing/' . uniqid() . uniqid() . uniqid() . '.jpg');
+    Image::make(file_get_contents($request->input('gambar')))->save($dir);
+
     $gambarModel = new Gambar;
-    $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
+    $gambarModel->dir = $dir;
     $gambarModel->save();
 
     $formFotoModel = new FormFoto;
@@ -150,8 +155,11 @@ class FormAktivitasMarketing extends Controller
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     if ($request->filled('gambar')) {
-      $gambarModel = new GambarModel;
-      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
+      $dir = public_path('img/form_aktivitas_marketing/' . uniqid() . uniqid() . uniqid() . '.jpg');
+      Image::make(file_get_contents($request->input('gambar')))->save($dir);
+
+      $gambarModel = new Gambar;
+      $gambarModel->dir = $dir;
       $gambarModel->save();
     }
 

@@ -10,18 +10,22 @@ class Gambar extends Controller
 {
   public function index(GambarModel $gambar, Request $request)
   {
-    $img = Image::make($gambar->konten);
+    if (is_null($gambar->dir)) {
+      $img = Image::make($gambar->konten);
 
-    if ($img->height() > 1000 || $img->width() > 1000)
-      if ($img->height() > $img->width())
-        $img->resize(null, 500, function ($c) {
-          $c->aspectRatio();
-        });
-      else
-        $img->resize(700, null, function ($c) {
-          $c->aspectRatio();
-        });
+      if ($img->height() > 1000 || $img->width() > 1000)
+        if ($img->height() > $img->width())
+          $img->resize(null, 500, function ($c) {
+            $c->aspectRatio();
+          });
+        else
+          $img->resize(700, null, function ($c) {
+            $c->aspectRatio();
+          });
 
-    return response($img->encode('jpg', 70))->header('Content-Type', 'image/jpeg');
+      return response($img->encode('jpg', 70))->header('Content-Type', 'image/jpeg');
+    } else {
+      return response()->file($gambar->dir);
+    }
   }
 }

@@ -14,6 +14,8 @@ use App\Http\Models\KelompokFoto;
 use App\Http\Models\Cabang;
 use App\Http\Models\Gambar;
 
+use Intervention\Image\Facades\Image;
+
 class FormFoto extends Controller
 {
   public function index(Request $request)
@@ -84,8 +86,11 @@ class FormFoto extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
+    $dir = public_path('img/form_foto/' . uniqid() . uniqid() . uniqid() . '.jpg');
+    Image::make(file_get_contents($request->input('gambar')))->save($dir);
+
     $gambarModel = new Gambar;
-    $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
+    $gambarModel->dir = $dir;
     $gambarModel->save();
 
     $formFotoModel = new FormFotoModel;
@@ -127,8 +132,11 @@ class FormFoto extends Controller
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     if ($request->filled('gambar')) {
+      $dir = public_path('img/form_foto/' . uniqid() . uniqid() . uniqid() . '.jpg');
+      Image::make(file_get_contents($request->input('gambar')))->save($dir);
+
       $gambarModel = new Gambar;
-      $gambarModel->konten = base64_decode(str_replace(' ', '+', explode(',', $request->input('gambar'))[1]));
+      $gambarModel->dir = $dir;
       $gambarModel->save();
     }
 
