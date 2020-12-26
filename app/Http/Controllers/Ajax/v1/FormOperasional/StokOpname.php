@@ -139,7 +139,7 @@ class StokOpname extends Controller
     };
 
     $stokOpnameModel = new StokOpnameModel;
-    $stokOpnameModel = 'SOP-'.date('YmdHis');
+    $stokOpnameModel->kode = 'SOP-'.date('YmdHis');
     $stokOpnameModel->tanggal_form = date('Y-m-d');
     $stokOpnameModel->jam = date('H:i:s');
     $stokOpnameModel->cabang_id = $request->input('cabang_id');
