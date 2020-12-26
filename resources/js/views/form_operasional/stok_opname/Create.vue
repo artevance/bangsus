@@ -13,9 +13,17 @@
               <div class="col col-md-6">
                 <div class="form-group">
                   <label>Cabang</label>
-                  <select class="form-control" v-model="form.create.data.cabang_id" @change="selectCabang(form.create.data.cabang_id)" :disabled="form.create.state.cabangReadonly">
+                  <select class="form-control" v-model="form.create.data.cabang_id" @change="getBarang" :disabled="form.create.state.cabangReadonly">
                     <option v-for="cabang in data.cabang" :value="cabang.id">
                       {{ cabang.kode_cabang }} - {{ cabang.cabang }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Tipe Stok Opname</label>
+                  <select class="form-control" v-model="form.create.data.tipe_stok_opname_id" @change="getBarang" :disabled="form.create.state.tipeStokOpnameReadonly">
+                    <option v-for="tipe_stok_opname in data.tipe_stok_opname" :value="tipe_stok_opname.id">
+                      {{ tipe_stok_opname.tipe_stok_opname }}
                     </option>
                   </select>
                 </div>
@@ -116,6 +124,7 @@ export default {
         create: {
           data: {
             cabang_id: null,
+            tipe_stok_opname_id: null,
             keterangan: '',
             d: [
               
@@ -125,13 +134,15 @@ export default {
           loading: false,
           error: false,
           state: {
-            cabangReadonly: false
+            cabangReadonly: false,
+            tipeStokOpnameReadonly: false,
           }
         }
       },
       data: {
         supplier: [],
         cabang: [],
+        tipe_stok_opname: [],
       }
     }
   },
@@ -147,25 +158,38 @@ export default {
   methods: {
     prepare() {
       Promise.all([
-        this.fetchCabang()
+        this.fetchCabang(),
+        this.fetchTipeStokOpname(),
       ])
         .then(res => {
           this.data.cabang = res[0].data.container
+          this.data.tipe_stok_opname = res[1].data.container
         })
     },
     selectCabang(cabangId) {
-      let cabang = _.find(this.data.cabang, { 'id': cabangId })
-      let tipeCabangId = cabang.tipe_cabang_id
+      
+    },
+    selectTipeStokOpname(tipeStokOpnameId) {
+      
+    },
+    getBarang() {
+      let cabang = _.find(this.data.cabang, { 'id': this.form.create.data.cabang_id })
+      let tipeCabangId = cabang ? cabang.tipe_cabang_id : null
+      let tipeStokOpnameId = this.form.create.data.tipe_stok_opname_id
 
-      this.$axios.get('/ajax/v1/master/barang/opname/' + tipeCabangId)
-        .then(res => {
-          this.form.create.state.cabangReadonly = true
-          let barang = res.data.container
+      console.log([tipeCabangId, tipeStokOpnameId])
+      if (tipeCabangId != null && tipeStokOpnameId != null) {
+        this.$axios.get('/ajax/v1/master/barang/opname/' + tipeCabangId + '/' + tipeStokOpnameId)
+          .then(res => {
+            this.form.create.state.cabangReadonly = true
+            this.form.create.state.tipeStokOpnameReadonly = true
+            let barang = res.data.container
 
-          barang.forEach(brg => {
-            this.addDetail(brg)
+            barang.forEach(brg => {
+              this.addDetail(brg)
+            })
           })
-        })
+      }
     },
     addDetail(brg) {
       this.form.create.data.d.push({
@@ -201,6 +225,9 @@ export default {
     },
     fetchCabang() {
       return this.$axios.get('/ajax/v1/master/cabang/terotorisasi')
+    },
+    fetchTipeStokOpname() {
+      return this.$axios.get('/ajax/v1/master/tipe_stok_opname')
     },
     create() {
       this.form.create.error = false

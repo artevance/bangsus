@@ -133,6 +133,12 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::post('', 'TipeProsesLPG@store');
         Route::put('', 'TipeProsesLPG@amend');
       });
+      Route::prefix('tipe_stok_opname')->group(function () {
+        Route::get('', 'TipeStokOpname@index');
+        Route::get('{id}', 'TipeStokOpname@get');
+        Route::post('', 'TipeStokOpname@store');
+        Route::put('', 'TipeStokOpname@amend');
+      });
       Route::prefix('quality_control')->group(function () {
         Route::get('', 'QualityControl@index');
         Route::get('{id}', 'QualityControl@get');
@@ -226,7 +232,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::prefix('barang')->group(function () {
         Route::get('', 'Barang@index');
         Route::get('{id}', 'Barang@get');
-        Route::get('opname/{id}', 'Barang@getOpname');
+        Route::get('opname/{tipeCabangId}/{tipeStokOpnameId}', 'Barang@getOpname');
         Route::post('', 'Barang@store');
         Route::put('', 'Barang@amend');
       });
@@ -453,6 +459,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::get('', 'StokOpname@index');
         Route::get('harian', 'StokOpname@daily');
         Route::get('cabang_harian', 'StokOpname@dailyBranch');
+        Route::get('cabang_harian_tipe', 'StokOpname@dailyBranchStokOpnameType');
         Route::get('gambar/{id}', 'StokOpname@image');
         Route::get('{id}', 'StokOpname@get');
         Route::post('', 'StokOpname@store');

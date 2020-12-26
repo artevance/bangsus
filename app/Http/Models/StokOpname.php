@@ -27,6 +27,11 @@ class StokOpname extends Model
     return $this->hasMany('App\Http\Models\StokOpnameD');
   }
 
+  public function tipe_stok_opname()
+  {
+    return $this->belongsTo('App\Http\Models\TipeStokOpname');
+  }
+
   public function scopeByCabang($q, $id)
   {
     return $q->where('cabang_id', $id);

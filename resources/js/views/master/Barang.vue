@@ -188,6 +188,33 @@
                   {{ msg }}
                 </small>
               </div>
+              <div class="form-group">
+                <label>Tipe Stok Opname</label>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input m-0" :value="true" v-model="form.create.data.semua_tipe_stok_opname">
+                  <label class="form-check-label">
+                    Semua
+                  </label>
+                  <input type="radio" class="form-check-input m-0" :value="false" v-model="form.create.data.semua_tipe_stok_opname">
+                  <label class="form-check-label">
+                    Tidak Semua
+                  </label>
+                </div>
+              </div>
+              <div class="form-group" v-if="!form.create.data.semua_tipe_stok_opname">
+                <label>Tipe Stok Opname</label>
+                <div class="form-check">
+                  <template v-for="(tipe_stok_opname, i) in data.tipe_stok_opname">
+                    <input type="checkbox" class="form-check-input m-0" :value="tipe_stok_opname.id" v-model="form.create.data.tipe_stok_opname_id">
+                    <label class="form-check-label">
+                      {{ tipe_stok_opname.tipe_stok_opname }}
+                    </label>
+                  </template>
+                </div>
+                <small class="text-danger" v-for="(msg, index) in form.create.errors.tipe_stok_opname_id" :key="index">
+                  {{ msg }}
+                </small>
+              </div>
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary" :disabled="form.create.loading">
@@ -324,11 +351,11 @@
               <div class="form-group">
                 <label>Akses Tipe Cabang</label>
                 <div class="form-check">
-                  <input type="radio" class="form-check-input m-0" value="1" v-model="form.update.data.semua_tipe_cabang">
+                  <input type="radio" class="form-check-input m-0" :value="1" v-model="form.update.data.semua_tipe_cabang">
                   <label class="form-check-label">
                     Semua
                   </label>
-                  <input type="radio" class="form-check-input m-0" value="0" v-model="form.update.data.semua_tipe_cabang">
+                  <input type="radio" class="form-check-input m-0" :value="0" v-model="form.update.data.semua_tipe_cabang">
                   <label class="form-check-label">
                     Tidak Semua
                   </label>
@@ -345,6 +372,33 @@
                   </template>
                 </div>
                 <small class="text-danger" v-for="(msg, index) in form.update.errors.tipe_cabang_id" :key="index">
+                  {{ msg }}
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Tipe Stok Opname</label>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input m-0" :value="1" v-model="form.update.data.semua_tipe_stok_opname">
+                  <label class="form-check-label">
+                    Semua
+                  </label>
+                  <input type="radio" class="form-check-input m-0" :value="0" v-model="form.update.data.semua_tipe_stok_opname">
+                  <label class="form-check-label">
+                    Tidak Semua
+                  </label>
+                </div>
+              </div>
+              <div class="form-group" v-if="!form.update.data.semua_tipe_stok_opname">
+                <label>Tipe Stok Opname</label>
+                <div class="form-check">
+                  <template v-for="(tipe_stok_opname, i) in data.tipe_stok_opname">
+                    <input type="checkbox" class="form-check-input m-0" :value="tipe_stok_opname.id" v-model="form.update.data.tipe_stok_opname_id">
+                    <label class="form-check-label">
+                      {{ tipe_stok_opname.tipe_stok_opname }}
+                    </label>
+                  </template>
+                </div>
+                <small class="text-danger" v-for="(msg, index) in form.update.errors.tipe_stok_opname_id" :key="index">
                   {{ msg }}
                 </small>
               </div>
@@ -387,7 +441,9 @@ export default {
             satuan_lima_id: null,
             rasio_lima: 0,
             semua_tipe_cabang: true,
-            tipe_cabang_id: []
+            tipe_cabang_id: [],
+            semua_tipe_stok_opname: true,
+            tipe_stok_opname_id: [],
           },
           errors: {},
           loading: false
@@ -407,7 +463,9 @@ export default {
             satuan_lima_id: null,
             rasio_lima: 0,
             semua_tipe_cabang: true,
-            tipe_cabang_id: []
+            tipe_cabang_id: [],
+            semua_tipe_stok_opname: true,
+            tipe_stok_opname_id: [],
           },
           errors: {},
           loading: false
@@ -464,11 +522,13 @@ export default {
     showCreateModal() {
       Promise.all([
         this.$axios.get('/ajax/v1/master/satuan'),
-        this.$axios.get('/ajax/v1/master/tipe_cabang')  
+        this.$axios.get('/ajax/v1/master/tipe_cabang'),
+        this.$axios.get('/ajax/v1/master/tipe_stok_opname'),
       ])
         .then(res => {
           this.data.satuan = res[0].data.container
           this.data.tipe_cabang = res[1].data.container
+          this.data.tipe_stok_opname = res[2].data.container
           $('[data-entity="barang"][data-method="create"]').modal('show')
         })
         .catch(err => {})
@@ -490,15 +550,19 @@ export default {
             satuan_lima_id: res.data.container.satuan_lima_id,
             rasio_lima: res.data.container.rasio_lima,
             semua_tipe_cabang: res.data.container.semua_tipe_cabang,
-            tipe_cabang_id: _.map(res.data.container.opname_barang_tipe_cabang, val => val.tipe_cabang_id)
+            tipe_cabang_id: _.map(res.data.container.opname_barang_tipe_cabang, val => val.tipe_cabang_id),
+            semua_tipe_stok_opname: res.data.container.semua_tipe_stok_opname,
+            tipe_stok_opname_id: _.map(res.data.container.barang_tipe_stok_opname, val => val.tipe_stok_opname_id)
           }
           Promise.all([
             this.$axios.get('/ajax/v1/master/satuan'),
-            this.$axios.get('/ajax/v1/master/tipe_cabang')  
+            this.$axios.get('/ajax/v1/master/tipe_cabang'),
+            this.$axios.get('/ajax/v1/master/tipe_stok_opname'),
           ])
             .then(res => {
               this.data.satuan = res[0].data.container
               this.data.tipe_cabang = res[1].data.container
+              this.data.tipe_stok_opname = res[2].data.container
               $('[data-entity="barang"][data-method="update"]').modal('show')
             })
             .catch(err => {})

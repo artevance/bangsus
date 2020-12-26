@@ -51,6 +51,7 @@ class StokOpname extends Controller
       ->data(
         StokOpnameModel::with([
           'cabang',
+          'tipe_stok_opname',
           'd'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
@@ -70,9 +71,32 @@ class StokOpname extends Controller
       ->data(
         StokOpnameModel::with([
           'cabang',
+          'tipe_stok_opname',
           'd'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
+        ->byCabang($query['cabang_id'])
+        ->orderBy('jam')
+        ->get()
+      )->response(200);
+  }
+
+  public function dailyBranchStokOpnameType(Request $request)
+  {
+    $query = [
+      'cabang_id' => $request->input('cabang_id', Cabang::first()->id),
+      'tanggal_form' => $request->input('tanggal_form', date('Y-m-d')),
+      'tipe_stok_opname_id' => $request->input('tipe_stok_opname_id'),
+    ];
+
+    return $this
+      ->data(
+        StokOpnameModel::with([
+          'cabang',
+          'd'
+        ])
+        ->where('tanggal_form', $query['tanggal_form'])
+        ->where('tipe_stok_opname_id', $query['tipe_stok_opname_id'])
         ->byCabang($query['cabang_id'])
         ->orderBy('jam')
         ->get()
@@ -96,9 +120,11 @@ class StokOpname extends Controller
     $v = Validator::make($request->only(
       'cabang_id',
       'supplier_id',
+      'tipe_stok_opname_id',
       'd'
     ), [
       'cabang_id' => 'required|exists:cabang,id',
+      'tipe_stok_opname_id' => 'required|exists:tipe_stok_opname,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -113,9 +139,11 @@ class StokOpname extends Controller
     };
 
     $stokOpnameModel = new StokOpnameModel;
+    $stokOpnameModel = 'SOP-'.date('YmdHis');
     $stokOpnameModel->tanggal_form = date('Y-m-d');
     $stokOpnameModel->jam = date('H:i:s');
     $stokOpnameModel->cabang_id = $request->input('cabang_id');
+    $stokOpnameModel->tipe_stok_opname_id = $request->input('tipe_stok_opname_id');
     $stokOpnameModel->approve = false;
     $stokOpnameModel->user_id = $request->user()->id;
     $stokOpnameModel->save();

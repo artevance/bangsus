@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Models\Barang as BarangModel;
 use App\Http\Models\OpnameBarangTipeCabang as OpnameBarangTipeCabangModel;
+use App\Http\Models\BarangTipeStokOpname as BarangTipeStokOpnameModel;
 
 class Barang extends Controller
 {
@@ -31,10 +32,10 @@ class Barang extends Controller
   {
     if ( ! BarangModel::find($id)->exists()) return $this->response(404);
 
-    return $this->data(BarangModel::with(['satuan', 'satuan_dua', 'satuan_tiga', 'satuan_empat', 'satuan_lima', 'opname_barang_tipe_cabang'])->find($id))->response(200);
+    return $this->data(BarangModel::with(['satuan', 'satuan_dua', 'satuan_tiga', 'satuan_empat', 'satuan_lima', 'opname_barang_tipe_cabang', 'barang_tipe_stok_opname'])->find($id))->response(200);
   }
 
-  public function getOpname(Request $request, $id)
+  public function getOpname(Request $request, $tipeCabangId, $tipeStokOpnameId)
   {
     return $this
       ->data(BarangModel::with(['satuan', 'satuan_dua', 'satuan_tiga', 'satuan_empat', 'satuan_lima'])
@@ -42,10 +43,15 @@ class Barang extends Controller
             $query->where('kode_barang', 'like', '%' . $request->input('q') . '%')
               ->orWhere('nama_barang', 'like', '%' . $request->input('q') . '%');
           })
-          ->where(function ($query) use ($id) {
-            $query->whereHas('opname_barang_tipe_cabang', function ($query) use ($id) {
-              $query->where('tipe_cabang_id', $id);
+          ->where(function ($query) use ($tipeCabangId) {
+            $query->whereHas('opname_barang_tipe_cabang', function ($query) use ($tipeCabangId) {
+              $query->where('tipe_cabang_id', $tipeCabangId);
             })->orWhere('semua_tipe_cabang', true);
+          })
+          ->where(function ($query) use ($tipeStokOpnameId) {
+            $query->whereHas('barang_tipe_stok_opname', function ($query) use ($tipeStokOpnameId) {
+              $query->where('tipe_stok_opname_id', $tipeStokOpnameId);
+            });
           })
           ->get()
         )
@@ -67,7 +73,9 @@ class Barang extends Controller
       'satuan_lima_id',
       'rasio_lima',
       'semua_tipe_cabang',
-      'tipe_cabang_id'
+      'tipe_cabang_id',
+      'semua_tipe_stok_opname',
+      'tipe_stok_opname_id'
     ), [
       'kode_barang' => 'required|max:200',
       'nama_barang' => 'required|max:200',
@@ -83,6 +91,9 @@ class Barang extends Controller
       'semua_tipe_cabang' => 'required|boolean',
       'tipe_cabang_id' => 'required|array',
       'tipe_cabang_id.*' => 'required|exists:tipe_cabang,id',
+      'semua_tipe_stok_opname' => 'required|boolean',
+      'tipe_stok_opname_id' => 'required|array',
+      'tipe_stok_opname_id.*' => 'required|exists:tipe_stok_opname,id',
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -99,6 +110,7 @@ class Barang extends Controller
     $model->satuan_lima_id = $request->has('satuan_lima_id') ? $request->input('satuan_lima_id') : null;
     $model->rasio_lima = $request->has('satuan_lima_id') ? $request->input('rasio_lima') : null;
     $model->semua_tipe_cabang = $request->boolean('semua_tipe_cabang');
+    $model->semua_tipe_stok_opname = $request->boolean('semua_tipe_stok_opname');
     $model->save();
 
     if ( ! $model->semua_tipe_cabang) {
@@ -106,6 +118,15 @@ class Barang extends Controller
         $opnameBarangTipeCabangModel = new OpnameBarangTipeCabangModel;
         $opnameBarangTipeCabangModel->barang_id = $model->id;
         $opnameBarangTipeCabangModel->tipe_cabang_id = $tipeCabangId;
+        $opnameBarangTipeCabangModel->save();
+      }
+    }
+
+    if ( ! $model->semua_tipe_stok_opname) {
+      foreach ($request->input('tipe_stok_opname_id') as $tipeStokOpnameId) {
+        $opnameBarangTipeCabangModel = new BarangTipeStokOpnameModel;
+        $opnameBarangTipeCabangModel->barang_id = $model->id;
+        $opnameBarangTipeCabangModel->tipe_stok_opname_id = $tipeStokOpnameId;
         $opnameBarangTipeCabangModel->save();
       }
     }
@@ -127,9 +148,11 @@ class Barang extends Controller
       'satuan_empat_id',
       'rasio_empat',
       'satuan_lima_id',
-      'semua_tipe_cabang',
       'rasio_lima',
-      'tipe_cabang_id.*',
+      'semua_tipe_cabang',
+      'tipe_cabang_id',
+      'semua_tipe_stok_opname',
+      'tipe_stok_opname_id',
     ), [
       'id' => 'required|exists:barang,id',
       'kode_barang' => 'required|max:200',
@@ -145,7 +168,10 @@ class Barang extends Controller
       'rasio_lima' => 'required_with:satuan_lima_id|numeric',
       'semua_tipe_cabang' => 'required|boolean',
       'tipe_cabang_id' => 'required|array',
-      'tipe_cabang_id.*' => 'required|exists:tipe_cabang,id'
+      'tipe_cabang_id.*' => 'required|exists:tipe_cabang,id',
+      'semua_tipe_stok_opname' => 'required|boolean',
+      'tipe_stok_opname_id' => 'required|array',
+      'tipe_stok_opname_id.*' => 'required|exists:tipe_stok_opname,id'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -162,6 +188,7 @@ class Barang extends Controller
     $model->satuan_lima_id = $request->has('satuan_lima_id') ? $request->input('satuan_lima_id') : null;
     $model->rasio_lima = $request->has('satuan_lima_id') ? $request->input('rasio_lima') : null;
     $model->semua_tipe_cabang = $request->boolean('semua_tipe_cabang');
+    $model->semua_tipe_stok_opname = $request->boolean('semua_tipe_stok_opname');
     $model->save();
 
     if ($model->semua_tipe_cabang) {
@@ -185,6 +212,30 @@ class Barang extends Controller
         $opnameBarangTipeCabangModel->barang_id = $model->id;
         $opnameBarangTipeCabangModel->tipe_cabang_id = $tipeCabangId;
         $opnameBarangTipeCabangModel->save();
+      }
+    }
+
+    if ($model->semua_tipe_stok_opname) {
+      $model->barang_tipe_stok_opname()
+        ->each(function ($barangTipeStokOpnameModel) {
+          $barangTipeStokOpnameModel->delete();
+        });
+    } else {
+      $model->barang_tipe_stok_opname()
+        ->whereNotIn('tipe_stok_opname_id', $request->input('tipe_stok_opname_id'))
+        ->each(function ($barangTipeStokOpnameModel) {
+          $barangTipeStokOpnameModel->delete();
+        });
+
+      foreach ($request->input('tipe_stok_opname_id') as $tipeCabangId) {
+        if ($model->barang_tipe_stok_opname()->where('tipe_stok_opname_id', $tipeCabangId)->exists()) {
+          continue;
+        }
+
+        $barangTipeStokOpnameModel = new OpnameBarangTipeCabangModel;
+        $barangTipeStokOpnameModel->barang_id = $model->id;
+        $barangTipeStokOpnameModel->tipe_stok_opname_id = $tipeCabangId;
+        $barangTipeStokOpnameModel->save();
       }
     }
 

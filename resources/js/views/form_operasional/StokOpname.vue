@@ -96,14 +96,18 @@
                   <table class="table table-hover" v-if="$access('formOperasional.stokOpname', 'read')">
                     <thead>
                       <th>#</th>
+                      <th>Kode</th>
                       <th>Jam</th>
+                      <th>Tipe Stok Opname</th>
                       <th>Status</th>
                       <th>Aksi</th>
                     </thead>
                     <tbody>
                       <tr v-for="(stok_opname, i) in data.stok_opname">
                         <td>{{ i + 1 }}</td>
+                        <td>{{ stok_opname.kode }}</td>
                         <td>{{ stok_opname.jam }}</td>
+                        <td>{{ stok_opname.tipe_stok_opname.tipe_stok_opname }}</td>
                         <td>{{ stok_opname.status || '' }}</td>
                         <td>
                           <router-link class="badge badge-primary"

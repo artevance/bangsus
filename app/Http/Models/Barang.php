@@ -39,4 +39,9 @@ class Barang extends Model
   {
     return $this->hasMany('App\Http\Models\OpnameBarangTipeCabang');
   }
+
+  public function barang_tipe_stok_opname()
+  {
+    return $this->hasMany('App\Http\Models\BarangTipeStokOpname');
+  }
 }
