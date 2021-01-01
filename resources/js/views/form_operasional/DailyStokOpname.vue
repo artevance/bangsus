@@ -44,6 +44,7 @@
                     <thead>
                       <th>#</th>
                       <th>Cabang</th>
+                      <th>Kode</th>
                       <th>Jam</th>
                       <th>Status</th>
                       <th>Aksi</th>
@@ -52,6 +53,7 @@
                       <tr v-for="(stok_opname, i) in data.stok_opname">
                         <td>{{ i + 1 }}</td>
                         <td>{{ stok_opname.cabang.kode_cabang }} - {{ stok_opname.cabang.cabang }}</td>
+                        <td>{{ stok_opname.kode }}</td>
                         <td>{{ stok_opname.jam }}</td>
                         <td>{{ stok_opname.status || '' }}</td>
                         <td>
