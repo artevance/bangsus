@@ -148,7 +148,7 @@ class StokOpname extends Controller
     if (is_null($so)) {
       $inc = 1;
     } else {
-      $inc = (int) substr($so->kode, 7)++;
+      $inc = ((int)substr($so->kode, 7)) + 1;
     }
 
     $maxCodeLength = 4;
