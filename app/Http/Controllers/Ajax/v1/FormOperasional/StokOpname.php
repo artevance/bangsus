@@ -138,8 +138,35 @@ class StokOpname extends Controller
       return $this->errors($v->errors())->response(422);
     };
 
+    $so = StokOpnameModel::where(
+      'cabang_id', $request->input('cabang_id')
+    )
+      ->whereMonth('tanggal_form', date('m'))
+      ->whereYear('tanggal_form', date('Y'))
+      ->first();
+
+    if (is_null($so)) {
+      $inc = 1;
+    } else {
+      $inc = (int) substr($so->kode, 7)++;
+    }
+
+    $maxCodeLength = 4;
+    $incLength = strlen((string) $inc);
+    $zerosCount = $maxCodeLength - $incLength;
+
+    $newInc = '';
+    for ($i = 1; $i <= $zerosCount; $i++) {
+      $newInc .= '0';
+    }
+    $newInc .= (string) $inc;
+
+    $inc = $newInc;
+
+    $kode = 'SOP-'.Cabang::find($request->input('cabang_id'))->kdvb.'-'.date('Ym').$inc;
+
     $stokOpnameModel = new StokOpnameModel;
-    $stokOpnameModel->kode = 'SOP-'.date('YmdHis');
+    $stokOpnameModel->kode = $kode;
     $stokOpnameModel->tanggal_form = date('Y-m-d');
     $stokOpnameModel->jam = date('H:i:s');
     $stokOpnameModel->cabang_id = $request->input('cabang_id');
