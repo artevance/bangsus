@@ -128,22 +128,6 @@
                             ">
                             Ubah
                           </router-link>
-                          <a class="badge badge-success"
-                            @click="showApproveModal(purchase_order.id)"
-                            href="#"
-                            v-if="
-                              $access('formOperasional.purchaseOrder', 'update') && (
-                                $access('formOperasional.purchaseOrder.update', 'timeFree') ||
-                                $moment($moment(query.purchase_order.tanggal_form)).isBetween(
-                                  $moment(utils.date).subtract($access('formOperasional.purchaseOrder.update', 'dateMin')).format('YYYY-MM-DD'),
-                                  $moment(utils.date).add($access('formOperasional.purchaseOrder.update', 'dateMax')).format('YYYY-MM-DD'),
-                                  undefined,
-                                  '[]'
-                                )
-                              ) && purchase_order.approve == 0
-                            ">
-                            Approve
-                          </a>
                           <a class="badge badge-danger"
                             @click="showDestroyModal(purchase_order.id)"
                             href="#"
