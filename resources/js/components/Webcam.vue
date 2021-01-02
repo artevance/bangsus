@@ -50,7 +50,7 @@ export default {
         width: 640
       },
       mode: {
-        environment: false
+        environment: true
       },
       result: ''
     }
@@ -175,7 +175,7 @@ export default {
         width: 640
       }
       this.mode = {
-        environment: false
+        environment: true
       }
       this.result = ''
     }
