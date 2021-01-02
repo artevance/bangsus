@@ -51,9 +51,9 @@
                       <thead>
                         <th>#</th>
                         <th>Barang</th>
-                        <th>Satuan</th>
-                        <th>Qty</th>
-                        <th>Harga Barang</th>
+                        <th style="min-width: 200px;">Satuan</th>
+                        <th style="min-width: 200px;">Qty</th>
+                        <th style="min-width: 200px;">Harga Barang</th>
                         <th>Keterangan</th>
                         <th>Aksi</th>
                       </thead>
@@ -220,7 +220,7 @@ export default {
             if (this.resetOtherField) {
               this.form.update.data.d[i].level_satuan = null
               this.form.update.data.d[i].qty = null
-              this.form.update.data.d[i].harga_barang = null
+              this.form.update.data.d[i].harga_barang = 0
             }
             this.form.update.data.d[i].satuan = barang.satuan
             this.form.update.data.d[i].satuan_dua = barang.satuan_dua
