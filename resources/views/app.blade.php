@@ -10,6 +10,6 @@
   <div id="app">
     <root-view />
   </div>
-  <script src="/js/app.js?version=0.1.294"></script>
+  <script src="/js/app.js?version=0.1.295"></script>
 </body>
 </html>

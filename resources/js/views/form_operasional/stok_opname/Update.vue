@@ -177,7 +177,7 @@ export default {
 
           mainData.d.forEach((item, i) => {
             this.pushDetail(item)
-            this.reloadSatuan(i, false)
+            // this.reloadSatuan(i, false)
           })
 
           // let imageRequest = []

@@ -37,7 +37,12 @@ class StokOpname extends Controller
     return $this->data(StokOpnameModel::with([
       'cabang',
       'd',
-      'd.barang'
+      'd.barang',
+      'd.barang.satuan',
+      'd.barang.satuan_dua',
+      'd.barang.satuan_tiga',
+      'd.barang.satuan_empat',
+      'd.barang.satuan_lima',
     ])->find($id))->response(200);
   }
 
@@ -309,7 +314,7 @@ class StokOpname extends Controller
 
       $detailModel = new StokOpnameD;
       $detailModel->stok_opname_id = $stokOpnameModel->id;
-      $detailModel->dir_gambar = $dir ?? '';
+      $detailModel->dir_gambar = $dir ?? $detailModel->dir;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
