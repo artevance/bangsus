@@ -175,6 +175,11 @@ export default {
           this.data.cabang = res[1].data.container
           this.state.page.loading = false
 
+          mainData.d.forEach((item, i) => {
+            this.pushDetail(item)
+            this.reloadSatuan(i, false)
+          })
+
           // let imageRequest = []
           // mainData.d.forEach((item, i) => {
           //   let request = this.$axios.get('/ajax/v1/form_operasional/stok_opname/gambar/' + item.id, { responseType: 'blob' })
@@ -215,7 +220,7 @@ export default {
           })
       })
     },
-    pushDetail(item, gambar) {
+    pushDetail(item) {
       this.form.update.data.d.push({
         barang_id: item.barang_id,
         nama_barang: item.barang.nama_barang,
@@ -228,7 +233,6 @@ export default {
         satuan_tiga: item.satuan_tiga,  
         satuan_empat: item.satuan_empat,
         satuan_lima: item.satuan_lima,
-        gambar: gambar
       })
     },
     addDetail() {
