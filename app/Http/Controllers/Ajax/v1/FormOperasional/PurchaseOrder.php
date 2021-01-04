@@ -81,6 +81,7 @@ class PurchaseOrder extends Controller
     $purchaseOrderModel->jam = date('H:i:s');
     $purchaseOrderModel->cabang_id = $request->input('cabang_id');
     $purchaseOrderModel->supplier_id = $request->input('supplier_id');
+    $purchaseOrderModel->accepted = false;
     $purchaseOrderModel->approve = false;
     $purchaseOrderModel->user_id = $request->user()->id;
     $purchaseOrderModel->save();
@@ -199,6 +200,19 @@ class PurchaseOrder extends Controller
       $detailModel->keterangan = $d['keterangan'] ?? '';
       $detailModel->save();
     }
+  }
+
+  public function amendAccepted(Request $request)
+  {
+    $v = Validator::make($request->only('id'), [
+      'id' => 'required|exists:purchase_order,id'
+    ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
+
+    $purchaseOrderModel = PurchaseOrderModel::find($request->input('id'));
+    $purchaseOrderModel->accepted = true;
+    $purchaseOrderModel->user_id = $request->user()->id;
+    $purchaseOrderModel->save();
   }
 
   public function amendApprove(Request $request)

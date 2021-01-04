@@ -128,6 +128,22 @@
                             ">
                             Ubah
                           </router-link>
+                          <a class="badge badge-info"
+                            @click="showAcceptModal(purchase_order.id)"
+                            href="#"
+                            v-if="
+                              $access('formOperasional.purchaseOrder', 'accept') && (
+                                $access('formOperasional.purchaseOrder.accept', 'timeFree') ||
+                                $moment($moment(query.purchase_order.tanggal_form)).isBetween(
+                                  $moment(utils.date).subtract($access('formOperasional.purchaseOrder.accept', 'dateMin')).format('YYYY-MM-DD'),
+                                  $moment(utils.date).add($access('formOperasional.purchaseOrder.accept', 'dateMax')).format('YYYY-MM-DD'),
+                                  undefined,
+                                  '[]'
+                                )
+                              ) && purchase_order.accepted == 0
+                            ">
+                            Accept
+                          </a>
                           <a class="badge badge-danger"
                             @click="showDestroyModal(purchase_order.id)"
                             href="#"
@@ -157,16 +173,16 @@
 
       <div class="modal fade"
         data-entity="purchaseOrder"
-        data-method="approve"
+        data-method="accept"
         data-backdrop="static"
         data-keyboard="false"
         tabindex="-1"
         v-if="
-          $access('formOperasional.purchaseOrder', 'approve') && (
-            $access('formOperasional.purchaseOrder.approve', 'timeFree') ||
+          $access('formOperasional.purchaseOrder', 'accept') && (
+            $access('formOperasional.purchaseOrder.accept', 'timeFree') ||
             $moment($moment(query.purchase_order.tanggal_form)).isBetween(
-              $moment().subtract($access('formOperasional.purchaseOrder.approve', 'dateMin')).format('YYYY-MM-DD'),
-              $moment().add($access('formOperasional.purchaseOrder.approve', 'dateMax')).format('YYYY-MM-DD'),
+              $moment().subtract($access('formOperasional.purchaseOrder.accept', 'dateMin')).format('YYYY-MM-DD'),
+              $moment().add($access('formOperasional.purchaseOrder.accept', 'dateMax')).format('YYYY-MM-DD'),
               undefined,
               '[]'
             )
@@ -174,9 +190,9 @@
         ">
         <div class="modal-dialog">
           <div class="modal-content">
-            <form @submit.prevent="approve">
+            <form @submit.prevent="accept">
               <div class="modal-header">
-                <h5 class="modal-title">Approve Purchase Order</h5>
+                <h5 class="modal-title">Accept Purchase Order</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -185,9 +201,9 @@
                 <p>Apakah anda yakin?</p>
               </div>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" :disabled="form.approve.loading">
-                  <spinner-component size="sm" color="light" v-if="form.approve.loading"/>
-                  Approve
+                <button type="submit" class="btn btn-primary" :disabled="form.accept.loading">
+                  <spinner-component size="sm" color="light" v-if="form.accept.loading"/>
+                  Accept
                 </button>
               </div>
             </form>
@@ -256,6 +272,13 @@ export default {
       },
       form: {
         approve: {
+          data: {
+            id: null
+          },
+          errors: {},
+          loading: false
+        },
+        accept: {
           data: {
             id: null
           },
@@ -420,12 +443,19 @@ export default {
       this.form.approve.data.id = id
       $('[data-entity="purchaseOrder"][data-method="approve"]').modal('show')
     },
+    showAcceptModal(id) {
+      this.form.accept.data.id = id
+      $('[data-entity="purchaseOrder"][data-method="accept"]').modal('show')
+    },
     showDestroyModal(id) {
       this.form.destroy.data.id = id
       $('[data-entity="purchaseOrder"][data-method="destroy"]').modal('show')
     },
     hideApproveModal() {
       $('[data-entity="purchaseOrder"][data-method="approve"]').modal('hide')
+    },
+    hideAcceptModal() {
+      $('[data-entity="purchaseOrder"][data-method="accept"]').modal('hide')
     },
     hideDestroyModal() {
       $('[data-entity="purchaseOrder"][data-method="destroy"]').modal('hide')
@@ -530,6 +560,26 @@ export default {
     /**
      *  Form request handler
      */
+    accept() {
+      this.form.accept.loading = true
+      this.form.accept.errors = {}
+      this.$axios.put('/ajax/v1/form_operasional/purchase_order/accept', this.form.accept.data)
+        .then(res => {
+          this.form.accept.data = {
+            id: null
+          }
+          this.queryData(false)
+          this.hideAcceptModal()
+        })
+        .catch(err => {
+          if (err.response.status == 422) {
+            this.form.accept.errors = err.response.data.errors
+          }
+        })
+        .finally(() => {
+          this.form.accept.loading = false
+        })
+    },
     approve() {
       this.form.approve.loading = true
       this.form.approve.errors = {}

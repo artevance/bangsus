@@ -857,6 +857,7 @@ export default {
         read: true,
         detail: true,
         update: true,
+        accept: true,
         approve: true,
         destroy: true,
         children: {
@@ -884,6 +885,12 @@ export default {
             readonlyTime: false,
             takePhoto: true,
             changeSatuan: true
+          },
+          accept: {
+            access: true,
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
           },
           approve: {
             access: true,
