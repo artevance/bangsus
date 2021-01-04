@@ -76,7 +76,7 @@
                             <input type="text" class="form-control" v-model="detail.keterangan">
                           </td>
                           <td>
-                            <webcam-component v-model="detail.gambar" ref="webcam" @beforeOpen="downloadImage(i)"></webcam-component>
+                            <webcam-component v-model="detail.gambar" ref="webcam" :link="detail.link"></webcam-component>
                           </td>
                           <td>
                             
@@ -233,6 +233,7 @@ export default {
         satuan_tiga: item.satuan_tiga,  
         satuan_empat: item.satuan_empat,
         satuan_lima: item.satuan_lima,
+        link_gambar: '/ajax/v1/form_operasional/stok_opname/gambar/' + item.id,
       })
     },
     addDetail() {

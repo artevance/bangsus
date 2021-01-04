@@ -69,23 +69,47 @@ export default {
       }
       image.src = this.result
     }
+
+    if (this.link != null) {
+      this.captured = true
+      this.state.canvas = true
+    }
   },
 
-  props: [
-    'value'
-  ],
+  props: {
+    link: {
+      default: null,
+    },
+    value: {
+      required: true,
+    },
+  },
   methods: {
     /**
      *  Open the wrapper
      */
     open() {
       this.state.open = true
-      this.$emit('beforeOpen')
 
       // Handle if the image is already captured and exists as an encoded input
       if (this.state.captured) {
         let image = new Image()
         image.onload = () => this.$refs.canvas.getContext('2d').drawImage(image, 0, 0)
+        
+        if (this.link != null) {
+          this.$axios.get(this.link, { responseType: 'blob' })
+            .then(res => {
+              (new Promise((resolve, reject) => {
+                  let reader = new window.FileReader()
+                  reader.onload = () => resolve(reader.result)
+                  reader.readAsDataURL(res.data)
+                }))
+                  .then(img => {
+                    this.result = img
+                  })
+            })
+        }
+
         image.src = this.result
       } else {
         this.init()
