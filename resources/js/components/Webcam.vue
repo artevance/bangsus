@@ -80,6 +80,7 @@ export default {
      */
     open() {
       this.state.open = true
+      this.$emit('beforeOpen')
 
       // Handle if the image is already captured and exists as an encoded input
       if (this.state.captured) {

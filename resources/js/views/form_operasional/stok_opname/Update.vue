@@ -76,7 +76,7 @@
                             <input type="text" class="form-control" v-model="detail.keterangan">
                           </td>
                           <td>
-                            <webcam-component v-model="detail.gambar" ref="webcam"></webcam-component>
+                            <webcam-component v-model="detail.gambar" ref="webcam" @beforeOpen="downloadImage(i)"></webcam-component>
                           </td>
                           <td>
                             
@@ -172,6 +172,11 @@ export default {
             d: []
           }
 
+          this.data.cabang = res[1].data.container
+          this.state.page.loading = false
+
+          return
+
           let imageRequest = []
           mainData.d.forEach((item, i) => {
             let request = this.$axios.get('/ajax/v1/form_operasional/stok_opname/gambar/' + item.id, { responseType: 'blob' })
@@ -193,8 +198,24 @@ export default {
               })
               this.state.page.loading = false
             })
-          this.data.cabang = res[1].data.container
+
         })
+    },
+    downloadImage(i) {
+      return new Promise((resolve, reject) => {
+        this.$axios.get('/ajax/v1/form_operasional/stok_opname/gambar/' + item[i].id, { responseType: 'blob' })
+          .then(res => {
+            (new Promise((resolve, reject) => {
+              let reader = new window.FileReader()
+              reader.onload = () => resolve(reader.result)
+              reader.readAsDataURL(item.data)
+            }))
+              .then(img => {
+                this.form.update.data.d[i].gambar = img
+                resolve()
+              })
+          })
+      })
     },
     pushDetail(item, gambar) {
       this.form.update.data.d.push({
