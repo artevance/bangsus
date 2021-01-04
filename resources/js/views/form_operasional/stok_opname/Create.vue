@@ -12,6 +12,14 @@
             <div class="row">
               <div class="col col-md-6">
                 <div class="form-group">
+                  <label>Tanggal Opname</label>
+                  <input type="date" v-model="form.create.data.tanggal_opname" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Jam Opname</label>
+                  <input type="time" v-model="form.create.data.jam_opname" class="form-control">
+                </div>
+                <div class="form-group">
                   <label>Cabang</label>
                   <select class="form-control" v-model="form.create.data.cabang_id" @change="getBarang" :disabled="form.create.state.cabangReadonly">
                     <option v-for="cabang in data.cabang" :value="cabang.id">
@@ -123,6 +131,8 @@ export default {
       form: {
         create: {
           data: {
+            tanggal_opname: this.$moment().format('YYYY-MM-DD'),
+            jam_opname: this.$moment().format('HH:mm:ss'),
             cabang_id: null,
             tipe_stok_opname_id: null,
             keterangan: '',
@@ -235,6 +245,8 @@ export default {
       this.$axios.post('/ajax/v1/form_operasional/stok_opname', this.form.create.data)
         .then(res => {
           this.form.create.data = {
+            tanggal_opname: null,
+            jam_opname: null,
             cabang_id: null,
             keterangan: '',
             d: [

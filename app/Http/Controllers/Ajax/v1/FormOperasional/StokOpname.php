@@ -118,6 +118,8 @@ class StokOpname extends Controller
   public function store(Request $request)
   {
     $v = Validator::make($request->only(
+      'tanggal_opname',
+      'jam_opname',
       'cabang_id',
       'supplier_id',
       'tipe_stok_opname_id',
@@ -143,6 +145,7 @@ class StokOpname extends Controller
     )
       ->whereMonth('tanggal_form', date('m'))
       ->whereYear('tanggal_form', date('Y'))
+      ->orderBy('kode', 'desc')
       ->first();
 
     if (is_null($so)) {
@@ -169,6 +172,12 @@ class StokOpname extends Controller
     $stokOpnameModel->kode = $kode;
     $stokOpnameModel->tanggal_form = date('Y-m-d');
     $stokOpnameModel->jam = date('H:i:s');
+    $stokOpnameModel->tanggal_opname = date('Y-m-d',
+      strtotime($request->input('tanggal_opname', date('Y-m-d')))
+    );
+    $stokOpnameModel->jam_opname = date('H:i:s',
+      strtotime($request->input('jam_opname', date('H:i:s')))
+    );
     $stokOpnameModel->cabang_id = $request->input('cabang_id');
     $stokOpnameModel->tipe_stok_opname_id = $request->input('tipe_stok_opname_id');
     $stokOpnameModel->approve = false;
