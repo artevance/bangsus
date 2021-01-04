@@ -175,29 +175,27 @@ export default {
           this.data.cabang = res[1].data.container
           this.state.page.loading = false
 
-          return
+          // let imageRequest = []
+          // mainData.d.forEach((item, i) => {
+          //   let request = this.$axios.get('/ajax/v1/form_operasional/stok_opname/gambar/' + item.id, { responseType: 'blob' })
+          //   imageRequest.push(request)
+          // })
 
-          let imageRequest = []
-          mainData.d.forEach((item, i) => {
-            let request = this.$axios.get('/ajax/v1/form_operasional/stok_opname/gambar/' + item.id, { responseType: 'blob' })
-            imageRequest.push(request)
-          })
-
-          Promise.all(imageRequest)
-            .then(res => {
-              res.forEach((item, i) => {
-                (new Promise((resolve, reject) => {
-                  let reader = new window.FileReader()
-                  reader.onload = () => resolve(reader.result)
-                  reader.readAsDataURL(item.data)
-                }))
-                  .then(img => {
-                    this.pushDetail(mainData.d[i], img)
-                    this.reloadSatuan(i, false)
-                  })
-              })
-              this.state.page.loading = false
-            })
+          // Promise.all(imageRequest)
+          //   .then(res => {
+          //     res.forEach((item, i) => {
+          //       (new Promise((resolve, reject) => {
+          //         let reader = new window.FileReader()
+          //         reader.onload = () => resolve(reader.result)
+          //         reader.readAsDataURL(item.data)
+          //       }))
+          //         .then(img => {
+          //           this.pushDetail(mainData.d[i], img)
+          //           this.reloadSatuan(i, false)
+          //         })
+          //     })
+          //     this.state.page.loading = false
+          //   })
 
         })
     },
