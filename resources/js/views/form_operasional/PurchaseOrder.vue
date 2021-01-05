@@ -124,13 +124,12 @@
                                   undefined,
                                   '[]'
                                 )
-                              ) && purchase_order.approve == 0
+                              ) && purchase_order.accepted == 0
                             ">
                             Ubah
                           </router-link>
-                          <a class="badge badge-info"
-                            @click="showAcceptModal(purchase_order.id)"
-                            href="#"
+                          <router-link class="badge badge-info"
+                            :to="{ name: 'formOperasional.purchaseOrder.accept', params: { id: purchase_order.id } }"
                             v-if="
                               $access('formOperasional.purchaseOrder', 'accept') && (
                                 $access('formOperasional.purchaseOrder.accept', 'timeFree') ||
@@ -143,7 +142,7 @@
                               ) && purchase_order.accepted == 0
                             ">
                             Accept
-                          </a>
+                          </router-link>
                           <a class="badge badge-danger"
                             @click="showDestroyModal(purchase_order.id)"
                             href="#"
@@ -156,7 +155,7 @@
                                   undefined,
                                   '[]'
                                 )
-                              ) && purchase_order.approve == 0
+                              ) && purchase_order.accepted == 0
                             ">
                             Hapus
                           </a>

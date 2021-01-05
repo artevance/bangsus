@@ -204,15 +204,83 @@ class PurchaseOrder extends Controller
 
   public function amendAccepted(Request $request)
   {
-    $v = Validator::make($request->only('id'), [
-      'id' => 'required|exists:purchase_order,id'
+    $v = Validator::make($request->only(
+      'id',
+      'supplier_id',
+      'd'
+    ), [
+      'id' => 'required|exists:purchase_order,id',
+      'supplier_id' => 'required|exists:supplier,id',
+      'd.*.barang_id' => 'required|exists:barang,id',
+      'd.*.qty' => 'required|numeric|max:10000000000',
+      'd.*.level_satuan' => 'required',
+      'd.*.harga_barang' => 'required|max:10000000000',
+      'd.*.keterangan' => 'nullable|max:200'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $purchaseOrderModel = PurchaseOrderModel::find($request->input('id'));
+    $purchaseOrderModel->supplier_id = $request->input('supplier_id');
+    $purchaseOrderModel->approve = false;
     $purchaseOrderModel->accepted = true;
     $purchaseOrderModel->user_id = $request->user()->id;
     $purchaseOrderModel->save();
+
+    $purchaseOrderModel->d->each(fn ($d) => $d->delete());
+
+    foreach ($request->input('d') as $d) {
+      $barang = Barang::find($d['barang_id']);
+      $constant = 1;
+
+      for ($i = 1; $i <= $d['level_satuan']; $i++) {
+        switch ($i) {
+          case 1 :
+            $constant = $constant;
+            break;
+          case 2 :
+            $constant *= $barang->rasio_dua;
+            break;
+          case 3 :
+            $constant *= $barang->rasio_tiga;
+            break;
+          case 4 :
+            $constant *= $barang->rasio_empat;
+            break;
+          case 5 :
+            $constant *= $barang->rasio_lima;
+            break;
+        }
+      }
+
+      $satuanId = null;
+      switch ($d['level_satuan']) {
+        case 1 :
+          $satuanId = $barang->satuan_id;
+          break;
+        case 2 :
+          $satuanId = $barang->satuan_dua_id;
+          break;
+        case 3 :
+          $satuanId = $barang->satuan_tiga_id;
+          break;
+        case 4 :
+          $satuanId = $barang->satuan_empat_id;
+          break;
+        case 5 :
+          $satuanId = $barang->satuan_lima_id;
+          break;
+      }
+
+      $detailModel = new PurchaseOrderD;
+      $detailModel->purchase_order_id = $purchaseOrderModel->id;
+      $detailModel->barang_id = $d['barang_id'];
+      $detailModel->qty = $d['qty'];
+      $detailModel->level_satuan = $d['level_satuan'];
+      $detailModel->qty_konversi = $d['qty'] * $constant;
+      $detailModel->harga_barang = $d['harga_barang'];
+      $detailModel->keterangan = $d['keterangan'] ?? '';
+      $detailModel->save();
+    }
   }
 
   public function amendApprove(Request $request)

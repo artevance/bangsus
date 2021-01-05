@@ -513,6 +513,13 @@ const routes = [
                 component: require('../views/form_operasional/purchase_order/Update').default,
                 meta: { layout: 'default', title: 'Purchase Order', sidebar: 'formOperasional', item: 'purchaseOrder' },
                 beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'accept/:id',
+                name: 'formOperasional.purchaseOrder.accept',
+                component: require('../views/form_operasional/purchase_order/Accept').default,
+                meta: { layout: 'default', title: 'Purchase Order', sidebar: 'formOperasional', item: 'purchaseOrder' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
               }
             ]
           },
