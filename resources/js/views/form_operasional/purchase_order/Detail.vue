@@ -28,14 +28,6 @@
                       </option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label>Supplier</label>
-                    <select class="form-control" v-model="form.detail.data.supplier_id" disabled>
-                      <option v-for="supplier in data.supplier" :value="supplier.id">
-                        {{ supplier.supplier }}
-                      </option>
-                    </select>
-                  </div>
                 </div>
                 <div class="col col-md-6">
                   <div class="form-group">

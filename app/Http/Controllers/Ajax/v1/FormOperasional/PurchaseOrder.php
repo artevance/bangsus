@@ -63,11 +63,9 @@ class PurchaseOrder extends Controller
   {
     $v = Validator::make($request->only(
       'cabang_id',
-      'supplier_id',
       'd'
     ), [
       'cabang_id' => 'required|exists:cabang,id',
-      'supplier_id' => 'required|exists:supplier,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -80,7 +78,6 @@ class PurchaseOrder extends Controller
     $purchaseOrderModel->tanggal_form = date('Y-m-d');
     $purchaseOrderModel->jam = date('H:i:s');
     $purchaseOrderModel->cabang_id = $request->input('cabang_id');
-    $purchaseOrderModel->supplier_id = $request->input('supplier_id');
     $purchaseOrderModel->accepted = false;
     $purchaseOrderModel->approve = false;
     $purchaseOrderModel->user_id = $request->user()->id;
@@ -126,11 +123,9 @@ class PurchaseOrder extends Controller
   {
     $v = Validator::make($request->only(
       'id',
-      'supplier_id',
       'd'
     ), [
       'id' => 'required|exists:purchase_order,id',
-      'supplier_id' => 'required|exists:supplier,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -140,7 +135,6 @@ class PurchaseOrder extends Controller
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $purchaseOrderModel = PurchaseOrderModel::find($request->input('id'));
-    $purchaseOrderModel->supplier_id = $request->input('supplier_id');
     $purchaseOrderModel->approve = false;
     $purchaseOrderModel->user_id = $request->user()->id;
     $purchaseOrderModel->save();
@@ -206,11 +200,9 @@ class PurchaseOrder extends Controller
   {
     $v = Validator::make($request->only(
       'id',
-      'supplier_id',
       'd'
     ), [
       'id' => 'required|exists:purchase_order,id',
-      'supplier_id' => 'required|exists:supplier,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -220,7 +212,6 @@ class PurchaseOrder extends Controller
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $purchaseOrderModel = PurchaseOrderModel::find($request->input('id'));
-    $purchaseOrderModel->supplier_id = $request->input('supplier_id');
     $purchaseOrderModel->approve = false;
     $purchaseOrderModel->accepted = true;
     $purchaseOrderModel->user_id = $request->user()->id;
