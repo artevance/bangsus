@@ -695,7 +695,7 @@ const routes = [
             path: 'daily_supplier_mutation',
             name: 'formOperasional.dailySupplierMutation',
             component: require('../views/form_operasional/DailySupplierMutation').default,
-            meta: { layout: 'default', title: 'Mutasi Masuk Harian', sidebar: 'formOperasional', item: 'dailySupplierMutation' },
+            meta: { layout: 'default', title: 'Mutasi Supplier Harian', sidebar: 'formOperasional', item: 'dailySupplierMutation' },
             beforeEnter: Multiguard([middleware.auth, middleware.access]),
             children: [
               {
@@ -705,6 +705,29 @@ const routes = [
                 meta: { layout: 'default', title: 'Mutasi Supplier Harian', sidebar: 'formOperasional', item: 'dailySupplierMutation' },
                 beforeEnter: Multiguard([middleware.auth, middleware.access])
               },
+            ]
+          },
+          {
+            path: 'daily_purchase_order',
+            name: 'formOperasional.dailyPurchaseOrder',
+            component: require('../views/form_operasional/DailyPurchaseOrder').default,
+            meta: { layout: 'default', title: 'Purchase Order Harian', sidebar: 'formOperasional', item: 'dailyPurchaseOrder' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.dailyPurchaseOrder.detail',
+                component: require('../views/form_operasional/daily_purchase_order/Detail').default,
+                meta: { layout: 'default', title: 'Purchase Order Harian', sidebar: 'formOperasional', item: 'dailyPurchaseOrder' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'accept/:id',
+                name: 'formOperasional.dailyPurchaseOrder.accept',
+                component: require('../views/form_operasional/daily_purchase_order/Accept').default,
+                meta: { layout: 'default', title: 'Purchase Order Harian', sidebar: 'formOperasional', item: 'dailyPurchaseOrder' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
             ]
           }
         ]

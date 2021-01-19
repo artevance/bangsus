@@ -1029,6 +1029,32 @@ export default {
           }
         }
       },
+      dailyPurchaseOrder: {
+        access: true,
+        create: true,
+        read: true,
+        detail: true,
+        update: true,
+        accept: true,
+        approve: true,
+        destroy: true,
+        children: {
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          detail: {
+            access: true
+          },
+          accept: {
+            access: true,
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+        }
+      },
     }
   },
   reportCenter: {

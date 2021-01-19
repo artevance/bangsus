@@ -448,6 +448,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       });
       Route::prefix('purchase_order')->group(function () {
         Route::get('', 'PurchaseOrder@index');
+        Route::get('harian', 'PurchaseOrder@daily');
         Route::get('cabang_harian', 'PurchaseOrder@dailyBranch');
         Route::get('{id}', 'PurchaseOrder@get');
         Route::post('', 'PurchaseOrder@store');
