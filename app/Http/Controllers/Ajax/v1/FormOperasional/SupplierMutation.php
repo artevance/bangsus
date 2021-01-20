@@ -81,7 +81,11 @@ class SupplierMutation extends Controller
 
   public function image(Request $request, $id)
   {
-    return Image::make(SupplierMutationD::find($id)->dir_gambar)->response('jpeg');
+    $response = $request->has('greyscale')
+      ? Image::make(SupplierMutationD::find($id)->dir_gambar)->greyscale()->response('jpeg')
+      : Image::make(SupplierMutationD::find($id)->dir_gambar)->response('jpeg');
+
+    return $response;
   }
 
   public function store(Request $request)

@@ -85,6 +85,7 @@
                           </td>
                           <th>
                             <a :href="'/ajax/v1/form_operasional/supplier_mutation/gambar/' + detail.id" target="_blank">Link Foto</a>
+                            <a :href="'/ajax/v1/form_operasional/supplier_mutation/gambar/' + detail.id + '?greyscale'" target="_blank">Link Foto B&W</a>
                           </th>
                           <td>
                             
