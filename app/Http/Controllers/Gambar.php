@@ -23,9 +23,17 @@ class Gambar extends Controller
             $c->aspectRatio();
           });
 
-      return response($img->encode('jpg', 70))->header('Content-Type', 'image/jpeg');
+      if ($request->has('grayscale')) {
+        return response($img->encode('jpg', 70)->greyscale())->header('Content-Type', 'image/jpeg');
+      } else {
+        return response($img->encode('jpg', 70))->header('Content-Type', 'image/jpeg');
+      }
     } else {
-      return response()->file($gambar->dir);
+      if ($request->has('grayscale')) {
+        return response()->file(Image::make($gambar->dir)->greyscale());
+      } else {
+        return response()->file($gambar->dir);
+      }
     }
   }
 }
