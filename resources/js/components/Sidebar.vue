@@ -125,6 +125,8 @@ export default {
                 { title: 'Mutasi Masuk Harian', index: 'dailyIncomingMutation', to: 'formOperasional.dailyIncomingMutation' },
                 { title: 'Mutasi Supplier Harian', index: 'dailySupplierMutation', to: 'formOperasional.dailySupplierMutation' },
                 { title: 'Purchase Order Harian', index: 'dailyPurchaseOrder', to: 'formOperasional.dailyPurchaseOrder' },
+                { title: 'Rencana Kebutuhan Bahan', index: 'rencanaKebutuhanBahan', to: 'formOperasional.rencanaKebutuhanBahan' },
+                { title: 'Rencana Kebutuhan Bahan Harian', index: 'dailyRencanaKebutuhanBahan', to: 'formOperasional.dailyRencanaKebutuhanBahan' },
               ]
             },
             {

@@ -28,14 +28,6 @@
                       </option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label>Cabang Asal</label>
-                    <select class="form-control" v-model="form.detail.data.supplier_mutasi_id" disabled>
-                      <option v-for="cabang in data.allCabang" :value="cabang.id">
-                        {{ cabang.kode_cabang }} - {{ cabang.cabang }}
-                      </option>
-                    </select>
-                  </div>
                 </div>
                 <div class="col col-md-6">
                   <div class="form-group">

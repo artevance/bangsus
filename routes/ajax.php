@@ -504,6 +504,17 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::put('approve', 'SupplierMutation@amendApprove');
         Route::delete('', 'SupplierMutation@destroy');
       });
+      Route::prefix('rencana_kebutuhan_bahan')->group(function () {
+        Route::get('', 'RencanaKebutuhanBahan@index');
+        Route::get('harian', 'RencanaKebutuhanBahan@daily');
+        Route::get('cabang_harian', 'RencanaKebutuhanBahan@dailyBranch');
+        Route::get('{id}', 'RencanaKebutuhanBahan@get');
+        Route::post('', 'RencanaKebutuhanBahan@store');
+        Route::put('', 'RencanaKebutuhanBahan@amend');
+        Route::put('accept', 'RencanaKebutuhanBahan@amendAccepted');
+        Route::put('approve', 'RencanaKebutuhanBahan@amendApprove');
+        Route::delete('', 'RencanaKebutuhanBahan@destroy');
+      });
     });
     Route::prefix('belanja')->group(function () {
       Route::get('', 'Belanja@index');

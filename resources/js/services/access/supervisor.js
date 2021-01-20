@@ -1055,6 +1055,86 @@ export default {
           },
         }
       },
+      dailyRencanaKebutuhanBahan: {
+        access: true,
+        create: true,
+        read: true,
+        detail: true,
+        update: true,
+        approve: true,
+        accept: true,
+        destroy: true,
+        children: {
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          detail: {
+            access: true
+          },
+          accept: {
+            access: true,
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+        }
+      },
+      rencanaKebutuhanBahan: {
+        access: true,
+        create: true,
+        read: true,
+        detail: true,
+        update: true,
+        accept: true,
+        approve: true,
+        destroy: true,
+        children: {
+          create: {
+            access: true,
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0,
+            automatedTime: false,
+            changeSatuan: true
+          },
+          read: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          detail: {
+            access: true
+          },
+          update: {
+            access: true,
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0,
+            readonlyTime: false,
+            takePhoto: true,
+            changeSatuan: true
+          },
+          accept: {
+            access: true,
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          approve: {
+            access: true,
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          },
+          destroy: {
+            timeFree: true,
+            dateMin: 0,
+            dateMax: 0
+          }
+        }
+      },
     }
   },
   reportCenter: {

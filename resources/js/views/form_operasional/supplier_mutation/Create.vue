@@ -181,7 +181,7 @@ export default {
           let barang = res.data.container
           this.form.create.data.d[i].level_satuan = null
           this.form.create.data.d[i].qty = null
-          this.form.create.data.d[i].harga_barang = null
+          this.form.create.data.d[i].harga_barang = 0
           this.form.create.data.d[i].satuan = barang.satuan
           this.form.create.data.d[i].satuan_dua = barang.satuan_dua
           this.form.create.data.d[i].satuan_tiga = barang.satuan_tiga

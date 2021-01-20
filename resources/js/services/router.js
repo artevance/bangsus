@@ -729,7 +729,67 @@ const routes = [
                 beforeEnter: Multiguard([middleware.auth, middleware.access])
               }
             ]
-          }
+          },
+          {
+            path: 'rencana_kebutuhan_bahan',
+            name: 'formOperasional.rencanaKebutuhanBahan',
+            component: require('../views/form_operasional/RencanaKebutuhanBahan').default,
+            meta: { layout: 'default', title: 'Rencana Kebutuhan Bahan', sidebar: 'formOperasional', item: 'rencanaKebutuhanBahan' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+            {
+                path: 'create',
+                name: 'formOperasional.rencanaKebutuhanBahan.create',
+                component: require('../views/form_operasional/rencana_kebutuhan_bahan/Create').default,
+                meta: { layout: 'default', title: 'Rencana Kebutuhan Bahan', sidebar: 'formOperasional', item: 'rencanaKebutuhanBahan' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.rencanaKebutuhanBahan.detail',
+                component: require('../views/form_operasional/rencana_kebutuhan_bahan/Detail').default,
+                meta: { layout: 'default', title: 'Rencana Kebutuhan Bahan', sidebar: 'formOperasional', item: 'rencanaKebutuhanBahan' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'update/:id',
+                name: 'formOperasional.rencanaKebutuhanBahan.update',
+                component: require('../views/form_operasional/rencana_kebutuhan_bahan/Update').default,
+                meta: { layout: 'default', title: 'Rencana Kebutuhan Bahan', sidebar: 'formOperasional', item: 'rencanaKebutuhanBahan' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'accept/:id',
+                name: 'formOperasional.rencanaKebutuhanBahan.accept',
+                component: require('../views/form_operasional/rencana_kebutuhan_bahan/Accept').default,
+                meta: { layout: 'default', title: 'Rencana Kebutuhan Bahan', sidebar: 'formOperasional', item: 'rencanaKebutuhanBahan' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
+          },
+          {
+            path: 'daily_rencana_kebutuhan_bahan',
+            name: 'formOperasional.dailyRencanaKebutuhanBahan',
+            component: require('../views/form_operasional/DailyRencanaKebutuhanBahan').default,
+            meta: { layout: 'default', title: 'Rencana Kebutuhan Bahan Harian', sidebar: 'formOperasional', item: 'dailyRencanaKebutuhanBahan' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.dailyRencanaKebutuhanBahan.detail',
+                component: require('../views/form_operasional/daily_rencana_kebutuhan_bahan/Detail').default,
+                meta: { layout: 'default', title: 'Rencana Kebutuhan Bahan Harian', sidebar: 'formOperasional', item: 'dailyRencanaKebutuhanBahan' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'accept/:id',
+                name: 'formOperasional.dailyRencanaKebutuhanBahan.accept',
+                component: require('../views/form_operasional/daily_rencana_kebutuhan_bahan/Accept').default,
+                meta: { layout: 'default', title: 'Rencana Kebutuhan Bahan Harian', sidebar: 'formOperasional', item: 'dailyRencanaKebutuhanBahan' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
+          },
         ]
       },
       {
