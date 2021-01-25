@@ -14,6 +14,8 @@ use App\Http\Models\PurchaseOrderD;
 use App\Http\Models\Barang;
 use App\Http\Models\Cabang;
 
+use Carbon\Carbon;
+
 class PurchaseOrder extends Controller
 {
   public function index(Request $request)
@@ -91,6 +93,10 @@ class PurchaseOrder extends Controller
       'd.*.keterangan' => 'nullable|max:200'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
+
+    if (Carbon::now()->after(Carbon::create(date('Y'), date('m'), date('d'), 10, 0, 0)) || Carbon::now()->before(Carbon::create(date('Y'), date('m'), date('d'), 8, 0, 0))) {
+      return $this->errors(['cabang_id', 'Waktu sudah habis'])->response(422);
+    }
 
     $purchaseOrderModel = new PurchaseOrderModel;
     $purchaseOrderModel->tanggal_form = date('Y-m-d');
