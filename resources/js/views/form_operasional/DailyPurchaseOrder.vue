@@ -77,6 +77,9 @@
                             ">
                             Accept
                           </router-link>
+                          <a class="badge badge-dark" href="#" @click.prevent="exportData(purchase_order.id)" v-if="purchase_order.accepted == 1">
+                            Ekspor
+                          </a>
                         </td>
                       </tr>
                     </tbody>
@@ -411,6 +414,20 @@ export default {
         .catch(err => {})
         .finally(() => {
           this.form.destroy.loading = false
+        })
+    },
+    exportData(id) {
+      this.$axios.get('/ajax/v1/form_operasional/purchase_order/report/' + id, { responseType: 'blob' })
+        .then(res => {
+          let type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+
+          const url = URL.createObjectURL(new Blob([res.data], {
+            type: type
+          }))
+          let a = document.createElement('a')
+          a.href = url
+          a.click()
+          window.URL.revokeObjectURL(url)
         })
     },
   }

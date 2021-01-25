@@ -14,6 +14,11 @@ use App\Http\Models\PurchaseOrderD;
 use App\Http\Models\Barang;
 use App\Http\Models\Cabang;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+
 use Carbon\Carbon;
 
 class PurchaseOrder extends Controller
@@ -38,6 +43,65 @@ class PurchaseOrder extends Controller
       'supplier',
       'd'
     ])->find($id))->response(200);
+  }
+
+  public function report(Request $request, $id)
+  {
+    if (is_null(PurchaseOrderModel::find($id))) return $this->response(404);
+
+    $purchaseOrder = PurchaseOrderModel::with([
+      'cabang',
+      'supplier',
+      'd'
+    ])->find($id);
+
+    $spreadsheet = new Spreadsheet;
+    $sheet = $spreadsheet->getActiveSheet();
+
+    $container = [
+      ['Purchase Order'],
+      [$purchaseOrder->cabang->kode_cabang . ' - ' . $purchaseOrder->cabang->cabang],
+      [$purchaseOrder->tanggal_form],
+      [],
+      ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan'],
+    ];
+
+    foreach ($purchaseOrder->d as $detail) {
+      switch ($detail->level_satuan) {
+        case 1 :
+          $satuan = $detail->barang->satuan->satuan;
+          break;
+        case 2 :
+          $satuan = $detail->barang->satuan_dua->satuan;
+          break;
+        case 3 :
+          $satuan = $detail->barang->satuan_tiga->satuan;
+          break;
+        case 4 :
+          $satuan = $detail->barang->satuan_empat->satuan;
+          break;
+        case 5 :
+          $satuan = $detail->barang->satuan_lima->satuan;
+          break;
+      }
+
+      $container[] = [
+        $detail->barang->kode_barang, $detail->barang->nama_barang, $detail->qty, $satuan
+      ];
+    }
+
+    $sheet->fromArray(
+        $container,
+        null,
+        'A1'
+      );
+
+    $filename = 'Purchase Order - ' . uniqid() . '.xlsx';
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer->save($filename);
+
+    return response()
+        ->download($filename)->deleteFileAfterSend();
   }
 
   public function dailyBranch(Request $request)
@@ -94,7 +158,7 @@ class PurchaseOrder extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    if (Carbon::now()->after(Carbon::create(date('Y'), date('m'), date('d'), 10, 0, 0)) || Carbon::now()->before(Carbon::create(date('Y'), date('m'), date('d'), 8, 0, 0))) {
+    if (Carbon::now()->isAfter(Carbon::create(date('Y'), date('m'), date('d'), 10, 0, 0)) || Carbon::now()->isBefore(Carbon::create(date('Y'), date('m'), date('d'), 8, 0, 0))) {
       return $this->errors(['cabang_id', 'Waktu sudah habis'])->response(422);
     }
 
