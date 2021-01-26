@@ -158,9 +158,9 @@ class PurchaseOrder extends Controller
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
-    if (Carbon::now()->isAfter(Carbon::create(date('Y'), date('m'), date('d'), 10, 0, 0)) || Carbon::now()->isBefore(Carbon::create(date('Y'), date('m'), date('d'), 8, 0, 0))) {
-      return $this->errors(['cabang_id', 'Waktu sudah habis'])->response(422);
-    }
+    // if (Carbon::now()->isAfter(Carbon::create(date('Y'), date('m'), date('d'), 10, 0, 0)) || Carbon::now()->isBefore(Carbon::create(date('Y'), date('m'), date('d'), 8, 0, 0))) {
+    //   return $this->errors(['cabang_id', 'Waktu sudah habis'])->response(422);
+    // }
 
     $purchaseOrderModel = new PurchaseOrderModel;
     $purchaseOrderModel->tanggal_form = date('Y-m-d');
