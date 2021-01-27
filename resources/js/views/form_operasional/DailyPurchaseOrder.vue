@@ -77,7 +77,7 @@
                             ">
                             Accept
                           </router-link>
-                          <a class="badge badge-dark" href="#" @click.prevent="exportData(purchase_order.id)" v-if="purchase_order.accepted == 1">
+                          <a class="badge badge-dark" href="#" @click.prevent="exportData(purchase_order.id)">
                             Ekspor
                           </a>
                         </td>
