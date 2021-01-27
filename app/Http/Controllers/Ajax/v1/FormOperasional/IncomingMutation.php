@@ -45,7 +45,6 @@ class IncomingMutation extends Controller
 
     $outgoingMutation = IncomingMutationModel::with([
       'cabang',
-      'supplier',
       'd'
     ])->find($id);
 

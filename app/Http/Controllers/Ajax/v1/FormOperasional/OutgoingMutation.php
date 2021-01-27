@@ -87,7 +87,6 @@ class OutgoingMutation extends Controller
 
     $outgoingMutation = OutgoingMutationModel::with([
       'cabang',
-      'supplier',
       'd'
     ])->find($id);
 
