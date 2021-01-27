@@ -81,6 +81,66 @@ class OutgoingMutation extends Controller
     ])->find($id))->response(200);
   }
 
+  public function report(Request $request, $id)
+  {
+    if (is_null(OutgoingMutationModel::find($id))) return $this->response(404);
+
+    $outgoingMutation = OutgoingMutationModel::with([
+      'cabang',
+      'supplier',
+      'd'
+    ])->find($id);
+
+    $spreadsheet = new Spreadsheet;
+    $sheet = $spreadsheet->getActiveSheet();
+
+    $container = [
+      ['Purchase Order'],
+      ['Asal', $outgoingMutation->cabang->kode_cabang . ' - ' . $outgoingMutation->cabang->cabang],
+      ['Tujuan', $outgoingMutation->cabang_tujuan->kode_cabang . ' - ' . $outgoingMutation->cabang_tujuan->cabang],
+      [$outgoingMutation->tanggal_form],
+      [],
+      ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan'],
+    ];
+
+    foreach ($outgoingMutation->d as $detail) {
+      switch ($detail->level_satuan) {
+        case 1 :
+          $satuan = $detail->barang->satuan->satuan;
+          break;
+        case 2 :
+          $satuan = $detail->barang->satuan_dua->satuan;
+          break;
+        case 3 :
+          $satuan = $detail->barang->satuan_tiga->satuan;
+          break;
+        case 4 :
+          $satuan = $detail->barang->satuan_empat->satuan;
+          break;
+        case 5 :
+          $satuan = $detail->barang->satuan_lima->satuan;
+          break;
+      }
+
+      $container[] = [
+        $detail->barang->kode_barang, $detail->barang->nama_barang, $detail->qty, $satuan
+      ];
+    }
+
+    $sheet->fromArray(
+        $container,
+        null,
+        'A1'
+      );
+
+    $filename = 'Mutasi Keluar - ' . uniqid() . '.xlsx';
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer->save($filename);
+
+    return response()
+        ->download($filename)->deleteFileAfterSend();
+  }
+
   public function daily(Request $request)
   {
     $query = [

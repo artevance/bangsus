@@ -64,6 +64,9 @@
                             ">
                             Detail
                           </router-link>
+                          <a class="badge badge-dark" href="#" @click.prevent="exportData(outgoing_mutation.id)" v-if="outgoing_mutation.accepted == 1">
+                            Ekspor
+                          </a>
                         </td>
                       </tr>
                     </tbody>
@@ -398,6 +401,20 @@ export default {
         .catch(err => {})
         .finally(() => {
           this.form.destroy.loading = false
+        })
+    },
+    exportData(id) {
+      this.$axios.get('/ajax/v1/form_operasional/outgoing_mutation/report/' + id, { responseType: 'blob' })
+        .then(res => {
+          let type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+
+          const url = URL.createObjectURL(new Blob([res.data], {
+            type: type
+          }))
+          let a = document.createElement('a')
+          a.href = url
+          a.click()
+          window.URL.revokeObjectURL(url)
         })
     },
   }

@@ -478,6 +478,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::get('cabang_harian', 'OutgoingMutation@dailyBranch');
         Route::get('gambar/{id}', 'OutgoingMutation@image');
         Route::get('{id}', 'OutgoingMutation@get');
+        Route::get('report/{id}', 'OutgoingMutation@report');
         Route::post('', 'OutgoingMutation@store');
         Route::put('', 'OutgoingMutation@amend');
         Route::put('approve', 'OutgoingMutation@amendApprove');
@@ -489,6 +490,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::get('cabang_harian', 'IncomingMutation@dailyBranch');
         Route::get('gambar/{id}', 'IncomingMutation@image');
         Route::get('{id}', 'IncomingMutation@get');
+        Route::get('report/{id}', 'IncomingMutation@report');
         Route::post('', 'IncomingMutation@store');
         Route::put('', 'IncomingMutation@amend');
         Route::put('approve', 'IncomingMutation@amendApprove');
