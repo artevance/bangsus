@@ -17,6 +17,13 @@ use App\Http\Models\Gambar;
 
 use Intervention\Image\Facades\Image;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+
+use Carbon\Carbon;
+
 class OutgoingMutation extends Controller
 {
   public function index(Request $request)
