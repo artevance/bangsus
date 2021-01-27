@@ -64,7 +64,7 @@
                             ">
                             Detail
                           </router-link>
-                          <a class="badge badge-dark" href="#" @click.prevent="exportData(outgoing_mutation.id)" v-if="outgoing_mutation.accepted == 1">
+                          <a class="badge badge-dark" href="#" @click.prevent="exportData(outgoing_mutation.id)" v-if="outgoing_mutation.approve == 1">
                             Ekspor
                           </a>
                         </td>
