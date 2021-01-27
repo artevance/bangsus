@@ -60,8 +60,8 @@ class IncomingMutation extends Controller
 
     $container = [
       ['Purchase Order'],
-      ['Asal', $incomingMutation->cabang->kode_cabang . ' - ' . $incomingMutation->cabang->cabang],
-      ['Tujuan', $incomingMutation->cabang_tujuan->kode_cabang . ' - ' . $incomingMutation->cabang_tujuan->cabang],
+      ['Asal', $incomingMutation->cabang_asal->kode_cabang . ' - ' . $incomingMutation->cabang_asal->cabang],
+      ['Tujuan', $incomingMutation->cabang->kode_cabang . ' - ' . $incomingMutation->cabang->cabang],
       [$incomingMutation->tanggal_form],
       [],
       ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan'],
