@@ -50,7 +50,7 @@ class IncomingMutation extends Controller
   {
     if (is_null(IncomingMutationModel::find($id))) return $this->response(404);
 
-    $outgoingMutation = IncomingMutationModel::with([
+    $incomingMutation = IncomingMutationModel::with([
       'cabang',
       'd'
     ])->find($id);
