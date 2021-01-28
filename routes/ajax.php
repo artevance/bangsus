@@ -233,6 +233,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::get('', 'Barang@index');
         Route::get('{id}', 'Barang@get');
         Route::get('opname/{tipeCabangId}/{tipeStokOpnameId}', 'Barang@getOpname');
+        Route::get('purchase_order');
         Route::post('', 'Barang@store');
         Route::put('', 'Barang@amend');
       });

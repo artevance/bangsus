@@ -71,6 +71,18 @@ export default {
     this.prepare()
   },
   props: [
+    componentId: {
+      required: true,
+    },
+    value: {
+      default: null,
+    },
+    noEdit: {
+      default: false,
+    },
+    link: {
+      default: '/ajax/v1/master/barang',
+    }
     'componentId',
     'value',
     'noEdit'
@@ -97,7 +109,7 @@ export default {
         })
     },
     fetchBarang() {
-      return this.$axios.get('/ajax/v1/master/barang', { params: this.search })
+      return this.$axios.get(this.link, { params: this.search })
     },
     selectBarang(id, emit = true) {
       let selectedBarang = this.$_.findWhere(this.data.barang, { id: parseInt(id) })

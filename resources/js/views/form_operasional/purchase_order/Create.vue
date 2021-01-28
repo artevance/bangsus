@@ -44,7 +44,7 @@
                       <tr v-for="(detail, i) in form.create.data.d">
                         <td>{{ i + 1 }}</td>
                         <td>
-                          <barang-component v-model="detail.barang_id" :component-id="i" @input="reloadSatuan(i)"/>
+                          <barang-component link="/ajax/v1/master/barang/purchase_order" v-model="detail.barang_id" :component-id="i" @input="reloadSatuan(i)"/>
                         </td>
                         <td>
                           <select class="form-control" v-model="detail.level_satuan">

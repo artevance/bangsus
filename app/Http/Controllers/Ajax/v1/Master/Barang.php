@@ -58,6 +58,20 @@ class Barang extends Controller
       ->response(200);
   }
 
+  public function getPurchaseOrder(Request $request)
+  {
+    return $this
+      ->data(BarangModel::with(['satuan', 'satuan_dua', 'satuan_tiga', 'satuan_empat', 'satuan_lima'])
+          ->where(function ($query) use ($request) {
+            $query->where('kode_barang', 'like', '%' . $request->input('q') . '%')
+              ->orWhere('nama_barang', 'like', '%' . $request->input('q') . '%');
+          })
+          ->where('purchase_order', true)
+          ->get()
+        )
+      ->response(200);
+  }
+
   public function store(Request $request)
   {
     $v = Validator::make($request->only(
@@ -111,6 +125,7 @@ class Barang extends Controller
     $model->rasio_lima = $request->has('satuan_lima_id') ? $request->input('rasio_lima') : null;
     $model->semua_tipe_cabang = $request->boolean('semua_tipe_cabang');
     $model->semua_tipe_stok_opname = $request->boolean('semua_tipe_stok_opname');
+    $model->purchase_order = false;
     $model->save();
 
     if ( ! $model->semua_tipe_cabang) {
