@@ -59,7 +59,7 @@ class IncomingMutation extends Controller
     $sheet = $spreadsheet->getActiveSheet();
 
     $container = [
-      ['Purchase Order'],
+      ['Mutasi Masuk'],
       ['Asal', $incomingMutation->cabang_asal->kode_cabang . ' - ' . $incomingMutation->cabang_asal->cabang],
       ['Tujuan', $incomingMutation->cabang->kode_cabang . ' - ' . $incomingMutation->cabang->cabang],
       [$incomingMutation->tanggal_form],

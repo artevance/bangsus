@@ -101,7 +101,7 @@ class OutgoingMutation extends Controller
     $sheet = $spreadsheet->getActiveSheet();
 
     $container = [
-      ['Purchase Order'],
+      ['Mutasi Keluar'],
       ['Asal', $outgoingMutation->cabang->kode_cabang . ' - ' . $outgoingMutation->cabang->cabang],
       ['Tujuan', $outgoingMutation->cabang_tujuan->kode_cabang . ' - ' . $outgoingMutation->cabang_tujuan->cabang],
       [$outgoingMutation->tanggal_form],
