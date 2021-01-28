@@ -231,9 +231,9 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       });
       Route::prefix('barang')->group(function () {
         Route::get('', 'Barang@index');
+        Route::get('purchase_order', 'Barang@getPurchaseOrder');
         Route::get('{id}', 'Barang@get');
         Route::get('opname/{tipeCabangId}/{tipeStokOpnameId}', 'Barang@getOpname');
-        Route::get('purchase_order');
         Route::post('', 'Barang@store');
         Route::put('', 'Barang@amend');
       });

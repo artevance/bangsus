@@ -70,7 +70,7 @@ export default {
   created() {
     this.prepare()
   },
-  props: [
+  props: {
     componentId: {
       required: true,
     },
@@ -83,10 +83,7 @@ export default {
     link: {
       default: '/ajax/v1/master/barang',
     }
-    'componentId',
-    'value',
-    'noEdit'
-  ],
+  },
   methods: {
     prepare() {
       this.result = this.value
