@@ -244,7 +244,6 @@ class StokOpname extends Controller
       'd.*.level_satuan' => 'required',
       'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200',
-      'd.*.gambar' => 'required'
     ]);
     if ($v->fails()) {
       $failedJob = new FailedJob;
