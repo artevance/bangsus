@@ -61,6 +61,7 @@
                         <th>Barang</th>
                         <th style="min-width: 200px;">Satuan</th>
                         <th style="min-width: 200px;">Qty</th>
+                        <th style="min-width: 200px;">Qty (Kg)</th>
                         <th style="min-width: 200px;">Harga Barang</th>
                         <th>Keterangan</th>
                         <th>Gambar</th>
@@ -80,6 +81,9 @@
                           </td>
                           <td>
                             {{ detail.qty }}
+                          </td>
+                          <td>
+                            {{ detail.qty_kg }} Kg
                           </td>
                           <td>
                             {{ detail.harga_barang }}
@@ -105,6 +109,7 @@
                         <th>Barang</th>
                         <th style="min-width: 200px;">Satuan</th>
                         <th style="min-width: 200px;">Qty</th>
+                        <th style="min-width: 200px;">Qty (Kg)</th>
                         <th style="min-width: 200px;">Harga Barang</th>
                         <th>Keterangan</th>
                         <th>Gambar</th>
@@ -128,6 +133,9 @@
                           </td>
                           <td>
                             <input type="number" class="form-control" v-model="detail.qty">
+                          </td>
+                          <td>
+                            <input type="number" class="form-control" v-model="detail.qty_kg">
                           </td>
                           <td>
                             <input type="number" class="form-control" v-model="detail.harga_barang">
@@ -269,6 +277,7 @@ export default {
         barang_id: item.barang_id,
         level_satuan: item.level_satuan,
         qty: item.qty,
+        qty_kg: item.qty_kg,
         keterangan: item.keterangan,
         harga_barang: item.harga_barang,
         satuan: item.satuan,
@@ -283,7 +292,8 @@ export default {
       this.form.update.data.d.push({
         barang_id: null,
         level_satuan: null,
-        qty: null,
+        qty: 0,
+        qty_kg: 0,
         keterangan: '',
         harga_barang: 0,
         satuan: null,
@@ -303,7 +313,8 @@ export default {
             let barang = res.data.container
             if (this.resetOtherField) {
               this.form.update.data.d[i].level_satuan = null
-              this.form.update.data.d[i].qty = null
+              this.form.update.data.d[i].qty = 0
+              this.form.update.data.d[i].qty_kg = 0
               this.form.update.data.d[i].harga_barang = null
             }
             this.form.update.data.d[i].satuan = barang.satuan
@@ -356,7 +367,8 @@ export default {
               {
                 barang_id: null,
                 level_satuan: null,
-                qty: null,
+                qty: 0,
+                qty_kg: 0,
                 keterangan: '',
                 satuan: null,
                 harga_barang: 0,

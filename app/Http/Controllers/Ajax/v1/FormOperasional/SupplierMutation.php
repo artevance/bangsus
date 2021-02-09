@@ -101,6 +101,7 @@ class SupplierMutation extends Controller
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
+      'd.*.qty_kg' => 'required|numeric|max:10000000000',
       'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200',
       'd.*.gambar' => 'required'
@@ -150,6 +151,7 @@ class SupplierMutation extends Controller
       $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
       $detailModel->qty_konversi = $d['qty'] * $constant;
+      $detailModel->qty_kg = $d['qty_kg'];
       $detailModel->harga_barang = $d['harga_barang'];
       $detailModel->keterangan = $d['keterangan'] ?? '';
       $detailModel->save();
@@ -168,6 +170,7 @@ class SupplierMutation extends Controller
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
+      'd.*.qty_kg' => 'required|numeric|max:10000000000',
       'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200',
       'd.*.gambar' => 'required'
@@ -239,6 +242,7 @@ class SupplierMutation extends Controller
       $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
       $detailModel->qty_konversi = $d['qty'] * $constant;
+      $detailModel->qty_kg = $d['qty_kg'];
       $detailModel->harga_barang = $d['harga_barang'];
       $detailModel->keterangan = $d['keterangan'] ?? '';
       $detailModel->save();
