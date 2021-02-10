@@ -47,6 +47,7 @@
                       <th>Cabang</th>
                       <th>Cabang Tujuan</th>
                       <th>Status</th>
+                      <th>Sudah Diterima</th>
                       <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -56,6 +57,7 @@
                         <td>{{ outgoing_mutation.cabang.kode_cabang }} - {{ outgoing_mutation.cabang.cabang }}</td>
                         <td>{{ outgoing_mutation.cabang_tujuan.kode_cabang }} - {{ outgoing_mutation.cabang_tujuan.cabang }}</td>
                         <td>{{ outgoing_mutation.status || '' }}</td>
+                        <td>{{ outgoing_mutation.incoming_mutation.length > 0 ? 'Sudah' : 'Belum' }}</td>
                         <td>
                           <router-link class="badge badge-primary"
                             :to="{ name: 'formOperasional.dailyOutgoingMutation.detail', params: { id: outgoing_mutation.id } }"

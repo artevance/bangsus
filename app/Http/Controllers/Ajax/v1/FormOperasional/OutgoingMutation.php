@@ -133,6 +133,45 @@ class OutgoingMutation extends Controller
       ];
     }
 
+    $incomingMutation = $outgoingMutation->incoming_mutation->first();
+
+    if (is_null($incomingMutation)) {
+      $container[] = [];
+      $container[] = [];
+      $container[] = [
+        'Belum ada mutasi masuk'
+      ];
+    } else {
+      $container[] = [];
+      $container[] = [];
+      $container[] = ['Mutasi Keluar'];
+      $container[] = ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan', 'Qty (Kg)'];
+
+      foreach ($incomingMutation->d as $detail) {
+        switch ($detail->level_satuan) {
+          case 1 :
+            $satuan = $detail->barang->satuan->satuan;
+            break;
+          case 2 :
+            $satuan = $detail->barang->satuan_dua->satuan;
+            break;
+          case 3 :
+            $satuan = $detail->barang->satuan_tiga->satuan;
+            break;
+          case 4 :
+            $satuan = $detail->barang->satuan_empat->satuan;
+            break;
+          case 5 :
+            $satuan = $detail->barang->satuan_lima->satuan;
+            break;
+        }
+
+        $container[] = [
+          $detail->barang->kode_barang, $detail->barang->nama_barang, $detail->qty, $satuan, $detail->qty_kg
+        ];
+      }
+    }
+
     $sheet->fromArray(
         $container,
         null,
@@ -158,7 +197,9 @@ class OutgoingMutation extends Controller
         OutgoingMutationModel::with([
           'cabang',
           'cabang_tujuan',
-          'd'
+          'd',
+          'incoming_mutation',
+          'incoming_mutation.d',
         ])
         ->where('tanggal_form', $query['tanggal_form'])
         ->orderBy('jam')
@@ -178,7 +219,9 @@ class OutgoingMutation extends Controller
         OutgoingMutationModel::with([
           'cabang',
           'cabang_tujuan',
-          'd'
+          'd',
+          'incoming_mutation',
+          'incoming_mutation.d',
         ])
         ->where('tanggal_form', $query['tanggal_form'])
         ->byCabang($query['cabang_id'])
