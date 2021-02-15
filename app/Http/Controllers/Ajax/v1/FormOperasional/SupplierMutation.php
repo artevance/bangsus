@@ -59,7 +59,7 @@ class SupplierMutation extends Controller
     $sheet = $spreadsheet->getActiveSheet();
 
     $container = [
-      ['Mutasi Supplier'],
+      ['Terima Barang Supplier'],
       ['Cabang', $supplierMutation->cabang->kode_cabang . ' - ' . $supplierMutation->cabang->cabang],
       ['Supplier', $supplierMutation->supplier_mutasi->supplier_mutasi],
       [$supplierMutation->tanggal_form],
