@@ -60,7 +60,7 @@ class IncomingMutation extends Controller
 
     $container = [
       ['Mutasi Masuk'],
-      ['Kode', $incomingMutation->outgoingMutation->Nota],
+      ['Kode', $incomingMutation->outgoing_mutation->Nota],
       ['Asal', $incomingMutation->cabang_asal->kode_cabang . ' - ' . $incomingMutation->cabang_asal->cabang],
       ['Tujuan', $incomingMutation->cabang->kode_cabang . ' - ' . $incomingMutation->cabang->cabang],
       [$incomingMutation->tanggal_form],
