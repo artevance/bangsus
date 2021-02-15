@@ -64,7 +64,7 @@
                             ">
                             Detail
                           </router-link>
-                          <a class="badge badge-dark" href="#" @click.prevent="exportData(outgoing_mutation.id)">
+                          <a class="badge badge-dark" href="#" @click.prevent="exportData(supplier_mutation.id)">
                             Ekspor
                           </a>
                         </td>
