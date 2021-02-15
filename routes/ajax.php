@@ -503,6 +503,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::get('cabang_harian', 'SupplierMutation@dailyBranch');
         Route::get('gambar/{id}', 'SupplierMutation@image');
         Route::get('{id}', 'SupplierMutation@get');
+        Route::get('report/{id}', 'IncomingMutation@report');
         Route::post('', 'SupplierMutation@store');
         Route::put('', 'SupplierMutation@amend');
         Route::put('approve', 'SupplierMutation@amendApprove');
