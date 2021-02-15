@@ -106,7 +106,7 @@ class OutgoingMutation extends Controller
       ['Tujuan', $outgoingMutation->cabang_tujuan->kode_cabang . ' - ' . $outgoingMutation->cabang_tujuan->cabang],
       [$outgoingMutation->tanggal_form],
       [],
-      ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan', 'Qty (Kg)'],
+      ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan', 'Keterangan'],
     ];
 
     foreach ($outgoingMutation->d as $detail) {
@@ -129,7 +129,7 @@ class OutgoingMutation extends Controller
       }
 
       $container[] = [
-        $detail->barang->kode_barang, $detail->barang->nama_barang, $detail->qty, $satuan, $detail->qty_kg
+        $detail->barang->kode_barang, $detail->barang->nama_barang, $detail->qty, $satuan, $detail->keterangan
       ];
     }
 
@@ -145,7 +145,7 @@ class OutgoingMutation extends Controller
       $container[] = [];
       $container[] = [];
       $container[] = ['Mutasi Keluar'];
-      $container[] = ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan', 'Qty (Kg)'];
+      $container[] = ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan', 'Keterangan'];
 
       foreach ($incomingMutation->d as $detail) {
         switch ($detail->level_satuan) {
@@ -167,7 +167,7 @@ class OutgoingMutation extends Controller
         }
 
         $container[] = [
-          $detail->barang->kode_barang, $detail->barang->nama_barang, $detail->qty, $satuan, $detail->qty_kg
+          $detail->barang->kode_barang, $detail->barang->nama_barang, $detail->qty, $satuan, $detail->keterangan
         ];
       }
     }
@@ -247,7 +247,6 @@ class OutgoingMutation extends Controller
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
-      'd.*.qty_kg' => 'required|numeric|max:10000000000',
       'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200',
       'd.*.gambar' => 'required'
@@ -297,7 +296,7 @@ class OutgoingMutation extends Controller
       $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
       $detailModel->qty_konversi = $d['qty'] * $constant;
-      $detailModel->qty_kg = $d['qty_kg'];
+      $detailModel->qty_kg = 0;
       $detailModel->harga_barang = $d['harga_barang'];
       $detailModel->keterangan = $d['keterangan'] ?? '';
       $detailModel->save();
@@ -314,7 +313,6 @@ class OutgoingMutation extends Controller
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
-      'd.*.qty_kg' => 'required|numeric|max:10000000000',
       'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200',
       'd.*.gambar' => 'required'
@@ -385,7 +383,7 @@ class OutgoingMutation extends Controller
       $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
       $detailModel->qty_konversi = $d['qty'] * $constant;
-      $detailModel->qty_kg = $d['qty_kg'];
+      $detailModel->qty_kg = 0;
       $detailModel->harga_barang = $d['harga_barang'];
       $detailModel->keterangan = $d['keterangan'] ?? '';
       $detailModel->save();

@@ -45,7 +45,6 @@
                         <th>Barang</th>
                         <th style="min-width: 200px;">Satuan</th>
                         <th style="min-width: 200px;">Qty</th>
-                        <th style="min-width: 200px;">Qty (Kg)</th>
                         <th style="min-width: 200px;">Harga Barang</th>
                         <th>Keterangan</th>
                         <th>Gambar</th>
@@ -70,9 +69,6 @@
                         </td>
                         <td>
                           <input type="number" class="form-control" v-model="detail.qty">
-                        </td>
-                        <td>
-                          <input type="number" class="form-control" v-model="detail.qty_kg">
                         </td>
                         <td>
                           <input type="number" class="form-control" v-model="detail.harga_barang" readonly>
@@ -139,7 +135,6 @@ export default {
                 barang_id: null,
                 level_satuan: null,
                 qty: 0,
-                qty_kg: 0,
                 keterangan: '',
                 harga_barang: 0,
                 satuan: null,
@@ -184,7 +179,6 @@ export default {
         barang_id: null,
         level_satuan: null,
         qty: 0,
-        qty_kg: 0,
         keterangan: '',
         harga_barang: 0,
         satuan: null,
@@ -203,7 +197,6 @@ export default {
           let barang = res.data.container
           this.form.create.data.d[i].level_satuan = null
           this.form.create.data.d[i].qty = 0
-          this.form.create.data.d[i].qty_kg = 0
           this.form.create.data.d[i].harga_barang = 0
           this.form.create.data.d[i].satuan = barang.satuan
           this.form.create.data.d[i].satuan_dua = barang.satuan_dua
@@ -232,7 +225,6 @@ export default {
                 barang_id: null,
                 level_satuan: null,
                 qty: 0,
-                qty_kg: 0,
                 keterangan: '',
                 satuan: null,
                 harga_barang: 0,
