@@ -245,7 +245,7 @@ class OutgoingMutation extends Controller
       'cabang_id' => 'required|exists:cabang,id',
       'cabang_tujuan_id' => 'required|exists:cabang,id',
       'd.*.barang_id' => 'required|exists:barang,id',
-      'd.*.qty' => 'required|numeric|max:10000000000',
+      'd.*.qty' => 'required|numeric|gt:0|max:10000000000',
       'd.*.level_satuan' => 'required',
       'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200',
@@ -311,7 +311,7 @@ class OutgoingMutation extends Controller
     ), [
       'id' => 'required|exists:outgoing_mutation,id',
       'd.*.barang_id' => 'required|exists:barang,id',
-      'd.*.qty' => 'required|numeric|max:10000000000',
+      'd.*.qty' => 'required|numeric|gt:0|max:10000000000',
       'd.*.level_satuan' => 'required',
       'd.*.harga_barang' => 'required|max:10000000000',
       'd.*.keterangan' => 'nullable|max:200',
