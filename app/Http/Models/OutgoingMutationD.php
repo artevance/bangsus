@@ -10,6 +10,10 @@ class OutgoingMutationD extends Model
 {
   protected $table = 'outgoing_mutation_d';
 
+  protected $casts = [
+    'qty' => 'float'
+  ];
+
   use SoftDeletes;
 
   public function barang()

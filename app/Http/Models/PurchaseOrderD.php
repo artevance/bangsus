@@ -10,6 +10,10 @@ class PurchaseOrderD extends Model
 {
   protected $table = 'purchase_order_d';
 
+  protected $casts = [
+    'qty' => 'float'
+  ];
+
   use SoftDeletes;
 
   public function barang()
