@@ -11,7 +11,8 @@ class PurchaseOrderD extends Model
   protected $table = 'purchase_order_d';
 
   protected $casts = [
-    'qty' => 'float'
+    'qty' => 'float',
+    'harga_barang' => 'float',
   ];
 
   use SoftDeletes;
