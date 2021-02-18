@@ -144,7 +144,11 @@ class OutgoingMutation extends Controller
     } else {
       $container[] = [];
       $container[] = [];
-      $container[] = ['Mutasi Keluar'];
+      $container[] = ['Mutasi Masuk'];
+      $container[] = ['Asal', $incomingMutation->cabang->kode_cabang . ' - ' . $incomingMutation->cabang->cabang];
+      $container[] = ['Tujuan', $incomingMutation->cabang->kode_cabang . ' - ' . $incomingMutation->cabang->cabang];
+      $container[] = [$incomingMutation->tanggal_form];
+      $container[] = [];
       $container[] = ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan', 'Keterangan'];
 
       foreach ($incomingMutation->d as $detail) {
