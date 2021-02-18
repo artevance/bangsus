@@ -43,6 +43,7 @@
                   <table class="table table-hover" v-if="$access('formOperasional.dailyPurchaseOrder', 'read')">
                     <thead>
                       <th>#</th>
+                      <th>Aksi</th>
                       <th>Jam</th>
                       <th>Cabang</th>
                       <th>Status</th>
@@ -51,17 +52,7 @@
                     <tbody>
                       <tr v-for="(purchase_order, i) in data.purchase_order">
                         <td>{{ i + 1 }}</td>
-                        <td>{{ purchase_order.jam }}</td>
-                        <td>{{ purchase_order.cabang.kode_cabang }} - {{ purchase_order.cabang.cabang }}</td>
-                        <td>{{ purchase_order.status || '' }}</td>
                         <td>
-                          <router-link class="badge badge-primary"
-                            :to="{ name: 'formOperasional.dailyPurchaseOrder.detail', params: { id: purchase_order.id } }"
-                            v-if="
-                              $access('formOperasional.dailyPurchaseOrder', 'detail')
-                            ">
-                            Detail
-                          </router-link>
                           <router-link class="badge badge-info"
                             :to="{ name: 'formOperasional.dailyPurchaseOrder.accept', params: { id: purchase_order.id } }"
                             v-if="
@@ -76,6 +67,18 @@
                               ) && purchase_order.accepted == 0
                             ">
                             Accept
+                          </router-link>
+                        </td>
+                        <td>{{ purchase_order.jam }}</td>
+                        <td>{{ purchase_order.cabang.kode_cabang }} - {{ purchase_order.cabang.cabang }}</td>
+                        <td>{{ purchase_order.status || '' }}</td>
+                        <td>
+                          <router-link class="badge badge-primary"
+                            :to="{ name: 'formOperasional.dailyPurchaseOrder.detail', params: { id: purchase_order.id } }"
+                            v-if="
+                              $access('formOperasional.dailyPurchaseOrder', 'detail')
+                            ">
+                            Detail
                           </router-link>
                           <a class="badge badge-dark" href="#" @click.prevent="exportData(purchase_order.id)">
                             Ekspor
