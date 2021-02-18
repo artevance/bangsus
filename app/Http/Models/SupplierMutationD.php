@@ -11,7 +11,8 @@ class SupplierMutationD extends Model
   protected $table = 'supplier_mutation_d';
 
   protected $casts = [
-    'qty' => 'float'
+    'qty' => 'float',
+    'harga_barang'
   ];
 
   use SoftDeletes;
