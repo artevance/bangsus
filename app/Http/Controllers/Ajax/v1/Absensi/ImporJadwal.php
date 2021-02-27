@@ -118,6 +118,7 @@ class ImporJadwal extends Controller
             : null;
           $d = trim($d);
           $d = str_replace('.', ':', $d);
+          $d = str_replace('"', '', $d);
           $d = $d === '' ? null : $d;
           if ( ! is_null($d)) {
             $data[] = [
@@ -278,6 +279,7 @@ class ImporJadwal extends Controller
             : null;
           $d = trim($d);
           $d = str_replace('.', ':', $d);
+          $d = str_replace('"', '', $d);
           $d = $d === '' ? null : $d;
           if ( ! is_null($d)) {
             $data[] = [
