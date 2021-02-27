@@ -113,12 +113,11 @@ class ImporJadwal extends Controller
 
       if ( ! is_null($noFinger)) {
         foreach ($jadwalData as $i => $d) {
+          $d = ! is_null($d) ? str_replace('"', '', str_replace('.', ':', $d)) : null;
           $d = ! is_null($d)
             ? substr((is_string($d) ? trim($d, "'") : $d), 0, 5)
             : null;
           $d = trim($d);
-          $d = str_replace('.', ':', $d);
-          $d = str_replace('"', '', $d);
           $d = $d === '' ? null : $d;
           if ( ! is_null($d)) {
             $data[] = [
@@ -274,12 +273,11 @@ class ImporJadwal extends Controller
 
       if ( ! is_null($noFinger)) {
         foreach ($jadwalData as $i => $d) {
+          $d = ! is_null($d) ? str_replace('"', '', str_replace('.', ':', $d)) : null;
           $d = ! is_null($d)
             ? substr((is_string($d) ? trim($d, "'") : $d), 0, 5)
             : null;
           $d = trim($d);
-          $d = str_replace('.', ':', $d);
-          $d = str_replace('"', '', $d);
           $d = $d === '' ? null : $d;
           if ( ! is_null($d)) {
             $data[] = [
