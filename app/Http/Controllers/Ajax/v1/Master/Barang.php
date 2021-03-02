@@ -72,6 +72,20 @@ class Barang extends Controller
       ->response(200);
   }
 
+  public function getMutation(Request $request)
+  {
+    return $this
+      ->data(BarangModel::with(['satuan', 'satuan_dua', 'satuan_tiga', 'satuan_empat', 'satuan_lima'])
+          ->where(function ($query) use ($request) {
+            $query->where('kode_barang', 'like', '%' . $request->input('q') . '%')
+              ->orWhere('nama_barang', 'like', '%' . $request->input('q') . '%');
+          })
+          ->where('mutation', true)
+          ->get()
+        )
+      ->response(200);
+  }
+
   public function store(Request $request)
   {
     $v = Validator::make($request->only(
