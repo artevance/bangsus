@@ -20,7 +20,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
 
   Route::get('optimize_image/{page}', 'OptimizeImage@index');
 
-  // Route::middleware('auth:sanctum')->group(function () {
+  Route::middleware('auth:sanctum')->group(function () {
     Route::get('logout', 'Logout@index');
 
     Route::prefix('master')->namespace('Master')->group(function () {
@@ -582,5 +582,5 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         });
       });
     });
-  // });
+  });
 });
