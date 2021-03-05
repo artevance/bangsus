@@ -13,7 +13,7 @@
               <div class="col col-md-6">
                 <div class="form-group">
                   <label>Cabang</label>
-                  <select class="form-control" v-model="form.create.data.cabang_id">
+                  <select class="form-control" v-model="form.create.data.cabang_id" @change="fetchTugasKaryawan(form.create.data.cabang_id)">
                     <option v-for="cabang in data.cabang" :value="cabang.id">
                       {{ cabang.kode_cabang }} - {{ cabang.cabang }}
                     </option>
@@ -34,6 +34,18 @@
                       {{ outgoingMutation.tanggal_form }} - {{ outgoingMutation.jam }}
                     </option>
                   </select>
+                </div>
+                <div class="form-group">
+                  <label>Karyawan</label>
+                  <select class="form-control" v-model="form.create.data.tugas_karyawan_id">
+                    <option value="null">-- Pilih Karyawan --</option>
+                    <option v-for="(tugas_karyawan, i) in data.tugas_karyawan" :value="tugas_karyawan.id">
+                      {{ tugas_karyawan.karyawan.nip }} - {{ tugas_karyawan.karyawan.nama_karyawan }}
+                    </option>
+                  </select>
+                  <small class="text-danger" v-for="(msg, i) in form.create.errors.tugas_karyawan_id">
+                    {{ msg }}
+                  </small>
                 </div>
               </div>
               <div class="col col-md-6">
@@ -212,6 +224,7 @@ export default {
         allCabang: [],
         outgoingMutation: [],
         outgoingMutationDetail: [],
+        tugas_karyawan: [],
       }
     }
   },
@@ -323,7 +336,13 @@ export default {
       $('#successModal').modal('hide')
       this.$router.push({ name: 'formOperasional.incomingMutation' })
       this.$parent.queryData()
-    }
+    },
+    fetchTugasKaryawan(id) {
+      this.$axios.get('/ajax/v1/tugas_karyawan/cabang/?cabang_id=' + id + '&tanggal_penugasan=' + this.$moment().format('YYYY-MM-DD HH:mm:ss'))
+        .then(res => {
+            this.data.tugas_karyawan = res.data.container
+          })
+    },
   }
 }
 </script>

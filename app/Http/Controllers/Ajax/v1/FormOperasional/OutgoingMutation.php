@@ -147,6 +147,7 @@ class OutgoingMutation extends Controller
       $container[] = ['Mutasi Masuk'];
       $container[] = ['Asal', $incomingMutation->cabang->kode_cabang . ' - ' . $incomingMutation->cabang->cabang];
       $container[] = ['Tujuan', $incomingMutation->cabang->kode_cabang . ' - ' . $incomingMutation->cabang->cabang];
+      $container[] = ['Penerima', $incomingMutation->tugas_karyawan->karyawan->nama_karyawan];
       $container[] = [$incomingMutation->tanggal_form];
       $container[] = [];
       $container[] = ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan', 'Keterangan'];

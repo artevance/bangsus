@@ -42,7 +42,9 @@ class IncomingMutation extends Controller
 
     return $this->data(IncomingMutationModel::with([
       'cabang',
-      'd'
+      'd',
+      'tugas_karyawan',
+      'tugas_karyawan.karyawan',
     ])->find($id))->response(200);
   }
 
@@ -63,6 +65,7 @@ class IncomingMutation extends Controller
       ['Kode', $incomingMutation->outgoing_mutation->Nota],
       ['Asal', $incomingMutation->cabang_asal->kode_cabang . ' - ' . $incomingMutation->cabang_asal->cabang],
       ['Tujuan', $incomingMutation->cabang->kode_cabang . ' - ' . $incomingMutation->cabang->cabang],
+      ['Penerima', $incomingMutation->tugas_karyawan->karyawan->nama_karyawan],
       [$incomingMutation->tanggal_form],
       [],
       ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan', 'Keterangan'],
@@ -157,11 +160,13 @@ class IncomingMutation extends Controller
       'cabang_id',
       'cabang_asal_id',
       'outgoing_mutation_id',
+      'tugas_karyawan_id',
       'd'
     ), [
       'cabang_asal_id' => 'required|exists:cabang,id',
       'cabang_id' => 'required|exists:cabang,id',
       'outgoing_mutation_id' => 'required|exists:outgoing_mutation,id',
+      'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|gt:0|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -177,6 +182,7 @@ class IncomingMutation extends Controller
     $incomingMutationModel->cabang_asal_id = $request->input('cabang_asal_id');
     $incomingMutationModel->cabang_id = $request->input('cabang_id');
     $incomingMutationModel->outgoing_mutation_id = $request->input('outgoing_mutation_id');
+    $incomingMutationModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     $incomingMutationModel->approve = false;
     $incomingMutationModel->user_id = $request->user()->id;
     $incomingMutationModel->save();

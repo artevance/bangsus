@@ -37,6 +37,11 @@ class IncomingMutation extends Model
     return $this->belongsTo('App\Http\Models\Cabang');
   }
 
+  public function tugas_karyawan()
+  {
+    return $this->belongsTo('App\Http\Models\TugasKaryawan');
+  }
+
   public function d()
   {
     return $this->hasMany('App\Http\Models\IncomingMutationD');
