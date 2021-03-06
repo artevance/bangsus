@@ -42,7 +42,9 @@ class SupplierMutation extends Controller
 
     return $this->data(SupplierMutationModel::with([
       'cabang',
-      'd'
+      'd',
+      'tugas_karyawan',
+      'tugas_karyawan.karyawan',
     ])->find($id))->response(200);
   }
 
@@ -62,6 +64,7 @@ class SupplierMutation extends Controller
       ['Terima Barang Supplier'],
       ['Cabang', $supplierMutation->cabang->kode_cabang . ' - ' . $supplierMutation->cabang->cabang],
       ['Supplier', $supplierMutation->supplier_mutasi->supplier_mutasi],
+      ['Penerima', $supplierMutation->karyawan->nama_karyawan],
       [$supplierMutation->tanggal_form],
       [],
       ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan', 'Keterangan'],
@@ -160,10 +163,12 @@ class SupplierMutation extends Controller
       'supplier_mutasi_id',
       'cabang_id',
       'cabang_asal_id',
+      'tugas_karyawan_id',
       'd'
     ), [
       'supplier_mutasi_id' => 'required|exists:supplier_mutasi,id',
       'cabang_id' => 'required|exists:cabang,id',
+      'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|gt:0|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -178,6 +183,7 @@ class SupplierMutation extends Controller
     $supplierMutationModel->jam = date('H:i:s');
     $supplierMutationModel->supplier_mutasi_id = $request->input('supplier_mutasi_id');
     $supplierMutationModel->cabang_id = $request->input('cabang_id');
+    $supplierMutationModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     $supplierMutationModel->approve = false;
     $supplierMutationModel->user_id = $request->user()->id;
     $supplierMutationModel->save();
@@ -228,10 +234,12 @@ class SupplierMutation extends Controller
     $v = Validator::make($request->only(
       'id',
       'supplier_mutasi_id',
+      'tugas_karyawan_id',
       'd'
     ), [
       'id' => 'required|exists:supplier_mutation,id',
       'supplier_mutasi_id' => 'required|exists:supplier_mutasi,id',
+      'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|gt:0|max:10000000000',
       'd.*.level_satuan' => 'required',

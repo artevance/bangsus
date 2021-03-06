@@ -44,6 +44,18 @@
                       </option>
                     </select>
                   </div>
+                  <div class="form-group">
+                    <label>Karyawan</label>
+                    <select class="form-control" v-model="form.update.data.tugas_karyawan_id" disabled>
+                      <option value="null">-- Pilih Karyawan --</option>
+                      <option v-for="(tugas_karyawan, i) in data.tugas_karyawan" :value="tugas_karyawan.id">
+                        {{ tugas_karyawan.karyawan.nip }} - {{ tugas_karyawan.karyawan.nama_karyawan }}
+                      </option>
+                    </select>
+                    <small class="text-danger" v-for="(msg, i) in form.update.errors.tugas_karyawan_id">
+                      {{ msg }}
+                    </small>
+                  </div>
                 </div>
                 <div class="col col-md-6">
                   <div class="form-group">
@@ -230,6 +242,7 @@ export default {
             cabang_id: mainData.cabang_id,
             cabang_asal_id: mainData.cabang_asal_id,
             outgoing_mutation_id: mainData.outgoing_mutation_id,
+            tugas_karyawan_id: mainData.tugas_karyawan_id,
             keterangan: mainData.keterangan,
             tanggal_form: mainData.tanggal_form,
             jam: mainData.jam,
@@ -262,6 +275,7 @@ export default {
 
           this.fetchOutgoingMutation()
           this.fetchOutgoingMutationDetail()
+          this.fetchTugasKaryawan(this.form.update.data.tugas_karyawan_id)
         })
     },
     pushDetail(item, gambar) {
@@ -381,7 +395,13 @@ export default {
       $('#successModal').modal('hide')
       this.$parent.queryData()
       this.$router.push({ name: 'formOperasional.incomingMutation' })
-    }
+    },
+    fetchTugasKaryawan(id) {
+      this.$axios.get('/ajax/v1/tugas_karyawan/cabang/?cabang_id=' + id + '&tanggal_penugasan=' + this.$moment().format('YYYY-MM-DD HH:mm:ss'))
+        .then(res => {
+            this.data.tugas_karyawan = res.data.container
+          })
+    },
   }
 }
 </script>
