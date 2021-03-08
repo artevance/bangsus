@@ -27,6 +27,11 @@ class SupplierMutation extends Model
     return $this->belongsTo('App\Http\Models\Cabang');
   }
 
+  public function tugas_karyawan()
+  {
+    return $this->belongsTo('App\Http\Models\TugasKaryawan');
+  }
+
   public function cabang_asal()
   {
     return $this->belongsTo('App\Http\Models\Cabang');
