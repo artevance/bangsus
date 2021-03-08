@@ -30,13 +30,13 @@
                   </div>
                   <div class="form-group">
                     <label>Karyawan</label>
-                    <select class="form-control" v-model="form.update.data.tugas_karyawan_id" disabled>
+                    <select class="form-control" v-model="form.detail.data.tugas_karyawan_id" disabled>
                       <option value="null">-- Pilih Karyawan --</option>
                       <option v-for="(tugas_karyawan, i) in data.tugas_karyawan" :value="tugas_karyawan.id">
                         {{ tugas_karyawan.karyawan.nip }} - {{ tugas_karyawan.karyawan.nama_karyawan }}
                       </option>
                     </select>
-                    <small class="text-danger" v-for="(msg, i) in form.update.errors.tugas_karyawan_id">
+                    <small class="text-danger" v-for="(msg, i) in form.detail.errors.tugas_karyawan_id">
                       {{ msg }}
                     </small>
                   </div>
@@ -131,6 +131,7 @@ export default {
         supplier: [],
         cabang: [],
         allCabang: [],
+        tugas_karyawan: [],
       }
     }
   },
