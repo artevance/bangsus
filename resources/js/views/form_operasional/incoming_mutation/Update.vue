@@ -397,7 +397,7 @@ export default {
       this.$router.push({ name: 'formOperasional.incomingMutation' })
     },
     fetchTugasKaryawan(id) {
-      this.$axios.get('/ajax/v1/tugas_karyawan/cabang/?cabang_id=' + id + '&tanggal_penugasan=' + this.$moment().format('YYYY-MM-DD HH:mm:ss'))
+      this.$axios.get('/ajax/v1/tugas_karyawan/cabang/?cabang_id=' + id + '&tanggal_penugasan=' + this.$moment().format('YYYY-MM-DD'))
         .then(res => {
             this.data.tugas_karyawan = res.data.container
           })

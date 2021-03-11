@@ -38,13 +38,13 @@
                   </div>
                   <div class="form-group">
                     <label>Karyawan</label>
-                    <select class="form-control" v-model="form.update.data.tugas_karyawan_id" disabled>
+                    <select class="form-control" v-model="form.detail.data.tugas_karyawan_id" disabled>
                       <option value="null">-- Pilih Karyawan --</option>
                       <option v-for="(tugas_karyawan, i) in data.tugas_karyawan" :value="tugas_karyawan.id">
                         {{ tugas_karyawan.karyawan.nip }} - {{ tugas_karyawan.karyawan.nama_karyawan }}
                       </option>
                     </select>
-                    <small class="text-danger" v-for="(msg, i) in form.update.errors.tugas_karyawan_id">
+                    <small class="text-danger" v-for="(msg, i) in form.detail.errors.tugas_karyawan_id">
                       {{ msg }}
                     </small>
                   </div>
@@ -235,7 +235,7 @@ export default {
       return this.$axios.get('/ajax/v1/master/cabang')
     },
     fetchTugasKaryawan(id) {
-      this.$axios.get('/ajax/v1/tugas_karyawan/cabang/?cabang_id=' + id + '&tanggal_penugasan=' + this.$moment().format('YYYY-MM-DD HH:mm:ss'))
+      this.$axios.get('/ajax/v1/tugas_karyawan/cabang/?cabang_id=' + id + '&tanggal_penugasan=' + this.$moment().format('YYYY-MM-DD'))
         .then(res => {
             this.data.tugas_karyawan = res.data.container
           })
