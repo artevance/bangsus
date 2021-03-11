@@ -275,7 +275,7 @@ export default {
 
           this.fetchOutgoingMutation()
           this.fetchOutgoingMutationDetail()
-          this.fetchTugasKaryawan(this.form.update.data.tugas_karyawan_id)
+          this.fetchTugasKaryawan(this.form.update.data.cabang_id)
         })
     },
     pushDetail(item, gambar) {
