@@ -47,6 +47,7 @@
                       <th>Cabang</th>
                       <th>Cabang Asal</th>
                       <th>Status</th>
+                      <th>Penerima</th>
                       <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -56,6 +57,7 @@
                         <td>{{ incoming_mutation.cabang.kode_cabang }} - {{ incoming_mutation.cabang.cabang }}</td>
                         <td>{{ incoming_mutation.cabang_asal.kode_cabang }} - {{ incoming_mutation.cabang_asal.cabang }}</td>
                         <td>{{ incoming_mutation.status || '' }}</td>
+                        <td>{{ incoming_mutation.tugas_karyawan.karyawan.nama_karyawan }}</td>
                         <td>
                           <router-link class="badge badge-primary"
                             :to="{ name: 'formOperasional.dailyIncomingMutation.detail', params: { id: incoming_mutation.id } }"

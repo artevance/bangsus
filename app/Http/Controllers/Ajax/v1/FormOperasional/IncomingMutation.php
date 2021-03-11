@@ -31,7 +31,7 @@ class IncomingMutation extends Controller
     return $this
       ->data(IncomingMutationModel::with([
         'cabang',
-        'd'
+        'd',
       ]))
       ->response(200);
   }
@@ -120,7 +120,9 @@ class IncomingMutation extends Controller
         IncomingMutationModel::with([
           'cabang',
           'cabang_asal',
-          'd'
+          'd',
+          'tugas_karyawan',
+          'tugas_karyawan.karyawan',
         ])
         ->where('tanggal_form', $query['tanggal_form'])
         ->orderBy('jam')
