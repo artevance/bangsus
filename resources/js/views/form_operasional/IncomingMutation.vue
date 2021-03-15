@@ -167,6 +167,37 @@
                     </tbody>
                   </table>
                 </div>
+                <h5 class="mt-5">Mutasi Keluar akan datang</h5>
+                <div class="table-responsive mt-2">
+                  <table class="table table-hover" v-if="$access('formOperasional.outgoingMutation', 'read')">
+                    <thead>
+                      <th>#</th>
+                      <th>Tanggal</th>
+                      <th>Jam</th>
+                      <th>Cabang Asal</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(outgoing_mutation, i) in data.outgoing_mutation">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ outgoing_mutation.tanggal_form }}</td>
+                        <td>{{ outgoing_mutation.jam }}</td>
+                        <td>{{ outgoing_mutation.cabang.kode_cabang }} - {{ outgoing_mutation.cabang.cabang }}</td>
+                        <td>{{ outgoing_mutation.status || '' }}</td>
+                        <td>
+                          <router-link class="badge badge-primary"
+                            :to="{ name: 'formOperasional.outgoingMutation.detail', params: { id: outgoing_mutation.id } }"
+                            v-if="
+                              $access('formOperasional.outgoingMutation', 'detail')
+                            ">
+                            Detail
+                          </router-link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </transition>
           </div>
@@ -267,6 +298,7 @@ export default {
       data: {
         cabang: [],
         incoming_mutation: [],
+        outgoing_mutation: [],
         tugas_karyawan: [],
         aktivitas_marketing: [],
         satuan: [],
@@ -404,7 +436,11 @@ export default {
             })
           }
           this.data.incoming_mutation = res.data.container
-          if (withSpinner) this.state.table.loading = false
+          this.fetchSecondaryData()
+            .then(res => {
+              this.data.outgoing_mutation = res.data.container
+              if (withSpinner) this.state.table.loading = false
+            })
         })
         .catch(err => {})
     },
@@ -414,6 +450,9 @@ export default {
      */
     fetchMainData() {
       return this.$axios.get('/ajax/v1/form_operasional/incoming_mutation/cabang_harian', { params: this.query.incoming_mutation })
+    },
+    fetchSecondaryData() {
+      return this.$axios.get('/ajax/v1/form_operasional/outgoing_mutation/for_incoming_mutation_index', { params: { cabang_tujuan_id: this.query.incoming_mutation.cabang_id } })
     },
     fetchCabang() {
       return this.$axios.get('/ajax/v1/master/cabang/terotorisasi')

@@ -36,6 +36,18 @@
                       </option>
                     </select>
                   </div>
+                  <div class="form-group">
+                    <label>Karyawan</label>
+                    <select class="form-control" v-model="form.detail.data.tugas_karyawan_id" disabled>
+                      <option value="null">-- Pilih Karyawan --</option>
+                      <option v-for="(tugas_karyawan, i) in data.tugas_karyawan" :value="tugas_karyawan.id">
+                        {{ tugas_karyawan.karyawan.nip }} - {{ tugas_karyawan.karyawan.nama_karyawan }}
+                      </option>
+                    </select>
+                    <small class="text-danger" v-for="(msg, i) in form.detail.errors.tugas_karyawan_id">
+                      {{ msg }}
+                    </small>
+                  </div>
                 </div>
                 <div class="col col-md-6">
                   <div class="form-group">
@@ -127,6 +139,7 @@ export default {
         supplier: [],
         cabang: [],
         allCabang: [],
+        tugas_karyawan: [],
       }
     }
   },
@@ -148,7 +161,7 @@ export default {
             id: mainData.id,
             cabang_id: mainData.cabang_id,
             cabang_tujuan_id: mainData.cabang_tujuan_id,
-            supplier_id: mainData.supplier_id,
+            tugas_karyawan_id: mainData.tugas_karyawan_id,
             keterangan: mainData.keterangan,
             tanggal_form: mainData.tanggal_form,
             jam: mainData.jam,
@@ -173,6 +186,7 @@ export default {
           })
           this.data.cabang = res[1].data.container
           this.data.allCabang = res[2].data.container
+          this.fetchTugasKaryawan(this.form.detail.data.cabang_id)
 
           this.state.page.loading = false
         })
@@ -220,6 +234,12 @@ export default {
     },
     fetchAllCabang() {
       return this.$axios.get('/ajax/v1/master/cabang')
+    },
+    fetchTugasKaryawan(id) {
+      this.$axios.get('/ajax/v1/tugas_karyawan/cabang/?cabang_id=' + id + '&tanggal_penugasan=' + this.$moment().format('YYYY-MM-DD'))
+        .then(res => {
+            this.data.tugas_karyawan = res.data.container
+          })
     },
   }
 }

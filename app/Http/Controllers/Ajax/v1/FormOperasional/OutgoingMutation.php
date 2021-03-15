@@ -36,6 +36,29 @@ class OutgoingMutation extends Controller
       ->response(200);
   }
 
+  public function forIncomingMutationIndex(Request $request)
+  {
+    return $this
+      ->data(
+        OutgoingMutationModel::with([
+          'cabang',
+          'd',
+          'd.barang',
+          'd.barang.satuan',
+          'd.barang.satuan_dua',
+          'd.barang.satuan_tiga',
+          'd.barang.satuan_empat',
+          'd.barang.satuan_lima',
+        ])
+          ->where([
+            'cabang_tujuan_id' => $request->query('cabang_tujuan_id'),
+          ])
+          ->whereDoesntHave('incoming_mutation')
+          ->get()
+      )
+      ->response(200);
+  }
+
   public function forIncomingMutation(Request $request)
   {
     return $this
@@ -78,6 +101,8 @@ class OutgoingMutation extends Controller
 
     return $this->data(OutgoingMutationModel::with([
       'cabang',
+      'tugas_karyawan',
+      'tugas_karyawan.karyawan',
       'd',
       'd.barang',
       'd.barang.satuan',
@@ -104,6 +129,7 @@ class OutgoingMutation extends Controller
       ['Mutasi Keluar'],
       ['Asal', $outgoingMutation->cabang->kode_cabang . ' - ' . $outgoingMutation->cabang->cabang],
       ['Tujuan', $outgoingMutation->cabang_tujuan->kode_cabang . ' - ' . $outgoingMutation->cabang_tujuan->cabang],
+      ['Penanggung Jawab', $outgoingMutation->tugas_karyawan->karyawan->nama_karyawan],
       [$outgoingMutation->tanggal_form],
       [],
       ['Kode Barang', 'Nama Barang', 'Qty', 'Satuan', 'Keterangan'],
@@ -202,6 +228,8 @@ class OutgoingMutation extends Controller
         OutgoingMutationModel::with([
           'cabang',
           'cabang_tujuan',
+          'tugas_karyawan',
+          'tugas_karyawan.karyawan',
           'd',
           'incoming_mutation',
           'incoming_mutation.d',
@@ -224,6 +252,8 @@ class OutgoingMutation extends Controller
         OutgoingMutationModel::with([
           'cabang',
           'cabang_tujuan',
+          'tugas_karyawan',
+          'tugas_karyawan.karyawan',
           'd',
           'incoming_mutation',
           'incoming_mutation.d',
@@ -245,10 +275,12 @@ class OutgoingMutation extends Controller
     $v = Validator::make($request->only(
       'cabang_id',
       'cabang_tujuan_id',
+      'tugas_karyawan_id',
       'd'
     ), [
       'cabang_id' => 'required|exists:cabang,id',
       'cabang_tujuan_id' => 'required|exists:cabang,id',
+      'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|gt:0|max:10000000000',
       'd.*.level_satuan' => 'required',
@@ -263,6 +295,7 @@ class OutgoingMutation extends Controller
     $outgoingMutationModel->jam = date('H:i:s');
     $outgoingMutationModel->cabang_id = $request->input('cabang_id');
     $outgoingMutationModel->cabang_tujuan_id = $request->input('cabang_tujuan_id');
+    $outgoingMutationModel->tugas_karyawan_id = $request->input('tugas_karyawan_id');
     $outgoingMutationModel->approve = false;
     $outgoingMutationModel->user_id = $request->user()->id;
     $outgoingMutationModel->save();
