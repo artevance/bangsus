@@ -173,7 +173,7 @@ class SupplierMutation extends Controller
       'd.*.qty' => 'required|numeric|gt:0|max:10000000000',
       'd.*.level_satuan' => 'required',
       'd.*.harga_barang' => 'required|max:10000000000',
-      'd.*.keterangan' => 'required_if:d.*.barang_id,1,10,16|max:200',
+      'd.*.keterangan' => 'required|max:200',
       'd.*.gambar' => 'required'
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
