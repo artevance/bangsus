@@ -25,6 +25,9 @@
                     <td>{{ barang.kode_barang }}</td>
                     <td>{{ barang.nama_barang }}</td>
                     <td>
+                      <a class="badge badge-info" @click="showDetailModal(barang.id)" href="#" v-if="$access('master.barang', 'detail')">
+                        Detail
+                      </a>
                       <a class="badge badge-warning" @click="showUpdateModal(barang.id)" href="#" v-if="$access('master.barang', 'update')">
                         Ubah
                       </a>
@@ -221,6 +224,133 @@
                 <spinner-component size="sm" color="light" v-if="form.create.loading"/>
                 Tambah
               </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" data-entity="barang" data-method="detail" data-backdrop="static" data-keyboard="false" tabindex="-1" v-if="$access('master.barang', 'detail')">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form @submit.prevent="detail">
+            <div class="modal-header">
+              <h5 class="modal-title">Detail Barang</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Kode Barang</label>
+                <input type="text" class="form-control" v-model="form.detail.data.kode_barang" readonly>
+                <small class="text-danger" v-for="(msg, index) in form.detail.errors.kode_barang" :key="index">
+                  {{ msg }}
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Nama Barang</label>
+                <input type="text" class="form-control" v-model="form.detail.data.nama_barang" readonly>
+                <small class="text-danger" v-for="(msg, index) in form.detail.errors.nama_barang" :key="index">
+                  {{ msg }}
+                </small>
+              </div>
+              <div class="form-group row">
+                <div class="col">
+                  <label>Satuan</label>
+                  <select class="form-control" v-model="form.detail.data.satuan_id" disabled>
+                    <option v-for="satuan in data.satuan" :value="satuan.id">
+                      {{ satuan.satuan }}
+                    </option>
+                  </select>
+                  <small class="text-danger" v-for="(msg, index) in form.detail.errors.satuan_id" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="col">
+                  <label>Rasio 1</label>
+                  <input type="number" class="form-control" readonly value="1">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col">
+                  <label>Satuan 2</label>
+                  <select class="form-control" v-model="form.detail.data.satuan_dua_id" disabled>
+                    <option v-for="satuan in data.satuan" :value="satuan.id">
+                      {{ satuan.satuan }}
+                    </option>
+                  </select>
+                  <small class="text-danger" v-for="(msg, index) in form.detail.errors.satuan_dua_id" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="col">
+                  <label>Rasio 2</label>
+                  <input type="number" class="form-control" v-model="form.detail.data.rasio_dua" readonly>
+                  <small class="text-danger" v-for="(msg, index) in form.detail.errors.rasio_dua" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col">
+                  <label>Satuan 3</label>
+                  <select class="form-control" v-model="form.detail.data.satuan_tiga_id" disabled>
+                    <option v-for="satuan in data.satuan" :value="satuan.id">
+                      {{ satuan.satuan }}
+                    </option>
+                  </select>
+                  <small class="text-danger" v-for="(msg, index) in form.detail.errors.satuan_tiga_id" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="col">
+                  <label>Rasio 3</label>
+                  <input type="number" class="form-control" v-model="form.detail.data.rasio_tiga" readonly>
+                  <small class="text-danger" v-for="(msg, index) in form.detail.errors.rasio_tiga" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col">
+                  <label>Satuan 4</label>
+                  <select class="form-control" v-model="form.detail.data.satuan_empat_id" disabled>
+                    <option v-for="satuan in data.satuan" :value="satuan.id">
+                      {{ satuan.satuan }}
+                    </option>
+                  </select>
+                  <small class="text-danger" v-for="(msg, index) in form.detail.errors.satuan_empat_id" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="col">
+                  <label>Rasio 4</label>
+                  <input type="number" class="form-control" v-model="form.detail.data.rasio_empat" readonly>
+                  <small class="text-danger" v-for="(msg, index) in form.detail.errors.rasio_empat" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col">
+                  <label>Satuan 5</label>
+                  <select class="form-control" v-model="form.detail.data.satuan_lima_id" disabled>
+                    <option v-for="satuan in data.satuan" :value="satuan.id">
+                      {{ satuan.satuan }}
+                    </option>
+                  </select>
+                  <small class="text-danger" v-for="(msg, index) in form.detail.errors.satuan_lima_id" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+                <div class="col">
+                  <label>Rasio 5</label>
+                  <input type="number" class="form-control" v-model="form.detail.data.rasio_lima" readonly>
+                  <small class="text-danger" v-for="(msg, index) in form.detail.errors.rasio_lima" :key="index">
+                    {{ msg }}
+                  </small>
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -448,6 +578,28 @@ export default {
           errors: {},
           loading: false
         },
+        detail: {
+          data: {
+            id: null,
+            kode_barang: '',
+            nama_barang: '',
+            satuan_id: null,
+            satuan_dua_id: null,
+            rasio_dua: 0,
+            satuan_tiga_id: null,
+            rasio_tiga: 0,
+            satuan_empat_id: null,
+            rasio_empat: 0,
+            satuan_lima_id: null,
+            rasio_lima: 0,
+            semua_tipe_cabang: true,
+            tipe_cabang_id: [],
+            semua_tipe_stok_opname: true,
+            tipe_stok_opname_id: [],
+          },
+          errors: {},
+          loading: false
+        },
         update: {
           data: {
             id: null,
@@ -532,6 +684,41 @@ export default {
           $('[data-entity="barang"][data-method="create"]').modal('show')
         })
         .catch(err => {})
+    },
+    showDetailModal(id) {
+      this.$axios.get('/ajax/v1/master/barang/' + id)
+        .then(res => {
+          this.form.detail.data = {
+            id: id,
+            kode_barang: res.data.container.kode_barang,
+            nama_barang: res.data.container.nama_barang,
+            satuan_id: res.data.container.satuan_id,
+            satuan_dua_id: res.data.container.satuan_dua_id,
+            rasio_dua: res.data.container.rasio_dua,
+            satuan_tiga_id: res.data.container.satuan_tiga_id,
+            rasio_tiga: res.data.container.rasio_tiga,
+            satuan_empat_id: res.data.container.satuan_empat_id,
+            rasio_empat: res.data.container.rasio_empat,
+            satuan_lima_id: res.data.container.satuan_lima_id,
+            rasio_lima: res.data.container.rasio_lima,
+            semua_tipe_cabang: res.data.container.semua_tipe_cabang,
+            tipe_cabang_id: _.map(res.data.container.opname_barang_tipe_cabang, val => val.tipe_cabang_id),
+            semua_tipe_stok_opname: res.data.container.semua_tipe_stok_opname,
+            tipe_stok_opname_id: _.map(res.data.container.barang_tipe_stok_opname, val => val.tipe_stok_opname_id)
+          }
+          Promise.all([
+            this.$axios.get('/ajax/v1/master/satuan'),
+            this.$axios.get('/ajax/v1/master/tipe_cabang'),
+            this.$axios.get('/ajax/v1/master/tipe_stok_opname'),
+          ])
+            .then(res => {
+              this.data.satuan = res[0].data.container
+              this.data.tipe_cabang = res[1].data.container
+              this.data.tipe_stok_opname = res[2].data.container
+              $('[data-entity="barang"][data-method="detail"]').modal('show')
+            })
+            .catch(err => {})
+        })
     },
     showUpdateModal(id) {
       this.$axios.get('/ajax/v1/master/barang/' + id)

@@ -199,6 +199,7 @@ export default {
         access: true,
         create: true,
         read: true,
+        detail: true,
         update: true
       },
       supplierMutasi: {

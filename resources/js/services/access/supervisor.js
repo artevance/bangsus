@@ -199,6 +199,7 @@ export default {
         access: true,
         create: false,
         read: true,
+        detail: true,
         update: false
       },
     }
