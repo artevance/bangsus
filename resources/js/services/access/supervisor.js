@@ -3,203 +3,203 @@ export default {
     access: true
   },
   master: {
-    access: false,
+    access: true,
     children: {
       tipeKontak: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       tipeAlamat: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       tipeFotoKaryawan: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       jabatan: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       divisi: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       tipeCabang: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       cabang: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       tipeAbsensi: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       satuan: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       supplier: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       itemGoreng: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       tipeProsesSambal: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       tipeProsesTepung: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       tipeProsesMinyak: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       tipeProsesMargarin: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       tipeProsesLPG: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       qualityControl: {
-        access: true,
-        create: true,
-        read: true,
-        update: true,
+        access: false,
+        create: false,
+        read: false,
+        update: false,
         children: {
           parameterQualityControl: {
-            access: true,
-            create: true,
-            read: true,
-            update: true,
+            access: false,
+            create: false,
+            read: false,
+            update: false,
             children: {
               opsiParameterQualityControl: {
-                access: true,
-                create: true,
-                read: true,
-                update: true,
+                access: false,
+                create: false,
+                read: false,
+                update: false,
               }
             }
           }
         }
       },
       aktivitasKaryawan: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       atributKaryawan: {
-        access: true,
-        create: true,
-        read: true,
-        update: true,
+        access: false,
+        create: false,
+        read: false,
+        update: false,
         children: {
           parameterAtributKaryawan: {
-            access: true,
-            create: true,
-            read: true,
-            update: true
+            access: false,
+            create: false,
+            read: false,
+            update: false
           }
         }
       },
       kegiatanKebersihan: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       generalCleaning: {
-        access: true,
-        create: true,
-        read: true,
-        update: true,
+        access: false,
+        create: false,
+        read: false,
+        update: false,
         children: {
           kegiatanGeneralCleaning: {
-            access: true,
-            create: true,
-            read: true,
-            update: true
+            access: false,
+            create: false,
+            read: false,
+            update: false
           }
         }
       },
       kelompokFoto: {
-        access: true,
-        create: true,
-        read: true,
-        update: true,
+        access: false,
+        create: false,
+        read: false,
+        update: false,
         children: {
           dendaFoto: {
-            access: true,
-            create: true,
-            read: true,
-            update: true
+            access: false,
+            create: false,
+            read: false,
+            update: false
           }
         }
       },
       kelompokLaporanFoto: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       aktivitasMarketing: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       itemMarketing: {
-        access: true,
-        create: true,
-        read: true,
-        update: true
+        access: false,
+        create: false,
+        read: false,
+        update: false
       },
       barang: {
         access: true,
-        create: true,
+        create: false,
         read: true,
-        update: true
+        update: false
       },
     }
   },
