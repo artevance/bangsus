@@ -582,6 +582,11 @@ Route::prefix('v1')->namespace('v1')->group(function () {
           Route::get('', 'LaporanFormDendaFoto@index');
         });
       });
+      Route::prefix('laporan_khusus')->namespace('LaporanKhusus')->group(function () {
+        Route::prefix('laporan_pembelian')->group(function () {
+          Route::get('', 'LaporanPembelian@index');
+        });
+      });
     });
   });
 });

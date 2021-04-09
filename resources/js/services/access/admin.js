@@ -1457,7 +1457,15 @@ export default {
             access: true
           }
         }
-      }
+      },
+      laporanKhusus: {
+        access: true,
+        children: {
+          laporanPembelian: {
+            access: true
+          },
+        }
+      },
     }
   }
 }

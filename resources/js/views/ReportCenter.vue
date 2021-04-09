@@ -55,6 +55,13 @@ export default {
             { title: 'Laporan Form Denda Foto', to: 'reportCenter.laporanFormOperasional.laporanFormDendaFoto', icon: 'fas fa-hammer', disabled: false },
           ]
         },
+        {
+          title: 'Laporan Khusus',
+          to: 'reportCenter.laporanKhusus',
+          children: [
+            { title: 'Laporan Pembelian', to: 'reportCenter.laporanKhusus.laporanPembelian', icon: 'far fa-shopping-cart', disabled: false },
+          ]
+        }
       ]
     }
   }

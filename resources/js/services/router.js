@@ -974,7 +974,24 @@ const routes = [
                 beforeEnter: Multiguard([middleware.auth, middleware.access]),
               },
             ]
-          }
+          },
+          {
+            path: 'laporan_khusus',
+            name: 'reportCenter.laporanKhusus',
+            component: { template: '<router-view></router-view>' },
+            meta: { layout: 'default', title: 'Laporan Khusus', sidebar: 'reportCenter' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            redirect: { name: 'reportCenter.laporanKhusus.laporanKeterlambatan' },
+            children: [
+              {
+                path: 'laporan_pembelian',
+                name: 'reportCenter.laporanKhusus.laporanPembelian',
+                component: require('../views/report_center/laporan_khusus/LaporanPembelian').default,
+                meta: { layout: 'default', title: 'Laporan Pembelian', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+            ]
+          },
         ]
       }
     ]
