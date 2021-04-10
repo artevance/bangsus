@@ -158,6 +158,8 @@ class LaporanPembelian
           }
         }
       }
+
+      $p->nHarga1 = round($p->nHarga1, 2);
     });
 
     $branches = $pembelian->pluck('cKetGudang')->unique()->values()->all();
@@ -168,7 +170,7 @@ class LaporanPembelian
     foreach ($items as $item) {
       $row = [];
       $row['nama_barang'] = $item;
-      $row['lowest_price'] = (float) $pembelian->where('cNmBrg', $item)->min('nHarga1');
+      $row['lowest_price'] = round((float) $pembelian->where('cNmBrg', $item)->min('nHarga1'), 2);
       $rowPrices = [];
       foreach ($branches as $branch) {
         $rowPrice = $pembelian
