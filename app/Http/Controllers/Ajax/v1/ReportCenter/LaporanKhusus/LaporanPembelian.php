@@ -179,7 +179,7 @@ class LaporanPembelian
           ->min('nHarga1');
 
         $rowPrice = ! is_null($rowPrice) ? (float) $rowPrice : '-';
-        $percentage = $rowPrice == '-' ? null : ($rowPrice - $row['lowest_price']) / 100;
+        $percentage = $rowPrice == '-' ? null : ($rowPrice - $row['lowest_price']) / $rowPrice * 100;
 
         if ($percentage == null) :
           $range = 0;
