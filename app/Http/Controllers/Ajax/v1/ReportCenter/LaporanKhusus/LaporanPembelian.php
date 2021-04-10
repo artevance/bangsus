@@ -145,7 +145,11 @@ class LaporanPembelian
                 $rasio = $barang->rasio_lima ?? 1;
                 break;
             }
-            $p->nHarga1 /= $rasio;
+            try {
+              $p->nHarga1 /= $rasio;
+            } catch (\Exception $e) {
+              dd($barang, $rasio);
+            }
           }
         }
       }
