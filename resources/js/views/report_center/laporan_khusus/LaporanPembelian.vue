@@ -69,8 +69,17 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{ barang.nama_barang }}</td>
                       <td>{{ barang.lowest_price }}</td>
-                      <td v-for="(price, j) in barang.prices">
-                        {{ price }}
+                      <td
+                        v-for="(price, j) in barang.prices"
+                        :class="{
+                          'table-warning': price.range == 1,
+                          'table-orange': price.range == 2,
+                          'table-pink': price.range == 3,
+                          'table-danger': price.range == 4,
+                          'table-brown': price.range == 5,
+                        }"
+                      >
+                        {{ price.price }}
                       </td>
                     </tr>
                   </tbody>
@@ -137,3 +146,15 @@ export default {
   }
 }
 </script>
+
+<style lang="css">
+  .table-pink {
+    background-color: pink;
+  }
+  .table-orange {
+    background-color: orange;
+  }
+  .table-brown {
+    background-color: brown;
+  }
+</style>
