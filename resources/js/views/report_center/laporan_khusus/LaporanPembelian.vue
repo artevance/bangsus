@@ -76,7 +76,7 @@
                           'table-orange': price.range == 2,
                           'table-pink': price.range == 3,
                           'table-red text-light': price.range == 4,
-                          'table-violet text-light': price.range == 5,
+                          'table-purple text-light': price.range == 5,
                         }"
                       >
                         {{ price.price }}
@@ -157,7 +157,7 @@ export default {
   .table-orange {
     background-color: orange;
   }
-  .table-violet {
-    background-color: violet;
+  .table-purple {
+    background-color: purple;
   }
 </style>
