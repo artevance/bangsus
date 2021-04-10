@@ -38,17 +38,21 @@ class LaporanPembelian
     $pembelian->each(function ($p) {
       $barang = Barang::where('kode_barang', $p->cKdBrg)->first();
 
-      if ($p->nqty2 != 0) {
-        $p->nHarga1 /= $barang->second_ratio;
-      }
-      if ($p->nqty3 != 0) {
-        $p->nHarga1 /= $barang->third_ratio;
-      }
-      if ($p->nqty4 != 0) {
-        $p->nHarga1 /= $barang->fourth_ratio;
-      }
-      if ($p->nqty5 != 0) {
-        $p->nHarga1 /= $barang->fifth_ratio;
+      try {
+        if ($p->nqty2 != 0) {
+          $p->nHarga1 /= $barang->second_ratio;
+        }
+        if ($p->nqty3 != 0) {
+          $p->nHarga1 /= $barang->third_ratio;
+        }
+        if ($p->nqty4 != 0) {
+          $p->nHarga1 /= $barang->fourth_ratio;
+        }
+        if ($p->nqty5 != 0) {
+          $p->nHarga1 /= $barang->fifth_ratio;
+        }
+      } catch (\Exception $e) {
+        dd($barang, $e);
       }
     });
 
