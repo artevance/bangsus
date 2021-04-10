@@ -75,7 +75,7 @@
                           'table-warning': price.range == 1,
                           'table-orange': price.range == 2,
                           'table-pink': price.range == 3,
-                          'table-danger text-light': price.range == 4,
+                          'table-red text-light': price.range == 4,
                           'table-violet text-light': price.range == 5,
                         }"
                       >
