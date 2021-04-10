@@ -98,14 +98,19 @@ class LaporanPembelian
       switch (true) {
         case $p->nqty1 != 0:
           $levelPembelian = 1;
+          break;
         case $p->nqty2 != 0:
           $levelPembelian = 2;
+          break;
         case $p->nqty3 != 0:
           $levelPembelian = 3;
+          break;
         case $p->nqty4 != 0:
           $levelPembelian = 4;
+          break;
         case $p->nqty5 != 0:
           $levelPembelian = 5;
+          break;
       }
 
       if ($levelSatuan != $levelPembelian) {
