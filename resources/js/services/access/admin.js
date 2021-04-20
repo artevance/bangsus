@@ -1461,7 +1461,10 @@ export default {
       laporanKhusus: {
         access: true,
         children: {
-          laporanPembelian: {
+          laporanPembelianBarang: {
+            access: true
+          },
+          laporanPembelianCabang: {
             access: true
           },
         }

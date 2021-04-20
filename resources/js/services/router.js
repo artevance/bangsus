@@ -984,10 +984,17 @@ const routes = [
             redirect: { name: 'reportCenter.laporanKhusus.laporanKeterlambatan' },
             children: [
               {
-                path: 'laporan_pembelian',
-                name: 'reportCenter.laporanKhusus.laporanPembelian',
-                component: require('../views/report_center/laporan_khusus/LaporanPembelian').default,
-                meta: { layout: 'default', title: 'Laporan Pembelian', sidebar: 'reportCenter' },
+                path: 'laporan_pembelian_cabang',
+                name: 'reportCenter.laporanKhusus.laporanPembelianCabang',
+                component: require('../views/report_center/laporan_khusus/LaporanPembelianCabang').default,
+                meta: { layout: 'default', title: 'Laporan Pembelian Cabang', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
+              {
+                path: 'laporan_pembelian_barang',
+                name: 'reportCenter.laporanKhusus.laporanPembelianBarang',
+                component: require('../views/report_center/laporan_khusus/LaporanPembelianBarang').default,
+                meta: { layout: 'default', title: 'Laporan Pembelian Barang', sidebar: 'reportCenter' },
                 beforeEnter: Multiguard([middleware.auth, middleware.access]),
               },
             ]

@@ -584,7 +584,10 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       });
       Route::prefix('laporan_khusus')->namespace('LaporanKhusus')->group(function () {
         Route::prefix('laporan_pembelian')->group(function () {
-          Route::get('', 'LaporanPembelian@index');
+          Route::get('cabang', 'LaporanPembelian@cabang');
+          Route::get('barang', 'LaporanPembelian@barang');
+          Route::get('by_cabang', 'LaporanPembelian@byCabang');
+          Route::get('by_barang', 'LaporanPembelian@byBarang');
         });
       });
     });
