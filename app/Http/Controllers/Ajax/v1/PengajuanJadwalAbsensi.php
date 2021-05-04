@@ -114,7 +114,7 @@ class PengajuanJadwalAbsensi extends Controller
       ->whereYear('tanggal_absensi', $request->input('year'))->get()->toArray();
 
     foreach ($models as $model) {
-      AbsensiModel::updateOrCreate([
+      Absensi::updateOrCreate([
         'tugas_karyawan_id' => $model->tugas_karyawan_id,
         'tipe_absensi_id' => $model->tipe_absensi_id,
         'tanggal_absensi' => $model->tanggal_absensi
