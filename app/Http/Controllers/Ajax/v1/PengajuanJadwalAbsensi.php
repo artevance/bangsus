@@ -111,7 +111,7 @@ class PengajuanJadwalAbsensi extends Controller
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
     $models = PengajuanJadwalAbsensiModel::whereMonth('tanggal_absensi', $request->input('month'))
-      ->whereYear('tanggal_absensi', $request->input('year'))->get()->toArray();
+      ->whereYear('tanggal_absensi', $request->input('year'))->get();
 
     foreach ($models as $model) {
       Absensi::updateOrCreate([
