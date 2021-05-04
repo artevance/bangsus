@@ -290,6 +290,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::post('', 'PengajuanJadwalAbsensi@store');
       Route::put('', 'PengajuanJadwalAbsensi@amend');
       Route::put('approve', 'PengajuanJadwalAbsensi@approve');
+      Route::put('approve_all', 'PengajuanJadwalAbsensi@approveAll');
       Route::delete('', 'PengajuanJadwalAbsensi@destroy');
     });
     Route::prefix('form_operasional')->namespace('FormOperasional')->group(function () {

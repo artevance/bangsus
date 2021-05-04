@@ -78,6 +78,10 @@
                 <i class="far fa-camera mr-1 fa-xs"></i>
                 Absensi Foto
               </router-link>
+              <a class="btn btn-secondary mt-2" v-if="$access('absensi.acceptSchedule', 'access')" href="#" @click="showAcceptScheduleModal">
+                <i class="far fa-calendar mr-1 fa-xs"></i>
+                Terima Semua Pengajuan Jadwal
+              </a>
               <div class="table-responsive mt-2">
                 <table class="table table-hover" v-if="$access('absensi', 'read')">
                   <thead>
@@ -445,6 +449,29 @@
           </div>
         </div>
       </div>
+      <div class="modal fade" data-entity="absensi" data-method="acceptAllSchedule" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form @submit.prevent="acceptAllSchedule">
+              <div class="modal-header">
+                <h5 class="modal-title">Terima Semua Pengajuan Jadwal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" :disabled="form.accept_all_schedule.loading">
+                  <spinner-component size="sm" color="light" v-if="form.accept_all_schedule.loading"/>
+                  Terima
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
     <router-view v-else></router-view>
   </transition>
@@ -531,7 +558,15 @@ export default {
             errors: {},
             loading: false
           }
-        }
+        },
+        accept_all_schedule: {
+          data: {
+            month: null,
+            year: null,
+          },
+          errors: {},
+          loading: false
+        },
       },
       query: {
         absensi: {
@@ -695,6 +730,12 @@ export default {
           $('[data-entity="pengajuanJadwalAbsensi"][data-method="destroy"]').modal('show')
         })
     },
+    showAcceptScheduleModal(id) {
+        $('[data-entity="absensi"][data-method="acceptAllSchedule"]').modal('show')
+        let tanggalAbsensi = this.query.tanggal_absensi
+        this.form.accept_all_schedule.data.month = this.$moment(tanggalAbsensi).format('MM')
+        this.form.accept_all_schedule.data.year = this.$moment(tanggalAbsensi).format('YYYY')
+    },
 
     /**
      *  Form request handler
@@ -836,6 +877,25 @@ export default {
         })
         .finally(() => {
           this.form.pengajuan_jadwal_absensi.destroy.loading = false
+        })
+    },
+    acceptAllSchedule() {
+      this.form.accept_all_schedule.loading = true
+      this.form.accept_all_schedule.errors = {}
+      this.$axios.put('/ajax/v1/pengajuan_jadwal_absensi/approve_all', this.form.accept_all_schedule.data)
+        .then(res => {
+          this.form.accept_all_schedule.data.month = null
+          this.form.accept_all_schedule.data.year = null
+          this.queryData(false)
+          $('[data-entity="absensi"][data-method="acceptAllSchedule"]').modal('hide')
+        })
+        .catch(err => {
+          if (err.response.status == 422) {
+            this.form.accept_all_schedule.errors = err.response.data.errors
+          }
+        })
+        .finally(() => {
+          this.form.accept_all_schedule.loading = false
         })
     }
   }

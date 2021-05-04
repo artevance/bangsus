@@ -257,6 +257,9 @@ export default {
         access: true,
         create: true
       },
+      acceptSchedule: {
+        access: true,
+      }
     }
   },
   formOperasional: {

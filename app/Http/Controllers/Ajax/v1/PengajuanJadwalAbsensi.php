@@ -99,6 +99,34 @@ class PengajuanJadwalAbsensi extends Controller
     $model->delete();
   }
 
+  public function approveAll(Request $request)
+  {
+    $v = Validator::make($request->only(
+      'month',
+      'year',
+    ), [
+      'month' => 'required|numeric|min:1|max:12',
+      'year' => 'required|numeric|min:1000|max:9999',
+    ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
+
+    $models = PengajuanJadwalAbsensiModel::whereMonth('tanggal_absensi', $request->input('month'))
+      ->whereYear('tanggal_absensi', $request->input('year'))->get()->toArray();
+
+    foreach ($models as $model) {
+      AbsensiModel::updateOrCreate([
+        'tugas_karyawan_id' => $model->tugas_karyawan_id,
+        'tipe_absensi_id' => $model->tipe_absensi_id,
+        'tanggal_absensi' => $model->tanggal_absensi
+      ], [
+        'jam_jadwal' => $model->jam_jadwal,
+        'user_id' => $request->input('user_id')
+      ]);
+
+      $model->delete();
+    }
+  }
+
   public function destroy(Request $request)
   {
     $v = Validator::make($request->only(

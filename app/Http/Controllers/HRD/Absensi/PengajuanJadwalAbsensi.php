@@ -179,6 +179,29 @@ class PengajuanJadwalAbsensi extends Controller
     $model->delete();
   }
 
+  public function approveAll(Request $request)
+  {
+    $request->validate([
+      'month' => 'required|integer|min:1|max:12',
+      'year' => 'required|integer|min:1000|max:9999',
+    ]);
+
+    $models = PengajuanJadwalAbsensiModel::whereMonth($request->input('month'))
+      ->whereYear($request->input('year'))->get()->toArray();
+    foreach ($models as $model) {
+      AbsensiModel::updateOrCreate([
+        'tugas_karyawan_id' => $model->tugas_karyawan_id,
+        'tipe_absensi_id' => $model->tipe_absensi_id,
+        'tanggal_absensi' => $model->tanggal_absensi
+      ], [
+        'jam_jadwal' => $model->jam_jadwal,
+        'user_id' => $request->input('user_id')
+      ]);
+
+      $model->delete();
+    }
+  }
+
   public function delete(Request $request)
   {
     $request->validate([
