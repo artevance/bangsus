@@ -120,7 +120,7 @@ class PengajuanJadwalAbsensi extends Controller
         'tanggal_absensi' => $model->tanggal_absensi
       ], [
         'jam_jadwal' => $model->jam_jadwal,
-        'user_id' => $request->input('user_id')
+        'user_id' => $request->user()->id,
       ]);
 
       $model->delete();
