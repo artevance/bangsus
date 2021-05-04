@@ -483,6 +483,14 @@
               </button>
             </div>
             <div class="modal-body">
+              <div class="form-group">
+                <label>Tanggal Awal</label>
+                <input type="date" class="form-control" v-model="form.generate.data.tanggal_awal">
+              </div>
+              <div class="form-group">
+                <label>Tanggal Akhir</label>
+                <input type="date" class="form-control" v-model="form.generate.data.tanggal_akhir">
+              </div>
               <table class="table table-hover">
                 <thead>
                   <th>Kelompok Foto</th>
@@ -573,7 +581,9 @@ export default {
         generate: {
           data: {
             tanggal_form: '',
-            detail: []
+            tanggal_awal: '',
+            tanggal_akhir: '',
+            detail: [],
           },
           errors: {},
           loading: false
