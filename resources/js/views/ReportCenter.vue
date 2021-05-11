@@ -61,6 +61,7 @@ export default {
           children: [
             { title: 'Laporan Pembelian Cabang', to: 'reportCenter.laporanKhusus.laporanPembelianCabang', icon: 'far fa-shopping-cart', disabled: false },
             { title: 'Laporan Pembelian Barang', to: 'reportCenter.laporanKhusus.laporanPembelianBarang', icon: 'fas fa-shopping-cart', disabled: false },
+            { title: 'Laporan Pembelian Range', to: 'reportCenter.laporanKhusus.laporanPembelianRange', icon: 'fad fa-shopping-cart', disabled: false },
           ]
         },
       ]

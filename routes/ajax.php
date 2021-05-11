@@ -589,6 +589,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
           Route::get('barang', 'LaporanPembelian@barang');
           Route::get('by_cabang', 'LaporanPembelian@byCabang');
           Route::get('by_barang', 'LaporanPembelian@byBarang');
+          Route::get('by_range', 'LaporanPembelian@byRange');
         });
       });
     });

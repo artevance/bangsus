@@ -1470,6 +1470,9 @@ export default {
           laporanPembelianCabang: {
             access: true
           },
+          laporanPembelianRange: {
+            access: true
+          },
         }
       },
     }

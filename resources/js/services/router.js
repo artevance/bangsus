@@ -997,6 +997,13 @@ const routes = [
                 meta: { layout: 'default', title: 'Laporan Pembelian Barang', sidebar: 'reportCenter' },
                 beforeEnter: Multiguard([middleware.auth, middleware.access]),
               },
+              {
+                path: 'laporan_pembelian_range',
+                name: 'reportCenter.laporanKhusus.laporanPembelianRange',
+                component: require('../views/report_center/laporan_khusus/LaporanPembelianRange').default,
+                meta: { layout: 'default', title: 'Laporan Pembelian Range', sidebar: 'reportCenter' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access]),
+              },
             ]
           },
         ]
