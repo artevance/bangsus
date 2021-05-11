@@ -136,7 +136,7 @@ class LaporanPembelian
             $p->nHarga1 *= $rasio;
           }
         } else {
-          for ($i = $levelSatuan; $i <= $levelPembelian; $i++) {
+          for ($i = $levelSatuan + 1; $i <= $levelPembelian; $i++) {
             $rasio = 1;
             switch ($i) {
               case 2:
@@ -162,6 +162,8 @@ class LaporanPembelian
       }
 
       $p->nHarga1 = round($p->nHarga1, 2);
+      $p->levelSatuan = $levelSatuan;
+      $p->levelPembelian = $levelPembelian;
     });
 
     $branches = $cabang == '*'
