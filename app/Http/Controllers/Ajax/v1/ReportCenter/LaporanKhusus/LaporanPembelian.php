@@ -291,7 +291,7 @@ class LaporanPembelian
             try {
               $p->nHarga1 /= $rasio;
             } catch (\Exception $e) {
-              dd($barang, $rasio, $levelSatuan, $levelPembelian, $i);
+              dd($barang, $rasio, $levelSatuan, $levelPembelian, $i, $p);
             }
           }
         }
