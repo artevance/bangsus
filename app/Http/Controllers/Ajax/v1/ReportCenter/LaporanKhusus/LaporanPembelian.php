@@ -12,7 +12,7 @@ class LaporanPembelian
   protected $items = [
     [
       'kode_barang' => 'BI-00022',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'BI-00016',
@@ -20,7 +20,7 @@ class LaporanPembelian
     ],
     [
       'kode_barang' => 'PR-00022',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'BI-00009',
@@ -52,7 +52,7 @@ class LaporanPembelian
     ],
     [
       'kode_barang' => 'BM-00001',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'SY-00132',
@@ -68,7 +68,7 @@ class LaporanPembelian
     ],
     [
       'kode_barang' => 'BM-00052',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'BI-00025',
@@ -76,7 +76,7 @@ class LaporanPembelian
     ],
     [
       'kode_barang' => 'BB-00014',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'BM-00009',
