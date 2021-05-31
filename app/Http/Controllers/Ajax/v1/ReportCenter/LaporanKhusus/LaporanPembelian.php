@@ -28,27 +28,27 @@ class LaporanPembelian
     ],
     [
       'kode_barang' => 'SY-00021',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'SY-00010',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'SY-00008',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'SY-00024',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'SY-00022',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'SY-00080',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'BM-00001',
@@ -56,15 +56,15 @@ class LaporanPembelian
     ],
     [
       'kode_barang' => 'SY-00132',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'SY-00036',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'SY-00019',
-      'level_satuan' => 1,
+      'level_satuan' => 2,
     ],
     [
       'kode_barang' => 'BM-00052',
