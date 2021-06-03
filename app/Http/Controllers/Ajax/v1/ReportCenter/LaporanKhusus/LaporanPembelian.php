@@ -176,7 +176,8 @@ class LaporanPembelian
     foreach ($items as $item) {
       $row = [];
       $row['nama_barang'] = $item;
-      $row['lowest_price'] = round((float) $pembelian->where('cNmBrg', $item)->min('nHarga1'), 2);
+      $barang = Barang::where('nama_barang', $item)->first();
+      $row['lowest_price'] = $barang->harga_standar ?? round((float) $pembelian->where('cNmBrg', $item)->min('nHarga1'), 2);
       $rowPrices = [];
       foreach ($branches as $branch) {
         $rowPrice = $pembelian
@@ -308,7 +309,8 @@ class LaporanPembelian
     foreach ($items as $item) {
       $row = [];
       $row['nama_barang'] = $item;
-      $row['lowest_price'] = round((float) $pembelian->where('cNmBrg', $item)->min('nHarga1'), 2);
+      $barang = Barang::where('nama_barang', $item)->first();
+      $row['lowest_price'] = $barang->harga_standar ?? round((float) $pembelian->where('cNmBrg', $item)->min('nHarga1'), 2);
       $rowPrices = [];
       foreach ($branches as $branch) {
         $rowPrice = $pembelian
@@ -449,7 +451,8 @@ class LaporanPembelian
     foreach ($items as $item) {
       $barang = [];
       $barang['nama_barang'] = $item;
-      $barang['lowest_price'] = round((float) $pembelians->where('cNmBrg', $item)->min('nHarga1'), 2);
+      $barang = Barang::where('nama_barang', $item)->first();
+      $row['lowest_price'] = $barang->harga_standar ?? round((float) $pembelian->where('cNmBrg', $item)->min('nHarga1'), 2);
       $barangCabang = [];
       $cwlps = $pembelians->where('cNmBrg', $item)->where('nHarga1', $barang['lowest_price'])->all();
 
