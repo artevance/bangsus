@@ -279,7 +279,7 @@ class OutgoingMutation extends Controller
       'd'
     ), [
       'cabang_id' => 'required|exists:cabang,id',
-      'cabang_tujuan_id' => 'required|exists:cabang,id',
+      'cabang_tujuan_id' => 'required|exists:cabang,id|different:cabang_id',
       'tugas_karyawan_id' => 'required|exists:tugas_karyawan,id',
       'd.*.barang_id' => 'required|exists:barang,id',
       'd.*.qty' => 'required|numeric|gt:0|max:10000000000',
