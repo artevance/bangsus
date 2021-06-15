@@ -20,7 +20,7 @@ class LaporanPembelian
     ],
     [
       'kode_barang' => 'PR-00022',
-      'level_satuan' => 2,
+      'level_satuan' => 1,
     ],
     [
       'kode_barang' => 'BI-00009',
