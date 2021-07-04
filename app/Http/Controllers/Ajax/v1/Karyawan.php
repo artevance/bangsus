@@ -13,6 +13,8 @@ use App\Http\Models\Karyawan as KaryawanModel;
 use App\Http\Models\Cabang;
 use App\Http\Models\TugasKaryawan;
 use App\Http\Models\Gambar;
+use App\Http\Models\UserCabang;
+use App\Http\Models\Role;
 
 use Intervention\Image\Facades\Image;
 
@@ -21,10 +23,23 @@ class Karyawan extends Controller
   public function index(Request $request)
   {
     return $this
-      ->data(KaryawanModel::with([
-        'golongan_darah',
-        'jenis_kelamin'
-      ])->where('nama_karyawan', 'like', '%' . $request->input('q') . '%') ->get())
+      ->data(
+        KaryawanModel::with([
+          'golongan_darah',
+          'jenis_kelamin'
+        ])
+          ->where('nama_karyawan', 'like', '%' . $request->input('q') . '%')
+          ->whereHas('tugas_karyawan', function ($query) use ($request) {
+            $query->whereIn(
+              'cabang_id',
+              Role::find($request->user()->role_id)->akses_semua_cabang
+                ? Cabang::all()->pluck('id')->all()
+                : UserCabang::where('user_id', $request->user()->id)->get()->pluck('cabang_id')->all()
+            );
+          })
+          ->orderBy('admitted')
+          ->get()
+        )
       ->response(200);
   }
 
@@ -52,7 +67,8 @@ class Karyawan extends Controller
       'jabatan_id',
       'tanggal_mulai',
       'no_finger',
-      'foto_ktp'
+      'foto_ktp',
+      'admit',
     ), [
       'nik' => 'nullable|integer|digits:16|unique:karyawan,nik',
       'nama_karyawan' => 'required|max:200',
@@ -65,7 +81,8 @@ class Karyawan extends Controller
       'jabatan_id' => 'required|exists:jabatan,id',
       'tanggal_mulai' => 'required|date_format:Y-m-d',
       'no_finger' => 'nullable|integer',
-      'foto_ktp' => 'nullable'
+      'foto_ktp' => 'nullable',
+      'admit' => 'required|boolean',
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -93,6 +110,7 @@ class Karyawan extends Controller
       Cabang::find($request->input('cabang_id'))['kode_cabang'],
       $request->input('tanggal_mulai')
     );
+    $model->admitted = $request->boolean('admit');
     $model->nama_karyawan = strtoupper($request->input('nama_karyawan'));
     $model->tempat_lahir = strtoupper($request->input('tempat_lahir'));
     $model->tanggal_lahir = $request->input('tanggal_lahir');
@@ -202,5 +220,19 @@ class Karyawan extends Controller
     $karyawan = KaryawanModel::find($request->input('id'));
     $karyawan->foto_ktp_id = $gambarModel->id;
     $karyawan->save();
+  }
+
+  public function amendAdmit(Request $request)
+  {
+    $v = Validator::make($request->only(
+      'id',
+    ), [
+      'id' => 'required|exists:karyawan,id',
+    ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
+
+    $model = KaryawanModel::find($request->input('id'));
+    $model->admitted = true;
+    $model->save();
   }
 }

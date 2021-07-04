@@ -257,6 +257,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::post('', 'Karyawan@store');
       Route::put('', 'Karyawan@amend');
       Route::put('foto_ktp', 'Karyawan@amendFotoKTP');
+      Route::put('admit', 'Karyawan@amendAdmit');
     });
     Route::prefix('tugas_karyawan')->group(function () {
       Route::get('', 'TugasKaryawan@index');

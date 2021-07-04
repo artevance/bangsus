@@ -49,6 +49,9 @@ class TugasKaryawan extends Controller
                   ->orWhere('tanggal_selesai', null);
               });
           })
+          ->whereHas('karyawan', function ($query) {
+            $query->where('admitted', true);
+          })
           ->get()
         )
       ->response(200);

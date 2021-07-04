@@ -43,6 +43,9 @@
                         <a class="badge badge-warning" @click="showUpdateModal(karyawan.id)" href="#" v-if="$access('karyawan', 'update')">
                           Ubah
                         </a>
+                        <a class="badge badge-warning" @click="showAdmitModal(karyawan.id)" href="#" v-if="$access('karyawan', 'admit') && !karyawan.admitted">
+                          Terima
+                        </a>
                         <router-link class="badge badge-info" :to="{ name: 'karyawan.tugasKaryawan', params: { id: karyawan.id } }" v-if="$access('karyawan.tugasKaryawan', 'access')">
                           Lihat Penugasan
                         </router-link>
@@ -311,6 +314,29 @@
           </div>
         </div>
       </div>
+      <div class="modal fade" data-entity="karyawan" data-method="admit" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form @submit.prevent="admit">
+              <div class="modal-header">
+                <h5 class="modal-title">Terima Pengajuan Karyawan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" :disabled="form.admit.loading">
+                  <spinner-component size="sm" color="light" v-if="form.admit.loading"/>
+                  Terima
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
     <router-view v-else></router-view>
   </transition>
@@ -344,6 +370,7 @@ export default {
             jenis_kelamin_id: null,
             no_finger: '',
             foto_ktp: null,
+            admitted: this.$access('karyawan', 'admit'),
           },
           errors: {},
           loading: false
@@ -361,7 +388,14 @@ export default {
           },
           errors: {},
           loading: false
-        }
+        },
+        admit: {
+          data: {
+            id: null
+          },
+          errors: {},
+          loading: false,
+        },
       },
       query: {
         karyawan: {
@@ -475,6 +509,10 @@ export default {
             .catch(err => {})
         })
     },
+    showAdmitModal(id) {
+      this.form.admit.data.id = id
+      $('[data-entity="karyawan"][data-method="admit"]').modal('show')
+    },
     handleCreateFile(e) {
       let r = new FileReader()
       r.readAsDataURL(e.target.files[0])
@@ -528,6 +566,20 @@ export default {
         })
         .finally(() => {
           this.form.update.loading = false
+        })
+    },
+    admit() {
+      this.form.admit.loading = true
+      this.form.admit.errors = {}
+      this.$axios.put('/ajax/v1/karyawan/admit', this.form.admit.data)
+        .then(res => {
+          this.form.admit.data.id = null
+          this.queryData(false)
+          $('[data-entity="karyawan"][data-method="admit"]').modal('hide')
+        })
+        .catch(err => console.log(err.response))
+        .finally(() => {
+          this.form.admit.loading = false
         })
     },
   }
