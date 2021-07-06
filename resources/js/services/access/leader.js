@@ -204,10 +204,11 @@ export default {
     }
   },
   karyawan: {
-    access: false,
+    access: true,
     create: false,
     read: false,
     update: false,
+    admit: false,
     children: {
       profil: {
         access: true,
