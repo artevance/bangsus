@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class Karyawan extends Model
 {
+  protected $casts = [
+    'admitted' => 'boolean'
+  ];
+
   protected $table = 'karyawan';
 
   public $timestamps = false;
