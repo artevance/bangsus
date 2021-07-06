@@ -68,7 +68,7 @@ class Karyawan extends Controller
       'tanggal_mulai',
       'no_finger',
       'foto_ktp',
-      'admit',
+      'admitted',
     ), [
       'nik' => 'nullable|integer|digits:16|unique:karyawan,nik',
       'nama_karyawan' => 'required|max:200',
@@ -82,7 +82,7 @@ class Karyawan extends Controller
       'tanggal_mulai' => 'required|date_format:Y-m-d',
       'no_finger' => 'nullable|integer',
       'foto_ktp' => 'nullable',
-      'admit' => 'required|boolean',
+      'admitted' => 'required|boolean',
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
