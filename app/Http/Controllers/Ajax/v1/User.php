@@ -104,4 +104,26 @@ class User extends Controller
 
     return $this->data(['update_id' => $model->id])->response(200);
   }
+
+  public function revisePassword(Request $request)
+  {
+    $v = Validator::make($request->only(
+      'id',
+      'password',
+      'new_password',
+      'password_confirmation'
+    ), [
+      'id' => 'required|exists:user,id',
+      'password' => 'required',
+      'new_password' => 'required',
+      'password_confirmation' => 'required|same:new_password',
+    ]);
+    if ($v->fails()) return $this->errors($v->errors())->response(422);
+
+    $model = UserModel::find($request->input('id'));
+    $model->password = password_hash($request->input('new_password'), PASSWORD_DEFAULT);
+    $model->save();
+
+    return $this->data(['update_id' => $model->id])->response(200);
+  }
 }

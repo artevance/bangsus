@@ -542,6 +542,7 @@ Route::prefix('v1')->namespace('v1')->group(function () {
       Route::get('{id}', 'User@get');
       Route::post('', 'User@store');
       Route::put('', 'User@amend');
+      Route::patch('change_password', 'User@revisePassword');
     });
     Route::prefix('report_center')->namespace('ReportCenter')->group(function () {
       Route::prefix('laporan_absensi')->namespace('LaporanAbsensi')->group(function () {

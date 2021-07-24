@@ -165,6 +165,22 @@
                 </div>
               </div>
               <div class="form-group">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input m-0" v-model="form.create.data.mutation">
+                  <label class="form-check-label">
+                    Mutasi
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input m-0" v-model="form.create.data.purchase_order">
+                  <label class="form-check-label">
+                    PO
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
                 <label>Akses Tipe Cabang</label>
                 <div class="form-check">
                   <input type="radio" class="form-check-input m-0" :value="true" v-model="form.create.data.semua_tipe_cabang">
@@ -479,6 +495,22 @@
                 </div>
               </div>
               <div class="form-group">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input m-0" v-model="form.update.data.mutation">
+                  <label class="form-check-label">
+                    Mutasi
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input m-0" v-model="form.update.data.purchase_order">
+                  <label class="form-check-label">
+                    PO
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
                 <label>Akses Tipe Cabang</label>
                 <div class="form-check">
                   <input type="radio" class="form-check-input m-0" :value="1" v-model="form.update.data.semua_tipe_cabang">
@@ -574,6 +606,8 @@ export default {
             tipe_cabang_id: [],
             semua_tipe_stok_opname: true,
             tipe_stok_opname_id: [],
+            mutation: false,
+            purchase_order: false,
           },
           errors: {},
           loading: false
@@ -618,6 +652,8 @@ export default {
             tipe_cabang_id: [],
             semua_tipe_stok_opname: true,
             tipe_stok_opname_id: [],
+            mutation: false,
+            purchase_order: false,
           },
           errors: {},
           loading: false
@@ -737,6 +773,8 @@ export default {
             satuan_lima_id: res.data.container.satuan_lima_id,
             rasio_lima: res.data.container.rasio_lima,
             semua_tipe_cabang: res.data.container.semua_tipe_cabang,
+            mutation: res.data.container.mutation,
+            purchase_order: res.data.container.purchase_order,
             tipe_cabang_id: _.map(res.data.container.opname_barang_tipe_cabang, val => val.tipe_cabang_id),
             semua_tipe_stok_opname: res.data.container.semua_tipe_stok_opname,
             tipe_stok_opname_id: _.map(res.data.container.barang_tipe_stok_opname, val => val.tipe_stok_opname_id)

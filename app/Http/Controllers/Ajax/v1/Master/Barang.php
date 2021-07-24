@@ -103,7 +103,9 @@ class Barang extends Controller
       'semua_tipe_cabang',
       'tipe_cabang_id',
       'semua_tipe_stok_opname',
-      'tipe_stok_opname_id'
+      'tipe_stok_opname_id',
+      'mutation',
+      'purchase_order',
     ), [
       'kode_barang' => 'required|max:200',
       'nama_barang' => 'required|max:200',
@@ -122,6 +124,8 @@ class Barang extends Controller
       'semua_tipe_stok_opname' => 'required|boolean',
       'tipe_stok_opname_id' => 'required|array',
       'tipe_stok_opname_id.*' => 'required|exists:tipe_stok_opname,id',
+      'mutation' => 'required|boolean',
+      'purchase_order' => 'required|boolean',
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -139,7 +143,8 @@ class Barang extends Controller
     $model->rasio_lima = $request->has('satuan_lima_id') ? $request->input('rasio_lima') : null;
     $model->semua_tipe_cabang = $request->boolean('semua_tipe_cabang');
     $model->semua_tipe_stok_opname = $request->boolean('semua_tipe_stok_opname');
-    $model->purchase_order = false;
+    $model->mutation = $request->boolean('mutation');
+    $model->purchase_order = $request->boolean('purchase_order');
     $model->save();
 
     if ( ! $model->semua_tipe_cabang) {
@@ -182,6 +187,8 @@ class Barang extends Controller
       'tipe_cabang_id',
       'semua_tipe_stok_opname',
       'tipe_stok_opname_id',
+      'mutation',
+      'purchase_order',
     ), [
       'id' => 'required|exists:barang,id',
       'kode_barang' => 'required|max:200',
@@ -200,7 +207,9 @@ class Barang extends Controller
       'tipe_cabang_id.*' => 'required|exists:tipe_cabang,id',
       'semua_tipe_stok_opname' => 'required|boolean',
       'tipe_stok_opname_id' => 'required|array',
-      'tipe_stok_opname_id.*' => 'required|exists:tipe_stok_opname,id'
+      'tipe_stok_opname_id.*' => 'required|exists:tipe_stok_opname,id',
+      'mutation' => 'required|boolean',
+      'purchase_order' => 'required|boolean',
     ]);
     if ($v->fails()) return $this->errors($v->errors())->response(422);
 
@@ -218,6 +227,8 @@ class Barang extends Controller
     $model->rasio_lima = $request->has('satuan_lima_id') ? $request->input('rasio_lima') : null;
     $model->semua_tipe_cabang = $request->boolean('semua_tipe_cabang');
     $model->semua_tipe_stok_opname = $request->boolean('semua_tipe_stok_opname');
+    $model->mutation = $request->boolean('mutation');
+    $model->purchase_order = $request->boolean('purchase_order');
     $model->save();
 
     if ($model->semua_tipe_cabang) {

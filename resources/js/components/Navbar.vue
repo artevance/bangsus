@@ -196,6 +196,12 @@
             <div class="dropdown-body">
               <ul class="profile-nav p-0 pt-3">
                 <li class="nav-item">
+                  <router-link href="javascript:;" class="nav-link" :to="{ name: 'changePassword' }">
+                    <i class="link-icon far fa-key p-absolute"></i>
+                    <span class="link-title ml-3">Ganti Password</span>
+                  </router-link>
+                </li>
+                <li class="nav-item">
                   <router-link href="javascript:;" class="nav-link" :to="{ name: 'logout' }">
                     <i class="link-icon far fa-sign-out p-absolute"></i>
                     <span class="link-title ml-3">Log Out</span>
