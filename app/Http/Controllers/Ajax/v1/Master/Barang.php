@@ -267,14 +267,14 @@ class Barang extends Controller
           $barangTipeStokOpnameModel->delete();
         });
 
-      foreach ($request->input('tipe_stok_opname_id') as $tipeCabangId) {
-        if ($model->barang_tipe_stok_opname()->where('tipe_stok_opname_id', $tipeCabangId)->exists()) {
+      foreach ($request->input('tipe_stok_opname_id') as $tipeStokOpnameId) {
+        if ($model->barang_tipe_stok_opname()->where('tipe_stok_opname_id', $tipeStokOpnameId)->exists()) {
           continue;
         }
 
-        $barangTipeStokOpnameModel = new OpnameBarangTipeCabangModel;
+        $barangTipeStokOpnameModel = new BarangTipeStokOpnameModel;
         $barangTipeStokOpnameModel->barang_id = $model->id;
-        $barangTipeStokOpnameModel->tipe_stok_opname_id = $tipeCabangId;
+        $barangTipeStokOpnameModel->tipe_stok_opname_id = $tipeStokOpnameId;
         $barangTipeStokOpnameModel->save();
       }
     }

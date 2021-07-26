@@ -513,11 +513,11 @@
               <div class="form-group">
                 <label>Akses Tipe Cabang</label>
                 <div class="form-check">
-                  <input type="radio" class="form-check-input m-0" :value="1" v-model="form.update.data.semua_tipe_cabang">
+                  <input type="radio" class="form-check-input m-0" :value="true" v-model="form.update.data.semua_tipe_cabang">
                   <label class="form-check-label">
                     Semua
                   </label>
-                  <input type="radio" class="form-check-input m-0" :value="0" v-model="form.update.data.semua_tipe_cabang">
+                  <input type="radio" class="form-check-input m-0" :value="false" v-model="form.update.data.semua_tipe_cabang">
                   <label class="form-check-label">
                     Tidak Semua
                   </label>
@@ -540,11 +540,11 @@
               <div class="form-group">
                 <label>Tipe Stok Opname</label>
                 <div class="form-check">
-                  <input type="radio" class="form-check-input m-0" :value="1" v-model="form.update.data.semua_tipe_stok_opname">
+                  <input type="radio" class="form-check-input m-0" :value="true" v-model="form.update.data.semua_tipe_stok_opname">
                   <label class="form-check-label">
                     Semua
                   </label>
-                  <input type="radio" class="form-check-input m-0" :value="0" v-model="form.update.data.semua_tipe_stok_opname">
+                  <input type="radio" class="form-check-input m-0" :value="false" v-model="form.update.data.semua_tipe_stok_opname">
                   <label class="form-check-label">
                     Tidak Semua
                   </label>
@@ -772,11 +772,11 @@ export default {
             rasio_empat: res.data.container.rasio_empat,
             satuan_lima_id: res.data.container.satuan_lima_id,
             rasio_lima: res.data.container.rasio_lima,
-            semua_tipe_cabang: res.data.container.semua_tipe_cabang,
-            mutation: res.data.container.mutation,
-            purchase_order: res.data.container.purchase_order,
+            semua_tipe_cabang: Boolean(res.data.container.semua_tipe_cabang),
+            mutation: Boolean(res.data.container.mutation),
+            purchase_order: Boolean(res.data.container.purchase_order),
             tipe_cabang_id: _.map(res.data.container.opname_barang_tipe_cabang, val => val.tipe_cabang_id),
-            semua_tipe_stok_opname: res.data.container.semua_tipe_stok_opname,
+            semua_tipe_stok_opname: Boolean(res.data.container.semua_tipe_stok_opname),
             tipe_stok_opname_id: _.map(res.data.container.barang_tipe_stok_opname, val => val.tipe_stok_opname_id)
           }
           Promise.all([
