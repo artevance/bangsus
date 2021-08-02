@@ -732,7 +732,7 @@ export default {
     },
     showAcceptScheduleModal(id) {
         $('[data-entity="absensi"][data-method="acceptAllSchedule"]').modal('show')
-        let tanggalAbsensi = this.query.tanggal_absensi
+        let tanggalAbsensi = this.query.absensi.tanggal_absensi
         this.form.accept_all_schedule.data.month = this.$moment(tanggalAbsensi).format('MM')
         this.form.accept_all_schedule.data.year = this.$moment(tanggalAbsensi).format('YYYY')
     },
