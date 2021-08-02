@@ -55,6 +55,7 @@ class FormFoto extends Controller
           'form_denda_foto'
         ])
         ->where('tanggal_form', $query['tanggal_form'])
+        ->whereNull('cabang_id')
         ->byCabang($query['cabang_id'])
         ->where('kelompok_foto_id', $query['kelompok_foto_id'])
         ->orderBy('jam')
