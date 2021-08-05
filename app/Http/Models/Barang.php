@@ -10,6 +10,11 @@ class Barang extends Model
 
   public $timestamps = false;
 
+  protected $casts = [
+    'mutation' => 'boolean',
+    'purchase_order' => 'boolean',
+  ];
+
   public function satuan()
   {
     return $this->belongsTo('App\Http\Models\Satuan');
