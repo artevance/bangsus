@@ -141,7 +141,6 @@ class HargaBarang extends Controller
       'd'
     ), [
       'd.*.barang_id' => 'required|exists:barang,id',
-      'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
       'd.*.harga_lama' => 'required|max:10000000000',
       'd.*.harga_barang' => 'required|max:10000000000',
@@ -188,7 +187,6 @@ class HargaBarang extends Controller
       $detailModel = new HargaBarangD;
       $detailModel->harga_barang_id = $hargaBarangModel->id;
       $detailModel->barang_id = $d['barang_id'];
-      $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
       $detailModel->qty_konversi = $d['qty'] * $constant;
       $detailModel->harga_lama = $d['harga_lama'];
@@ -208,7 +206,6 @@ class HargaBarang extends Controller
     ), [
       'id' => 'required|exists:harga_barang,id',
       'd.*.barang_id' => 'required|exists:barang,id',
-      'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
       'd.*.harga_lama' => 'required|max:10000000000',
       'd.*.harga_barang' => 'required|max:10000000000',
@@ -269,7 +266,6 @@ class HargaBarang extends Controller
       $detailModel = new HargaBarangD;
       $detailModel->harga_barang_id = $hargaBarangModel->id;
       $detailModel->barang_id = $d['barang_id'];
-      $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
       $detailModel->qty_konversi = $d['qty'] * $constant;
       $detailModel->harga_barang = $d['harga_barang'];
@@ -287,7 +283,6 @@ class HargaBarang extends Controller
     ), [
       'id' => 'required|exists:harga_barang,id',
       'd.*.barang_id' => 'required|exists:barang,id',
-      'd.*.qty' => 'required|numeric|max:10000000000',
       'd.*.level_satuan' => 'required',
       'd.*.harga_lama' => 'required|max:10000000000',
       'd.*.harga_barang' => 'required|max:10000000000',
@@ -349,7 +344,6 @@ class HargaBarang extends Controller
       $detailModel = new HargaBarangD;
       $detailModel->harga_barang_id = $hargaBarangModel->id;
       $detailModel->barang_id = $d['barang_id'];
-      $detailModel->qty = $d['qty'];
       $detailModel->level_satuan = $d['level_satuan'];
       $detailModel->qty_konversi = $d['qty'] * $constant;
       $detailModel->harga_lama = $d['harga_lama'];
