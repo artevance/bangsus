@@ -462,6 +462,18 @@ Route::prefix('v1')->namespace('v1')->group(function () {
         Route::put('approve', 'PurchaseOrder@amendApprove');
         Route::delete('', 'PurchaseOrder@destroy');
       });
+      Route::prefix('harga_barang')->group(function () {
+        Route::get('', 'HargaBarang@index');
+        Route::get('harian', 'HargaBarang@daily');
+        Route::get('cabang_harian', 'HargaBarang@dailyBranch');
+        Route::get('{id}', 'HargaBarang@get');
+        Route::get('report/{id}', 'HargaBarang@report');
+        Route::post('', 'HargaBarang@store');
+        Route::put('', 'HargaBarang@amend');
+        Route::put('accept', 'HargaBarang@amendAccepted');
+        Route::put('approve', 'HargaBarang@amendApprove');
+        Route::delete('', 'HargaBarang@destroy');
+      });
       Route::prefix('stok_opname')->group(function () {
         Route::get('', 'StokOpname@index');
         Route::get('harian', 'StokOpname@daily');

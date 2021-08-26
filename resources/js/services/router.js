@@ -525,6 +525,43 @@ const routes = [
             ]
           },
           {
+            path: 'harga_barang',
+            name: 'formOperasional.hargaBarang',
+            component: require('../views/form_operasional/HargaBarang').default,
+            meta: { layout: 'default', title: 'Harga Barang', sidebar: 'formOperasional', item: 'hargaBarang' },
+            beforeEnter: Multiguard([middleware.auth, middleware.access]),
+            children: [
+              {
+                path: 'create',
+                name: 'formOperasional.hargaBarang.create',
+                component: require('../views/form_operasional/harga_barang/Create').default,
+                meta: { layout: 'default', title: 'Harga Barang', sidebar: 'formOperasional', item: 'hargaBarang' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'detail/:id',
+                name: 'formOperasional.hargaBarang.detail',
+                component: require('../views/form_operasional/harga_barang/Detail').default,
+                meta: { layout: 'default', title: 'Harga Barang', sidebar: 'formOperasional', item: 'hargaBarang' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'update/:id',
+                name: 'formOperasional.hargaBarang.update',
+                component: require('../views/form_operasional/harga_barang/Update').default,
+                meta: { layout: 'default', title: 'Harga Barang', sidebar: 'formOperasional', item: 'hargaBarang' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              },
+              {
+                path: 'accept/:id',
+                name: 'formOperasional.hargaBarang.accept',
+                component: require('../views/form_operasional/harga_barang/Accept').default,
+                meta: { layout: 'default', title: 'Harga Barang', sidebar: 'formOperasional', item: 'hargaBarang' },
+                beforeEnter: Multiguard([middleware.auth, middleware.access])
+              }
+            ]
+          },
+          {
             path: 'stok_opname',
             name: 'formOperasional.stokOpname',
             component: require('../views/form_operasional/StokOpname').default,

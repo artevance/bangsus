@@ -116,6 +116,7 @@ export default {
                 { title: 'Form Laporan Cabang', index: 'formLaporanCabang', to: 'formOperasional.formLaporanCabang' },
                 { title: 'Laporan Cabang', index: 'laporanCabang', to: 'formOperasional.laporanCabang' },
                 { title: 'Purchase Order', index: 'purchaseOrder', to: 'formOperasional.purchaseOrder' },
+                { title: 'Harga Barang', index: 'hargaBarang', to: 'formOperasional.hargaBarang' },
                 { title: 'Stok Opname', index: 'stokOpname', to: 'formOperasional.stokOpname' },
                 { title: 'Mutasi Keluar', index: 'outgoingMutation', to: 'formOperasional.outgoingMutation' },
                 { title: 'Mutasi Masuk', index: 'incomingMutation', to: 'formOperasional.incomingMutation' },
