@@ -188,7 +188,7 @@ class HargaBarang extends Controller
       $detailModel->harga_barang_id = $hargaBarangModel->id;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->level_satuan = $d['level_satuan'];
-      $detailModel->qty_konversi = $d['qty'] * $constant;
+      $detailModel->qty_konversi = $constant;
       $detailModel->harga_lama = $d['harga_lama'];
       $detailModel->harga_barang = $d['harga_barang'];
       $detailModel->approve = 0;
@@ -267,7 +267,7 @@ class HargaBarang extends Controller
       $detailModel->harga_barang_id = $hargaBarangModel->id;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->level_satuan = $d['level_satuan'];
-      $detailModel->qty_konversi = $d['qty'] * $constant;
+      $detailModel->qty_konversi = $constant;
       $detailModel->harga_barang = $d['harga_barang'];
       $detailModel->harga_lama = $d['harga_lama'];
       $detailModel->keterangan = $d['keterangan'] ?? '';
@@ -345,7 +345,7 @@ class HargaBarang extends Controller
       $detailModel->harga_barang_id = $hargaBarangModel->id;
       $detailModel->barang_id = $d['barang_id'];
       $detailModel->level_satuan = $d['level_satuan'];
-      $detailModel->qty_konversi = $d['qty'] * $constant;
+      $detailModel->qty_konversi = $constant;
       $detailModel->harga_lama = $d['harga_lama'];
       $detailModel->harga_barang = $d['harga_barang'];
       $detailModel->accepted = true;
