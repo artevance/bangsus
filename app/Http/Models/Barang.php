@@ -13,6 +13,8 @@ class Barang extends Model
   protected $casts = [
     'mutation' => 'boolean',
     'purchase_order' => 'boolean',
+    'semua_tipe_cabang' => 'boolean',
+    'semua_tipe_stok_opname' => 'boolean',
   ];
 
   public function satuan()
