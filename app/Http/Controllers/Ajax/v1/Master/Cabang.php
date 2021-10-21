@@ -79,6 +79,7 @@ class Cabang extends Controller
     $model->kode_cabang = $request->input('kode_cabang');
     $model->cabang = strtoupper($request->input('cabang'));
     $model->tipe_cabang_id = $request->input('tipe_cabang_id');
+    $model->kdvb = '';
     $model->save();
 
     return $this->data(['insert_id' => $model->id])->response(200);

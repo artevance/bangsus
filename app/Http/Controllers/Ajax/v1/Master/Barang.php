@@ -145,7 +145,6 @@ class Barang extends Controller
     $model->semua_tipe_stok_opname = $request->boolean('semua_tipe_stok_opname');
     $model->mutation = $request->boolean('mutation');
     $model->purchase_order = $request->boolean('purchase_order');
-    $model->kdvb = '';
     $model->save();
 
     if ( ! $model->semua_tipe_cabang) {
