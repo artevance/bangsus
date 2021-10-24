@@ -163,9 +163,13 @@ class FormDendaFoto extends Controller
         ->get();
       if ( ! is_null($generateFormDendaFotoModels)) {
         foreach ($generateFormDendaFotoModels as $generateFormDendaFotoModel) {
-          $generateFormDendaFotoModel->d->delete();
+          foreach ($generateFormDendaFotoModel->d ?? [] as $d) {
+            $d->form_denda_foto->form_foto->delete();
+            $d->form_denda_foto->delete();
+            $d->delete();
+          }
+          $generateFormDendaFotoModel->delete();
         }
-        $generateFormDendaFotoModels->delete();
       }
 
       foreach ($request->input('detail') as $d) {
